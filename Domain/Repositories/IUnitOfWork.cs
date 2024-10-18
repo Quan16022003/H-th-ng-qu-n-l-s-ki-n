@@ -6,8 +6,21 @@ using System.Threading.Tasks;
 
 namespace Domain.Repositories
 {
-    public interface IUnitOfWork
+    /// <summary>
+    /// Unit of Work Interface.
+    /// </summary>
+    public interface IUnitOfWork : IAsyncDisposable
     {
-        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+        #region Properties
+
+        //ITodoRepository TodoRepository { get; }
+
+        #endregion
+
+        #region Methods
+
+        Task CompleteAsync();
+
+        #endregion
     }
 }
