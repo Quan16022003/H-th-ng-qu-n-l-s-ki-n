@@ -1,23 +1,21 @@
 ﻿
-
 using Domain.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Services.Abtractions;
 
 namespace Services
 {
     public sealed class ServiceManager : IServiceManager
     {
-        private readonly Lazy<IOwnerService> _lazyOwnerService;
-        private readonly Lazy<IAccountService> _lazyAccountService;
+        //private readonly Lazy<IOwnerService> _lazyOwnerService;
 
-        public ServiceManager(IRepositoryManager repositoryManager)
+        public ServiceManager(IUnitOfWork unitOfWork, 
+            UserManager<IdentityUser> userManager, 
+            SignInManager<IdentityUser> signInManager)
         {
-            _lazyOwnerService = new Lazy<IOwnerService>(() => new OwnerService(repositoryManager));
-            _lazyAccountService = new Lazy<IAccountService>(() => new AccountService(repositoryManager));
+            //_lazyOwnerService = new Lazy<IOwnerService>(() => new OwnerService(repositoryManager));
         }
 
-        public IOwnerService OwnerService => _lazyOwnerService.Value;
-
-        public IAccountService AccountService => _lazyAccountService.Value;
+        //public IOwnerService OwnerService => _lazyOwnerService.Value;
     }
 }
