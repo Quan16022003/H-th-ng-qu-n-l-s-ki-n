@@ -8,6 +8,7 @@ using Web.Middlewares;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using FluentValidation;
+using Domain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +17,7 @@ builder.Services.AddDbContext<RepositoryDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 // Identity Service
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<RepositoryDbContext>()
     .AddDefaultTokenProviders();
 

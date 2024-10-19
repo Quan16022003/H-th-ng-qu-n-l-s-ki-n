@@ -1,4 +1,5 @@
 ﻿
+using Domain.Entities;
 using Domain.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Services.Abtractions;
@@ -10,8 +11,8 @@ namespace Services
         //private readonly Lazy<IOwnerService> _lazyOwnerService;
 
         public ServiceManager(IUnitOfWork unitOfWork, 
-            UserManager<IdentityUser> userManager, 
-            SignInManager<IdentityUser> signInManager)
+            UserManager<ApplicationUser> userManager, 
+            SignInManager<ApplicationUser> signInManager)
         {
             //_lazyOwnerService = new Lazy<IOwnerService>(() => new OwnerService(repositoryManager));
         }
