@@ -16,18 +16,25 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddFluentValidationAutoValidation();
-
 builder.Services.AddFluentValidationClientsideAdapters();
-
 builder.Services.AddValidatorsFromAssemblyContaining<OwnerForCreationInputModelValidator>();
 
 builder.Services.AddScoped<IServiceManager, ServiceManager>();
-
 builder.Services.AddScoped<IRepositoryManager, RepositoryManager>();
 
 var connectionString = builder.Configuration.GetConnectionString("MyDB");
 builder.Services.AddDbContext<RepositoryDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+// Cấu hình Identity
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequiredLength = 6;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = true;
+})
+.AddEntityFrameworkStores<RepositoryDbContext>();  // Sử dụng RepositoryDbContext
 
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
@@ -37,7 +44,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -46,6 +52,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// Thêm Authentication trước Authorization
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
