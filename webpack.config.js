@@ -1,11 +1,11 @@
-﻿const path = require('path');
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: './wwwroot/js/site.js',
+    entry: './EventManagementSystem/wwwroot/js/site.js',
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'wwwroot/dist')
+        path: path.resolve(__dirname, 'EventManagementSystem/wwwroot/dist')
     },
     module: {
         rules: [
@@ -22,7 +22,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './Views/Shared/_Layout.cshtml',
+            template: './EventManagementSystem/Views/Shared/_Layout.cshtml',
             filename: "./site.html"
         })
     ]

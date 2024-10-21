@@ -13,6 +13,9 @@
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
+# .vs
+**/.vs
+
 # Mono auto generated files
 mono_crash.*
 
@@ -363,4 +366,4 @@ MigrationBackup/
 FodyWeavers.xsd
 
 # Node Module
-./Web1/node_modules
+./node_modules
