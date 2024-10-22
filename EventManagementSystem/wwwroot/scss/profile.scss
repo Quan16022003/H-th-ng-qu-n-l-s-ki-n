@@ -1,0 +1,63 @@
+﻿$navi-gap: 10px;
+$content-width: 60%;
+$light-blue: #2176ff;
+$light-gray: #E9ECEF;
+
+.profile-content {
+    min-height: 100vh;
+    height: 100%;
+    background-color: $light-gray;
+}
+
+.profile-header {
+    height: 20vh;
+    background: linear-gradient(0deg,#2176ff,#212425) !important
+}
+
+.profile-header-navigation{
+    gap: $navi-gap;
+    height: 15%;
+    width: $content-width
+}
+
+.profile-content-tabbar{
+    gap: $navi-gap + 10px;
+    height: 7vh;
+    width: 90%;
+    transform: translateY(10px);
+}
+
+.profile-content-tabitem {
+    height: 100%;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-top: 2px solid transparent;
+    padding: 0px 10px;
+    transition: ease-out 0.2s;
+}
+
+.profile-content-tabitem:hover{
+    border-top: 2px solid $light-blue;
+    color: $light-blue;
+    transition: ease-in 0.2s;
+}
+
+.profile-content-tabitem.active {
+    border-top: 2px solid $light-blue;
+    color: $light-blue;
+}
+
+.profile-form {
+    gap: $navi-gap + 20px;
+    border-radius: 30px;
+    max-height: 60%;
+    display: none !important;
+    border: 1px solid $light-gray;
+}
+
+.profile-form.active{
+    display: flex !important;
+}

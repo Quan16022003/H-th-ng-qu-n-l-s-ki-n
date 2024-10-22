@@ -88,10 +88,20 @@ app.UseAuthorization();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
+#region Area Route
+
 app.MapAreaControllerRoute(
     name: "Admin",
     areaName: "Admin",
     pattern: "Admin/{controller=Home}/{action=Index}/{id?}");
+
+app.MapAreaControllerRoute(
+    name: "Profile",
+    areaName: "Profile",
+    pattern: "Profile/{controller}/{action}/{id?}");
+
+#endregion
+
 
 app.MapControllerRoute(
     name: "default",

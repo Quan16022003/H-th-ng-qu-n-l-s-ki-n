@@ -1,0 +1,42 @@
+﻿<!--TODO: Remember to put asp-for and model -->
+@{
+
+}
+
+<form class="w-100" asp-controller="Profile" asp-action="UpdatePersonalDetail" method="post">
+    <div class="w-100 d-flex">
+        <label class="w-25" for="Cur-Password">Current Password</label>
+        <input 
+            class="w-75 form-control align-self-end" 
+            type="password" 
+            id="Cur-Password" 
+            name="Cur-Password" />
+    </div>
+    <br />
+    <div class="w-100 d-flex">
+        <label class="w-25" for="New-Password">New Password</label>
+        <input class="w-75 form-control align-self-end" 
+               type="password"
+               id="New-Password"
+               name="New-Password" />
+    </div>
+    <br />
+    <div class="w-100 d-flex">
+        <label class="w-25" for="Confirm-Password">Confirm Password</label>
+        <input class="w-75 form-control align-self-end"
+               type="password"
+               id="Confirm-Password"
+               name="Confirm-Password" />
+    </div>
+    <br />
+    <div class="w-100 d-flex flex-column">
+        <div class="w-75 align-self-end">
+            <button class="btn btn-primary"
+                    style="border-radius: 10px"
+                    type="submit">
+                <i class="fas fa-sd-card"></i>
+                <span>Save</span>
+            </button>
+        </div>
+    </div>
+</form>
