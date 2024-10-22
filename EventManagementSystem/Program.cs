@@ -68,6 +68,10 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
+builder.Services.AddScoped<IEventRepository, EventRepository>();
+
+builder.Services.AddScoped<EventService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
