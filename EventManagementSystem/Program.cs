@@ -9,6 +9,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using FluentValidation;
 using Web.Areas.Admin.Validators.Owners;
+using Web.Models;  // Import ApplicationUser
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,21 +27,22 @@ var connectionString = builder.Configuration.GetConnectionString("MyDB");
 builder.Services.AddDbContext<RepositoryDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-// Cấu hình Identity
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.Password.RequireDigit = true;
     options.Password.RequiredLength = 6;
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = true;
 })
-.AddEntityFrameworkStores<RepositoryDbContext>();  // Sử dụng RepositoryDbContext
+.AddEntityFrameworkStores<RepositoryDbContext>()
+.AddDefaultTokenProviders();  
 
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
