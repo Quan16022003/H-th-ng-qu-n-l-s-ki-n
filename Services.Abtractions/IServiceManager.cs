@@ -8,5 +8,6 @@ namespace Services.Abtractions
 {
     public interface IServiceManager
     {
+        IEventService EventService { get; }
     }
 }

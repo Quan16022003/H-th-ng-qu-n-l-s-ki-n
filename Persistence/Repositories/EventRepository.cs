@@ -10,23 +10,10 @@ using Microsoft.Extensions.Logging;
 
 namespace Persistence.Repositories
 {
-    public class EventRepository : BaseRepository<Events>, IEventRepository
+    public sealed class EventRepository : BaseRepository<Events>, IEventRepository
     {
         public EventRepository(RepositoryDbContext dbContext) : base(dbContext)
         {
-        }
-        public async Task<Events> AddAsync(Events events)
-        {
-            await _dbSet.AddAsync(events);
-            await _dbContext.SaveChangesAsync();
-            return events;
-        }
-
-        public async Task UpdateAsync(Events events)
-        {
-            _dbSet.Update(events);
-            await _dbContext.SaveChangesAsync();
-            await Task.CompletedTask;
         }
         public async Task DeleteAsync(Events events)
         {
