@@ -1,7 +1,15 @@
 @import "bootstrap/scss/bootstrap";
 
+.icon::before,
+.icon::after {
+    display: inline-block;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+
 html {
     font-size: 14px;
+    -webkit-tap-highlight-color: transparent;
 }
 
 @media (min-width: 768px) {
@@ -20,6 +28,7 @@ html, body {
     margin: 0;
     padding: 0;
     width: 100%;
+    font-family: Open Sans,sans-serif;
 }
 
 body{

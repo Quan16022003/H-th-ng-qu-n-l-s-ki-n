@@ -93,7 +93,7 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.MapAreaControllerRoute(
     name: "Admin",
     areaName: "Admin",
-    pattern: "Admin/{controller=Home}/{action=Index}/{id?}");
+    pattern: "Admin/{controller}/{action}/{id?}");
 
 app.MapAreaControllerRoute(
     name: "Profile",
