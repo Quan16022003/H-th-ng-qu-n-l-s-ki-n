@@ -3,6 +3,8 @@
 import '../scss/site.scss'
 import '../scss/profile.scss'
 import '../scss/admin.scss'
+import '../lib/jquery/dist/jquery.min.js'
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import '@fortawesome/fontawesome-free/js/all'
 import '@fortawesome/fontawesome-free/css/all.css'
 //import '@fortawesome/fontawesome-free/js/fontawesome'

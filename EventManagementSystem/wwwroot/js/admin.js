@@ -3,7 +3,9 @@ let isClose = false;
 // store open or close based on user hover
 let isOpenHover = false;
 
-//#region event
+//#region assign event
+
+//#region side menu group item
 
 let groups = Array.from(document.querySelectorAll(".group"));
 
@@ -18,30 +20,57 @@ groups.forEach(aTag => {
     })
 });
 
+//#endregion
+
+//#region side menu slide in out hover while hide
+
 let sideMenu = document.getElementsByClassName("side-menu")[0];
 let content = document.getElementsByClassName("body-container")[0];
 
 // open when hover
 sideMenu.addEventListener("mouseenter", () => {
-    if (isClose) {
-        if (!isOpenHover) onSideMenuButtonClick(false);
-    }
+    if (isClose && !isOpenHover) onSideMenuButtonClick(false);
 });
 
 // close when out
 content.addEventListener("mouseenter", () => {
     setTimeout(() => {
-        if (isClose) {
-            if (isOpenHover) onSideMenuButtonClick(false);
-        }
+        if (isClose && isOpenHover) onSideMenuButtonClick(false);
     }, 250);
 });
+
+//#endregion
+
+//#region expand/hide side menu click
 
 let sideMenuButton = document.getElementsByClassName("side-menu-button")[0];
 sideMenuButton.addEventListener("click", () => {
     onSideMenuButtonClick(true);
     changeSideMenuButtonIcon(sideMenuButton);
 });
+
+//#endregion
+
+//#region profile button click
+
+let profileDropdown = document.getElementsByClassName("profile-dropdown")[0];
+let profileButton = profileDropdown.querySelector(".dropdown-button");
+
+profileDropdown.addEventListener("hidden.bs.dropdown", () => {
+    if (profileButton.classList.contains("text-primary")) {
+        profileButton.classList.remove("text-primary");
+    }
+})
+
+profileDropdown.addEventListener("shown.bs.dropdown", () => {
+    if (!profileButton.classList.contains("text-primary")) {
+        profileButton.classList.add("text-primary");
+    }
+})
+
+//#endregion
+
+//#endregion
 
 function onGroupClick(container, aTag) {
     //select
@@ -115,5 +144,3 @@ function changeSideMenuButtonIcon(button) {
         close.classList.remove("hide-icon");
     }
 }
-
-//#endregion

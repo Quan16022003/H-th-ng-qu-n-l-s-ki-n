@@ -6,6 +6,7 @@ $item-child-text-color: black;
 $group-max-height: 200px;
 $group-background: #D9D9D9;
 $side-menu-transition-time: 0.5s;
+$log-out-button-color: #fa2a00;
 
 .side-menu {
     height: 100%;
@@ -61,11 +62,13 @@ $side-menu-transition-time: 0.5s;
 }
 
 .box.open {
-    width: $side-menu-width-open;
+    min-width: $side-menu-width-open !important;
+    width: $side-menu-width-open !important;
 }
 
 .box.close {
-    width: $side-menu-width-close;
+    min-width: $side-menu-width-close !important;
+    width: $side-menu-width-close !important;
 }
 
 .admin-main {
@@ -186,23 +189,51 @@ $side-menu-transition-time: 0.5s;
     max-height: 0 !important;
 }
 
-.navigate-container{
+.navigate-container {
     width: fit-content;
     height: 60%;
     gap: 10px;
     font-size: 13px;
 }
 
-.admin-base{
+.admin-base {
     color: $selected-color
 }
 
-.user-dropdown {
+.profile-dropdown {
     width: 100px;
     height: 100%;
 
     a {
         gap: 5px;
     }
+
+    .dropdown-item {
+        white-space: unset !important;
+    }
+
+    .profile-text {
+        font-size: 13px;
+        color: gray;
+    }
 }
 
+.user-profile-link {
+    height: 40px;
+    gap: 10px;
+    color: gray;
+
+    i, span {
+        transition: color 1s;
+    }
+}
+
+.user-profile-link:hover {
+    color: black !important;
+}
+
+.log-out-button {
+    background-color: $log-out-button-color !important;
+    height: fit-content !important;
+    padding: 10px 0px;
+}

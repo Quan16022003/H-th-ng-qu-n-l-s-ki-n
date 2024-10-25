@@ -7,6 +7,12 @@
     -webkit-font-smoothing: antialiased;
 }
 
+.prevent-select {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 html {
     font-size: 14px;
     -webkit-tap-highlight-color: transparent;
