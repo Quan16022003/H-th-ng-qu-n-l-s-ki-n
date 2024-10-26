@@ -9,6 +9,8 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Identity;
 using FluentValidation;
 using Domain.Entities;
+using Web.Utils.ViewsPathServices;
+using Web.Utils.ViewsPathServices.Implementations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -68,6 +70,15 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
+#region add path provider service for views in front end
+
+// key: area name, value: service match
+builder.Services.AddKeyedTransient<IPathProvider, AdminPathProvider>("Admin");
+builder.Services.AddKeyedTransient<IPathProvider, ProfilePathProvider>("Profile");
+builder.Services.AddKeyedTransient<IPathProvider, AccountPathProvider>("Account");
+
+#endregion
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -100,12 +111,21 @@ app.MapAreaControllerRoute(
     areaName: "Profile",
     pattern: "Profile/{controller}/{action}/{id?}");
 
-#endregion
+app.MapAreaControllerRoute(
+    name: "Account",
+    areaName: "Account",
+    pattern: "Account/{controller}/{action}/{id?}");
 
+app.MapAreaControllerRoute(
+    name: "Event",
+    areaName: "Event",
+    pattern: "Event/{controller}/{action}/{id?}");
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+#endregion
 
 app.MapRazorPages();
 

@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
     watch: true,
@@ -8,6 +9,8 @@ module.exports = {
         poll: true,
         ignored: /node_modules/
     },
+
+    mode: 'development',
 
     entry: [
         './EventManagementSystem/wwwroot/js/site.js',
@@ -20,6 +23,17 @@ module.exports = {
     },
     module: {
         rules: [
+            {
+                test: require.resolve('jquery'),
+                use: [
+                    {
+                        loader: 'expose-loader',
+                        options: {
+                            exposes: ['$', 'jQuery']
+                        }
+                    }
+                ]
+            },
             {
                 test: /\.css$/, 
                 use: ['style-loader', 'css-loader']
@@ -46,6 +60,10 @@ module.exports = {
         }),
         new CleanPlugin.CleanWebpackPlugin({
             cleanOnceBeforeBuildPatterns: ['dist'],
+        }),
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery'
         })
     ]
 }
