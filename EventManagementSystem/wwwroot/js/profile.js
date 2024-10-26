@@ -26,16 +26,16 @@ function onTabChange(cur) {
 	if (cur == "") {
 		view = window.location.href.toString().toLowerCase().split('/').pop();
 
-		// if not default page, navigate with Index/blah
-		// else return /Index url
-		cur = view != "index" ? "Index/" + view : "Index";
+		// if not default page, navigate with Information/blah
+		// else return /Information url
+		cur = view != "information" ? "Information/" + view : "Information";
 	}
 	else view = cur.toLowerCase().split('/').pop();
 
 	let baseUrl = "/Profile/Profile/";
 
 	switch (view) {
-		case "index":
+		case "information":
 			setActive("personal");
 			break;
 

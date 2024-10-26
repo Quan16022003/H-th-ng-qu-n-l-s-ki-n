@@ -8,13 +8,6 @@ namespace Web.Areas.Profile.Controllers
     [Area("Profile")]
     public class ProfileController : Controller
     {
-        private readonly IPathProvider _pathProvider;
-
-        public ProfileController([FromKeyedServices("Profile")] IPathProvider pathProvider)
-        {
-            _pathProvider = pathProvider;
-        }
-
         public IActionResult Information()
         {
             return View();

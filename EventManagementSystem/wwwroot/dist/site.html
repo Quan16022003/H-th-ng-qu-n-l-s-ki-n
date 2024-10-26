@@ -54,7 +54,7 @@
 	</header>
 
 	<div class="container body-container">
-		<main role="main" class="w-100" style="min-height: 100vh">
+		<main role="main" class="w-100">
 			@RenderBody()
 		</main>
 	</div>
@@ -129,6 +129,7 @@
 	</footer>
 
 	<script src="~/dist/bundle.js"></script>
+	<script src="~/js/event.js" asp-append-version="true"> </script>
 	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

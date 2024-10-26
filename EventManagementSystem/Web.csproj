@@ -74,6 +74,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Account\Views\Shared\" />
     <Folder Include="Areas\Event\Views\Shared\" />
   </ItemGroup>
 

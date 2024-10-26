@@ -4,9 +4,9 @@ $light-blue: #2176ff;
 $light-gray: #E9ECEF;
 
 .profile-content {
-    min-height: 100vh;
     height: 100%;
     background-color: $light-gray;
+    padding-bottom: 40px;
 }
 
 .profile-header {
