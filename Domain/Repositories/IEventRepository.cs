@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Entities;
 
-namespace Services.Abtractions
+namespace Domain.Repositories
 {
-    public interface IServiceManager
+    public interface IEventRepository : IBaseRepository<Events>
     {
-        IEventService EventService { get; }
+
     }
 }
