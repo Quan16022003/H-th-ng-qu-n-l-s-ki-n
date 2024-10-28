@@ -1,0 +1,239 @@
+﻿$side-menu-width-open: 250px;
+$side-menu-width-close: 70px;
+$list-background: #F7F7F7;
+$selected-color: #2176FF;
+$item-child-text-color: black;
+$group-max-height: 200px;
+$group-background: #D9D9D9;
+$side-menu-transition-time: 0.5s;
+$log-out-button-color: #fa2a00;
+
+.side-menu {
+    height: 100%;
+    overflow: hidden;
+    background-color: white;
+    width: $side-menu-width-open;
+    transition: width $side-menu-transition-time;
+
+    // when close
+    span {
+        display: none;
+    }
+}
+
+.side-menu.open {
+    span {
+        display: block;
+    }
+}
+
+.side-menu.close {
+    width: $side-menu-width-close;
+
+    span {
+        display: none;
+    }
+
+    ul > li .group::before {
+        content: "";
+    }
+}
+
+.side-menu-button{
+    width: 60px;
+    font-size: 20px;
+    background-color: transparent;
+    border: unset;
+    transition: color 0.3s;
+}
+
+.side-menu-button:hover {
+    color: #949494;
+}
+
+.hide-icon {
+    display: none;
+}
+
+.box {
+    height: 100%;
+    min-height: 100vh;
+    transition: width $side-menu-transition-time;
+}
+
+.box.open {
+    min-width: $side-menu-width-open !important;
+    width: $side-menu-width-open !important;
+}
+
+.box.close {
+    min-width: $side-menu-width-close !important;
+    width: $side-menu-width-close !important;
+}
+
+.admin-main {
+    min-height: 100vh;
+}
+
+.dashboard-shortcut {
+    height: 7%;
+    width: 100%;
+    gap: 15px;
+    cursor: pointer;
+}
+
+.admin-information{
+    height: 9%;
+    width: 100%;
+    gap: 10%;
+}
+
+.admin-menu-list-item {
+    background-color: $list-background;
+
+    ul {
+        background-color: transparent;
+
+        li:hover {
+            color: $selected-color;
+        }
+    }
+}
+
+.admin-menu-item {
+    border: unset;
+    border-radius: unset !important;
+    background-color: transparent;
+    cursor: pointer;
+    padding: unset;
+
+    a {
+        color: inherit;
+        gap: 10px;
+        display: flex;
+        align-items: center;
+        padding: 1em;
+        border-radius: 0 !important;
+
+        .menu-icon {
+            width: 30px;
+            line-height: 100%;
+            font-size: 16px;
+            color: inherit;
+        }
+
+        span {
+            margin-left: 10px;
+            line-height: 100%;
+            font-size: 15px;
+            color: inherit;
+        }
+    }
+}
+
+.admin-menu-item a:hover {
+    color: $selected-color !important;
+    border-right: 2px solid $selected-color;
+}
+
+.admin-menu-item.selected {
+    color: $selected-color;
+
+    > a {
+        border-right: 2px solid $selected-color;
+    }
+}
+
+.group{
+    position: relative;
+}
+
+.group::before {
+    font: var(--fa-font-solid);
+    content: "\f107"; // arrow down
+    position: absolute;
+    right: 1em;
+    animation-name: rotate-icon-reverse;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+.group.selected::before {
+    animation-name: rotate-icon;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes rotate-icon {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(180deg);}
+}
+
+@keyframes rotate-icon-reverse {
+    from {transform: rotate(180deg);}
+
+    to {transform: rotate(0deg);}
+}
+
+.item-child {
+    overflow: hidden;
+    color: $item-child-text-color;
+    max-height: $group-max-height;
+    transition: max-height 0.5s linear;
+    background-color: $group-background !important;
+}
+
+.collapse {
+    display: block !important;
+    // when set to 0, display auto set to none bruh
+    max-height: 0 !important;
+}
+
+.navigate-container {
+    width: fit-content;
+    height: 60%;
+    gap: 10px;
+    font-size: 13px;
+}
+
+.admin-base {
+    color: $selected-color
+}
+
+.profile-dropdown {
+    width: 100px;
+    height: 100%;
+
+    a {
+        gap: 5px;
+    }
+
+    .dropdown-item {
+        white-space: unset !important;
+    }
+
+    .profile-text {
+        font-size: 13px;
+        color: gray;
+    }
+}
+
+.user-profile-link {
+    height: 40px;
+    gap: 10px;
+    color: gray;
+
+    i, span {
+        transition: color 1s;
+    }
+}
+
+.user-profile-link:hover {
+    color: black !important;
+}
+
+.log-out-button {
+    background-color: $log-out-button-color !important;
+    height: fit-content !important;
+    padding: 10px 0px;
+}

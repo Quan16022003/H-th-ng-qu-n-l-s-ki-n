@@ -20,6 +20,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\js\admin.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\admin.js" />
+    <None Include="wwwroot\js\profile.js" />
+    <None Include="wwwroot\scss\profile.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.10.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.10" />
@@ -57,6 +67,15 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <Content Update="Views\Home\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Account\Views\Shared\" />
+    <Folder Include="Areas\Event\Views\Shared\" />
   </ItemGroup>
 
 </Project>
