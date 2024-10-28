@@ -1,8 +1,190 @@
 ﻿@{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home";
 }
+<div class="container-fluid d-flex align-items-end justify-content-center" style="background-image: url('https://eventmie.classiebit.com/storage/banners/February2024/sJ1ldFeRtco63Jh5IPVP.webp'); background-size: cover; background-position: center; height: 70vh; width: 100%;">
+    <div class="text-center text-white" style="margin-bottom: 150px">
+        <h1 class="display-4">Event Planning Platform Reimagined 2.0</h1>
+        <p class="lead">Laravel 2024</p>
+        <a asp-area="Event" asp-controller="Event" asp-action="AllEvent" class="btn btn-outline-light btn-lg me-2">Join Now!</a>
+    </div>
+</div>
+<div class="container my-4 custom-container">
+    <form class="row g-3">
+        <div class="col-md-5">
+            <input type="text" class="form-control" placeholder="City" aria-label="City">
+        </div>
+        <div class="col-md-5">
+            <select class="form-control" aria-label="Category">
+                <option selected disabled>Category</option>
+                <option value="1">Music</option>
+                <option value="2">Sports</option>
+                <option value="3">Conference</option>
+            </select>
+        </div>
+        <div class="col-md-2 text-end">
+            <button class="btn btn-primary rounded-circle btn-lg search-btn" type="submit">
+                <i class="fas fa-search"></i> 
+            </button>
+        </div>
+    </form>
+</div>
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-center mb-0">Top Selling Events</h2>
+        <a asp-area="Event" asp-controller="Event" asp-action="AllEvent" class="btn btn-outline-primary btn-view-all">View All</a>
+    </div>
+    <div id="eventCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="https://eventmie.classiebit.com/storage/events/February2024/1708931876tEowZd61OR.webp" class="card-img-top" alt="Event 1">
+                            <div class="card-body">
+                                <h5 class="card-title">Event 1</h5>
+                                <p class="card-text">Description for event 1.</p>
+                                <div class="text-center">
+                                    <button class="btn btn-primary">View Event</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="https://eventmie.classiebit.com/storage/events/February2024/1708931841fkE9ZMktx3.webp" class="card-img-top" alt="Event 2">
+                            <div class="card-body">
+                                <h5 class="card-title">Event 2</h5>
+                                <p class="card-text">Description for event 2.</p>
+                                <div class="text-center">
+                                    <button class="btn btn-primary">View Event</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="https://eventmie.classiebit.com/storage/events/February2024/1708931705BKDa7TQyir.webp" class="card-img-top" alt="Event 3">
+                            <div class="card-body">
+                                <h5 class="card-title">Event 3</h5>
+                                <p class="card-text">Description for event 3.</p>
+                                <div class="text-center">
+                                    <button class="btn btn-primary">View Event</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="https://eventmie.classiebit.com/storage/events/February2024/1708931600o7zWqZqtwt.webp" class="card-img-top" alt="Event 4">
+                            <div class="card-body">
+                                <h5 class="card-title">Event 4</h5>
+                                <p class="card-text">Description for event 4.</p>
+                                <div class="text-center">
+                                    <button class="btn btn-primary">View Event</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src="https://eventmie.classiebit.com/storage/events/February2024/1708931794bBmrl2N2OQ.webp" class="card-img-top" alt="Event 5">
+                            <div class="card-body">
+                                <h5 class="card-title">Event 5</h5>
+                                <p class="card-text">Description for event 5.</p>
+                                <div class="text-center">
+                                    <button class="btn btn-primary">View Event</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" style="left: -150px" type="button" data-bs-target="#eventCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" style="right: -150px" type="button" data-bs-target="#eventCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+<div class="container my-6">
+    <h2 class="text-white mb-4">Event Categories</h2>
+    <div class="row">
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card bg-dark text-white">
+                <img src="https://eventmie.classiebit.com/storage/categories/October2019/oJbtSjHLoCcSEPva4IJe.jpg" class="card-img" alt="Business & Seminars">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Business & Seminars</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card bg-dark text-white">
+                <img src="https://eventmie.classiebit.com/storage/categories/October2019/3YpGsqN75rDAjntQewmP.jpg" class="card-img" alt="Sports & Fitness">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Sports & Fitness</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card bg-dark text-white">
+                <img src="https://eventmie.classiebit.com/storage/categories/October2019/1axS9qJxNWiuzqVmqPDr.jpg" class="card-img" alt="Music & Concerts">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Music & Concerts</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card bg-dark text-white">
+                <img src="https://eventmie.classiebit.com/storage/categories/October2019/rMbuGTrvUFEC13tykKcq.jpg" class="card-img" alt="Food & Drink">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Food & Drink</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container my-7 py-5">
+    <div class="text-center mb-5">
+        <h4>How it works</h4>
+        <h2>For Customers</h2>
+    </div>
+    <div class="row text-center">
+        <div class="col-md-4">
+            <div class="step-icon mb-3">
+                <span class="step-circle bg-blue">
+                    <i class="fas fa-calendar-alt fa-2x text-white"></i>
+                </span>
+            </div>
+            <h4>1. Choose Event</h4>
+            <p>Signup, choose your favorite event.</p>
+        </div>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+        <div class="col-md-4">
+            <div class="step-icon mb-3">
+                <span class="step-circle bg-lightblue">
+                    <i class="fas fa-ticket-alt fa-2x text-white"></i>
+                </span>
+            </div>
+            <h4>2. Get Tickets</h4>
+            <p>Get your tickets from the event page.</p>
+        </div>
+        <div class="col-md-4">
+            <div class="step-icon mb-3">
+                <span class="step-circle bg-green">
+                    <i class="fas fa-walking fa-2x text-white"></i>
+                </span>
+            </div>
+            <h4>3. Attend Event</h4>
+            <p>Go attend the event and have fun.</p>
+        </div>
+    </div>
 </div>
