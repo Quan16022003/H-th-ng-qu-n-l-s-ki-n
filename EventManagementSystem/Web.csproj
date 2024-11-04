@@ -24,9 +24,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\js\admin.js" />
-    <None Include="wwwroot\js\profile.js" />
-    <None Include="wwwroot\scss\profile.scss" />
+    <None Include="wwwroot\js\admin\admin.js" />
+    <None Include="wwwroot\js\profile\profile.js" />
+    <None Include="wwwroot\scss\profile\profile.scss" />
   </ItemGroup>
 
   <ItemGroup>

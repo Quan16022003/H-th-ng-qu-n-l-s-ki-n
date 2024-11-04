@@ -1,11 +1,76 @@
 ﻿@{
-    ViewData["Title"] = "Events";
-    ViewBag.Current = "Events";
-    ViewBag.ManageEvents = "selected";
-    ViewBag.Event = "selected";
+	ViewData["Title"] = "Events";
+	ViewBag.Current = "Events";
+	ViewBag.ManageEvents = "selected";
+	ViewBag.Event = "selected";
 }
 
 <div class="w-100 h-100" style="background-color: #F2F2F2">
-    <h1>@ViewData["Title"]</h1>
+	<section class="w-100 d-flex justify-content-center">
+		<div class="d-flex flex-wrap" style="width: 95%; gap: 20px">
+			<div class="admin-page-title d-flex align-items-center justify-content-end" style="height: 120px">
+				<div class="admin-page-title-icon"><i class="fa-solid fa-calendar-days"></i></div>
+				<span>@ViewData["Title"]</span>
+			</div>
+			<div class="admin-actions d-flex align-items-center" style="height: 120px">
+				<button class="admin-action-add rounded-4 btn btn-primary">
+					<i class="fa-solid fa-circle-plus"></i>
+					Add
+				</button>
+			</div>
+		</div>
+	</section>
+	<section class="d-flex justify-content-center w-100">
+		<div class="admin-page-content d-flex flex-column align-items-center bg-light shadow">
+			<div style="width: 98%; min-height: 80px">
+				<form method="get" class="w-100 h-100 admin-search-form d-flex align-items-center">
+					<select id="searchOption"
+							name="searchOption"
+							class="form-select border-radius-tr-reset border-radius-br-reset remove-border-focus"
+							style="width: 18%">
+						<option>Contain</option>
+						<option>Equal</option>
+					</select>
+					<button type="button" class="admin-filter-button btn btn-primary border-radius-reset remove-border-focus"
+							style="width: 7%">
+						<i class="fa-solid fa-filter"></i>
+						<span>Filter</span>
+					</button>
+					<div class="d-flex w-75 form-control p-0 border-radius-tl-reset border-radius-bl-reset">
+						<input type="text"
+							   id="searchQuery"
+							   name="searchQuery"
+							   class="form-control h-100 border-radius-reset border-0 remove-border-focus flex-grow-1" />
+						<button type="submit"
+								class="form-control admin-search-button remove-border-focus h-100"
+								style="width: 45px;">
+							<i class="fa-solid fa-magnifying-glass"></i>
+						</button>
+					</div>
+				</form>
+			</div>
+			<div class="admin-event-table table-responsive-xxl">
+				<table class="table admin-table">
+					<thead>
+						<tr>
+							<th style="min-width: 150px; max-height: 200px" scope="col">Title</th>
+							<th class="text-center" scope="col">Cagetory</th>
+							<th class="text-center" scope="col">Organiser</th>
+							<th class="text-center" scope="col">Start Date</th>
+							<th class="text-center" scope="col">End Date</th>
+							<th class="text-center" scope="col">Created Date</th>
+							<th class="text-center" scope="col">Modified Date</th>
+							<th class="text-center" scope="col">Public</th>
+							<th class="text-center" scope="col">Is Deleted</th>
+							<th style="min-width: 200px; max-width: 250px" class="text-end" scope="col">Actions</th>
+						</tr>
+					</thead>
+					<!--Model-->
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
 </div>
 

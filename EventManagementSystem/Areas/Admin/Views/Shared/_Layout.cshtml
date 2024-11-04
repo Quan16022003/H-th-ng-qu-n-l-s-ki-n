@@ -1,4 +1,52 @@
-﻿<!DOCTYPE html>
+﻿@using System.Web
+@using Microsoft.AspNetCore.Html
+@functions {
+
+	string getNavigateAction(string baseUrl, string current, IEnumerable<string> navigateItems)
+	{
+		string result = "";
+		bool isCurrent = false;
+
+		foreach (var page in navigateItems)
+		{
+			result += "<i class='fa-solid fa-chevron-right'></i>";
+
+			string capitalizeFirst = page[0].ToString().ToUpper() + page.Substring(1);
+			isCurrent = page.ToLower().Contains(current);
+
+			result += $"<a class='{(isCurrent ? "text-reset" : "")} text-decoration-none' href='{baseUrl}/{page}'><span>{capitalizeFirst}</span></a>";
+		}
+
+		return result;
+	}
+
+	IHtmlContent GetHeaderNavigation()
+	{
+		string path = Context.Request.Path;
+		// check current if in admin base or not
+		if (path.ToLower().Contains("dashboard")) return Html.Raw("");
+
+		string[] pages = path.Split("/");
+
+		// skip the "" and take 2
+		var homePages = pages.Skip(1).Take(2);
+		string baseUrl = $"/{string.Join("/", homePages)}";
+
+		string current = pages.Last().ToLower();
+		bool isInBase = current.Contains("index");
+
+		//get the rest but Index action
+		var navigateItems = isInBase ? pages.Skip(3).SkipLast(1) : pages.Skip(3);
+
+		string html = "<i class='fa-solid fa-chevron-right'></i>"
+					  + $"<a class='{(isInBase ? "text-reset" : "")} text-decoration-none' href='{baseUrl}/Index'><span>{homePages.Last()}</span></a>"
+					  + getNavigateAction(baseUrl, current, navigateItems);
+
+		return Html.Raw(HttpUtility.HtmlDecode(html));
+	}
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <!--ADMIN LAYOUT-->
 <head>
@@ -11,7 +59,7 @@
 	<!--TODO: ADD HEADER-->
 	<!--End Header-->
 
-	<section class="side-menu open position-fixed overflow-hidden d-flex flex-column">
+	<nav class="side-menu open position-fixed overflow-hidden d-flex flex-column">
 		<a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="dashboard-shortcut d-flex align-items-center bg-primary text-decoration-none">
 			<div style="width: 30px; height: 30px; margin-left: 17px">
 				<img style="object-fit: contain" class="w-100 h-100" src="https://eventmie.classiebit.com/storage/settings/February2024/kLnsc9P2UQfpHIrkzQC4.png" />
@@ -157,12 +205,12 @@
 				</li>
 			</ul>
 		</div>
-	</section>
+	</nav>
 
 	<div class="container body-container w-100 d-flex">
-		<div class="box open"></div>
-		<main role="main" class="admin-main d-flex flex-column flex-grow-1">
-			<div class="w-100 d-flex" style="height: 7.5%; background-color: #FCFCFC">
+		<div class="admin-box"></div>
+		<main role="main" class="admin-main d-flex flex-column flex-grow-1 overflow-hidden">
+			<section class="admin-header w-100 d-flex">
 				<button class="side-menu-button">
 					<i class="fa-solid fa-arrow-left"></i>
 					<i class="fa-solid fa-bars hide-icon"></i>
@@ -170,15 +218,10 @@
 				<div class="flex-grow-1 d-flex align-items-center">
 					<div class="navigate-container d-flex align-items-center rounded-pill bg-light p-2 shadow">
 						<a asp-area='Admin' asp-controller='Dashboard' asp-action='Index' class='admin-base text-decoration-none'>Dashboard</a>
-						@if (ViewBag.Current != null)
-						{
-							<i class="fa-solid fa-chevron-right"></i>
-							<span>@ViewBag.Current</span>
-						}
+						@GetHeaderNavigation()
 					</div>
 				</div>
 				<!--model-->
-				<!--TODO: ADD DROPDOWN-->
 				<div class="profile-dropdown d-flex align-items-center dropdown">
 					<button class="dropdown-button d-flex align-items-center dropdown-toggle bg-transparent border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 						<div class="prevent-select" style="width: 44px; height: 44px; margin-left: 9px">
@@ -206,7 +249,7 @@
 						<li>
 							<a asp-area="Profile"
 							   asp-controller="Profile"
-							   asp-action="Index"
+							   asp-action="Information"
 							   class="user-profile-link dropdown-item d-flex align-items-center">
 								<i class="fa-solid fa-user" style="font-size: 12px; transform: translateY(-1px)"></i>
 								<span>Profile</span>
@@ -232,13 +275,13 @@
 						</li>
 					</ul>
 				</div>
-			</div>
+			</section>
 			@RenderBody()
 		</main>
 	</div>
 
 	<script src="~/dist/bundle.js" asp-append-version="true"></script>
-	<script asp-append-version="true" src="~/js/admin.js"></script>
+	<script asp-append-version="true" src="~/js/admin/admin.js"></script>
 	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

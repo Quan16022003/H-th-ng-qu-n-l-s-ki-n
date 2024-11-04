@@ -58,6 +58,11 @@ $light-gray: #E9ECEF;
     border: 1px solid $light-gray;
 }
 
-.profile-form.active{
+.profile-form.active {
     display: flex !important;
+}
+
+.profile-form-label {
+    display: flex;
+    align-items: center;
 }

@@ -102,7 +102,8 @@ function closeGroup(container, aTag) {
 
 function onSideMenuButtonClick(isClick) {
     let sideMenu = document.getElementsByClassName("side-menu")[0];
-    let box = document.getElementsByClassName("box")[0];
+    let box = document.getElementsByClassName("admin-box")[0];
+    let adminHeader = document.getElementsByClassName("admin-header")[0];
 
     if (isClick) isClose = !isClose;
 
@@ -113,7 +114,7 @@ function onSideMenuButtonClick(isClick) {
         sideMenu.classList.remove("open");
         sideMenu.classList.add("close");
 
-        box.classList.remove("open");
+        adminHeader.classList.add("close");
         box.classList.add("close");
 
         if (!isClick) isOpenHover = false;
@@ -123,8 +124,8 @@ function onSideMenuButtonClick(isClick) {
         sideMenu.classList.remove("close");
         setTimeout(() => sideMenu.classList.add("open"), 250);
 
+        adminHeader.classList.remove("close");
         box.classList.remove("close");
-        box.classList.add("open");
 
         if (!isClick) isOpenHover = true;
     }

@@ -1,11 +1,18 @@
 ﻿// add dependency for webpack
-
-//#region SCSS
-
 import '../scss/site.scss'
-import '../scss/profile.scss'
-import '../scss/admin.scss'
 import '../scss/event.scss'
+
+//#region Profile SCSS
+
+import '../scss/profile/profile.scss'
+
+//#endregion
+
+//#region Admin SCSS
+
+import '../scss/admin/dashboard.scss'
+import '../scss/admin/admin.scss'
+import '../scss/admin/admin-event.scss'
 
 //#endregion
 
