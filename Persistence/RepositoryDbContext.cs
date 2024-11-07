@@ -29,6 +29,7 @@ namespace Persistence
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(RepositoryDbContext).Assembly);
+            SampleData.InitializeAsync(modelBuilder);
         }
     }
 }
