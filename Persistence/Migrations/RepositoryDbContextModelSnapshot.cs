@@ -85,6 +85,22 @@ namespace Persistence.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "613bd9ae-86e8-482f-ac5e-bdce6d164ec6",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedUserName = "MYUSER",
+                            PasswordHash = "AQAAAAIAAYagAAAAELIAZczSRA63xUjoU9Kul1jPfPx9yF+7cgBO3WWn21PAjxDmIGJohf7i/M0HWipwXg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "a256967b-eaec-493a-a004-921fcd56791e",
+                            TwoFactorEnabled = false,
+                            UserName = "myuser"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Attendees", b =>
@@ -216,6 +232,68 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CategoryEvents");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "abc",
+                            IsDeleted = false,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Business & Seminars",
+                            Slug = "business-&-seminars",
+                            Status = true,
+                            ThumbnailUrl = "categories/business&seminars.webp"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "abc",
+                            IsDeleted = false,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Yoga & Health",
+                            Slug = "yoga-&-health",
+                            Status = true,
+                            ThumbnailUrl = "categories/yoga&health.webp"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "abc",
+                            IsDeleted = false,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Sports & Fitness",
+                            Slug = "sports-&-fitness",
+                            Status = true,
+                            ThumbnailUrl = "categories/sports&fitness.webp"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "abc",
+                            IsDeleted = false,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Music & Concerts",
+                            Slug = "music-&-concerts",
+                            Status = true,
+                            ThumbnailUrl = "/categories/music&concerts.webp"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "abcd",
+                            IsDeleted = false,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Science & Tech",
+                            Slug = "science-&-tech",
+                            Status = true,
+                            ThumbnailUrl = "categories/science&tech.webp"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Events", b =>
@@ -337,6 +415,298 @@ namespace Persistence.Migrations
                     b.HasIndex("OrganizerId");
 
                     b.ToTable("Events");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "Đường 3/4",
+                            CategoryId = 4,
+                            City = "Tp. Đà Lạt",
+                            CoverUrl = "/images/events/hanhitoichoem.png",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Liveshow Hà Nhi | TỘI CHO EM\nLululola Show - Hơn cả âm nhạc, không gian lãng mạn đậm chất thơ Đà Lạt bao trọn hình ảnh thung lũng Đà Lạt, được ngắm nhìn khoảng khắc hoàng hôn thơ mộng đến khi Đà Lạt về đêm siêu lãng mạn, được giao lưu với thần tượng một cách chân thật và gần gũi nhất trong không gian ấm áp và không khí se lạnh của Đà Lạt. Tất cả sẽ  mang đến một đêm nhạc ấn tượng mà bạn không thể quên khi đến với Đà Lạt.",
+                            District = "",
+                            EndDate = new DateTime(2024, 12, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndTime = new TimeSpan(0, 19, 30, 0, 0),
+                            IsDeleted = false,
+                            IsPublic = true,
+                            Latitude = 11.919983199999999m,
+                            Longitude = 108.4421036m,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrganizerId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            PhoneNumber = "",
+                            PostalCode = "",
+                            Slug = "lululola-show-ha-nhi-toi-cho-em",
+                            StartDate = new DateTime(2024, 12, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new TimeSpan(0, 17, 30, 0, 0),
+                            ThumbnailUrl = "/images/events/hanhitoichoem.png",
+                            Title = "LULULOLA SHOW HÀ NHI | TỘI CHO EM",
+                            VenueName = "lululola coffee",
+                            Ward = "Phường 3",
+                            WebsiteUrl = ""
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "456 Đường Yên Bái, Đà Nẵng",
+                            CategoryId = 2,
+                            City = "Đà Nẵng",
+                            CoverUrl = "/images/events/yoga-for-beginners-cover.jpg",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A gentle introduction to yoga.",
+                            District = "Hải Châu",
+                            EndDate = new DateTime(2024, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndTime = new TimeSpan(0, 12, 0, 0, 0),
+                            IsDeleted = false,
+                            IsPublic = true,
+                            Latitude = 16.0678m,
+                            Longitude = 108.2208m,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrganizerId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            PhoneNumber = "0987654321",
+                            PostalCode = "550000",
+                            Slug = "yoga-for-beginners",
+                            StartDate = new DateTime(2024, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new TimeSpan(0, 10, 0, 0, 0),
+                            ThumbnailUrl = "/images/events/yoga-for-beginners.jpg",
+                            Title = "Yoga for Beginners",
+                            VenueName = "Zen Yoga Studio",
+                            Ward = "",
+                            WebsiteUrl = "https://example.com/yoga-for-beginners"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "789 Đường Lê Duẩn, Hồ Chí Minh",
+                            CategoryId = 3,
+                            City = "Hồ Chí Minh",
+                            CoverUrl = "/images/events/marathon-training-cover.jpg",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Get ready for your next marathon with our expert trainers.",
+                            District = "Quận 1",
+                            EndDate = new DateTime(2024, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndTime = new TimeSpan(0, 9, 0, 0, 0),
+                            IsDeleted = false,
+                            IsPublic = true,
+                            Latitude = 10.7769m,
+                            Longitude = 106.6955m,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrganizerId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            PhoneNumber = "0123456789",
+                            PostalCode = "700000",
+                            Slug = "marathon-training",
+                            StartDate = new DateTime(2024, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new TimeSpan(0, 6, 0, 0, 0),
+                            ThumbnailUrl = "/images/events/marathon-training.jpg",
+                            Title = "Marathon Training Program",
+                            VenueName = "City Sports Complex",
+                            Ward = "",
+                            WebsiteUrl = "https://example.com/marathon-training"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Address = "101 Đường Nguyễn Thái Học, Hà Nội",
+                            CategoryId = 4,
+                            City = "Hà Nội",
+                            CoverUrl = "/images/events/live-music-concert-cover.jpg",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Enjoy live music from up-and-coming artists.",
+                            District = "Đống Đa",
+                            EndDate = new DateTime(2024, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndTime = new TimeSpan(0, 22, 0, 0, 0),
+                            IsDeleted = false,
+                            IsPublic = true,
+                            Latitude = 21.0202m,
+                            Longitude = 105.7692m,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrganizerId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            PhoneNumber = "0123456789",
+                            PostalCode = "100000",
+                            Slug = "live-music-concert",
+                            StartDate = new DateTime(2024, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new TimeSpan(0, 19, 0, 0, 0),
+                            ThumbnailUrl = "/images/events/live-music-concert.jpg",
+                            Title = "Live Music Concert",
+                            VenueName = "Main City Park",
+                            Ward = "",
+                            WebsiteUrl = "https://example.com/live-music-concert"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Address = "456 Đường Nguyễn Thị Minh Khai, TP. Hồ Chí Minh",
+                            CategoryId = 5,
+                            City = "TP. Hồ Chí Minh",
+                            CoverUrl = "/images/events/tech-innovation-summit-cover.jpg",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Explore the latest innovations in technology.",
+                            District = "Quận 1",
+                            EndDate = new DateTime(2024, 7, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndTime = new TimeSpan(0, 17, 0, 0, 0),
+                            IsDeleted = false,
+                            IsPublic = true,
+                            Latitude = 10.7769m,
+                            Longitude = 106.6955m,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrganizerId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            PhoneNumber = "0123456789",
+                            PostalCode = "700000",
+                            Slug = "tech-innovation-summit",
+                            StartDate = new DateTime(2024, 7, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new TimeSpan(0, 9, 0, 0, 0),
+                            ThumbnailUrl = "/images/events/tech-innovation-summit.jpg",
+                            Title = "Tech Innovation Summit",
+                            VenueName = "Tech Convention Center",
+                            Ward = "",
+                            WebsiteUrl = "https://example.com/tech-innovation-summit"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Address = "123 Đường Tràng Tiền, Hà Nội",
+                            CategoryId = 1,
+                            City = "Hà Nội",
+                            CoverUrl = "/images/events/business-leadership-forum-cover.jpg",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A forum for business leaders to share insights.",
+                            District = "Hoàn Kiếm",
+                            EndDate = new DateTime(2024, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndTime = new TimeSpan(0, 15, 0, 0, 0),
+                            IsDeleted = false,
+                            IsPublic = true,
+                            Latitude = 21.0285m,
+                            Longitude = 105.8040m,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrganizerId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            PhoneNumber = "0123456789",
+                            PostalCode = "100000",
+                            Slug = "business-leadership-forum",
+                            StartDate = new DateTime(2024, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new TimeSpan(0, 8, 0, 0, 0),
+                            ThumbnailUrl = "/images/events/business-leadership-forum.jpg",
+                            Title = "Business Leadership Forum",
+                            VenueName = "Royal Business Hotel",
+                            Ward = "",
+                            WebsiteUrl = "https://example.com/business-leadership-forum"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Address = "456 Đường Trần Phú, Nha Trang",
+                            CategoryId = 2,
+                            City = "Nha Trang",
+                            CoverUrl = "/images/events/wellness-weekend-cover.jpg",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A weekend focused on wellness and relaxation.",
+                            District = "",
+                            EndDate = new DateTime(2024, 9, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndTime = new TimeSpan(0, 16, 0, 0, 0),
+                            IsDeleted = false,
+                            IsPublic = true,
+                            Latitude = 12.2385m,
+                            Longitude = 109.1967m,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrganizerId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            PhoneNumber = "",
+                            PostalCode = "",
+                            Slug = "wellness-weekend",
+                            StartDate = new DateTime(2024, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new TimeSpan(0, 10, 0, 0, 0),
+                            ThumbnailUrl = "/images/events/wellness-weekend.jpg",
+                            Title = "Wellness Weekend Getaway",
+                            VenueName = "Serenity Spa Resort",
+                            Ward = "",
+                            WebsiteUrl = ""
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Address = "789 Đường Lê Duẩn, Hồ Chí Minh",
+                            CategoryId = 3,
+                            City = "Hồ Chí Minh",
+                            CoverUrl = "/images/events/sports-competition-cover.jpg",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Compete with other athletes in various sports.",
+                            District = "",
+                            EndDate = new DateTime(2024, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndTime = new TimeSpan(0, 17, 0, 0, 0),
+                            IsDeleted = false,
+                            IsPublic = true,
+                            Latitude = 10.7769m,
+                            Longitude = 106.6955m,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrganizerId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            PhoneNumber = "",
+                            PostalCode = "",
+                            Slug = "sports-competition",
+                            StartDate = new DateTime(2024, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new TimeSpan(0, 8, 0, 0, 0),
+                            ThumbnailUrl = "/images/events/sports-competition.jpg",
+                            Title = "City Sports Competition",
+                            VenueName = "City Stadium",
+                            Ward = "",
+                            WebsiteUrl = ""
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Address = "101 Đường Hoàng Sa, Đà Nẵng",
+                            CategoryId = 4,
+                            City = "Đà Nẵng",
+                            CoverUrl = "/images/events/music-performance-cover.jpg",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "An evening of beautiful music performances.",
+                            District = "",
+                            EndDate = new DateTime(2024, 11, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndTime = new TimeSpan(0, 21, 0, 0, 0),
+                            IsDeleted = false,
+                            IsPublic = true,
+                            Latitude = 16.0678m,
+                            Longitude = 108.2208m,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrganizerId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            PhoneNumber = "",
+                            PostalCode = "",
+                            Slug = "music-performance",
+                            StartDate = new DateTime(2024, 11, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new TimeSpan(0, 18, 0, 0, 0),
+                            ThumbnailUrl = "/images/events/music-performance.jpg",
+                            Title = "Evening Music Performance",
+                            VenueName = "Musical Theatre",
+                            Ward = "",
+                            WebsiteUrl = ""
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Address = "456 Đường Trần Quốc Toản, Hà Nội",
+                            CategoryId = 5,
+                            City = "Hà Nội",
+                            CoverUrl = "/images/events/science-discovery-day-cover.jpg",
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "A day of science experiments and discoveries.",
+                            District = "",
+                            EndDate = new DateTime(2024, 12, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndTime = new TimeSpan(0, 16, 0, 0, 0),
+                            IsDeleted = false,
+                            IsPublic = true,
+                            Latitude = 21.0285m,
+                            Longitude = 105.8040m,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrganizerId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            PhoneNumber = "",
+                            PostalCode = "",
+                            Slug = "science-discovery-day",
+                            StartDate = new DateTime(2024, 12, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartTime = new TimeSpan(0, 9, 0, 0, 0),
+                            ThumbnailUrl = "/images/events/science-discovery-day.jpg",
+                            Title = "Science Discovery Day",
+                            VenueName = "Science Museum",
+                            Ward = "",
+                            WebsiteUrl = ""
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.OrderItems", b =>
@@ -561,6 +931,14 @@ namespace Persistence.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "2c5e174e-3b0e-446f-86af-483d56fd7210",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -648,6 +1026,13 @@ namespace Persistence.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            RoleId = "2c5e174e-3b0e-446f-86af-483d56fd7210"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
