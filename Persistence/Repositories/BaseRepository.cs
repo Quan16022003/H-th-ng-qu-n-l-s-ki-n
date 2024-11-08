@@ -1,11 +1,14 @@
 ﻿using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Ultils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Entities;
+using Domain.Commons;
 
 namespace Persistence.Repositories
 {
@@ -13,8 +16,10 @@ namespace Persistence.Repositories
     /// Generic Repository class for performing Database Entity Operations.
     /// </summary>
     /// <typeparam name="T">The Type of Entity to operate on</typeparam>
-    public class BaseRepository<T> : IBaseRepository<T> where T : class
+    public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
+        protected ReferenceCollection<T> References { get; }
+
         #region Readonlys
 
         protected readonly DbContext _dbContext;
@@ -32,22 +37,12 @@ namespace Persistence.Repositories
         {
             _dbContext = dbContext;
             _dbSet = dbContext.Set<T>();
+            References = [];
         }
 
         #endregion
 
         #region Methods
-        /// <summary>
-        /// Method for subclass to config Eager Loading in their dbSet for Get List Async method
-        /// <para>Not work for Get Single Entity method</para>
-        /// </summary>
-        /// <param name="queryable"></param>
-        /// <returns></returns>
-        protected virtual async Task<IEnumerable<T>> GetListWithInclude(IQueryable<T> queryable)
-        {
-            return await queryable.ToListAsync();
-        }
-
 
         /// <summary>
         /// Adds an entity.
@@ -97,7 +92,10 @@ namespace Persistence.Repositories
         /// <returns>A collection of all entities</returns>
         public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
-            return await GetListWithInclude(_dbSet);
+            return await _dbSet
+                .ExcuteAllInclude(References)
+                .AsSingleQuery()
+                .ToListAsync();
         }
 
         /// <summary>
@@ -106,8 +104,13 @@ namespace Persistence.Repositories
         /// <param name="id">The ID of the entity to retrieve</param>
         /// <returns>The entity object if found, otherwise null</returns>
         public virtual async Task<T> GetByIdAsync(int id)
-        { 
-            return await _dbSet.FindAsync(id);
+        {
+            var result = await _dbSet
+                .ExcuteAllInclude(References)
+                .AsSingleQuery()
+                .SingleOrDefaultAsync(e => e.Id == id);
+
+            return result!;
         }
 
         /// <summary>
@@ -153,7 +156,10 @@ namespace Persistence.Repositories
                 query = query.Take(top.Value);
             }
 
-            return await GetListWithInclude(query);
+            return await query
+                .ExcuteAllInclude(References)
+                .AsSingleQuery()
+                .ToListAsync();
         }
 
         #endregion

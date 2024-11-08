@@ -14105,7 +14105,11 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `.admin-event-table {
   width: 98%;
-}`, "",{"version":3,"sources":["webpack://./EventManagementSystem/wwwroot/scss/admin/admin-event.scss"],"names":[],"mappings":"AAAA;EACI,UAAA;AACJ","sourceRoot":""}]);
+}
+.admin-event-table tbody {
+  font-size: 13px;
+  text-align: center;
+}`, "",{"version":3,"sources":["webpack://./EventManagementSystem/wwwroot/scss/admin/admin-event.scss"],"names":[],"mappings":"AAAA;EACI,UAAA;AACJ;AACI;EACI,eAAA;EACA,kBAAA;AACR","sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

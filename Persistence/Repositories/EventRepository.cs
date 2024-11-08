@@ -14,17 +14,13 @@ namespace Persistence.Repositories
     {
         public EventRepository(RepositoryDbContext dbContext) : base(dbContext)
         {
-        }
-
-        protected override async Task<IEnumerable<Events>> GetListWithInclude(IQueryable<Events> queryable)
-        {
-            return await queryable
-                .Include(e => e.Organizer)
-                .Include(e => e.CategoryEvent)
-                .Include(e => e.Tickets)
-                .Include(e => e.Orders)
-                .Include(e => e.Attendees)
-                .ToListAsync();
+            References.AddMultiple([
+                e => e.Organizer,
+                e => e.CategoryEvent,
+                e => e.Tickets!,
+                e => e.Orders!,
+                e => e.Attendees!
+            ]);
         }
 
         public async Task DeleteAsync(Events events)
