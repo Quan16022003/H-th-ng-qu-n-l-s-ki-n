@@ -137,11 +137,11 @@ function changeSideMenuButtonIcon(button) {
     let open = child[1];
 
     if (isClose) {
-        close.classList.add("hide-icon");
-        open.classList.remove("hide-icon");
+        close.classList.add("d-none");
+        open.classList.remove("d-none");
     }
     else {
-        open.classList.add("hide-icon");
-        close.classList.remove("hide-icon");
+        open.classList.add("d-none");
+        close.classList.remove("d-none");
     }
 }

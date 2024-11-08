@@ -9,12 +9,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\AdminEvents\**" />
     <Compile Remove="Areas\Admin\Validators\**" />
     <Compile Remove="Validators\**" />
+    <Content Remove="Areas\AdminEvents\**" />
     <Content Remove="Areas\Admin\Validators\**" />
     <Content Remove="Validators\**" />
+    <EmbeddedResource Remove="Areas\AdminEvents\**" />
     <EmbeddedResource Remove="Areas\Admin\Validators\**" />
     <EmbeddedResource Remove="Validators\**" />
+    <None Remove="Areas\AdminEvents\**" />
     <None Remove="Areas\Admin\Validators\**" />
     <None Remove="Validators\**" />
   </ItemGroup>
@@ -75,10 +79,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Account\Views\Shared\" />
-    <Folder Include="Areas\AdminEvents\Controllers\" />
-    <Folder Include="Areas\AdminEvents\Data\" />
-    <Folder Include="Areas\AdminEvents\Models\" />
-    <Folder Include="Areas\AdminEvents\Views\" />
     <Folder Include="Areas\Event\Views\Shared\" />
   </ItemGroup>
 

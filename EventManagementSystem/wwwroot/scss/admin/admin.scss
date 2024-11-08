@@ -6,7 +6,7 @@ $group-max-height: 200px;
 $group-background: #D9D9D9;
 $side-menu-transition-time: 0.5s;
 $log-out-button-color: #fa2a00;
-$font-color: #555;
+$admin-font-color: #555;
 $admin-responsive-max-width: 1400px;
 $table-background: #ECF7FC;
 $admin-action-add-bg: #2ECC71;
@@ -19,7 +19,7 @@ $admin-action-add-bg: #2ECC71;
     transition: width $side-menu-transition-time;
 
     > * {
-        color: $font-color;
+        color: $admin-font-color;
     }
     // when close
     span {
@@ -57,10 +57,6 @@ $admin-action-add-bg: #2ECC71;
     color: #949494;
 }
 
-.hide-icon {
-    display: none;
-}
-
 .admin-box {
     height: 100%;
     min-height: 100vh;
@@ -84,7 +80,7 @@ $admin-action-add-bg: #2ECC71;
     min-height: 100vh;
 
     > * {
-        color: $font-color;
+        color: $admin-font-color;
     }
 }
 
@@ -94,6 +90,22 @@ $admin-action-add-bg: #2ECC71;
     width: 100%;
     gap: 15px;
     cursor: pointer;
+    position: relative;
+}
+
+.admin-wave-bg {
+    display: inline-block;
+    position: absolute;
+    width: 250px;
+    height: 79px;
+    top: 0px;
+    left: 0;
+    z-index: -10;
+
+    path {
+        stroke: none;
+        fill: blue;
+    }
 }
 
 .admin-information {
@@ -200,7 +212,7 @@ $admin-action-add-bg: #2ECC71;
 
 .item-child {
     overflow: hidden;
-    color: $font-color;
+    color: $admin-font-color;
     max-height: $group-max-height;
     transition: max-height 0.5s linear;
     background-color: $group-background !important;
@@ -313,7 +325,7 @@ $admin-action-add-bg: #2ECC71;
     border-bottom: unset !important;
     padding: unset !important;
     transition: background-color 0.7s;
-    color: $font-color !important;
+    color: $admin-font-color !important;
 }
 
 .admin-search-button:hover {

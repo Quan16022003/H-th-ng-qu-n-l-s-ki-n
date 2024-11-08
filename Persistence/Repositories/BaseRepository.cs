@@ -37,6 +37,17 @@ namespace Persistence.Repositories
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Method for subclass to config Eager Loading in their dbSet for Get List Async method
+        /// <para>Not work for Get Single Entity method</para>
+        /// </summary>
+        /// <param name="queryable"></param>
+        /// <returns></returns>
+        protected virtual async Task<IEnumerable<T>> GetListWithInclude(IQueryable<T> queryable)
+        {
+            return await queryable.ToListAsync();
+        }
+
 
         /// <summary>
         /// Adds an entity.
@@ -84,9 +95,9 @@ namespace Persistence.Repositories
         /// Gets a collection of all entities.
         /// </summary>
         /// <returns>A collection of all entities</returns>
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
-            return await _dbSet.ToListAsync();
+            return await GetListWithInclude(_dbSet);
         }
 
         /// <summary>
@@ -94,8 +105,8 @@ namespace Persistence.Repositories
         /// </summary>
         /// <param name="id">The ID of the entity to retrieve</param>
         /// <returns>The entity object if found, otherwise null</returns>
-        public async Task<T> GetByIdAsync(int id)
-        {
+        public virtual async Task<T> GetByIdAsync(int id)
+        { 
             return await _dbSet.FindAsync(id);
         }
 
@@ -108,7 +119,7 @@ namespace Persistence.Repositories
         /// <param name="skip">The number of records to skip</param>
         /// <param name="includeProperties">Any other navigation properties to include when returning the collection</param>
         /// <returns>A collection of entities</returns>
-        public async Task<IEnumerable<T>> GetManyAsync(
+        public virtual async Task<IEnumerable<T>> GetManyAsync(
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             int? top = null,
@@ -142,7 +153,7 @@ namespace Persistence.Repositories
                 query = query.Take(top.Value);
             }
 
-            return await query.ToListAsync();
+            return await GetListWithInclude(query);
         }
 
         #endregion

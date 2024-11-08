@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<Domain.Entities.Events>
+@{
 	ViewData["Title"] = "Events";
 	ViewBag.Current = "Events";
 	ViewBag.ManageEvents = "selected";
@@ -53,7 +54,8 @@
 				<table class="table admin-table">
 					<thead>
 						<tr>
-							<th style="min-width: 150px; max-height: 200px" scope="col">Title</th>
+							<th style="min-width: 50px; max-width: 50px" scope="col">Id</th>
+							<th class="text-center" style="min-width: 150px; max-width: 200px" scope="col">Title</th>
 							<th class="text-center" scope="col">Cagetory</th>
 							<th class="text-center" scope="col">Organiser</th>
 							<th class="text-center" scope="col">Start Date</th>
@@ -67,8 +69,54 @@
 					</thead>
 					<!--Model-->
 					<tbody>
+						@foreach (var item in Model)
+						{
+							<tr>
+								<th scope="row">@item.Id</th>
+								<td>@item.Title</td>
+								<td>@item.CategoryEvent.Name</td>
+								<td>@item.Organizer.UserName</td>
+								<td>@item.StartDate</td>
+								<td>@item.EndDate</td>
+								<td>@item.CreatedDate</td>
+								<td>@item.ModifiedDate</td>
+								<td>@item.IsPublic</td>
+								<td>@item.IsDeleted</td>
+							</tr>
+						}
 					</tbody>
 				</table>
+			</div>
+			<div class="w-100 d-flex justify-content-center mt-2">
+				<div class="admin-table-entries-information w-50">
+					<span class="ms-3">Show blah to bruh of bluh entries</span>
+				</div>
+				<div class="w-50 d-flex justify-content-end">
+					<div class="admin-table-pagination me-3">
+						<ul class="pagination">
+							<li class="page-item">
+								<a class="page-link" href="#" aria-label="Previous">
+									<i class="fa-solid fa-caret-left"></i>
+								</a>
+							</li>
+							<li class="page-item active">
+								<a class="page-link" href="#" aria-label="page-one">
+									<span>1</span>
+								</a>
+							</li>
+							<li class="page-item">
+								<a class="page-link" href="#" aria-label="page-two">
+									<span>2</span>
+								</a>
+							</li>
+							<li class="page-item">
+								<a class="page-link" href="#" aria-label="Next">
+									<i class="fa-solid fa-caret-right"></i>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>

@@ -39,8 +39,8 @@
 		var navigateItems = isInBase ? pages.Skip(3).SkipLast(1) : pages.Skip(3);
 
 		string html = "<i class='fa-solid fa-chevron-right'></i>"
-					  + $"<a class='{(isInBase ? "text-reset" : "")} text-decoration-none' href='{baseUrl}/Index'><span>{homePages.Last()}</span></a>"
-					  + getNavigateAction(baseUrl, current, navigateItems);
+							+ $"<a class='{(isInBase ? "text-reset" : "")} text-decoration-none' href='{baseUrl}/Index'><span>{homePages.Last()}</span></a>"
+							+ getNavigateAction(baseUrl, current, navigateItems);
 
 		return Html.Raw(HttpUtility.HtmlDecode(html));
 	}
@@ -60,11 +60,14 @@
 	<!--End Header-->
 
 	<nav class="side-menu open position-fixed overflow-hidden d-flex flex-column">
-		<a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="dashboard-shortcut d-flex align-items-center bg-primary text-decoration-none">
+		<a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="dashboard-shortcut d-flex align-items-center text-decoration-none">
 			<div style="width: 30px; height: 30px; margin-left: 17px">
 				<img style="object-fit: contain" class="w-100 h-100" src="https://eventmie.classiebit.com/storage/settings/February2024/kLnsc9P2UQfpHIrkzQC4.png" />
 			</div>
 			<span style="height: fit-content; width: fit-content" class="text-light">Eventmie 3.0</span>
+			<svg class="admin-wave-bg" viewBox="0 0 250 79" preserveAspectRatio="xMinYMin meet">
+				<path d="M0,70 C75,110 180,0 290,110 L250,00 L0,0 Z"></path>
+			</svg>
 		</a>
 		<div class="admin-information d-flex align-items-center overflow-hidden">
 			<div style="width: 44px; height: 44px; margin-left: 9px">
@@ -213,11 +216,14 @@
 			<section class="admin-header w-100 d-flex">
 				<button class="side-menu-button">
 					<i class="fa-solid fa-arrow-left"></i>
-					<i class="fa-solid fa-bars hide-icon"></i>
+					<i class="fa-solid fa-bars d-none"></i>
 				</button>
 				<div class="flex-grow-1 d-flex align-items-center">
 					<div class="navigate-container d-flex align-items-center rounded-pill bg-light p-2 shadow">
-						<a asp-area='Admin' asp-controller='Dashboard' asp-action='Index' class='admin-base text-decoration-none'>Dashboard</a>
+						<a asp-area='Admin' asp-controller='Dashboard' asp-action='Index' class='admin-base text-decoration-none'>
+							<i class="fa-solid fa-ship"></i>
+							Dashboard
+						</a>
 						@GetHeaderNavigation()
 					</div>
 				</div>

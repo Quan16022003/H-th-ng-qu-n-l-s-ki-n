@@ -13,6 +13,8 @@ import '../scss/profile/profile.scss'
 import '../scss/admin/dashboard.scss'
 import '../scss/admin/admin.scss'
 import '../scss/admin/admin-event.scss'
+import '../scss/admin/admin-cagetory.scss'
+import '../scss/admin/admin-user.scss'
 
 //#endregion
 
