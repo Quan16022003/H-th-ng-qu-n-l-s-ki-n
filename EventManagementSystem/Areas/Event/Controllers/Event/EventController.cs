@@ -6,7 +6,7 @@ namespace Web.Areas.Event.Controllers.Event
     public class EventController : Controller
     {
         [HttpGet]
-        public IActionResult AllEvent() 
+        public IActionResult AllEvent()
         {
             return View();
         }

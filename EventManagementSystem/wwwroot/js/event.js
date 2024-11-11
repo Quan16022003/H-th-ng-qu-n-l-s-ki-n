@@ -51,7 +51,7 @@ function openModal(imageSrc, altText) {
 // Đóng modal khi nhấn vào nút "X" hoặc bên ngoài hình ảnh
 function closeModal() {
     document.getElementById("imageModal").style.display = "none";
-}
+    }
 
 // Gán sự kiện cho mỗi hình ảnh
 document.querySelectorAll('.gallery-img').forEach(img => {

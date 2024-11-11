@@ -75,6 +75,20 @@
 
   <ItemGroup>
     <Folder Include="Areas\Account\Views\Shared\" />
+    <Folder Include="Areas\AdminEvents\Controllers\" />
+    <Folder Include="Areas\AdminEvents\Data\" />
+    <Folder Include="Areas\AdminEvents\Models\" />
+    <Folder Include="Areas\AdminEvents\Views\" />
+    <Folder Include="Areas\Event\Views\Shared\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Areas\Admin\Views\ManageSite\Banner\Banners.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Admin\Views\ManageUsers\User\DanhSach.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Account\Views\Shared\" />
     <Folder Include="Areas\Event\Views\Shared\" />
   </ItemGroup>
 

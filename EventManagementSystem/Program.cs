@@ -70,6 +70,10 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
+builder.Services.AddScoped<IEventRepository, EventRepository>();
+
+builder.Services.AddScoped<EventService>();
+
 #region add path provider service for views in front end
 
 // key: area name, value: service match
@@ -104,7 +108,7 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.MapAreaControllerRoute(
     name: "Admin",
     areaName: "Admin",
-    pattern: "Admin/{controller}/{action}/{id?}");
+    pattern: "Admin/{controller}/{action=Index}/{id?}");
 
 app.MapAreaControllerRoute(
     name: "Profile",

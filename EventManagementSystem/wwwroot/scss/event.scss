@@ -578,6 +578,7 @@ h5 {
 
 .event-card:hover {
     transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .event-image {
@@ -727,24 +728,24 @@ h5 {
 .card {
     overflow: hidden;
     border: none;
-}
+    }
 
 .card-img {
     transition: transform 0.3s ease;
-}
+    }
 
 .card:hover .card-img {
     transform: translateY(-10px); 
-}
+    }
 
 .card-title {
     transition: transform 0.3s ease, color 0.3s ease;
-}
+    }
 
 .card:hover .card-title {
     transform: translateY(-5px); 
     color: #f8d64e; 
-}
+    }
 
 
 /*Map css*/
@@ -755,14 +756,14 @@ h5 {
     max-width: 1200px;
     margin: 0 auto;
     overflow: hidden;
-}
+    }
 
 .stadium-background img {
     width: 100%;
     filter: blur(8px); /* Làm mờ ảnh nền */
     transform: scale(1.1); /* Phóng to nền để đảm bảo hiệu ứng mờ phù hợp */
     opacity: 0.7; /* Điều chỉnh độ trong suốt nếu muốn */
-}
+    }
 
 .stadium-background {
     position: absolute;
