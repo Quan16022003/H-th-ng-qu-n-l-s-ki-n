@@ -1,24 +1,62 @@
 @import "bootstrap/scss/bootstrap";
 
+.icon::before,
+.icon::after {
+    display: inline-block;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+
+.prevent-select {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 html {
     font-size: 14px;
+    -webkit-tap-highlight-color: transparent;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+html, body {
+    position: relative;
+    min-height: 100vh !important;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    font-family: Open Sans,sans-serif;
 }
 
-body {
-  margin-bottom: 60px;
+body{
+    height: 100vh;
+    min-height: 100vh !important;
+}
+
+// CHECKING
+
+//html {
+//    position: relative;
+//    min-height: 100%;
+//}
+
+//body {
+//    margin-bottom: 60px;
+//    padding-top: 56px;
+//}
+
+.body-container {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    max-width: 100% !important;
+    width: 100%;
 }

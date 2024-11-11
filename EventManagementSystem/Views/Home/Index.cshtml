@@ -1,8 +1,401 @@
 ﻿@{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Home";
 }
+<div class="hero-section position-relative text-center text-white">
+    <div class="hero-background" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLig1H5cfDbpeQEeeMn1zGuHLRJZ87Y-GT2w&s');"></div>
+    <div class="hero-content d-flex flex-column justify-content-center align-items-center">
+        <h1 class="display-4 fw-bold">Self-hosted Event Management Script</h1>
+        <div class="d-flex gap-3">
+            <a a asp-area="Event" asp-controller="Event" asp-action="AllEvent" class="btn btn-primary">JOIN NOW!</a>
+        </div>
+    </div>
+</div>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="search-bar bg-white p-3 rounded shadow-sm d-flex justify-content-between align-items-center">
+    <div class="dropdown">
+        <button class="btn btn-light dropdown-toggle" type="button" id="cityDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            City
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="cityDropdown">
+            <li><a class="dropdown-item" href="#">All</a></li>
+            <!-- Add more cities here -->
+        </ul>
+    </div>
+    <div class="dropdown">
+        <button class="btn btn-light dropdown-toggle" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            Category
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+            <li><a class="dropdown-item" href="#">All</a></li>
+            <!-- Add more categories here -->
+        </ul>
+    </div>
+    <div class="dropdown">
+        <button class="btn btn-light dropdown-toggle" type="button" id="priceDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            Price
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="priceDropdown">
+            <li><a class="dropdown-item" href="#">Any Price</a></li>
+            <!-- Add more price options here -->
+        </ul>
+    </div>
+    <button  class="btn btn-primary rounded-circle search-button"><i class="fas fa-search"></i></button>
+</div>
+
+<div class="container Event my-5">
+    <div class="d-flex justify-content-between align-items-center">
+        <h2 class="section-title">Featured Events</h2>
+        <a a asp-area="Event" asp-controller="Event" asp-action="AllEvent" class="view-all-link">View All →</a>
+    </div>
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="event-card">
+                <a a asp-area="Event" asp-controller="Details" asp-action="DetailEvent">
+                    <!-- Replace '1' with the event ID -->
+                    <div class="event-image" style="background-image: url('https://example.com/image1.jpg');">
+                        <span class="event-date">01 Jun 2024</span>
+                    </div>
+                </a>
+                <div class="event-content">
+                    <span class="event-tag">Repetitive</span>
+                    <h3 class="event-title">Winter Wine Night</h3>
+                    <p class="event-category">Food & Drink</p>
+                    <p class="event-location"><i class="fas fa-map-marker-alt"></i> Lemme Valley Hall, Amsterdam</p>
+                    <p class="event-price">0.00 USD / Free</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="event-card">
+                <div class="event-image" style="background-image: url('path/to/your/image2.jpg');">
+                    <span class="event-date">01 Aug 2024</span>
+                </div>
+                <div class="event-content">
+                    <span class="event-tag">Repetitive</span>
+                    <span class="event-tag">Online</span>
+                    <h3 class="event-title">Regular Yoga Classes (Seasonal)</h3>
+                    <p class="event-category">Yoga & Health</p>
+                    <p class="event-location"><i class="fas fa-map-marker-alt"></i> Riverview</p>
+                    <p class="event-price">0.00 USD / Free</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="event-card">
+                <div class="event-image" style="background-image: url('path/to/your/image3.jpg');">
+                    <span class="event-date">01 Jul 2024</span>
+                </div>
+                <div class="event-content">
+                    <span class="event-tag">Repetitive</span>
+                    <h3 class="event-title">Italian Cooking Class (Seasonal)</h3>
+                    <p class="event-category">Education & Classes</p>
+                    <p class="event-location"><i class="fas fa-map-marker-alt"></i> Luxe Grand View, Luxé</p>
+                    <p class="event-price">0.00 USD / Free</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container Event my-5 ">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="section-title">Top Selling Events</h2>
+        <a a asp-area="Event" asp-controller="Event" asp-action="AllEvent" class="view-all-link">View All →</a>
+    </div>
+
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="event-card">
+                <div class="event-image" style="background-image: url('path/to/your/image1.jpg');">
+                    <span class="event-date">25 Nov 2024</span>
+                </div>
+                <div class="event-content">
+                    <span class="event-tag">Onetime</span>
+                    <span class="event-tag">Online</span>
+                    <h3 class="event-title">Digital Marketing Seminar</h3>
+                    <p class="event-category">Travel & Trekking</p>
+                    <p class="event-location"><i class="fas fa-map-marker-alt"></i> New York Theater, New York</p>
+                    <p class="event-price">0.00 USD / Free</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="event-card">
+                <div class="event-image" style="background-image: url('path/to/your/image2.jpg');">
+                    <span class="event-date">09 Dec 2024</span>
+                </div>
+                <div class="event-content">
+                    <span class="event-tag">Onetime</span>
+                    <h3 class="event-title">Product Marketing Workshop</h3>
+                    <p class="event-category">Business & Seminars</p>
+                    <p class="event-location"><i class="fas fa-map-marker-alt"></i> Los Pepe Fusion, Culiacán Rosales</p>
+                    <p class="event-price">0.00 USD / Free</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="event-card">
+                <div class="event-image" style="background-image: url('path/to/your/image3.jpg');">
+                    <span class="event-date">27 Dec 2024</span>
+                </div>
+                <div class="event-content">
+                    <span class="event-tag">Onetime</span>
+                    <span class="event-tag">Online</span>
+                    <h3 class="event-title">Seven Rocks Show</h3>
+                    <p class="event-category">Music & Concerts</p>
+                    <p class="event-location"><i class="fas fa-map-marker-alt"></i> Telford</p>
+                    <p class="event-price">0.00 USD / Free</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container Event my-5">
+    <div class="d-flex justify-content-between align-items-center">
+        <h2 class="section-title">Upcoming Events</h2>
+        <a a asp-area="Event" asp-controller="Event" asp-action="AllEvent" class="view-all-link">View All →</a>
+    </div>
+    <div class="row g-3">
+        <div class="col-md-4">
+            <div class="event-card">
+                <div class="event-image" style="background-image: url('path/to/your/image1.jpg');">
+                    <span class="event-date">25 Nov 2024</span>
+                </div>
+                <div class="event-content">
+                    <span class="event-tag">Onetime</span>
+                    <span class="event-tag">Online</span>
+                    <h3 class="event-title">Digital Marketing Seminar</h3>
+                    <p class="event-category">Travel & Trekking</p>
+                    <p class="event-location"><i class="fas fa-map-marker-alt"></i> New York Theater, New York</p>
+                    <p class="event-price">0.00 USD / Free</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="event-card">
+                <div class="event-image" style="background-image: url('path/to/your/image2.jpg');">
+                    <span class="event-date">09 Dec 2024</span>
+                </div>
+                <div class="event-content">
+                    <span class="event-tag">Onetime</span>
+                    <h3 class="event-title">Product Marketing Workshop</h3>
+                    <p class="event-category">Business & Seminars</p>
+                    <p class="event-location"><i class="fas fa-map-marker-alt"></i> Los Pepe Fusion, Culiacán Rosales</p>
+                    <p class="event-price">0.00 USD / Free</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="event-card">
+                <div class="event-image" style="background-image: url('path/to/your/image3.jpg');">
+                    <span class="event-date">27 Dec 2024</span>
+                </div>
+                <div class="event-content">
+                    <span class="event-tag">Onetime</span>
+                    <span class="event-tag">Online</span>
+                    <h3 class="event-title">Seven Rocks Show</h3>
+                    <p class="event-category">Music & Concerts</p>
+                    <p class="event-location"><i class="fas fa-map-marker-alt"></i> Telford</p>
+                    <p class="event-price">0.00 USD / Free</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-6 mt-5" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+    <h2 class="text-white mb-4">Event Categories</h2>
+    <div class="row">
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card bg-dark text-white">
+                <img src="https://eventmie.classiebit.com/storage/categories/October2019/oJbtSjHLoCcSEPva4IJe.jpg" class="card-img" alt="Business & Seminars">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Business & Seminars</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card bg-dark text-white">
+                <img src="https://eventmie.classiebit.com/storage/categories/October2019/3YpGsqN75rDAjntQewmP.jpg" class="card-img" alt="Sports & Fitness">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Sports & Fitness</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card bg-dark text-white">
+                <img src="https://eventmie.classiebit.com/storage/categories/October2019/1axS9qJxNWiuzqVmqPDr.jpg" class="card-img" alt="Music & Concerts">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Music & Concerts</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card bg-dark text-white">
+                <img src="https://eventmie.classiebit.com/storage/categories/October2019/rMbuGTrvUFEC13tykKcq.jpg" class="card-img" alt="Food & Drink">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Food & Drink</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container my-6 " data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+    <h2 class="text-white mb-4">Event Categories</h2>
+    <div class="row">
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card bg-dark text-white">
+                <img src="https://eventmie.classiebit.com/storage/categories/October2019/oJbtSjHLoCcSEPva4IJe.jpg" class="card-img" alt="Business & Seminars">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Business & Seminars</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card bg-dark text-white">
+                <img src="https://eventmie.classiebit.com/storage/categories/October2019/3YpGsqN75rDAjntQewmP.jpg" class="card-img" alt="Sports & Fitness">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Sports & Fitness</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card bg-dark text-white">
+                <img src="https://eventmie.classiebit.com/storage/categories/October2019/1axS9qJxNWiuzqVmqPDr.jpg" class="card-img" alt="Music & Concerts">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Music & Concerts</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card bg-dark text-white">
+                <img src="https://eventmie.classiebit.com/storage/categories/October2019/rMbuGTrvUFEC13tykKcq.jpg" class="card-img" alt="Food & Drink">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Food & Drink</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container blogs-section my-5" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Blogs</h2>
+        <a href="#" class="view-all-link">View All →</a>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="blog-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUwQ9obL7KApZsm0cb6erLQL40qB6D7_QHafHcXAv0Um62IO3drmxlLjCLv8rEniL4RZA&usqp=CAU  " alt="Blog Image 1" class="blog-img">
+                <div class="blog-content">
+                    <h5>How Eventmie Works For Organisers</h5>
+                    <p>And sir dare view but over man. So at within mr to...</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="blog-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3oPrTR8-Bg-aHn5uQmSpBUS--1wDZqTjZhcXYXK_oE1tT7osLBna-AkBrdO98DUbW3Nw&usqp=CAU" alt="Blog Image 2" class="blog-img">
+                <div class="blog-content">
+                    <h5>Events are Now Happening: How to Se...</h5>
+                    <p>Now that events are starting again, how to sell ti...</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="blog-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoDQCIceJP3n2JiPfXrVzBJI5osdPrQHSNSADLw5lUMH8xjHhowMN9GakJgDwdvkQ--aM&usqp=CAU" alt="Blog Image 3" class="blog-img">
+                <div class="blog-content">
+                    <h5>Why do you need an event ticketing...</h5>
+                    <p>Modern event ticketing system enables you to manag...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container custom-container" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+    <div class="text-center section-header">
+        <h4 class="section-subtitle">How it works</h4>
+        <h2 class="section-title">For Event Organizers</h2>
+    </div>
+    <div class="row text-center align-items-start justify-content-center" >
+        <div class="col-md-4 step step-1" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+            <div class="step-icon">
+                <span class="step-circle icon-blue">
+                    <i class="fas fa-calendar-alt fa-2x icon-color-blue"></i>
+                </span>
+            </div>
+            <h4 class="step-title">1. Create Event</h4>
+            <p class="step-description">Signup, become organizer and start adding events.</p>
+        </div>
+
+        <div class="col-md-4 step step-2" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1000">
+            <div class="step-icon">
+                <span class="step-circle icon-lightblue">
+                    <i class="fas fa-check fa-2x icon-color-lightblue"></i>
+                </span>
+            </div>
+            <h4 class="step-title">2. Publish Event</h4>
+            <p class="step-description">Enter complete info about your event and publish it.</p>
+        </div>
+
+        <div class="col-md-4 step step-3" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="2000">
+            <div class="step-icon">
+                <span class="step-circle icon-green">
+                    <i class="fas fa-dollar-sign fa-2x icon-color-green"></i>
+                </span>
+            </div>
+            <h4 class="step-title">3. Start Selling</h4>
+            <p class="step-description">Start selling your event tickets and earn profit.</p>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="container custom-container mt-4 mb-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+    <div class="text-center section-header">
+        <h4 class="section-subtitle">How it works</h4>
+        <h2 class="section-title">For Customers</h2>
+    </div>
+
+    <div class="row text-center align-items-start justify-content-center">
+        <div class="col-md-4 step step-1" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+            <div class="step-icon">
+                <span class="step-circle icon-blue">
+                    <i class="fas fa-calendar-alt fa-2x icon-color-blue"></i> 
+                </span>
+            </div>
+            <h4 class="step-title">1. Choose Event</h4>
+            <p class="step-description">Signup, choose your favorite event.</p>
+        </div>
+        <div class="col-md-4 step step-2" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1000">
+            <div class="step-icon">
+                <span class="step-circle icon-lightblue">
+                    <i class="fas fa-ticket-alt fa-2x icon-color-lightblue"></i>
+                </span>
+            </div>
+            <h4 class="step-title">2. Get Tickets</h4>
+            <p class="step-description">Get your tickets from the event page.</p>
+        </div>
+        <div class="col-md-4 step step-3" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="2000">
+            <div class="step-icon">
+                <span class="step-circle icon-green">
+                    <i class="fas fa-walking fa-2x icon-color-green"></i>
+                </span>
+            </div>
+            <h4 class="step-title">3. Attend Event</h4>
+            <p class="step-description">Go attend the event and have fun.</p>
+        </div>
+    </div>
 </div>

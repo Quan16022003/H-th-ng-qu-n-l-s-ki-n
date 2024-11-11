@@ -1,0 +1,785 @@
+﻿.logo-img {
+    height: 40px;
+    width: auto;
+    margin-right: 10px;
+}
+
+#navbar {
+    background-color: transparent;
+    transition: background-color 0.5s ease-in-out;
+}
+
+#navbar.scrolled {
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Đổi màu chữ của tất cả các liên kết trong navbar */
+.navbar .nav-link {
+    color: #00C9FF; /* Màu chữ mặc định, thay bằng mã màu mong muốn */
+}
+
+.navbar .nav-link:hover {
+    color: #ff6600; /* Màu khi hover, thay bằng mã màu mong muốn */
+}
+
+/* Đổi màu chữ cho nút "Browse Events" */
+.navbar .btn-primary {
+    color: #00C9FF; /* Màu chữ cho nút Browse Events */
+}
+
+/* Đổi màu cho tiêu đề hoặc logo nếu cần */
+.navbar .navbar-brand {
+    color: #00C9FF; /* Thay đổi màu chữ của tên thương hiệu */
+}
+
+
+.custom-container {
+    background-color: #fff;
+    border-radius: 50px;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-control {
+    height: 50px;
+    border: none;
+    box-shadow: none;
+}
+
+.search-btn {
+    height: 60px;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    padding: 0;
+    background-color: #007bff;
+    border: none;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.search-btn:hover {
+    background-color: #0056b3;
+}
+
+.search-btn i {
+    color: white;
+}
+
+.container.my-6 {
+    background: linear-gradient(to bottom, #00416A, #00C9FF);
+    color: white;
+    background-color: #000;
+    padding: 20px;
+    border-radius: 10px;
+}
+.container.my-6-1 {
+    background: linear-gradient(to bottom, #00416A, #00C9FF);
+    color: white;
+    background-color: #000;
+    padding: 20px;
+    border-radius: 10px;
+}
+.step-circle {
+    display: inline-flex;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.bg-blue {
+    background-color: #0047ab;
+}
+
+.bg-lightblue {
+    background-color: #00c9ff;
+}
+
+.bg-green {
+    background-color: #4CAF50;
+}
+
+h4 {
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.step-icon {
+    display: flex;
+    justify-content: center;
+}
+
+.footer {
+    background-color: #222;
+    color: #fff;
+}
+
+.footer h5 {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.footer a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.footer .list-inline-item {
+    margin: 0 10px;
+}
+
+.footer img {
+    max-width: 100px;
+    margin: 0 auto;
+}
+
+
+
+/* Giảm khoảng cách phía trên của container chứa Filters */
+.container.my-8 {
+    margin-top: 10px !important; 
+}
+
+
+
+h5 {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-outline-secondary {
+    font-weight: 500;
+    border-radius: 5px;
+}
+.filters-header {
+    margin-top: 100px; 
+}
+/* Style cho badge ngày */
+.card .badge {
+    font-size: 0.9rem;
+    padding: 0.5em 0.75em;
+    border-radius: 5px;
+}
+
+/* Căn chỉnh card */
+.card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Style cho phần tiêu đề và thông tin */
+.card-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.card-body {
+    text-align: center;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+.text-success {
+    color: #28a745 !important;
+}
+/* Event Header Styling */
+.event-header {
+    background-color: #f8f9fa;
+}
+
+.tags .badge {
+    margin-right: 5px;
+    font-size: 0.85rem;
+}
+
+/* Share Buttons */
+.share-buttons p {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+.share-buttons .btn-group .btn {
+    margin-right: 5px;
+    font-size: 0.85rem;
+}
+
+/* Ticket Section Styling */
+.card {
+    border: 1px solid #ced4da;
+}
+
+.nav-tabs .nav-link {
+    color: #007bff;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.time-slot {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #f8f9fa;
+}
+
+.dates .date {
+    background-color: #e9ecef;
+    color: #495057;
+    margin: 5px;
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    display: inline-block;
+}
+
+.date.ended {
+    color: #dc3545;
+    border: 1px solid #dc3545;
+}
+
+.filter-title {
+    border: 1px solid #007bff;
+    background-color: #f8f9fa;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+.form-control {
+    border: 1px solid #ccc; /* Tạo viền cho input và select */
+    padding: 5px; /* Tạo khoảng cách bên trong */
+    border-radius: 5px; /* Bo tròn góc */
+}
+/* Overview Section Styling */
+.overview-section {
+    background-color: #f8f9fa; /* Light gray background for contrast */
+    border: 1px solid #ced4da; /* Light border */
+    border-radius: 8px; /* Rounded corners */
+}
+
+.overview-section h4 {
+    font-weight: bold;
+}
+
+.overview-section p {
+    color: #333;
+    line-height: 1.6;
+}
+
+.overview-section ul {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding-left: 20px;
+}
+
+.overview-section ul li {
+    margin-bottom: 5px;
+}
+/* Event Info Section Styling */
+.event-info-section {
+    background-color: #f8f9fa; /* Light gray background */
+    border: 1px solid #ced4da; /* Light border */
+    border-radius: 8px; /* Rounded corners */
+}
+
+.event-info-section h4 {
+    font-weight: bold;
+}
+
+.event-info-section p {
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.event-info-section p em {
+    font-style: italic;
+}
+
+.event-info-section p strong {
+    font-weight: bold;
+}
+
+.event-info-section ol {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding-left: 20px;
+}
+
+.event-info-section ol li {
+    margin-bottom: 5px;
+}
+/* Gallery Section Styling */
+.gallery-section {
+    background-color: #f8f9fa; /* Light gray background */
+    border: 1px solid #ced4da; /* Light border */
+    border-radius: 8px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.gallery-img {
+    width: 100%;
+    height: 150px; /* Set fixed height */
+    object-fit: cover; /* Crop the image to fit the box */
+    border-radius: 5px;
+}
+
+/* Location Section Styling */
+.location-section {
+    background-color: #f8f9fa; /* Light gray background */
+    border: 1px solid #ced4da; /* Light border */
+    border-radius: 8px;
+}
+
+.map-container iframe {
+    border-radius: 5px;
+}
+
+/* Modal Styling */
+.image-modal {
+    display: none; /* Ẩn modal mặc định */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9); /* Màu nền đen mờ */
+}
+
+.image-modal .modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    border-radius: 8px;
+}
+
+.image-modal #caption {
+    margin: 20px auto;
+    text-align: center;
+    color: #ccc;
+    font-size: 18px;
+    padding: 10px;
+    width: 80%;
+}
+
+.image-modal .close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #ffffff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.image-modal .close:hover,
+.image-modal .close:focus {
+    color: #999;
+    text-decoration: none;
+    cursor: pointer;
+}
+.Event .view-all-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.Event .view-all-link:hover {
+    text-decoration: underline;
+}
+/* Styling for Blogs Section */
+.blogs-section {
+    background-color: #f4f6f8;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.blogs-section .d-flex h2 {
+    font-weight: bold;
+}
+
+.blogs-section .view-all-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.blogs-section .view-all-link:hover {
+    text-decoration: underline;
+}
+
+/* Blog Card Styling */
+.blogs-section .blog-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.blogs-section .blog-card:hover {
+    transform: translateY(-5px);
+}
+
+.blogs-section .blog-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.blogs-section .blog-content {
+    padding: 15px;
+}
+
+.blogs-section .blog-content h5 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.blogs-section .blog-content p {
+    font-size: 0.95rem;
+    color: #6c757d;
+    margin-bottom: 0;
+}
+/* Container */
+.custom-container {
+    padding: 3rem 1rem;
+}
+
+/* Section Header */
+.section-header {
+    margin-bottom: 2rem;
+}
+
+.section-subtitle {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 0.2rem;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Step Icons */
+.step-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 1rem;
+}
+
+.step-circle {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+}
+
+/* Step Colors */
+.icon-blue {
+    border: 2px solid #007bff;
+}
+
+.icon-lightblue {
+    border: 2px solid #17a2b8;
+}
+
+.icon-green {
+    border: 2px solid #28a745;
+}
+
+.icon-color-blue {
+    color: #007bff;
+}
+
+.icon-color-lightblue {
+    color: #17a2b8;
+}
+
+.icon-color-green {
+    color: #28a745;
+}
+
+/* Step Titles and Descriptions */
+.step-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+    margin-top: 1rem;
+}
+
+.step-description {
+    font-size: 1rem;
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+.section-title {
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.view-all {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.event-card {
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.event-card:hover {
+    transform: scale(1.05);
+}
+
+.event-image {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    height: 180px;
+}
+
+.event-date {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #007bff;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 0.875rem;
+    border-radius: 5px;
+}
+
+.event-content {
+    padding: 15px;
+}
+
+.event-tag {
+    display: inline-block;
+    padding: 3px 8px;
+    background-color: #f1f1f1;
+    color: #666;
+    font-size: 0.75rem;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+.event-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.event-category {
+    font-size: 0.875rem;
+    color: #666;
+}
+
+.event-location {
+    font-size: 0.875rem;
+    color: #666;
+    display: flex;
+    align-items: center;
+}
+
+.event-location i {
+    margin-right: 5px;
+    color: #007bff;
+}
+
+.event-price {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+}
+.event-image {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    width: 100%; 
+    height: 200px; 
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.hero-section {
+    height: 80vh;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.5);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    text-align: center;
+    padding: 20px; 
+}
+
+.search-bar {
+    position: relative;
+    bottom: 2rem;
+    margin: 0 auto;
+    max-width: 800px;
+    z-index: 3;
+}
+
+.search-button {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+}
+.card-body {
+    text-align: left;
+    padding: 15px;
+}
+
+.event-card .event-image {
+    width: 100%;
+    border-radius: 8px 8px 0 0;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.event-date {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #007bff;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+}
+
+.badge {
+    font-size: 0.8rem;
+    margin-right: 5px;
+    background-color: #6c757d;
+    color: #fff;
+}
+.card {
+    overflow: hidden;
+    border: none;
+}
+
+.card-img {
+    transition: transform 0.3s ease;
+}
+
+.card:hover .card-img {
+    transform: translateY(-10px); 
+}
+
+.card-title {
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.card:hover .card-title {
+    transform: translateY(-5px); 
+    color: #f8d64e; 
+}
+
+
+/*Map css*/
+
+.stadium-container {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.stadium-background img {
+    width: 100%;
+    filter: blur(8px); /* Làm mờ ảnh nền */
+    transform: scale(1.1); /* Phóng to nền để đảm bảo hiệu ứng mờ phù hợp */
+    opacity: 0.7; /* Điều chỉnh độ trong suốt nếu muốn */
+}
+
+.stadium-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.stadium-foreground {
+    position: relative;
+    z-index: 2;
+    text-align: center; /* Căn giữa nội dung */
+}
+
+.stadium-foreground img {
+    width: 100%;
+    max-width: 100%;
+}

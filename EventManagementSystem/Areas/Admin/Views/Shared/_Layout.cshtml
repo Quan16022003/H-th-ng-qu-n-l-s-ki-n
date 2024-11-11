@@ -1,49 +1,244 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+<!--ADMIN LAYOUT-->
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Admin</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" />
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - Admin</title>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="Admin" asp-controller="Home" asp-action="Index">Admin</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Owners" asp-action="Index">Owners</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+	<!--Header-->
+	<!--TODO: ADD HEADER-->
+	<!--End Header-->
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - WebApplication1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+	<section class="side-menu open position-fixed overflow-hidden d-flex flex-column">
+		<a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="dashboard-shortcut d-flex align-items-center bg-primary text-decoration-none">
+			<div style="width: 30px; height: 30px; margin-left: 17px">
+				<img style="object-fit: contain" class="w-100 h-100" src="https://eventmie.classiebit.com/storage/settings/February2024/kLnsc9P2UQfpHIrkzQC4.png" />
+			</div>
+			<span style="height: fit-content; width: fit-content" class="text-light">Eventmie 3.0</span>
+		</a>
+		<div class="admin-information d-flex align-items-center overflow-hidden">
+			<div style="width: 44px; height: 44px; margin-left: 9px">
+				<img class="w-100 h-100" src="https://www.svgrepo.com/show/420329/anime-away-face.svg" />
+			</div>
+			<!--admin model-->
+			<span style="height: fit-content; width: fit-content; font-size: 20px">Admin</span>
+		</div>
+		<div class="admin-menu-list-item w-100 h-100 overflow-y-auto">
+			<ul class="w-100 list-unstyled">
+				<li class="admin-menu-item @ViewBag.Dashboard">
+					<a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="text-reset text-decoration-none w-100 h-100">
+						<div class="h-100 d-flex justify-content-center menu-icon">
+							<i class="fa-solid fa-ship"></i>
+						</div>
+						<span>Dashboard</span>
+					</a>
+				</li>
+				<li class="admin-menu-item @ViewBag.ManageEvents">
+					<a class="text-reset text-decoration-none w-100 h-100 icon group">
+						<div class="h-100 d-flex justify-content-center menu-icon">
+							<i class="fa-solid fa-store"></i>
+						</div>
+						<span>Manage Events</span>
+					</a>
+					<div>
+						<ul class="item-child collapse list-unstyled">
+							<li class="admin-menu-item @ViewBag.Event">
+								<a asp-area="Admin" asp-controller="Event" asp-action="Index" class="text-reset text-decoration-none w-100 h-100">
+									<div class="h-100 d-flex justify-content-center menu-icon ms-4">
+										<i class="fa-solid fa-calendar-days"></i>
+									</div>
+									<span>Events</span>
+								</a>
+							</li>
+							<li class="admin-menu-item @ViewBag.Cagetory">
+								<a asp-area="Admin" asp-controller="Cagetory" asp-action="Index" class="text-reset text-decoration-none w-100 h-100">
+									<div class="h-100 d-flex justify-content-center menu-icon ms-4">
+										<i class="fa-solid fa-table-list"></i>
+									</div>
+									<span>Cagetories</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li class="admin-menu-item @ViewBag.ManageBookings">
+					<a class="text-reset text-decoration-none w-100 h-100 group">
+						<div class="h-100 d-flex justify-content-center menu-icon">
+							<i class="fa-solid fa-bag-shopping"></i>
+						</div>
+						<span>Manage Bookings</span>
+					</a>
+					<div>
+						<ul class="item-child collapse list-unstyled">
+							<li class="admin-menu-item @ViewBag.Booking">
+								<a asp-area="Admin" asp-controller="Booking" asp-action="Index" class="text-reset text-decoration-none w-100 h-100">
+									<div class="h-100 d-flex justify-content-center menu-icon ms-4">
+										<i class="fa-solid fa-money-bill"></i>
+									</div>
+									<span>Bookings</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li class="admin-menu-item @ViewBag.ManageUsers">
+					<a class="text-reset text-decoration-none w-100 h-100 group">
+						<div class="h-100 d-flex justify-content-center menu-icon">
+							<i class="fa-solid fa-users"></i>
+						</div>
+						<span>Manage Users</span>
+					</a>
+					<div>
+						<ul class="item-child collapse list-unstyled">
+							<li class="admin-menu-item @ViewBag.User">
+								<a asp-area="Admin" asp-controller="User" asp-action="Index" class="text-reset text-decoration-none w-100 h-100">
+									<div class="h-100 d-flex justify-content-center menu-icon ms-4">
+										<i class="fa-solid fa-user"></i>
+									</div>
+									<span>Users</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li class="admin-menu-item @ViewBag.ManageSite">
+					<a class="text-reset text-decoration-none w-100 h-100 icon group">
+						<div class="h-100 d-flex justify-content-center menu-icon">
+							<i class="fa-solid fa-gamepad"></i>
+						</div>
+						<span>Manage Site</span>
+					</a>
+					<div>
+						<ul class="item-child collapse list-unstyled">
+							<li class="admin-menu-item @ViewBag.Banner">
+								<a asp-area="Admin" asp-controller="Banner" asp-action="Index" class="text-reset text-decoration-none w-100 h-100">
+									<div class="h-100 d-flex justify-content-center menu-icon ms-4">
+										<i class="fa-solid fa-image"></i>
+									</div>
+									<span>Banners</span>
+								</a>
+							</li>
+							<li class="admin-menu-item @ViewBag.Page">
+								<a asp-area="Admin" asp-controller="Page" asp-action="Index" class="text-reset text-decoration-none w-100 h-100">
+									<div class="h-100 d-flex justify-content-center menu-icon ms-4">
+										<i class="fa-regular fa-file-lines"></i>
+									</div>
+									<span>Pages</span>
+								</a>
+							</li>
+							<li class="admin-menu-item @ViewBag.Media">
+								<a asp-area="Admin" asp-controller="Media" asp-action="Index" class="text-reset text-decoration-none w-100 h-100">
+									<div class="h-100 d-flex justify-content-center menu-icon ms-4">
+										<i class="fa-solid fa-music"></i>
+									</div>
+									<span>Media</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li class="admin-menu-item @ViewBag.Contact">
+					<a asp-area="Admin" asp-controller="Contact" asp-action="Index" class="text-reset text-decoration-none w-100 h-100">
+						<div class="h-100 d-flex justify-content-center menu-icon">
+							<i class="fa-solid fa-envelope"></i>
+						</div>
+						<span>Contacts</span>
+					</a>
+				</li>
+				<li class="admin-menu-item @ViewBag.Setting">
+					<a asp-area="Admin" asp-controller="Setting" asp-action="Index" class="text-reset text-decoration-none w-100 h-100">
+						<div class="h-100 d-flex justify-content-center menu-icon">
+							<i class="fa-solid fa-gear"></i>
+						</div>
+						<span>Setting</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</section>
+
+	<div class="container body-container w-100 d-flex">
+		<div class="box open"></div>
+		<main role="main" class="admin-main d-flex flex-column flex-grow-1">
+			<div class="w-100 d-flex" style="height: 7.5%; background-color: #FCFCFC">
+				<button class="side-menu-button">
+					<i class="fa-solid fa-arrow-left"></i>
+					<i class="fa-solid fa-bars hide-icon"></i>
+				</button>
+				<div class="flex-grow-1 d-flex align-items-center">
+					<div class="navigate-container d-flex align-items-center rounded-pill bg-light p-2 shadow">
+						<a asp-area='Admin' asp-controller='Dashboard' asp-action='Index' class='admin-base text-decoration-none'>Dashboard</a>
+						@if (ViewBag.Current != null)
+						{
+							<i class="fa-solid fa-chevron-right"></i>
+							<span>@ViewBag.Current</span>
+						}
+					</div>
+				</div>
+				<!--model-->
+				<!--TODO: ADD DROPDOWN-->
+				<div class="profile-dropdown d-flex align-items-center dropdown">
+					<button class="dropdown-button d-flex align-items-center dropdown-toggle bg-transparent border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+						<div class="prevent-select" style="width: 44px; height: 44px; margin-left: 9px">
+							<img class="w-100 h-100" src="https://www.svgrepo.com/show/420329/anime-away-face.svg" />
+						</div>
+					</button>
+					<ul class="dropdown-menu" style="width: 230px; white-space: normal">
+						<li>
+							<div class="w-100 container">
+								<div class="row">
+									<div class="col-4">
+										<div class="prevent-select" style="width: 70px; height: 70px">
+											<img class="w-100 h-100" src="https://www.svgrepo.com/show/420329/anime-away-face.svg" />
+										</div>
+									</div>
+									<div class="col-8 d-flex flex-column justify-content-center">
+										<!--Model-->
+										<span class="w-100 profile-text" style="font-size: 15px">Admin</span>
+										<span class="w-100 profile-text">admin@gmail.com</span>
+									</div>
+								</div>
+								<hr />
+							</div>
+						</li>
+						<li>
+							<a asp-area="Profile"
+							   asp-controller="Profile"
+							   asp-action="Index"
+							   class="user-profile-link dropdown-item d-flex align-items-center">
+								<i class="fa-solid fa-user" style="font-size: 12px; transform: translateY(-1px)"></i>
+								<span>Profile</span>
+							</a>
+						</li>
+						<li>
+							<a asp-area=""
+							   asp-controller="Home"
+							   asp-action="Index"
+							   class="user-profile-link dropdown-item d-flex align-items-center">
+								<i class="fa-solid fa-house" style="font-size: 12px; transform: translateY(-1px)"></i>
+								<span>Visit Website</span>
+							</a>
+						</li>
+						<li>
+							<!--TODO: Navigate to sign in page, log out current user-->
+							<div class="d-flex justify-content-center align-items-center w-100" style="height: 100px">
+								<button type="button" class="log-out-button w-75 btn btn-danger rounded-pill">
+									<i class="fa-solid fa-arrow-right-from-bracket" style="font-size: 12px; transform: translateY(-1px)"></i>
+									<span>Log Out</span>
+								</button>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			@RenderBody()
+		</main>
+	</div>
+
+	<script src="~/dist/bundle.js" asp-append-version="true"></script>
+	<script asp-append-version="true" src="~/js/admin.js"></script>
+	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
