@@ -55,7 +55,7 @@
 					<thead>
 						<tr>
 							<th class="text-center" style="min-width: 50px; max-width: 50px" scope="col">Id</th>
-							<th class="text-center" style="min-width: 150px; max-width: 200px" scope="col">Title</th>
+							<th class="text-center" style="min-width: 150px; max-width: 150px" scope="col">Title</th>
 							<th class="text-center" scope="col">Cagetory</th>
 							<th class="text-center" scope="col">Organiser</th>
 							<th class="text-center" scope="col">Start Date</th>
@@ -64,7 +64,7 @@
 							<th class="text-center" scope="col">Modified Date</th>
 							<th class="text-center" scope="col">Public</th>
 							<th class="text-center" scope="col">Is Deleted</th>
-							<th style="min-width: 200px; max-width: 250px" class="text-end" scope="col">Actions</th>
+							<th style="min-width: 200px; max-width: 200px" class="text-end" scope="col">Actions</th>
 						</tr>
 					</thead>
 					<!--Model-->
@@ -82,43 +82,32 @@
 								<td>@item.ModifiedDate</td>
 								<td>@item.IsPublic</td>
 								<td>@item.IsDeleted</td>
+								<td>
+									<div class="d-flex flex-wrap justify-content-end" style="gap: 10px">
+										<button class="btn btn-warning admin-action-button">
+											<i class="fa-solid fa-eye"></i>
+											View
+										</button>
+										<button class="btn btn-primary admin-action-button">
+											<i class="fa-solid fa-pen-to-square"></i>
+											Edit
+										</button>
+										<button class="btn btn-danger admin-action-button">
+											<i class="fa-solid fa-trash"></i>
+											Delete
+										</button>
+									</div>
+								</td>
 							</tr>
 						}
 					</tbody>
 				</table>
 			</div>
-			<div class="w-100 d-flex justify-content-center mt-2">
-				<div class="admin-table-entries-information w-50">
-					<span class="ms-3">Show blah to bruh of @Model.Count() entries</span>
-				</div>
-				<div class="w-50 d-flex justify-content-end">
-					<div class="admin-table-pagination me-3">
-						<ul class="pagination">
-							<li class="page-item">
-								<a class="page-link" href="#" aria-label="Previous">
-									<i class="fa-solid fa-caret-left"></i>
-								</a>
-							</li>
-							<li class="page-item active">
-								<a class="page-link" href="#" aria-label="page-one">
-									<span>1</span>
-								</a>
-							</li>
-							<li class="page-item">
-								<a class="page-link" href="#" aria-label="page-two">
-									<span>2</span>
-								</a>
-							</li>
-							<li class="page-item">
-								<a class="page-link" href="#" aria-label="Next">
-									<i class="fa-solid fa-caret-right"></i>
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
 		</div>
 	</section>
 </div>
+
+@section Scripts {
+	<script asp-append-version="true" src="~/js/admin/admin-event.js"></script>
+}
 

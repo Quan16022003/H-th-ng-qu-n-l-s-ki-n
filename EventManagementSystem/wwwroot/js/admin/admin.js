@@ -49,6 +49,10 @@ sideMenuButton.addEventListener("click", () => {
     changeSideMenuButtonIcon(sideMenuButton);
 });
 
+// trigger when first load
+onSideMenuButtonClick(true);
+changeSideMenuButtonIcon(sideMenuButton);
+
 //#endregion
 
 //#region profile button click
@@ -100,6 +104,10 @@ function closeGroup(container, aTag) {
     }
 }
 
+/**
+ * 
+ * @param {boolean} isClick is click or is hover
+ */
 function onSideMenuButtonClick(isClick) {
     let sideMenu = document.getElementsByClassName("side-menu")[0];
     let box = document.getElementsByClassName("admin-box")[0];

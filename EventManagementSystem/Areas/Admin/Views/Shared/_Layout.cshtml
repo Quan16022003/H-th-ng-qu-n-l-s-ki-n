@@ -14,7 +14,9 @@
 			string capitalizeFirst = page[0].ToString().ToUpper() + page.Substring(1);
 			isCurrent = page.ToLower().Contains(current);
 
-			result += $"<a class='{(isCurrent ? "text-reset" : "")} text-decoration-none' href='{baseUrl}/{page}'><span>{capitalizeFirst}</span></a>";
+			string[] nameAction = capitalizeFirst.Split('?');
+
+			result += $"<a class='{(isCurrent ? "text-reset" : "")} text-decoration-none' href='{baseUrl}/{page}'><span>{nameAction[0]}</span></a>";
 		}
 
 		return result;
@@ -103,12 +105,12 @@
 									<span>Events</span>
 								</a>
 							</li>
-							<li class="admin-menu-item @ViewBag.Cagetory">
-								<a asp-area="Admin" asp-controller="Cagetory" asp-action="Index" class="text-reset text-decoration-none w-100 h-100">
+							<li class="admin-menu-item @ViewBag.Category">
+								<a asp-area="Admin" asp-controller="Category" asp-action="Index" class="text-reset text-decoration-none w-100 h-100">
 									<div class="h-100 d-flex justify-content-center menu-icon ms-4">
 										<i class="fa-solid fa-table-list"></i>
 									</div>
-									<span>Cagetories</span>
+									<span>Categories</span>
 								</a>
 							</li>
 						</ul>

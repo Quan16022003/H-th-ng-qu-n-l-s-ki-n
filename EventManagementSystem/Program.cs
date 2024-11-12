@@ -71,8 +71,10 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
 builder.Services.AddScoped<IEventRepository, EventRepository>();
+builder.Services.AddScoped<ICategoryEventRepository, CategoryEventRepository>();
 
 builder.Services.AddScoped<EventService>();
+builder.Services.AddScoped<CategoryEventService>();
 
 #region add path provider service for views in front end
 

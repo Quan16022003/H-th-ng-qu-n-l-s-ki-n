@@ -16,7 +16,7 @@ namespace Web.Utils.ViewsPathServices.Implementations
                 ContactController => "~/Areas/Admin/Views/Contact",
                 SettingController => "~/Areas/Admin/Views/Setting",
                 BookingController => "~/Areas/Admin/Views/ManageBookings",
-                CagetoryController or EventController => "~/Areas/Admin/Views/ManageEvents",
+                CategoryController or EventController => "~/Areas/Admin/Views/ManageEvents",
                 BannerController or MediaController or PageController => "~/Areas/Admin/Views/ManageSite",
                 UserController => "~/Areas/Admin/Views/ManageUsers",
                 _ => throw new ArgumentException($"Does not found {target.GetType().Name} in Admin Area")

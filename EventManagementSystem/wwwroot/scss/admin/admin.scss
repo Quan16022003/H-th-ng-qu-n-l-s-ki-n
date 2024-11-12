@@ -301,7 +301,7 @@ $admin-action-add-bg: #2ECC71;
     th {
         background-color: $table-background;
         color: midnightblue;
-        font-size: 13px;
+        font-size: 13px !important;
     }
 }
 

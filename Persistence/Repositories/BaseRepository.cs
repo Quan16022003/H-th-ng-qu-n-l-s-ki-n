@@ -92,10 +92,7 @@ namespace Persistence.Repositories
         /// <returns>A collection of all entities</returns>
         public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
-            return await _dbSet
-                .ExcuteAllInclude(References)
-                .AsSingleQuery()
-                .ToListAsync();
+            return await _dbSet.ExcuteAllInclude(References).ToListAsync();
         }
 
         /// <summary>
@@ -106,8 +103,6 @@ namespace Persistence.Repositories
         public virtual async Task<T> GetByIdAsync(int id)
         {
             var result = await _dbSet
-                .ExcuteAllInclude(References)
-                .AsSingleQuery()
                 .SingleOrDefaultAsync(e => e.Id == id);
 
             return result!;
@@ -156,10 +151,7 @@ namespace Persistence.Repositories
                 query = query.Take(top.Value);
             }
 
-            return await query
-                .ExcuteAllInclude(References)
-                .AsSingleQuery()
-                .ToListAsync();
+            return await query.ToListAsync();
         }
 
         #endregion
