@@ -19,12 +19,12 @@ namespace Domain.Entities
         public DateTime? ArrivalTime { get; set; }
         
         public string UserId { get; set; }
-        public ApplicationUser User { get; set; }
+        public ApplicationUser? User { get; set; }
         public int OrderId { get; set; }
-        public Orders Order { get; set; }
+        public Orders? Order { get; set; }
         public int TicketId { get; set; }
-        public Tickets Ticket { get; set; }
+        public Tickets? Ticket { get; set; }
         public int EventId { get; set; }
-        public Events Event { get; set; }
+        public Events? Event { get; set; }
     }
 }

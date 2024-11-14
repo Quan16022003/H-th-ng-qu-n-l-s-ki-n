@@ -10,8 +10,8 @@ namespace Domain.Entities
     public class OrderTicket : BaseEntity
     {
         public int OrderId { get; set; }
-        public Orders Order { get; set; }
+        public Orders? Order { get; set; }
         public int TicketId { get; set; }
-        public Tickets Ticket { get; set; }
+        public Tickets? Ticket { get; set; }
     }
 }

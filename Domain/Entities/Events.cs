@@ -12,11 +12,11 @@ namespace Domain.Entities
     {
         public string Slug { get; set; }
         public string OrganizerId { get; set; }
-        public ApplicationUser Organizer { get; set; }
+        public ApplicationUser? Organizer { get; set; }
 
         #region Detail
         public int CategoryId { get; set; }
-        public CategoryEvents CategoryEvent { get; set; }
+        public CategoryEvents? CategoryEvent { get; set; }
         public required string Title { get; set; }
         public required string Description { get; set; }
         public bool IsPublic { get; set; } = false;
