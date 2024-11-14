@@ -10,6 +10,6 @@ namespace Domain.Entities
         public string ThumbnailUrl { get; set; }
         public bool Status { get; set; } = true;
 
-        public IEnumerable<Events> Events { get; set; }
+        public IEnumerable<Events>? Events { get; set; }
     }
 }
