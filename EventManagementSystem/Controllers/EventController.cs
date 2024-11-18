@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Web.Areas.Event.Controllers.Event
+namespace Web.Controllers
 {
-    [Area("Event")]
     public class EventController : Controller
     {
-        [HttpGet]
+        // GET
         public IActionResult AllEvent()
         {
             return View();

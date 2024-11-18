@@ -16,7 +16,7 @@ namespace Web.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            return View($"{_pathProvider.GetViewsPath(this)}/DashboardIndex.cshtml");
+            return View("DashboardIndex");
         }
     }
 }

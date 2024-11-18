@@ -1,11 +1,7 @@
-﻿using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.AspNetCore.Mvc;
-using Web.Utils;
-using Web.Utils.ViewsPathServices;
+﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Web.Areas.Profile.Controllers
+namespace Web.Controllers
 {
-    [Area("Profile")]
     public class ProfileController : Controller
     {
         public IActionResult Information()

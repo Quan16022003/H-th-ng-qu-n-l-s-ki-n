@@ -79,7 +79,6 @@ builder.Services.AddScoped<EventService>();
 // key: area name, value: service match
 builder.Services.AddKeyedTransient<IPathProvider, AdminPathProvider>("Admin");
 builder.Services.AddKeyedTransient<IPathProvider, ProfilePathProvider>("Profile");
-builder.Services.AddKeyedTransient<IPathProvider, AccountPathProvider>("Account");
 
 #endregion
 
@@ -109,21 +108,6 @@ app.MapAreaControllerRoute(
     name: "Admin",
     areaName: "Admin",
     pattern: "Admin/{controller}/{action=Index}/{id?}");
-
-app.MapAreaControllerRoute(
-    name: "Profile",
-    areaName: "Profile",
-    pattern: "Profile/{controller}/{action}/{id?}");
-
-app.MapAreaControllerRoute(
-    name: "Account",
-    areaName: "Account",
-    pattern: "Account/{controller}/{action}/{id?}");
-
-app.MapAreaControllerRoute(
-    name: "Event",
-    areaName: "Event",
-    pattern: "Event/{controller}/{action}/{id?}");
 
 app.MapControllerRoute(
     name: "default",

@@ -1,4 +1,4 @@
-﻿using Web.Areas.Profile.Controllers;
+﻿using Web.Controllers;
 
 namespace Web.Utils.ViewsPathServices.Implementations
 {

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-[Area("Account")]
+namespace Web.Controllers;
+
 public class AccountController : Controller
 {
     [HttpGet]
@@ -16,5 +17,10 @@ public class AccountController : Controller
         // Nếu thành công, chuyển hướng đến trang chính hoặc trang khác
         return RedirectToAction("Index", "Home");
     }
+    
+    [HttpGet]
+    public IActionResult Register()
+    {
+        return View();
+    }
 }
-
