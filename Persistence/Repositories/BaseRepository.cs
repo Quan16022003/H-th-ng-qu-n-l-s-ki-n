@@ -145,6 +145,40 @@ namespace Persistence.Repositories
             return await query.ToListAsync();
         }
 
+        /// <summary>
+        /// Thực hiện xóa mềm một entity.
+        /// </summary>
+        /// <param name="entity">Entity cần xóa mềm</param>
+        public async Task SoftDeleteAsync(T entity)
+        {
+            var property = entity.GetType().GetProperty("IsDeleted");
+            if (property != null)
+            {
+                property.SetValue(entity, true);
+                _dbSet.Update(entity);
+            }
+            await Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// Thực hiện xóa mềm nhiều entities dựa trên điều kiện.
+        /// </summary>
+        /// <param name="filter">Điều kiện để chọn các entities cần xóa mềm</param>
+        public async Task SoftDeleteManyAsync(Expression<Func<T, bool>> filter)
+        {
+            var entities = await _dbSet.Where(filter).ToListAsync();
+            
+            foreach (var entity in entities)
+            {
+                var property = entity.GetType().GetProperty("IsDeleted");
+                if (property != null)
+                {
+                    property.SetValue(entity, true);
+                    _dbSet.Update(entity);
+                }
+            }
+        }
+
         #endregion
     }
 }
