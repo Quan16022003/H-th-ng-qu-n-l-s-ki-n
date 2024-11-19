@@ -11,6 +11,8 @@ using FluentValidation;
 using Domain.Entities;
 using Web.Utils.ViewsPathServices;
 using Web.Utils.ViewsPathServices.Implementations;
+using Microsoft.AspNetCore.Mvc;
+using Web.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +46,8 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.User.RequireUniqueEmail = false;
 });
 
+builder.Services.AddMvc(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
+
 builder.Services.ConfigureApplicationCookie(options =>
 {
     // Cookie settings
@@ -71,19 +75,16 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
 builder.Services.AddScoped<IEventRepository, EventRepository>();
-builder.Services.AddScoped<ICategoryEventRepository, CategoryEventRepository>();
 
 builder.Services.AddScoped<EventService>();
-builder.Services.AddScoped<CategoryEventService>();
 
 #region add path provider service for views in front end
 
-// key: area name, value: service match
-builder.Services.AddKeyedTransient<IPathProvider, AdminPathProvider>("Admin");
-builder.Services.AddKeyedTransient<IPathProvider, ProfilePathProvider>("Profile");
-builder.Services.AddKeyedTransient<IPathProvider, AccountPathProvider>("Account");
+builder.Services.RegisterPathProvideManager();
 
 #endregion
+
+builder.Services.RegisterSlugifyTransformer();
 
 var app = builder.Build();
 
@@ -105,34 +106,7 @@ app.UseAuthorization();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
-#region Area Route
-
-app.MapAreaControllerRoute(
-    name: "Admin",
-    areaName: "Admin",
-    pattern: "Admin/{controller}/{action}/{id?}");
-
-app.MapAreaControllerRoute(
-    name: "Profile",
-    areaName: "Profile",
-    pattern: "Profile/{controller}/{action}/{id?}");
-
-app.MapAreaControllerRoute(
-    name: "Account",
-    areaName: "Account",
-    pattern: "Account/{controller}/{action}/{id?}");
-
-app.MapAreaControllerRoute(
-    name: "Event",
-    areaName: "Event",
-    pattern: "Event/{controller}/{action}/{id?}");
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-#endregion
-
+app.RegisterAllRoutes();
 app.MapRazorPages();
 
 app.Run();

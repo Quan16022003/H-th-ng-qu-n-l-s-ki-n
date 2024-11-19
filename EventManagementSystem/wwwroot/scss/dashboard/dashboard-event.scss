@@ -1,0 +1,58 @@
+﻿$content-width: 85%;
+
+.dashboard-event-table {
+    width: 98%;
+
+    tbody {
+        font-size: 13px !important;
+        text-align: center;
+    }
+}
+
+.dashboard-event-divider {
+    > hr {
+        width: $content-width
+    }
+}
+
+.dashboard-event-img {
+    max-height: 720px;
+    min-height: 720px;
+    position: relative;
+    background-image: url("../../images/events/hanhitoichoem.png");
+    background-size: contain;
+    background-position: center;
+
+    img {
+        object-fit: fill;
+        object-position: center;
+        width: $content-width;
+        aspect-ratio: 16/9;
+        max-height: inherit;
+        border-radius: 10px;
+        z-index: 10;
+    }
+}
+
+.dashboard-event-img::before {
+    content: "";
+    background-image: inherit;
+    background-size: inherit;
+    background-position: inherit;
+    position: absolute;
+    z-index: 1;
+    top: 0px;
+    left: 0px;
+    filter: blur(30px);
+    width: 100%;
+    height: 97%;
+}
+
+.dashboard-event-content {
+    width: $content-width;
+    min-height: 600px;
+    border: 1px solid #555;
+    border-radius: 10px;
+    padding: 10px;
+    //margin-top: 50px;
+}

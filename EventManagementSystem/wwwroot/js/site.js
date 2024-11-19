@@ -8,13 +8,12 @@ import '../scss/profile/profile.scss'
 
 //#endregion
 
-//#region Admin SCSS
+//#region Dashboard SCSS
 
-import '../scss/admin/dashboard.scss'
-import '../scss/admin/admin.scss'
-import '../scss/admin/admin-event.scss'
-import '../scss/admin/admin-cagetory.scss'
-import '../scss/admin/admin-user.scss'
+import '../scss/dashboard/dashboard.scss'
+import '../scss/dashboard/dashboard-event.scss'
+import '../scss/dashboard/dashboard-category.scss'
+import '../scss/dashboard/dashboard-user.scss'
 
 //#endregion
 
@@ -29,5 +28,9 @@ import "datatables.net-plugins/sorting/date-eu"
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import '@fortawesome/fontawesome-free/js/all'
 import '@fortawesome/fontawesome-free/css/all.css'
+import toastr from 'toastr';
+import 'toastr/build/toastr.min.css';
 
 //#endregion
+
+window.toastr = toastr;

@@ -1,5 +1,7 @@
 @import "bootstrap/scss/bootstrap";
 
+$light-green-custom: #2ECC71;
+
 .icon::before,
 .icon::after {
     display: inline-block;
@@ -32,7 +34,7 @@ html, body {
 }
 
 body{
-    height: 100vh;
+    //height: 100vh;
     min-height: 100vh !important;
 }
 
@@ -88,6 +90,35 @@ body{
     border-bottom-left-radius: 0 !important;
     border-top-right-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
+}
+
+.label {
+    background-color: dodgerblue;
+    border-radius: 5px;
+    color: white;
+
+    > * {
+        padding: 2px 8px !important;
+    }
+
+    div, p {
+        color: white;
+        font-weight: bold;
+    }
+}
+
+.datatables-previous-icon:before {
+    content: '\f0d9';
+    font: var(--fa-font-solid);
+}
+
+.datatables-next-icon:before {
+    content: '\f0da';
+    font: var(--fa-font-solid);
+}
+
+.bg-light-green {
+    background-color: $light-green-custom !important;
 }
 
 /* #endregion */

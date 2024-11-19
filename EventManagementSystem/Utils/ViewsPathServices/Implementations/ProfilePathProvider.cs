@@ -4,12 +4,13 @@ namespace Web.Utils.ViewsPathServices.Implementations
 {
     public class ProfilePathProvider : IPathProvider
     {
-        public string GetViewsPath(object target)
+        public string GetViewsPath(Type type)
         {
+            string target = type.Name;
             return target switch
             {
-                ProfileController => "~/Areas/Profile/Views/Profile",
-                _ => throw new ArgumentException($"Does not found {target.GetType().Name} in Profile Area")
+                nameof(ProfileController) => "~/Areas/Profile/Views/Profile",
+                _ => throw new ArgumentException($"Does not found {target} in Profile Area")
             };
         }
     }

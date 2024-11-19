@@ -25,7 +25,8 @@
     "imports-loader": "^5.0.0",
     "jquery": "^3.7.1",
     "jquery-validation": "^1.21.0",
-    "jquery-validation-unobtrusive": "^4.0.0"
+    "jquery-validation-unobtrusive": "^4.0.0",
+    "toastr": "^2.1.4"
   },
   "dev-server": "webpack-dev-server --env=development --hot",
   "scripts": {

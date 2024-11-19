@@ -10,16 +10,16 @@
 
   <ItemGroup>
     <Compile Remove="Areas\AdminEvents\**" />
-    <Compile Remove="Areas\Admin\Validators\**" />
+    <Compile Remove="Areas\Dashboard\Validators\**" />
     <Compile Remove="Validators\**" />
     <Content Remove="Areas\AdminEvents\**" />
-    <Content Remove="Areas\Admin\Validators\**" />
+    <Content Remove="Areas\Dashboard\Validators\**" />
     <Content Remove="Validators\**" />
     <EmbeddedResource Remove="Areas\AdminEvents\**" />
-    <EmbeddedResource Remove="Areas\Admin\Validators\**" />
+    <EmbeddedResource Remove="Areas\Dashboard\Validators\**" />
     <EmbeddedResource Remove="Validators\**" />
     <None Remove="Areas\AdminEvents\**" />
-    <None Remove="Areas\Admin\Validators\**" />
+    <None Remove="Areas\Dashboard\Validators\**" />
     <None Remove="Validators\**" />
   </ItemGroup>
 
@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\js\admin\admin.js" />
+    <None Include="wwwroot\js\dashboard\dashboard.js" />
     <None Include="wwwroot\js\profile\profile.js" />
     <None Include="wwwroot\scss\profile\profile.scss" />
   </ItemGroup>
@@ -75,16 +75,15 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <Content Update="wwwroot\js\dashboard\dashboard-user.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Account\Views\Shared\" />
-    <Folder Include="Areas\Event\Views\Shared\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Areas\Admin\Views\ManageSite\Banner\Banners.cshtml" />
-    <_ContentIncludedByDefault Remove="Areas\Admin\Views\ManageUsers\User\DanhSach.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Dashboard\Views\ManageSite\Banner\Banners.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Dashboard\Views\ManageUsers\User\DanhSach.cshtml" />
   </ItemGroup>
 
 </Project>

@@ -28,19 +28,19 @@ namespace Services
         public async Task AddEventAsync(Events events)
         {
             await _eventRepository.AddAsync(events);
-            _unitOfWork.CompleteAsync();
+            await _unitOfWork.CompleteAsync();
         }
 
         public async Task UpdateEventAsync(Events events)
         {
             await _eventRepository.UpdateAsync(events);
-            _unitOfWork.CompleteAsync();
+            await _unitOfWork.CompleteAsync();
         }
 
         public async Task DeleteEventAsync(Events events)
         {
             await _eventRepository.DeleteAsync(events);
-            _unitOfWork.CompleteAsync();
+            await _unitOfWork.CompleteAsync();
         }
     }
 }
