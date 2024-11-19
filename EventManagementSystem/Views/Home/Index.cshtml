@@ -2,11 +2,16 @@
     ViewData["Title"] = "Home";
 }
 <div class="hero-section position-relative text-center text-white">
-    <div class="hero-background" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLig1H5cfDbpeQEeeMn1zGuHLRJZ87Y-GT2w&s');"></div>
-    <div class="hero-content d-flex flex-column justify-content-center align-items-center">
-        <h1 class="display-4 fw-bold">Self-hosted Event Management Script</h1>
+    <!-- Video Background -->
+    <video autoplay muted loop playsinline class="hero-background position-absolute w-100 h-100" style="object-fit: cover;">
+        <source src="https://cdn.pixabay.com/video/2015/11/07/1275-145116912_medium.mp4" type="video/mp4">
+        Trình duyệt của bạn không hỗ trợ video.
+    </video>
+
+    <div class="hero-content d-flex flex-column justify-content-center align-items-center position-relative">
+        <h1 class="display-4 fw-bold">HÃY THAM GIA SỰ KIỆN NGAY!</h1>
         <div class="d-flex gap-3">
-            <a a asp-area="Event" asp-controller="Event" asp-action="AllEvent" class="btn btn-primary">JOIN NOW!</a>
+            <a asp-area="Event" asp-controller="Event" asp-action="AllEvent" class="btn btn-primary">👉THAM GIA NGAY👈</a>
         </div>
     </div>
 </div>
@@ -14,7 +19,7 @@
 <div class="search-bar bg-white p-3 rounded shadow-sm d-flex justify-content-between align-items-center">
     <div class="dropdown">
         <button class="btn btn-light dropdown-toggle" type="button" id="cityDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-            City
+            Thành phố
         </button>
         <ul class="dropdown-menu" aria-labelledby="cityDropdown">
             <li><a class="dropdown-item" href="#">All</a></li>
@@ -23,7 +28,7 @@
     </div>
     <div class="dropdown">
         <button class="btn btn-light dropdown-toggle" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-            Category
+            Loại sự kiện
         </button>
         <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
             <li><a class="dropdown-item" href="#">All</a></li>
@@ -32,7 +37,7 @@
     </div>
     <div class="dropdown">
         <button class="btn btn-light dropdown-toggle" type="button" id="priceDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-            Price
+            Giá
         </button>
         <ul class="dropdown-menu" aria-labelledby="priceDropdown">
             <li><a class="dropdown-item" href="#">Any Price</a></li>
@@ -44,18 +49,18 @@
 
 <div class="container Event my-5">
     <div class="d-flex justify-content-between align-items-center">
-        <h2 class="section-title">Featured Events</h2>
-        <a a asp-area="Event" asp-controller="Event" asp-action="AllEvent" class="view-all-link">View All →</a>
+        <h2 class="section-title">Sự kiện nổi bật</h2>
+        <a  asp-area="Event" asp-controller="Event" asp-action="AllEvent" class="view-all-link">Xem tất cả →</a>
     </div>
     <div class="row g-3">
         <div class="col-md-4">
             <div class="event-card">
-                <a a asp-area="Event" asp-controller="Details" asp-action="DetailEvent">
+                <a asp-area="Event" asp-controller="Details" asp-action="DetailEvent" style="text-decoration: none;">
                     <!-- Replace '1' with the event ID -->
                     <div class="event-image" style="background-image: url('https://example.com/image1.jpg');">
                         <span class="event-date">01 Jun 2024</span>
                     </div>
-                </a>
+                
                 <div class="event-content">
                     <span class="event-tag">Repetitive</span>
                     <h3 class="event-title">Winter Wine Night</h3>
@@ -63,6 +68,7 @@
                     <p class="event-location"><i class="fas fa-map-marker-alt"></i> Lemme Valley Hall, Amsterdam</p>
                     <p class="event-price">0.00 USD / Free</p>
                 </div>
+                </a>
             </div>
         </div>
 
@@ -102,8 +108,8 @@
 
 <div class="container Event my-5 ">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="section-title">Top Selling Events</h2>
-        <a a asp-area="Event" asp-controller="Event" asp-action="AllEvent" class="view-all-link">View All →</a>
+        <h2 class="section-title">Sự kiện bán chạy nhất</h2>
+        <a a asp-area="Event" asp-controller="Event" asp-action="AllEvent" class="view-all-link">Xem tất cả →</a>
     </div>
 
     <div class="row g-3">
@@ -158,8 +164,8 @@
 
 <div class="container Event my-5">
     <div class="d-flex justify-content-between align-items-center">
-        <h2 class="section-title">Upcoming Events</h2>
-        <a a asp-area="Event" asp-controller="Event" asp-action="AllEvent" class="view-all-link">View All →</a>
+        <h2 class="section-title">Sự kiện sắp tới</h2>
+        <a a asp-area="Event" asp-controller="Event" asp-action="AllEvent" class="view-all-link">Xem tất cả →</a>
     </div>
     <div class="row g-3">
         <div class="col-md-4">
@@ -210,9 +216,9 @@
         </div>
     </div>
 </div>
-
+<div class="event-categori" style="background: linear-gradient(to bottom, #00416A, #00C9FF);">
 <div class="container my-6 mt-5" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
-    <h2 class="text-white mb-4">Event Categories</h2>
+        <h2 class="text-white mb-4">Danh mục sự kiện</h2>
     <div class="row">
         <div class="col-md-6 col-lg-4 mb-4">
             <div class="card bg-dark text-white">
@@ -248,14 +254,16 @@
         </div>
     </div>
 </div>
+</div>
+<div class="event-citi" style="background: linear-gradient(to bottom, #00416A, #00C9FF);">
 <div class="container my-6 " data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
-    <h2 class="text-white mb-4">Event Categories</h2>
+        <h2 class="text-white mb-4">Sự kiện Thành phố tốt nhất</h2>
     <div class="row">
         <div class="col-md-6 col-lg-4 mb-4">
             <div class="card bg-dark text-white">
                 <img src="https://eventmie.classiebit.com/storage/categories/October2019/oJbtSjHLoCcSEPva4IJe.jpg" class="card-img" alt="Business & Seminars">
                 <div class="card-img-overlay">
-                    <h5 class="card-title">Business & Seminars</h5>
+                    <h5 class="card-title">Hà Nội</h5>
                 </div>
             </div>
         </div>
@@ -263,7 +271,7 @@
             <div class="card bg-dark text-white">
                 <img src="https://eventmie.classiebit.com/storage/categories/October2019/3YpGsqN75rDAjntQewmP.jpg" class="card-img" alt="Sports & Fitness">
                 <div class="card-img-overlay">
-                    <h5 class="card-title">Sports & Fitness</h5>
+                    <h5 class="card-title">Thành Phố Hồ Chí Minh</h5>
                 </div>
             </div>
         </div>
@@ -271,7 +279,7 @@
             <div class="card bg-dark text-white">
                 <img src="https://eventmie.classiebit.com/storage/categories/October2019/1axS9qJxNWiuzqVmqPDr.jpg" class="card-img" alt="Music & Concerts">
                 <div class="card-img-overlay">
-                    <h5 class="card-title">Music & Concerts</h5>
+                    <h5 class="card-title">Đà Nẵng</h5>
                 </div>
             </div>
         </div>
@@ -279,16 +287,18 @@
             <div class="card bg-dark text-white">
                 <img src="https://eventmie.classiebit.com/storage/categories/October2019/rMbuGTrvUFEC13tykKcq.jpg" class="card-img" alt="Food & Drink">
                 <div class="card-img-overlay">
-                    <h5 class="card-title">Food & Drink</h5>
+                    <h5 class="card-title">Đà Lạt </h5>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="container blogs-section my-5" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
+</div>
+<div class="blog" style="background-color: #f4f6f8">
+<div class="container blogs-section " data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>Blogs</h2>
-        <a href="#" class="view-all-link">View All →</a>
+            <a asp-area="Event" asp-controller="Blog" asp-action="BlogEvent" class="view-all-link">Xem tất cả →</a>
     </div>
     <div class="row">
         <div class="col-md-4">
@@ -320,22 +330,22 @@
         </div>
     </div>
 </div>
-
+</div>
 
 <div class="container custom-container" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
     <div class="text-center section-header">
-        <h4 class="section-subtitle">How it works</h4>
-        <h2 class="section-title">For Event Organizers</h2>
+        <h4 class="section-subtitle">Làm thế nào để tham gia?</h4>
+        <h2 class="section-title">Dành cho Nhà tổ chức sự kiện</h2>
     </div>
-    <div class="row text-center align-items-start justify-content-center" >
+    <div class="row text-center align-items-start justify-content-center">
         <div class="col-md-4 step step-1" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
             <div class="step-icon">
                 <span class="step-circle icon-blue">
                     <i class="fas fa-calendar-alt fa-2x icon-color-blue"></i>
                 </span>
             </div>
-            <h4 class="step-title">1. Create Event</h4>
-            <p class="step-description">Signup, become organizer and start adding events.</p>
+            <h4 class="step-title">1. Tạo sự kiện</h4>
+            <p class="step-description">Đăng ký, trở thành nhà tổ chức và bắt đầu thêm sự kiện.</p>
         </div>
 
         <div class="col-md-4 step step-2" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1000">
@@ -344,8 +354,8 @@
                     <i class="fas fa-check fa-2x icon-color-lightblue"></i>
                 </span>
             </div>
-            <h4 class="step-title">2. Publish Event</h4>
-            <p class="step-description">Enter complete info about your event and publish it.</p>
+            <h4 class="step-title">2. Công bố sự kiện</h4>
+            <p class="step-description">Nhập đầy đủ thông tin về sự kiện của bạn và công bố nó.</p>
         </div>
 
         <div class="col-md-4 step step-3" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="2000">
@@ -354,8 +364,8 @@
                     <i class="fas fa-dollar-sign fa-2x icon-color-green"></i>
                 </span>
             </div>
-            <h4 class="step-title">3. Start Selling</h4>
-            <p class="step-description">Start selling your event tickets and earn profit.</p>
+            <h4 class="step-title">3. Bắt đầu bán vé</h4>
+            <p class="step-description">Bắt đầu bán vé sự kiện của bạn và kiếm lợi nhuận.</p>
         </div>
     </div>
 </div>
@@ -363,10 +373,11 @@
 
 
 
+
 <div class="container custom-container mt-4 mb-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
     <div class="text-center section-header">
-        <h4 class="section-subtitle">How it works</h4>
-        <h2 class="section-title">For Customers</h2>
+        <h4 class="section-subtitle">Làm thế nào để tham gia?</h4>
+        <h2 class="section-title">Đối với người tham gia sự kiện</h2>
     </div>
 
     <div class="row text-center align-items-start justify-content-center">
@@ -376,17 +387,18 @@
                     <i class="fas fa-calendar-alt fa-2x icon-color-blue"></i> 
                 </span>
             </div>
-            <h4 class="step-title">1. Choose Event</h4>
-            <p class="step-description">Signup, choose your favorite event.</p>
+            <h4 class="step-title">1. Chọn Sự Kiện</h4>
+            <p class="step-description">Đăng nhập, chọn sự kiện mà bạn yêu thích</p>
         </div>
+        
         <div class="col-md-4 step step-2" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1000">
             <div class="step-icon">
                 <span class="step-circle icon-lightblue">
                     <i class="fas fa-ticket-alt fa-2x icon-color-lightblue"></i>
                 </span>
             </div>
-            <h4 class="step-title">2. Get Tickets</h4>
-            <p class="step-description">Get your tickets from the event page.</p>
+            <h4 class="step-title">2. Lựa chọn vé</h4>
+            <p class="step-description">Nhận vé của bạn từ trang sự kiện.</p>
         </div>
         <div class="col-md-4 step step-3" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="2000">
             <div class="step-icon">
@@ -394,8 +406,9 @@
                     <i class="fas fa-walking fa-2x icon-color-green"></i>
                 </span>
             </div>
-            <h4 class="step-title">3. Attend Event</h4>
-            <p class="step-description">Go attend the event and have fun.</p>
+            <h4 class="step-title">3. Tham gia Sự kiện</h4>
+            <p class="step-description">Hãy tham gia sự kiện và quẩy hết mình.</p>
         </div>
+
     </div>
 </div>

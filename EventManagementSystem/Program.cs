@@ -80,7 +80,13 @@ builder.Services.AddScoped<EventService>();
 builder.Services.AddKeyedTransient<IPathProvider, AdminPathProvider>("Admin");
 builder.Services.AddKeyedTransient<IPathProvider, ProfilePathProvider>("Profile");
 builder.Services.AddKeyedTransient<IPathProvider, AccountPathProvider>("Account");
-
+builder.Services.AddKeyedTransient<IPathProvider, DetailPathProvider>("Detail");
+builder.Services.AddKeyedTransient<IPathProvider, MapPathProvider>("Map");
+builder.Services.AddKeyedTransient<IPathProvider, AboutPathProvider>("About");
+builder.Services.AddKeyedTransient<IPathProvider, BlogPathProvider>("Blog");
+builder.Services.AddKeyedTransient<IPathProvider, TermsPathProvider>("Terms");
+builder.Services.AddKeyedTransient<IPathProvider, PrivacyPathProvider>("Privacy");
+builder.Services.AddKeyedTransient<IPathProvider, DetailMapPathProvider>("DetailMap");
 #endregion
 
 var app = builder.Build();

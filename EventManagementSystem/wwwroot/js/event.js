@@ -3,59 +3,66 @@
         console.log('Button clicked!');
     });
 });
+
 window.addEventListener('scroll', function () {
     var navbar = document.getElementById('navbar');
-    if (window.scrollY > 50) { // Điều chỉnh giá trị theo ý muốn
+    if (window.scrollY > 50) {
         navbar.classList.add('scrolled');
     } else {
         navbar.classList.remove('scrolled');
     }
 });
-// JavaScript để toggle form bộ lọc
+
 document.querySelector('.d-flex h5').addEventListener('click', function () {
     const filterForm = document.getElementById('filterForm');
     if (filterForm.style.display === 'none' || filterForm.style.display === '') {
-        filterForm.style.display = 'block'; // Hiển thị form nếu đang bị ẩn
+        filterForm.style.display = 'block';
     } else {
-        filterForm.style.display = 'none'; // Ẩn form nếu đang hiển thị
+        filterForm.style.display = 'none';
     }
 });
+
 function updateTotals() {
     let totalTickets = 0;
     let totalOrder = 0.0;
 
-    // Lấy tất cả các ô chọn vé
     document.querySelectorAll('.ticket-option select').forEach(select => {
-        const quantity = parseInt(select.value); // Số lượng vé
-        const price = parseFloat(select.getAttribute('data-price')); // Giá của loại vé
+        const quantity = parseInt(select.value);
+        const price = parseFloat(select.getAttribute('data-price'));
 
-        totalTickets += quantity; // Cộng dồn số lượng vé
-        totalOrder += quantity * price; // Tính tổng tiền cho loại vé này
+        totalTickets += quantity;
+        totalOrder += quantity * price;
     });
 
-    // Cập nhật tổng số lượng và tổng tiền vào các phần tử hiển thị
     document.getElementById('totalTickets').textContent = totalTickets;
     document.getElementById('totalOrder').textContent = totalOrder.toFixed(2) + ' USD';
 }
-// Mở modal và hiển thị hình ảnh khi bấm vào
-function openModal(imageSrc, altText) {
-    const modal = document.getElementById("imageModal");
-    const modalImg = document.getElementById("imgModalContent");
-    const captionText = document.getElementById("caption");
 
-    modal.style.display = "block"; // Hiển thị modal
-    modalImg.src = imageSrc; // Đặt nguồn ảnh cho modal
-    captionText.innerHTML = altText; // Đặt văn bản mô tả ảnh (nếu có)
-}
+document.getElementById("registerForm").addEventListener("submit", function (event) {
+    const password = document.getElementById("password").value;
+    const rePassword = document.getElementById("re-password").value;
 
-// Đóng modal khi nhấn vào nút "X" hoặc bên ngoài hình ảnh
-function closeModal() {
-    document.getElementById("imageModal").style.display = "none";
+    const uppercaseCheck = /[A-Z]/.test(password);
+    const numberCheck = /[0-9]/.test(password);
+
+    if (!uppercaseCheck || !numberCheck) {
+        alert("Password must contain at least one uppercase letter and one number.");
+        event.preventDefault();
+        return false;
     }
 
-// Gán sự kiện cho mỗi hình ảnh
-document.querySelectorAll('.gallery-img').forEach(img => {
-    img.addEventListener('click', function () {
-        openModal(this.src, this.alt);
-    });
+    if (password !== rePassword) {
+        alert("Passwords do not match.");
+        event.preventDefault();
+        return false;
+    }
+});
+
+document.getElementById("menuToggle").addEventListener("click", function () {
+    const navbarCollapse = document.getElementById("navbarNav");
+    if (navbarCollapse.classList.contains("show")) {
+        navbarCollapse.classList.remove("show");
+    } else {
+        navbarCollapse.classList.add("show");
+    }
 });

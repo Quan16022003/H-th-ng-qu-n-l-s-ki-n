@@ -32,10 +32,7 @@
     color: #ff6600; /* Màu khi hover, thay bằng mã màu mong muốn */
 }
 
-/* Đổi màu chữ cho nút "Browse Events" */
-.navbar .btn-primary {
-    color: #00C9FF; /* Màu chữ cho nút Browse Events */
-}
+
 
 /* Đổi màu cho tiêu đề hoặc logo nếu cần */
 .navbar .navbar-brand {
@@ -783,4 +780,156 @@ h5 {
 .stadium-foreground img {
     width: 100%;
     max-width: 100%;
+}
+/* Phong cách cho phần tiêu đề */
+.animated-title {
+    opacity: 0;
+    transform: translateX(-50px); /* Di chuyển từ bên trái */
+    animation: fadeInSlide 1.5s forwards; /* Kích hoạt hiệu ứng */
+    animation-delay: 0.5s; /* Độ trễ để hiệu ứng xuất hiện sau một khoảng thời gian */
+}
+
+/* Định nghĩa hiệu ứng */
+@keyframes fadeInSlide {
+    0% {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+/* Tổng quan giao diện */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+/* Container */
+.terms-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+/* Header */
+.terms-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.terms-title {
+    font-size: 2rem;
+    color: #333;
+}
+
+.terms-updated {
+    color: #777;
+}
+
+/* Nội dung */
+.terms-content {
+    margin-top: 20px;
+}
+
+.terms-section {
+    margin-bottom: 30px;
+}
+
+.terms-subtitle {
+    font-size: 1.5rem;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.terms-paragraph {
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.terms-link {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.terms-link:hover {
+    text-decoration: underline;
+}
+/* Container */
+.privacy-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.privacy-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.privacy-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.privacy-effective-date {
+    color: #777;
+    font-size: 0.9rem;
+}
+
+/* Content */
+.privacy-content .privacy-section {
+    margin-bottom: 30px;
+}
+
+.privacy-subtitle {
+    font-size: 1.5rem;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.privacy-paragraph {
+    margin-bottom: 10px;
+    line-height: 1.6;
+    color: #555;
+}
+
+.privacy-link {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.privacy-link:hover {
+    text-decoration: underline;
+}
+
+.privacy-list {
+    padding-left: 20px;
+    list-style-type: disc;
+    color: #555;
+}
+
+.privacy-list li {
+    margin-bottom: 8px;
+}
+
+.privacy-subsection-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #333;
 }

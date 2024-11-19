@@ -79,7 +79,6 @@
     <Folder Include="Areas\AdminEvents\Data\" />
     <Folder Include="Areas\AdminEvents\Models\" />
     <Folder Include="Areas\AdminEvents\Views\" />
-    <Folder Include="Areas\Event\Views\Shared\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -89,7 +88,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Account\Views\Shared\" />
-    <Folder Include="Areas\Event\Views\Shared\" />
   </ItemGroup>
 
 </Project>

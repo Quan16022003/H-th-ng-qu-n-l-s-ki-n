@@ -91,13 +91,13 @@ namespace Persistence.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "613bd9ae-86e8-482f-ac5e-bdce6d164ec6",
+                            ConcurrencyStamp = "8b85495c-a615-4b6f-b7df-15cc80594e87",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "MYUSER",
-                            PasswordHash = "AQAAAAIAAYagAAAAELIAZczSRA63xUjoU9Kul1jPfPx9yF+7cgBO3WWn21PAjxDmIGJohf7i/M0HWipwXg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENFhiQsHq5qBq96JlLkYQMIDzw895/nIV1SCxtQ1z0+iwmCgjQEEcTQkjFshVqKTdg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a256967b-eaec-493a-a004-921fcd56791e",
+                            SecurityStamp = "3aaf7eb7-920d-4206-bf06-7b4dd49236b4",
                             TwoFactorEnabled = false,
                             UserName = "myuser"
                         });
