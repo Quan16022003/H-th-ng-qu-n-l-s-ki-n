@@ -80,6 +80,8 @@ builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 builder.Services.AddScoped<IOrderTicketRepository, OrderTicketRepository>();
 builder.Services.AddScoped<EventService>();
 
+builder.Services.AddScoped<ISlugService, SlugService>();
+
 #region add path provider service for views in front end
 
 // key: area name, value: service match
