@@ -1,8 +1,5 @@
 ﻿using Domain.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Persistence.Repositories
@@ -10,18 +7,23 @@ namespace Persistence.Repositories
     /// <summary>
     /// Encapsulates all repository transactions.
     /// </summary>
-    public class UnitOfWork : IUnitOfWork
+    public sealed class UnitOfWork : IUnitOfWork
     {
         #region Properties
 
-        //public IEntityRepository EntityRepository => _entityRepository.Value;
+        public ICategoryEventRepository CategoryEventRepository { get; }
+        public IEventRepository EventRepository { get; }
+        public ITicketRepository TicketRepository { get; }
+        public IOrderRepository OrderRepository { get; }
+        public IOrderItemRepository OrderItemRepository { get; }
+        public IOrderTicketRepository OrderTicketRepository { get; }
+        public IAttendeeRepository AttendeeRepository { get; }
 
         #endregion
 
         #region Readonlys
 
         private readonly RepositoryDbContext _dbContext;
-        //private readonly IEntityRepository _repository;
 
         #endregion
 
@@ -29,9 +31,31 @@ namespace Persistence.Repositories
         /// Constructor.
         /// </summary>
         /// <param name="dbContext">The Database Context</param>
-        public UnitOfWork(RepositoryDbContext dbContext)
+        /// <param name="categoryEventRepository">The Category Events Repository</param>
+        /// <param name="eventRepository">The Event Repository</param>
+        /// <param name="ticketRepository">The Ticket Repository</param>
+        /// <param name="orderRepository">The Order Repository</param>
+        /// <param name="orderItemRepository">The Order Item Repository</param>
+        /// <param name="orderTicketRepository">The Order Ticket Repository</param>
+        /// <param name="attendeeRepository">The Attendee Repository</param>
+        public UnitOfWork(
+            RepositoryDbContext dbContext,
+            ICategoryEventRepository categoryEventRepository,
+            IEventRepository eventRepository,
+            ITicketRepository ticketRepository,
+            IOrderRepository orderRepository,
+            IOrderItemRepository orderItemRepository,
+            IOrderTicketRepository orderTicketRepository,
+            IAttendeeRepository attendeeRepository)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            CategoryEventRepository = categoryEventRepository ?? throw new ArgumentNullException(nameof(categoryEventRepository));
+            EventRepository = eventRepository ?? throw new ArgumentNullException(nameof(eventRepository));
+            TicketRepository = ticketRepository ?? throw new ArgumentNullException(nameof(ticketRepository));
+            OrderRepository = orderRepository ?? throw new ArgumentNullException(nameof(orderRepository));
+            OrderItemRepository = orderItemRepository ?? throw new ArgumentNullException(nameof(orderItemRepository));
+            OrderTicketRepository = orderTicketRepository ?? throw new ArgumentNullException(nameof(orderTicketRepository));
+            AttendeeRepository = attendeeRepository ?? throw new ArgumentNullException(nameof(attendeeRepository));
         }
 
         #region Methods
@@ -60,7 +84,7 @@ namespace Persistence.Repositories
         {
             await DisposeAsync(true);
 
-            // Take this object off the finalization queue to prevent 
+            // Take this object off the finalization queue to prevent
             // finalization code for this object from executing a second time.
             GC.SuppressFinalize(this);
         }
@@ -68,9 +92,9 @@ namespace Persistence.Repositories
         /// <summary>
         /// Cleans up any resources being used.
         /// </summary>
-        /// <param name="disposing">Whether or not we are disposing</param> 
+        /// <param name="disposing">Whether or not we are disposing</param>
         /// <returns><see cref="ValueTask"/></returns>
-        protected virtual async ValueTask DisposeAsync(bool disposing)
+        private async ValueTask DisposeAsync(bool disposing)
         {
             if (!_disposed)
             {

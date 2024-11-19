@@ -13,7 +13,13 @@ namespace Domain.Repositories
     {
         #region Properties
 
-        //ITodoRepository TodoRepository { get; }
+        ICategoryEventRepository CategoryEventRepository { get; }
+        IEventRepository EventRepository { get; }
+        ITicketRepository TicketRepository { get; }
+        IOrderRepository OrderRepository { get; }
+        IOrderItemRepository OrderItemRepository { get; }
+        IOrderTicketRepository OrderTicketRepository { get; }
+        IAttendeeRepository AttendeeRepository { get; }
 
         #endregion
 
