@@ -17,7 +17,9 @@ namespace Domain.Repositories
         Task<T> AddAsync(T entity);
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);
+        Task SoftDeleteAsync(T entity);
         Task DeleteManyAsync(Expression<Func<T, bool>> filter);
+        Task SoftDeleteManyAsync(Expression<Func<T, bool>> filter);
         Task<IEnumerable<T>> GetAllAsync();
         Task<T> GetByIdAsync(int id);
         Task<IEnumerable<T>> GetManyAsync(Expression<Func<T, bool>> filter = null,
