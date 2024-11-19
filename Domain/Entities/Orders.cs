@@ -18,11 +18,11 @@ namespace Domain.Entities
         public OrderStatus OrderStatus { get; set; }
 
         public string UserId { get; set; }
-        public ApplicationUser User { get; set; }
+        public ApplicationUser? User { get; set; }
         public int EventId { get; set; }
-        public Events Event { get; set; }
-        public IEnumerable<Attendees> Attendees { get; set; }
-        public IEnumerable<OrderItems> OrderItems { get; set; }
-        public IEnumerable<OrderTicket> OrderTickets { get; set; }
+        public Events? Event { get; set; }
+        public IEnumerable<Attendees>? Attendees { get; set; }
+        public IEnumerable<OrderItems>? OrderItems { get; set; }
+        public IEnumerable<OrderTicket>? OrderTickets { get; set; }
     }
 }
