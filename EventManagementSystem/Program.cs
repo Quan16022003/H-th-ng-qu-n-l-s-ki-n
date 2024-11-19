@@ -94,6 +94,9 @@ builder.Services.RegisterPathProvideManager();
 
 builder.Services.RegisterSlugifyTransformer();
 
+builder.Services.AddScoped<IFileService>(provider => 
+    new FileService(builder.Environment.WebRootPath));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
