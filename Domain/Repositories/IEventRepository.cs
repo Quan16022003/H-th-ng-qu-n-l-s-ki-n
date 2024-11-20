@@ -9,6 +9,6 @@ namespace Domain.Repositories
 {
     public interface IEventRepository : IBaseRepository<Events>
     {
-
+        Task<IEnumerable<Events>> GetAllWithCategoryAsync();
     }
 }

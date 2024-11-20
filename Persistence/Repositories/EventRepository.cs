@@ -15,10 +15,9 @@ namespace Persistence.Repositories
         public EventRepository(RepositoryDbContext dbContext) : base(dbContext)
         {
         }
-        public async Task DeleteAsync(Events events)
+        public Task<IEnumerable<Events>> GetAllWithCategoryAsync()
         {
-            events.IsDeleted = true;
-            await UpdateAsync(events);
+            return GetManyAsync(includeProperties: nameof(Events.CategoryEvent));
         }
 
     }
