@@ -9,15 +9,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Account\**" />
     <Compile Remove="Areas\AdminEvents\**" />
     <Compile Remove="Areas\Dashboard\Validators\**" />
     <Compile Remove="Validators\**" />
+    <Content Remove="Areas\Account\**" />
     <Content Remove="Areas\AdminEvents\**" />
     <Content Remove="Areas\Dashboard\Validators\**" />
     <Content Remove="Validators\**" />
+    <EmbeddedResource Remove="Areas\Account\**" />
     <EmbeddedResource Remove="Areas\AdminEvents\**" />
     <EmbeddedResource Remove="Areas\Dashboard\Validators\**" />
     <EmbeddedResource Remove="Validators\**" />
+    <None Remove="Areas\Account\**" />
     <None Remove="Areas\AdminEvents\**" />
     <None Remove="Areas\Dashboard\Validators\**" />
     <None Remove="Validators\**" />

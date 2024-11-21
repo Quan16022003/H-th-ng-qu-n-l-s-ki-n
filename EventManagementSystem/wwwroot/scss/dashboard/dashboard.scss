@@ -27,6 +27,10 @@ $table-background: #ECF7FC;
     }
 }
 
+.text-color-reset {
+    color: $dashboard-font-color !important;
+}
+
 .side-menu.open {
     span {
         display: block;
@@ -308,7 +312,7 @@ $table-background: #ECF7FC;
 .dashboard-table {
     th {
         background-color: $table-background;
-        color: midnightblue;
+        color: midnightblue !important;
         font-size: 13px !important;
     }
 }

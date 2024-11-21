@@ -15,8 +15,9 @@
 			isCurrent = page.ToLower().Contains(current);
 
 			string[] nameAction = capitalizeFirst.Split('?');
+			string currentClass = "text-reset";
 
-			result += $"<a class='{(isCurrent ? "text-reset" : "")} text-decoration-none' href='{baseUrl}/{page}'><span>{nameAction[0]}</span></a>";
+			result += $"<a class='{(isCurrent ? currentClass : "")} text-decoration-none' href='{baseUrl}/{page}'><span>{nameAction[0]}</span></a>";
 		}
 
 		return result;
@@ -252,7 +253,7 @@
 					<a asp-area="Profile"
 					   asp-controller="Profile"
 					   asp-action="Information"
-					   class="user-profile-link dropdown-item d-flex align-items-center">
+					   class="user-profile-link dropdown-item d-flex align-items-center text-color-reset">
 						<i class="fa-solid fa-user" style="font-size: 12px; transform: translateY(-1px)"></i>
 						<span>Profile</span>
 					</a>
@@ -261,7 +262,7 @@
 					<a asp-area=""
 					   asp-controller="Home"
 					   asp-action="Index"
-					   class="user-profile-link dropdown-item d-flex align-items-center">
+					   class="user-profile-link dropdown-item d-flex align-items-center text-color-reset">
 						<i class="fa-solid fa-house" style="font-size: 12px; transform: translateY(-1px)"></i>
 						<span>Visit Website</span>
 					</a>

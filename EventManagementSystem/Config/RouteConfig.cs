@@ -1,4 +1,5 @@
-﻿using Web.Utils.UrlTransform;
+﻿using System.Security.Policy;
+using Web.Utils.UrlTransform;
 
 namespace Web.Config
 {
@@ -24,16 +25,20 @@ namespace Web.Config
             app.MapAreaControllerRoute(
                 name: "Dashboard",
                 areaName: "Dashboard",
-                pattern: "{area:slugify}/{controller:slugify}/{action:slugify}/{id?}");
+                pattern: "dashboard/{controller:slugify}/{action:slugify}/{id?}");
 
             app.MapAreaControllerRoute(
                 name: "Profile",
                 areaName: "Profile",
-                pattern: "{area:slugify}/{controller:slugify}/{action:slugify}/{id?}");
+                pattern: "profile/{controller:slugify}/{action:slugify}/{id?}");
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller:slugify=Home}/{action:slugify=Index}/{id?}");
+                pattern: "{controller:slugify}/{action:slugify}/{id?}",
+                new
+                {
+                    controller = "Home", action = "Index"
+                });
         }
     }
 }

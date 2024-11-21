@@ -10,6 +10,6 @@ namespace Web.Utils.ViewsPathServices
         /// <typeparam name="T">Controller of the view</typeparam>
         /// <param name="area">Area name</param>
         /// <returns>Path to view folder</returns>
-        public string Get<T>(string area);
+        public string Get<T>(string? area = null);
     }
 }
