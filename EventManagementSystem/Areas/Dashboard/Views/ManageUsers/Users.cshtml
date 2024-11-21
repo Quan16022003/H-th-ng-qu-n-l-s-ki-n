@@ -1,4 +1,4 @@
-﻿@model IEnumerable<UserViewModel>
+﻿@model IEnumerable<Constracts.DTO.UserDTO>
 @{
     ViewData["Title"] = "Users";
     ViewBag.Current = "Users";
@@ -71,9 +71,9 @@
 						{
 							<tr>
 								<th scope="row">@item.Id</th>
-								<td>@item.Username</td>
+								<td>@item.UserName</td>
 								<td>@item.Email</td>
-								<td>@item.Phone</td>
+								<td>@item.PhoneNumber</td>
 								<td>@item.Role</td>
 								<td>
 									<div class="d-flex justify-content-center">
@@ -83,8 +83,8 @@
 										</div>
 									</div>
 								</td>
-								<td>@item.LockoutExpiredDay</td>
-								<td>@item.AccessFailedTime</td>
+								<td>@item.LockoutExpiredDate</td>
+								<td>@item.AccessCount</td>
 								<td>
 									<div class="d-flex flex-wrap justify-content-end" style="gap: 10px">
 										<a class="btn btn-warning dashboard-action-button">

@@ -1,6 +1,5 @@
-﻿using Domain.Entities;
+﻿using Constracts.DTO;
 using Microsoft.AspNetCore.Mvc;
-using Services;
 using Services.Abtractions;
 using Web.Utils;
 using Web.Utils.ViewsPathServices;
@@ -21,7 +20,7 @@ namespace Web.Areas.Dashboard.Controllers.ManageEvents
             viewPath = pathProvideManager.Get<EventController>("Dashboard");
         }
 
-        private async Task<IEnumerable<Domain.Entities.Events>> FetchEvents(string type = "", string query = "")
+        private async Task<IEnumerable<EventDTO>> FetchEvents(string type = "", string query = "")
         {
             var events = await _eventService.GetAllEventsAsync();
             if (string.IsNullOrEmpty(query)) return events;
@@ -51,13 +50,12 @@ namespace Web.Areas.Dashboard.Controllers.ManageEvents
         [HttpDelete]
         public async Task<IActionResult> HandleDelete(int id)
         {
-            var model = await _eventService.GetEventByIdAsync(id);
-
-            if (model == null) return NotFound();
-            if (model.IsDeleted) return NoContent();
-
-            await _eventService.DeleteEventAsync(model);
-            return NoContent();
+            await _eventService.DeleteEventAsyncById(id);
+            return Ok(
+                new {
+                    message = "Delete event successfully"
+                }
+            );
         }
     }
 }

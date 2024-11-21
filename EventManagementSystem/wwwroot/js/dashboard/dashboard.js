@@ -162,5 +162,3 @@ function stylingAdminPaginate() {
     $('.pagination').find('.previous').addClass("bg-light datatables-previous-icon text-primary");
     $('.pagination').find('.next').addClass("bg-light datatables-next-icon text-primary");
 }
-
-var a = 2;

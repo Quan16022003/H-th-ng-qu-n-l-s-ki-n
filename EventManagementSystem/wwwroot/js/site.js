@@ -30,6 +30,7 @@ import '@fortawesome/fontawesome-free/js/all'
 import '@fortawesome/fontawesome-free/css/all.css'
 import toastr from 'toastr';
 import 'toastr/build/toastr.min.css';
+import '../js/service/service.js'
 
 //#endregion
 

@@ -69,22 +69,13 @@ builder.Services.AddFluentValidationClientsideAdapters();
 //builder.Services.AddValidatorsFromAssemblyContaining<OwnerForCreationInputModelValidator>(); // Nhớ mở ra để sử dụng FluentValidation
 
 builder.Services.AddScoped<IServiceManager, ServiceManager>();
-
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
 // Add repositories to DI container
-builder.Services.AddScoped<IEventRepository, EventRepository>();
-builder.Services.AddScoped<ICategoryEventRepository, CategoryEventRepository>();
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-builder.Services.AddScoped<IAttendeeRepository, AttendeeRepository>();
-builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
-builder.Services.AddScoped<ITicketRepository, TicketRepository>();
-builder.Services.AddScoped<IOrderTicketRepository, OrderTicketRepository>();
-builder.Services.AddScoped<EventService>();
-
-builder.Services.AddScoped<ISlugService, SlugService>();
+builder.Services.RegisterAllRepositories();
+builder.Services.RegisterAllServices();
 
 #region add path provider service for views in front end
 

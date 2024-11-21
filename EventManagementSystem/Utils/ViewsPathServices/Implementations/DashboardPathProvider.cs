@@ -17,7 +17,7 @@ namespace Web.Utils.ViewsPathServices.Implementations
                 nameof(ContactController) => "~/Areas/Dashboard/Views/Contact",
                 nameof(SettingController) => "~/Areas/Dashboard/Views/Setting",
                 nameof(BookingController) => "~/Areas/Dashboard/Views/ManageBookings",
-                nameof(CategoryController) => "~/Areas/Dashboard/Views/ManageEvents",
+                nameof(CategoryController) => "~/Areas/Dashboard/Views/ManageEvents/Category",
                 nameof(EventController) => "~/Areas/Dashboard/Views/ManageEvents/Event",
                 nameof(BannerController) or nameof(MediaController) or nameof(PageController) 
                     => "~/Areas/Dashboard/Views/ManageSite",

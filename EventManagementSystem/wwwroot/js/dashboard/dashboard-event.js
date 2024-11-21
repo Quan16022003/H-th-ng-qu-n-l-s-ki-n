@@ -1,7 +1,7 @@
 ﻿import { deleteEntity } from "../service/service.js"
 
-const route = "/Dashboard/Event";
-const deleteAction = "HandleDelete"
+const route = "/dashboard/event";
+const deleteAction = "handle-delete"
 
 $(document).ready(() => {
     $('.dashboard-event-table').find(".table").DataTable({

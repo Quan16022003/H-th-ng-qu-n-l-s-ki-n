@@ -1,10 +1,10 @@
-﻿using Domain.Entities;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Web.Areas.Dashboard.ViewModels;
 using Web.Utils;
 using Web.Utils.ViewsPathServices;
+using Constracts.DTO;
+using Services.Abtractions;
 
 namespace Web.Areas.Dashboard.Controllers.ManageUsers
 {
@@ -12,36 +12,26 @@ namespace Web.Areas.Dashboard.Controllers.ManageUsers
     public class UserController : Controller
     {
         private readonly string viewPath;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUserService _userService;
 
         public UserController(
             IPathProvideManager pathProvideManager,
-            UserManager<ApplicationUser> userManager)
+            IServiceManager serviceManager)
         {
             viewPath = pathProvideManager.Get<UserController>("Dashboard");
-            _userManager = userManager;
+            _userService = serviceManager.UserService;
         }
 
-        private async Task<IEnumerable<UserViewModel>> FetchUsers(string type = "", string query = "")
+        private async Task<IEnumerable<UserDTO>> FetchUsers(string type = "", string query = "")
         {
-            var users = await _userManager.Users.ToListAsync();
-            List<UserViewModel> viewModels = [];
-
-            foreach (var user in users)
-            {
-                var userViewModel = UserViewModelMapper.Map(user);
-                userViewModel.Role = string.Join(", ", await _userManager.GetRolesAsync(user));
-
-                viewModels.Add(userViewModel);
-            }
-
-            if (string.IsNullOrEmpty(query)) return viewModels;
+            var users = await _userService.GetAllUsersAsync();
+            if (string.IsNullOrEmpty(query)) return users;
 
             if (type == "Equal")
             {
-                return viewModels.Where(e => e.Username!.Equals(query, StringComparison.CurrentCultureIgnoreCase));
+                return users.Where(e => e.UserName!.Equals(query, StringComparison.CurrentCultureIgnoreCase));
             }
-            else return viewModels.Where(e => e.Username!.Contains(query, StringComparison.CurrentCultureIgnoreCase));
+            else return users.Where(e => e.UserName!.Contains(query, StringComparison.CurrentCultureIgnoreCase));
         }
 
         public async Task<IActionResult> Index(
@@ -49,7 +39,6 @@ namespace Web.Areas.Dashboard.Controllers.ManageUsers
             [FromQuery(Name = "searchQuery")] string query = "")
         {
             var users = await FetchUsers(searchType, query);
-
             return View($"{viewPath}/Users.cshtml", users);
         }
     }

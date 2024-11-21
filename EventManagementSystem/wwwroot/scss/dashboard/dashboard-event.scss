@@ -1,4 +1,4 @@
-﻿$content-width: 85%;
+﻿$content-width: 95%;
 
 .dashboard-event-table {
     width: 98%;
@@ -22,6 +22,7 @@
     background-image: url("../../images/events/hanhitoichoem.png");
     background-size: contain;
     background-position: center;
+    background-repeat: no-repeat;
 
     img {
         object-fit: fill;
@@ -37,22 +38,22 @@
 .dashboard-event-img::before {
     content: "";
     background-image: inherit;
-    background-size: inherit;
+    background-size: cover;
     background-position: inherit;
+    background-repeat: inherit;
     position: absolute;
     z-index: 1;
     top: 0px;
     left: 0px;
     filter: blur(30px);
     width: 100%;
-    height: 97%;
+    height: 100%;
 }
 
 .dashboard-event-content {
     width: $content-width;
     min-height: 600px;
-    border: 1px solid #555;
     border-radius: 10px;
-    padding: 10px;
+    padding: 20px;
     //margin-top: 50px;
 }
