@@ -1,4 +1,5 @@
-﻿using Web.Areas.Profile.Controllers;
+﻿using Web.Utils.ViewsPathServices.Implementations;
+using Web.Views.Controllers.Event;
 
 namespace Web.Utils.ViewsPathServices.Implementations
 {
@@ -8,7 +9,7 @@ namespace Web.Utils.ViewsPathServices.Implementations
         {
             return target switch
             {
-                AccountController or RegisterController => "~/Areas/Account/Views/Account",
+                AccountController => "~/Views/Account",
                 _ => throw new ArgumentException($"Does not found {target.GetType().Name} in Account Area")
             };
         }

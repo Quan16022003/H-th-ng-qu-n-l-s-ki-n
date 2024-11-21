@@ -74,19 +74,14 @@ builder.Services.AddScoped<IEventRepository, EventRepository>();
 
 builder.Services.AddScoped<EventService>();
 
+
 #region add path provider service for views in front end
 
 // key: area name, value: service match
 builder.Services.AddKeyedTransient<IPathProvider, AdminPathProvider>("Admin");
 builder.Services.AddKeyedTransient<IPathProvider, ProfilePathProvider>("Profile");
 builder.Services.AddKeyedTransient<IPathProvider, AccountPathProvider>("Account");
-builder.Services.AddKeyedTransient<IPathProvider, DetailPathProvider>("Detail");
-builder.Services.AddKeyedTransient<IPathProvider, MapPathProvider>("Map");
-builder.Services.AddKeyedTransient<IPathProvider, AboutPathProvider>("About");
-builder.Services.AddKeyedTransient<IPathProvider, BlogPathProvider>("Blog");
-builder.Services.AddKeyedTransient<IPathProvider, TermsPathProvider>("Terms");
-builder.Services.AddKeyedTransient<IPathProvider, PrivacyPathProvider>("Privacy");
-builder.Services.AddKeyedTransient<IPathProvider, DetailMapPathProvider>("DetailMap");
+builder.Services.AddKeyedTransient<IPathProvider, EventsPathProvider>("Events");
 #endregion
 
 var app = builder.Build();

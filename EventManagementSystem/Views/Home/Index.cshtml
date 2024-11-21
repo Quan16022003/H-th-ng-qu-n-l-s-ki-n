@@ -11,7 +11,7 @@
     <div class="hero-content d-flex flex-column justify-content-center align-items-center position-relative">
         <h1 class="display-4 fw-bold">HÃY THAM GIA SỰ KIỆN NGAY!</h1>
         <div class="d-flex gap-3">
-            <a asp-area="Event" asp-controller="Event" asp-action="AllEvent" class="btn btn-primary">👉THAM GIA NGAY👈</a>
+            <a asp-area="Event" asp-controller="Events" asp-action="AllEvent" class="btn btn-primary">👉THAM GIA NGAY👈</a>
         </div>
     </div>
 </div>
@@ -50,12 +50,12 @@
 <div class="container Event my-5">
     <div class="d-flex justify-content-between align-items-center">
         <h2 class="section-title">Sự kiện nổi bật</h2>
-        <a  asp-area="Event" asp-controller="Event" asp-action="AllEvent" class="view-all-link">Xem tất cả →</a>
+        <a  asp-area="Event" asp-controller="Events" asp-action="AllEvent" class="view-all-link">Xem tất cả →</a>
     </div>
     <div class="row g-3">
         <div class="col-md-4">
             <div class="event-card">
-                <a asp-area="Event" asp-controller="Details" asp-action="DetailEvent" style="text-decoration: none;">
+                <a asp-area="Event" asp-controller="Events" asp-action="DetailEvent" style="text-decoration: none;">
                     <!-- Replace '1' with the event ID -->
                     <div class="event-image" style="background-image: url('https://example.com/image1.jpg');">
                         <span class="event-date">01 Jun 2024</span>
@@ -109,7 +109,7 @@
 <div class="container Event my-5 ">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="section-title">Sự kiện bán chạy nhất</h2>
-        <a a asp-area="Event" asp-controller="Event" asp-action="AllEvent" class="view-all-link">Xem tất cả →</a>
+        <a a asp-area="Event" asp-controller="Events" asp-action="AllEvent" class="view-all-link">Xem tất cả →</a>
     </div>
 
     <div class="row g-3">
@@ -165,7 +165,7 @@
 <div class="container Event my-5">
     <div class="d-flex justify-content-between align-items-center">
         <h2 class="section-title">Sự kiện sắp tới</h2>
-        <a a asp-area="Event" asp-controller="Event" asp-action="AllEvent" class="view-all-link">Xem tất cả →</a>
+        <a a asp-area="Event" asp-controller="Events" asp-action="AllEvent" class="view-all-link">Xem tất cả →</a>
     </div>
     <div class="row g-3">
         <div class="col-md-4">
@@ -298,7 +298,7 @@
 <div class="container blogs-section " data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>Blogs</h2>
-            <a asp-area="Event" asp-controller="Blog" asp-action="BlogEvent" class="view-all-link">Xem tất cả →</a>
+            <a asp-area="Event" asp-controller="Events" asp-action="BlogEvent" class="view-all-link">Xem tất cả →</a>
     </div>
     <div class="row">
         <div class="col-md-4">
