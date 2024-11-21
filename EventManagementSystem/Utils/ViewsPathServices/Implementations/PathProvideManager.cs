@@ -1,4 +1,6 @@
-﻿namespace Web.Utils.ViewsPathServices.Implementations
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace Web.Utils.ViewsPathServices.Implementations
 {
     public class PathProvideManager : IPathProvideManager
     {
@@ -9,11 +11,13 @@
             _serviceProvider = service;
         }
 
-        public string Get<T>(string? area = null)
+        public string Get<T>()
         {
-            area ??= "Default";
+            var type = typeof(T);
+            var attribute = (AreaAttribute) type.GetCustomAttributes(typeof(AreaAttribute), true).FirstOrDefault()!;
+            string area = attribute == null ? "Default" : attribute.RouteValue;
 
-            IPathProvider provider = _serviceProvider.GetKeyedService<IPathProvider>(area) 
+            IPathProvider provider = _serviceProvider.GetKeyedService<IPathProvider>(area.ToLower()) 
                 ?? throw new ArgumentException($"Path provider not have Area: {area}");
 
             return provider.GetViewsPath(typeof(T));

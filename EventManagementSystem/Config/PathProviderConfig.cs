@@ -8,9 +8,8 @@ namespace Web.Config
         public static void RegisterPathProvideManager(this IServiceCollection services)
         {
             // key: area name, value: service match
-            services.AddKeyedScoped<IPathProvider, DefaultPathProvider>("Default");
-            services.AddKeyedScoped<IPathProvider, DashboardPathProvider>("Dashboard");
-            services.AddKeyedScoped<IPathProvider, ProfilePathProvider>("Profile");
+            services.AddKeyedScoped<IPathProvider, DefaultPathProvider>("default");
+            services.AddKeyedScoped<IPathProvider, DashboardPathProvider>("dashboard");
 
             services.AddScoped<IPathProvideManager, PathProvideManager>();
         }

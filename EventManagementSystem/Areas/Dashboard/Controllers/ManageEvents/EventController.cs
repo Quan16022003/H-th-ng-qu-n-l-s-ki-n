@@ -17,7 +17,7 @@ namespace Web.Areas.Dashboard.Controllers.ManageEvents
             IServiceManager serviceManager)
         {
             _eventService = serviceManager.EventService;
-            viewPath = pathProvideManager.Get<EventController>("Dashboard");
+            viewPath = pathProvideManager.Get<EventController>();
         }
 
         private async Task<IEnumerable<EventDTO>> FetchEvents(string type = "", string query = "")

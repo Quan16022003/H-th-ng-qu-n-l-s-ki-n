@@ -18,7 +18,7 @@ namespace Web.Areas.Dashboard.Controllers.ManageEvents
             IServiceManager serviceManager,
             ISlugService slugService)
         {
-            viewPath = pathProvideManager.Get<CategoryController>("Dashboard");
+            viewPath = pathProvideManager.Get<CategoryController>();
             _categoryEventService = serviceManager.EventCategoryService;
             _slugService = slugService;
         }

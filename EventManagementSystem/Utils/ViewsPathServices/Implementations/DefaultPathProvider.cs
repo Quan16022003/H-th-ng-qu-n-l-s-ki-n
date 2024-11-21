@@ -1,5 +1,6 @@
 ﻿using Web.Controllers.Account;
 using Web.Controllers.Event;
+using Web.Controllers.Profile;
 
 namespace Web.Utils.ViewsPathServices.Implementations
 {
@@ -12,7 +13,8 @@ namespace Web.Utils.ViewsPathServices.Implementations
             {
                 nameof(AccountController) => "~/Views/Account",
                 nameof(EventsController) => "~/Views/Event",
-                _ => throw new ArgumentException($"Does not found {target.GetType().Name} in Account Area")
+                nameof(ProfileController) => "~/Areas/Profile/Views/Profile",
+                _ => throw new ArgumentException($"Does not found {target}")
             };
         }
     }

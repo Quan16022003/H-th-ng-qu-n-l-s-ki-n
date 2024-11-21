@@ -11,7 +11,7 @@ namespace Web.Areas.Dashboard.Controllers.ManageSite
 
         public BannerController(IPathProvideManager pathProvideManager)
         {
-            viewPath = pathProvideManager.Get<BannerController>("Dashboard");
+            viewPath = pathProvideManager.Get<BannerController>();
         }
 
         public IActionResult Index()

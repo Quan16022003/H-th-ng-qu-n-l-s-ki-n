@@ -11,7 +11,7 @@ namespace Web.Areas.Dashboard.Controllers.ManageSite
 
         public PageController(IPathProvideManager pathProvideManager)
         {
-            viewPath = pathProvideManager.Get<PageController>("Dashboard");
+            viewPath = pathProvideManager.Get<PageController>();
         }
 
         public IActionResult Index()

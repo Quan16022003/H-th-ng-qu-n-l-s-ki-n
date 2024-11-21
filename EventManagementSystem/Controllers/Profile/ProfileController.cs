@@ -3,9 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Web.Utils;
 using Web.Utils.ViewsPathServices;
 
-namespace Web.Areas.Profile.Controllers
+namespace Web.Controllers.Profile
 {
-    [Area("Profile")]
     public class ProfileController : Controller
     {
         public IActionResult Information()

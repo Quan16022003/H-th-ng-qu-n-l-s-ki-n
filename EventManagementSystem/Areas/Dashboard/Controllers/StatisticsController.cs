@@ -11,7 +11,7 @@ namespace Web.Areas.Dashboard.Controllers
 
         public StatisticsController(IPathProvideManager pathProvideManager)
         {
-            viewPath = pathProvideManager.Get<StatisticsController>("Dashboard");
+            viewPath = pathProvideManager.Get<StatisticsController>();
         }
 
         public IActionResult Index()

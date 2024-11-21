@@ -18,7 +18,7 @@ namespace Web.Areas.Dashboard.Controllers.ManageUsers
             IPathProvideManager pathProvideManager,
             IServiceManager serviceManager)
         {
-            viewPath = pathProvideManager.Get<UserController>("Dashboard");
+            viewPath = pathProvideManager.Get<UserController>();
             _userService = serviceManager.UserService;
         }
 

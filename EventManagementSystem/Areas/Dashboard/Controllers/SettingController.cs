@@ -10,7 +10,7 @@ namespace Web.Areas.Dashboard.Controllers
 
         public SettingController(IPathProvideManager pathProvideManager)
         {
-            viewPath = pathProvideManager.Get<SettingController>("Dashboard");
+            viewPath = pathProvideManager.Get<SettingController>();
         }
 
         public IActionResult Index()

@@ -11,7 +11,7 @@ namespace Web.Areas.Dashboard.Controllers.ManageSite
 
         public MediaController(IPathProvideManager pathProvideManager)
         {
-            viewPath = pathProvideManager.Get<MediaController>("Dashboard");
+            viewPath = pathProvideManager.Get<MediaController>();
         }
 
         public IActionResult Index()

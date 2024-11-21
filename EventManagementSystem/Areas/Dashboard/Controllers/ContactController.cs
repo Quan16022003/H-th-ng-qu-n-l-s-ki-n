@@ -10,7 +10,7 @@ namespace Web.Areas.Dashboard.Controllers
 
         public ContactController(IPathProvideManager pathProvideManager)
         {
-            viewPath = pathProvideManager.Get<ContactController>("Dashboard");
+            viewPath = pathProvideManager.Get<ContactController>();
         }
 
         public IActionResult Index()

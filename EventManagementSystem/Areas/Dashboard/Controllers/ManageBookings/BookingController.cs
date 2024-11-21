@@ -11,7 +11,7 @@ namespace Web.Areas.Dashboard.Controllers.ManageBookings
 
         public BookingController(IPathProvideManager pathProviderManager)
         {
-            viewPath = pathProviderManager.Get<BookingController>("Dashboard");
+            viewPath = pathProviderManager.Get<BookingController>();
         }
 
         public IActionResult Index()
