@@ -1,22 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Services.Abtractions;
+using Web.Controllers;
 using Web.Utils;
 using Web.Utils.ViewsPathServices;
 
 namespace Web.Areas.Dashboard.Controllers.ManageSite
 {
     [Area("Dashboard")]
-    public class PageController : Controller
+    public class PageController : BaseController
     {
-        private readonly string viewPath;
-
-        public PageController(IPathProvideManager pathProvideManager)
+        public PageController(
+            IPathProvideManager pathProvideManager,
+            IServiceManager serviceManager) : base(serviceManager)
         {
-            viewPath = pathProvideManager.Get<PageController>();
+            ViewPath = pathProvideManager.Get<PageController>();
         }
 
         public IActionResult Index()
         {
-            return View($"{viewPath}/Pages.cshtml");
+            LoadCurrentUser();
+            return View($"{ViewPath}/Pages.cshtml");
         }
     }
 }

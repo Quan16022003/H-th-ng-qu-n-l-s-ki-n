@@ -1,21 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Services.Abtractions;
+using Web.Controllers;
 using Web.Utils.ViewsPathServices;
 
 namespace Web.Areas.Dashboard.Controllers
 {
     [Area("Dashboard")]
-    public class ContactController : Controller
+    public class ContactController : BaseController
     {
-        private readonly string viewPath;
-
-        public ContactController(IPathProvideManager pathProvideManager)
+        public ContactController(
+            IPathProvideManager pathProvideManager,
+            IServiceManager serviceManager) : base(serviceManager)
         {
-            viewPath = pathProvideManager.Get<ContactController>();
+            ViewPath = pathProvideManager.Get<ContactController>();
         }
 
         public IActionResult Index()
         {
-            return View($"{viewPath}/ContactIndex.cshtml");
+            LoadCurrentUser();
+            return View($"{ViewPath}/ContactIndex.cshtml");
         }
     }
 }

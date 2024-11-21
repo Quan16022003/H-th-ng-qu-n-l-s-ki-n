@@ -1,22 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Services.Abtractions;
+using Web.Controllers;
 using Web.Utils;
 using Web.Utils.ViewsPathServices;
 
 namespace Web.Areas.Dashboard.Controllers.ManageBookings
 {
     [Area("Dashboard")]
-    public class BookingController : Controller
+    public class BookingController : BaseController
     {
-        private readonly string viewPath;
-
-        public BookingController(IPathProvideManager pathProviderManager)
+        public BookingController(
+            IPathProvideManager pathProviderManager,
+            IServiceManager serviceManager) : base(serviceManager)
         {
-            viewPath = pathProviderManager.Get<BookingController>();
+            ViewPath = pathProviderManager.Get<BookingController>();
         }
 
         public IActionResult Index()
         {
-            return View($"{viewPath}/Bookings.cshtml");
+            LoadCurrentUser();
+            return View($"{ViewPath}/Bookings.cshtml");
         }
     }
 }

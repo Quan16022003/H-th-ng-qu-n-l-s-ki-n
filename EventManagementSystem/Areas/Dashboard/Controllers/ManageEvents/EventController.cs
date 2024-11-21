@@ -1,23 +1,24 @@
 ﻿using Constracts.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abtractions;
+using Web.Controllers;
 using Web.Utils;
 using Web.Utils.ViewsPathServices;
 
 namespace Web.Areas.Dashboard.Controllers.ManageEvents
 {
     [Area("Dashboard")]
-    public class EventController : Controller
+    public class EventController : BaseController
     {
         private readonly IEventService _eventService;
-        private readonly string viewPath;
 
         public EventController(
             IPathProvideManager pathProvideManager,
-            IServiceManager serviceManager)
+            IServiceManager serviceManager) : base(serviceManager)
         {
             _eventService = serviceManager.EventService;
-            viewPath = pathProvideManager.Get<EventController>();
+            ViewPath = pathProvideManager.Get<EventController>();
         }
 
         private async Task<IEnumerable<EventDTO>> FetchEvents(string type = "", string query = "")
@@ -37,13 +38,15 @@ namespace Web.Areas.Dashboard.Controllers.ManageEvents
             [FromQuery(Name = "searchOption")] string searchType = "",
             [FromQuery(Name = "searchQuery")] string query = "")
         {
+            LoadCurrentUser();
             var events = await FetchEvents(searchType, query);
-            return View($"{viewPath}/Events.cshtml", events);
+            return View($"{ViewPath}/Events.cshtml", events);
         }
 
         public IActionResult Add()
         {
-            return View($"{viewPath}/AddEvent.cshtml");
+            LoadCurrentUser();
+            return View($"{ViewPath}/AddEvent.cshtml");
         }
 
         // call by Ajax

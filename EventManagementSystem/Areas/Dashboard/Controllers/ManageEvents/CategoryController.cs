@@ -1,24 +1,24 @@
 ﻿using Constracts.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abtractions;
+using Web.Controllers;
 using Web.Utils;
 using Web.Utils.ViewsPathServices;
 
 namespace Web.Areas.Dashboard.Controllers.ManageEvents
 {
     [Area("Dashboard")]
-    public class CategoryController : Controller
+    public class CategoryController : BaseController
     {
         private readonly IEventCategoryService _categoryEventService;
         private readonly ISlugService _slugService;
-        private readonly string viewPath;
 
         public CategoryController(
             IPathProvideManager pathProvideManager,
             IServiceManager serviceManager,
-            ISlugService slugService)
+            ISlugService slugService) : base(serviceManager)
         {
-            viewPath = pathProvideManager.Get<CategoryController>();
+            ViewPath = pathProvideManager.Get<CategoryController>();
             _categoryEventService = serviceManager.EventCategoryService;
             _slugService = slugService;
         }
@@ -40,14 +40,15 @@ namespace Web.Areas.Dashboard.Controllers.ManageEvents
             [FromQuery(Name = "searchOption")] string searchType = "",
             [FromQuery(Name = "searchQuery")] string query = "")
         {
+            LoadCurrentUser();
             var categories = await FetchCategories(searchType, query);
-
-            return View($"{viewPath}/Categories.cshtml", categories);
+            return View($"{ViewPath}/Categories.cshtml", categories);
         }
 
         public IActionResult Add()
         {
-            return View($"{viewPath}/AddCategory.cshtml");
+            LoadCurrentUser();
+            return View($"{ViewPath}/AddCategory.cshtml");
         }
 
         [HttpPost]

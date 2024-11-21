@@ -5,26 +5,23 @@ using Web.Utils;
 using Web.Utils.ViewsPathServices;
 using Constracts.DTO;
 using Services.Abtractions;
+using Web.Controllers;
 
 namespace Web.Areas.Dashboard.Controllers.ManageUsers
 {
     [Area("Dashboard")]
-    public class UserController : Controller
+    public class UserController : BaseController
     {
-        private readonly string viewPath;
-        private readonly IUserService _userService;
-
         public UserController(
             IPathProvideManager pathProvideManager,
-            IServiceManager serviceManager)
+            IServiceManager serviceManager) : base(serviceManager)
         {
-            viewPath = pathProvideManager.Get<UserController>();
-            _userService = serviceManager.UserService;
+            ViewPath = pathProvideManager.Get<UserController>();
         }
 
         private async Task<IEnumerable<UserDTO>> FetchUsers(string type = "", string query = "")
         {
-            var users = await _userService.GetAllUsersAsync();
+            var users = await UserService.GetAllUsersAsync();
             if (string.IsNullOrEmpty(query)) return users;
 
             if (type == "Equal")
@@ -38,8 +35,9 @@ namespace Web.Areas.Dashboard.Controllers.ManageUsers
             [FromQuery(Name = "searchOption")] string searchType = "",
             [FromQuery(Name = "searchQuery")] string query = "")
         {
+            LoadCurrentUser();
             var users = await FetchUsers(searchType, query);
-            return View($"{viewPath}/Users.cshtml", users);
+            return View($"{ViewPath}/Users.cshtml", users);
         }
     }
 }

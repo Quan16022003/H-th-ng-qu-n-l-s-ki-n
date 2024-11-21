@@ -29,11 +29,7 @@ namespace Web.Config
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller:slugify}/{action:slugify}/{id?}",
-                new
-                {
-                    controller = "Home", action = "Index"
-                });
+                pattern: "{controller:slugify=Home}/{action:slugify=Index}/{id?}");
         }
     }
 }

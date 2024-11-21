@@ -20,7 +20,7 @@ namespace Web.Utils.ViewsPathServices.Implementations
             IPathProvider provider = _serviceProvider.GetKeyedService<IPathProvider>(area.ToLower()) 
                 ?? throw new ArgumentException($"Path provider not have Area: {area}");
 
-            return provider.GetViewsPath(typeof(T));
+            return provider.GetViewsPath(type);
         }
     }
 }

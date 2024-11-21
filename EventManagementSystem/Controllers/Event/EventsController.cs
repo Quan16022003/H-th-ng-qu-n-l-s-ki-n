@@ -1,58 +1,59 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Services.Abtractions;
 using Web.Utils.ViewsPathServices;
 
 
 namespace Web.Controllers.Event
 {
-    public class EventsController : Controller
+    public class EventsController : BaseController
     {
-        private readonly string viewPath;
-
-        public EventsController(IPathProvideManager pathProvideManager)
+        public EventsController(
+            IPathProvideManager pathProvideManager,
+            IServiceManager serviceManager) : base(serviceManager)
         {
-            viewPath = pathProvideManager.Get<EventsController>();
+            ViewPath = pathProvideManager.Get<EventsController>();
         }
 
         [HttpGet]
         public IActionResult AllEvent()
         {
-            return View($"{viewPath}/AllEvent.cshtml");
+            return View($"{ViewPath}/AllEvent.cshtml");
         }
 
         [HttpGet]
         public IActionResult DetailEvent()
         {
-            return View($"{viewPath}/DetailEvent.cshtml");
+            return View($"{ViewPath}/DetailEvent.cshtml");
         }
         [HttpGet]
         public IActionResult Maps()
         {
-            return View($"{viewPath}/Maps.cshtml");
+            return View($"{ViewPath}/Maps.cshtml");
         }
         [HttpGet]
         public IActionResult About()
         {
-            return View($"{viewPath}/About.cshtml");
+            return View($"{ViewPath}/About.cshtml");
         }
         [HttpGet]
         public IActionResult BlogEvent()
         {
-            return View($"{viewPath}/BlogEvent.cshtml");
+            return View($"{ViewPath}/BlogEvent.cshtml");
         }
         [HttpGet]
         public IActionResult DetailMap()
         {
-            return View($"{viewPath}/DetailMap.cshtml");
+            return View($"{ViewPath}/DetailMap.cshtml");
         }
         [HttpGet]
         public IActionResult Privacy()
         {
-            return View($"{viewPath}/Privacy.cshtml");
+            return View($"{ViewPath}/Privacy.cshtml");
         }
         [HttpGet]
         public IActionResult Terms()
         {
-            return View($"{viewPath}/Terms.cshtml");
+            return View($"{ViewPath}/Terms.cshtml");
         }
     }
 }

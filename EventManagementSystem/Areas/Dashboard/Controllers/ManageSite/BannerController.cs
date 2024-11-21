@@ -1,22 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Services.Abtractions;
+using Web.Controllers;
 using Web.Utils;
 using Web.Utils.ViewsPathServices;
 
 namespace Web.Areas.Dashboard.Controllers.ManageSite
 {
     [Area("Dashboard")]
-    public class BannerController : Controller
+    public class BannerController : BaseController
     {
-        private readonly string viewPath;
-
-        public BannerController(IPathProvideManager pathProvideManager)
+        public BannerController(
+            IPathProvideManager pathProvideManager,
+            IServiceManager serviceManager) : base(serviceManager)
         {
-            viewPath = pathProvideManager.Get<BannerController>();
+            ViewPath = pathProvideManager.Get<BannerController>();
         }
 
         public IActionResult Index()
         {
-            return View($"{viewPath}/Banners.cshtml");
+            LoadCurrentUser();
+            return View($"{ViewPath}/Banners.cshtml");
         }
     }
 }

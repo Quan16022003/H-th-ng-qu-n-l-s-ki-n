@@ -1,22 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Services.Abtractions;
+using Web.Controllers;
 using Web.Utils;
 using Web.Utils.ViewsPathServices;
 
 namespace Web.Areas.Dashboard.Controllers
 {
     [Area("Dashboard")]
-    public class StatisticsController : Controller
+    public class StatisticsController : BaseController
     {
-        private readonly string viewPath;
-
-        public StatisticsController(IPathProvideManager pathProvideManager)
+        public StatisticsController(
+            IPathProvideManager pathProvideManager,
+            IServiceManager serviceManager) : base(serviceManager)
         {
-            viewPath = pathProvideManager.Get<StatisticsController>();
+            ViewPath = pathProvideManager.Get<StatisticsController>();
         }
 
         public IActionResult Index()
         {
-            return View($"{viewPath}/Statistics.cshtml");
+            LoadCurrentUser();
+            return View($"{ViewPath}/Statistics.cshtml");
         }
     }
 }

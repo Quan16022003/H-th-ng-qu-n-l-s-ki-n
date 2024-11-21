@@ -8,6 +8,7 @@ using Services.Abtractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -54,6 +55,17 @@ namespace Services
             await _unitOfWork.CompleteAsync();
         }
 
+        public async Task<UserDTO> GetCurrentUserAsync(ClaimsPrincipal principal)
+        {
+            var user = await _userManager.GetUserAsync(principal);
+            ArgumentNullException.ThrowIfNull(user);
+
+            var result = user.Adapt<UserDTO>();
+            result.Role = string.Join(", ", [.. _userManager.GetRolesAsync(user).Result]);
+
+            return result;
+        }
+
         public async Task<IEnumerable<UserDTO>> GetAllUsersAsync()
         {
             var users = await _userManager.Users.ToListAsync();
@@ -76,9 +88,9 @@ namespace Services
             ArgumentNullException.ThrowIfNull(user);
 
             var result = user.Adapt<UserDTO>();
-            result.Role = string.Join(", ", await _userManager.GetRolesAsync(user));
+            result.Role = string.Join(", ", [.._userManager.GetRolesAsync(user).Result]);
 
-            return user.Adapt<UserDTO>();
+            return result;
         }
     }
 }

@@ -1,22 +1,25 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Services.Abtractions;
+using Web.Controllers;
 using Web.Utils;
 using Web.Utils.ViewsPathServices;
 
 namespace Web.Areas.Dashboard.Controllers.ManageSite
 {
     [Area("Dashboard")]
-    public class MediaController : Controller
+    public class MediaController : BaseController
     {
-        private readonly string viewPath;
-
-        public MediaController(IPathProvideManager pathProvideManager)
+        public MediaController(
+            IPathProvideManager pathProvideManager,
+            IServiceManager serviceManager) : base(serviceManager)
         {
-            viewPath = pathProvideManager.Get<MediaController>();
+            ViewPath = pathProvideManager.Get<MediaController>();
         }
 
         public IActionResult Index()
         {
-            return View($"{viewPath}/Media.cshtml");
+            LoadCurrentUser();
+            return View($"{ViewPath}/Media.cshtml");
         }
     }
 }
