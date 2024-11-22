@@ -1,11 +1,14 @@
 ﻿using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Persistence.Ultils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Entities;
+using Domain.Commons;
 
 namespace Persistence.Repositories
 {
@@ -13,8 +16,10 @@ namespace Persistence.Repositories
     /// Generic Repository class for performing Database Entity Operations.
     /// </summary>
     /// <typeparam name="T">The Type of Entity to operate on</typeparam>
-    public class BaseRepository<T> : IBaseRepository<T> where T : class
+    public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
+        protected ReferenceCollection<T> References { get; }
+
         #region Readonlys
 
         protected readonly DbContext _dbContext;
@@ -32,6 +37,7 @@ namespace Persistence.Repositories
         {
             _dbContext = dbContext;
             _dbSet = dbContext.Set<T>();
+            References = [];
         }
 
         #endregion
@@ -84,9 +90,9 @@ namespace Persistence.Repositories
         /// Gets a collection of all entities.
         /// </summary>
         /// <returns>A collection of all entities</returns>
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
-            return await _dbSet.ToListAsync();
+            return await _dbSet.ExcuteAllInclude(References).ToListAsync();
         }
 
         /// <summary>
@@ -94,9 +100,12 @@ namespace Persistence.Repositories
         /// </summary>
         /// <param name="id">The ID of the entity to retrieve</param>
         /// <returns>The entity object if found, otherwise null</returns>
-        public async Task<T> GetByIdAsync(int id)
+        public virtual async Task<T> GetByIdAsync(int id)
         {
-            return await _dbSet.FindAsync(id);
+            var result = await _dbSet
+                .SingleOrDefaultAsync(e => e.Id == id);
+
+            return result!;
         }
 
         /// <summary>
@@ -108,7 +117,7 @@ namespace Persistence.Repositories
         /// <param name="skip">The number of records to skip</param>
         /// <param name="includeProperties">Any other navigation properties to include when returning the collection</param>
         /// <returns>A collection of entities</returns>
-        public async Task<IEnumerable<T>> GetManyAsync(
+        public virtual async Task<IEnumerable<T>> GetManyAsync(
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             int? top = null,
@@ -143,6 +152,40 @@ namespace Persistence.Repositories
             }
 
             return await query.ToListAsync();
+        }
+
+        /// <summary>
+        /// Thực hiện xóa mềm một entity.
+        /// </summary>
+        /// <param name="entity">Entity cần xóa mềm</param>
+        public async Task SoftDeleteAsync(T entity)
+        {
+            var property = entity.GetType().GetProperty("IsDeleted");
+            if (property != null)
+            {
+                property.SetValue(entity, true);
+                _dbSet.Update(entity);
+            }
+            await Task.CompletedTask;
+        }
+
+        /// <summary>
+        /// Thực hiện xóa mềm nhiều entities dựa trên điều kiện.
+        /// </summary>
+        /// <param name="filter">Điều kiện để chọn các entities cần xóa mềm</param>
+        public async Task SoftDeleteManyAsync(Expression<Func<T, bool>> filter)
+        {
+            var entities = await _dbSet.Where(filter).ToListAsync();
+            
+            foreach (var entity in entities)
+            {
+                var property = entity.GetType().GetProperty("IsDeleted");
+                if (property != null)
+                {
+                    property.SetValue(entity, true);
+                    _dbSet.Update(entity);
+                }
+            }
         }
 
         #endregion

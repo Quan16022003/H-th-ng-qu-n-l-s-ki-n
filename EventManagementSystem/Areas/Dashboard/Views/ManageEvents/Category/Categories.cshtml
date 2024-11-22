@@ -1,0 +1,129 @@
+﻿@model IEnumerable<Constracts.DTO.EventCategoryDTO>
+@{
+	ViewData["Title"] = "Categories";
+	ViewBag.Current = "Categories";
+	ViewBag.ManageEvents = "selected";
+	ViewBag.Category = "selected";
+}
+
+@Html.AntiForgeryToken()
+
+<div class="w-100 h-100" style="background-color: #F2F2F2">
+	<section class="w-100 d-flex justify-content-center">
+		<div class="d-flex flex-wrap" style="width: 95%; gap: 20px">
+			<div class="dashboard-page-title d-flex align-items-center justify-content-end" style="height: 120px">
+				<div class="dashboard-page-title-icon"><i class="fa-solid fa-table-list"></i></div>
+				<span>@ViewData["Title"]</span>
+			</div>
+			<div class="dashboard-actions d-flex align-items-center" style="height: 120px">
+				<a 
+					asp-area="Dashboard" 
+					asp-controller="Category" 
+					asp-action="Add"
+				   class="bg-light-green rounded-4 btn btn-primary border-0">
+					<i class="fa-solid fa-circle-plus"></i>
+					Add
+				</a>
+			</div>
+		</div>
+	</section>
+	<section class="d-flex justify-content-center w-100">
+		<div class="dashboard-page-content d-flex flex-column align-items-center bg-light shadow">
+			<div style="width: 98%; min-height: 80px">
+				<form method="get" class="w-100 h-100 dashboard-search-form d-flex align-items-center">
+					<select id="searchOption"
+							name="searchOption"
+							class="form-select border-radius-tr-reset border-radius-br-reset remove-border-focus"
+							style="width: 18%">
+						<option>Contain</option>
+						<option>Equal</option>
+					</select>
+					<button type="button" class="dashboard-filter-button btn btn-primary border-radius-reset remove-border-focus"
+							style="width: 7%">
+						<i class="fa-solid fa-filter"></i>
+						<span>Filter</span>
+					</button>
+					<div class="d-flex w-75 form-control p-0 border-radius-tl-reset border-radius-bl-reset">
+						<input type="text"
+							   id="searchQuery"
+							   name="searchQuery"
+							   class="form-control h-100 border-radius-reset border-0 remove-border-focus flex-grow-1" />
+						<button type="submit"
+								class="form-control dashboard-search-button remove-border-focus h-100"
+								style="width: 45px;">
+							<i class="fa-solid fa-magnifying-glass"></i>
+						</button>
+					</div>
+				</form>
+			</div>
+			<div class="dashboard-category-table table-responsive-xxl">
+				<table class="table dashboard-table">
+					<thead>
+						<tr>
+							<th style="min-width: 50px; max-width: 50px" scope="col">Id</th>
+							<th style="min-width: 100px; max-width: 200px" class="text-center" scope="col">Name</th>
+							<th style="min-width: 100px; max-width: 100px" class="text-center" scope="col">Slug</th>
+							@* <th style="min-width: 100px; max-width: 100px" class="text-center" scope="col">Thumb</th> *@
+							<th class="text-center" scope="col">Status</th>
+							<th class="text-center" scope="col">Created Date</th>
+							<th class="text-center" scope="col">Modified Date</th>
+							<th class="text-center" scope="col">Is Deleted</th>
+							<th style="min-width: 150px; max-width: 250px" class="text-end" scope="col">Actions</th>
+						</tr>
+					</thead>
+					<!--Model-->
+					<tbody>
+						@foreach (var item in Model)
+						{
+							<tr>
+								<th scope="row">@item.Id</th>
+								<td>@item.Name</td>
+								<td>@item.Slug</td>
+								<td>
+									<div class="d-flex justify-content-center">
+										<div style="width: fit-content"
+											 class="label @(item.Status ? "bg-light-green" : "bg-danger")">
+											<div>@(item.Status ? "Active" : "Inactive")</div>
+										</div>
+									</div>
+								</td>
+								<td>@item.CreatedDate</td>
+								<td>@item.ModifiedDate</td>
+								<td>
+									<div class="d-flex justify-content-center">
+										<div style="width: fit-content"
+											 class="label @(item.IsDeleted ? "bg-light-green" : "bg-danger")">
+											<div>@item.IsDeleted</div>
+										</div>
+									</div>
+								</td>
+								<td>
+									<div class="d-flex flex-wrap justify-content-end" style="gap: 10px">
+										<a class="btn btn-warning dashboard-action-button text-color-reset">
+											<i class="fa-solid fa-eye"></i>
+											View
+										</a>
+										<a class="btn btn-primary dashboard-action-button">
+											<i class="fa-solid fa-pen-to-square"></i>
+											Edit
+										</a>
+										<a data-id="@item.Id"
+										   class="delete-button btn btn-danger dashboard-action-button">
+											<i class="fa-solid fa-trash"></i>
+											Delete
+										</a>
+									</div>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
+</div>
+
+@section Scripts {
+	<script type="module" asp-append-version="true" src="~/js/dashboard/dashboard-category.js"></script>
+}
+

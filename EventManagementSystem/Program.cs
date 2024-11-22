@@ -11,6 +11,8 @@ using FluentValidation;
 using Domain.Entities;
 using Web.Utils.ViewsPathServices;
 using Web.Utils.ViewsPathServices.Implementations;
+using Microsoft.AspNetCore.Mvc;
+using Web.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +46,8 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.User.RequireUniqueEmail = false;
 });
 
+builder.Services.AddMvc(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
+
 builder.Services.ConfigureApplicationCookie(options =>
 {
     // Cookie settings
@@ -65,22 +69,25 @@ builder.Services.AddFluentValidationClientsideAdapters();
 //builder.Services.AddValidatorsFromAssemblyContaining<OwnerForCreationInputModelValidator>(); // Nhớ mở ra để sử dụng FluentValidation
 
 builder.Services.AddScoped<IServiceManager, ServiceManager>();
-
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
-builder.Services.AddScoped<IEventRepository, EventRepository>();
-
-builder.Services.AddScoped<EventService>();
+// Add repositories to DI container
+builder.Services.RegisterAllRepositories();
+builder.Services.RegisterAllServices();
+builder.Services.RegisterPolicy();
 
 #region add path provider service for views in front end
 
-// key: area name, value: service match
-builder.Services.AddKeyedTransient<IPathProvider, AdminPathProvider>("Admin");
-builder.Services.AddKeyedTransient<IPathProvider, ProfilePathProvider>("Profile");
+builder.Services.RegisterPathProvideManager();
 
 #endregion
+
+builder.Services.RegisterSlugifyTransformer();
+
+builder.Services.AddScoped<IFileService>(provider => 
+    new FileService(builder.Environment.WebRootPath));
 
 var app = builder.Build();
 
@@ -102,19 +109,7 @@ app.UseAuthorization();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
-#region Area Route
-
-app.MapAreaControllerRoute(
-    name: "Admin",
-    areaName: "Admin",
-    pattern: "Admin/{controller}/{action=Index}/{id?}");
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-#endregion
-
+app.RegisterAllRoutes();
 app.MapRazorPages();
 
 app.Run();

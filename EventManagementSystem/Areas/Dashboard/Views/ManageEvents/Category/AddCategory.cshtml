@@ -1,0 +1,42 @@
+﻿@{
+	ViewData["Title"] = "Add Category";
+	ViewBag.Current = "Categories";
+	ViewBag.ManageEvents = "selected";
+	ViewBag.Category = "selected";
+}
+
+@Html.AntiForgeryToken()
+<div class="w-100 h-100" style="background-color: #F2F2F2">
+	<form method="post" class="dashboard-category-form w-100 h-100">
+		<div class="dashboard-category-img w-100 d-flex justify-content-center">
+			<img class="d-block"
+				 src="/images/categories/science&tech.webp" />
+		</div>
+		<div class="dashboard-category-divider w-100 d-flex justify-content-center">
+			<hr />
+		</div>
+		<div class="w-100 d-flex justify-content-center">
+			<div class="dashboard-category-content shadow bg-light">
+				<label for="name">Name</label>
+				<input id="name"
+					   name="name"
+					   type="text"
+					   required
+					   class="form-control remove-border-focus" />
+				<label for="description">Description</label>
+				<textarea id="description"
+						  name="description"
+						  required
+						  style="min-height: 300px; max-height: 400px; resize: none"
+						  class="form-control remove-border-focus"></textarea>
+				<div class="mt-4">
+					<button type="submit" class="dashboard-submit-button btn btn-primary rounded-4 shadow">Create</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+@section Scripts {
+	<script type="module" asp-append-version="true" src="~/js/dashboard/dashboard-category.js"></script>
+}

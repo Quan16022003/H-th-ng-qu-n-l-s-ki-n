@@ -9,13 +9,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Areas\Admin\Validators\**" />
+    <Compile Remove="Areas\Account\**" />
+    <Compile Remove="Areas\AdminEvents\**" />
+    <Compile Remove="Areas\Dashboard\Validators\**" />
     <Compile Remove="Validators\**" />
-    <Content Remove="Areas\Admin\Validators\**" />
+    <Content Remove="Areas\Account\**" />
+    <Content Remove="Areas\AdminEvents\**" />
+    <Content Remove="Areas\Dashboard\Validators\**" />
     <Content Remove="Validators\**" />
-    <EmbeddedResource Remove="Areas\Admin\Validators\**" />
+    <EmbeddedResource Remove="Areas\Account\**" />
+    <EmbeddedResource Remove="Areas\AdminEvents\**" />
+    <EmbeddedResource Remove="Areas\Dashboard\Validators\**" />
     <EmbeddedResource Remove="Validators\**" />
-    <None Remove="Areas\Admin\Validators\**" />
+    <None Remove="Areas\Account\**" />
+    <None Remove="Areas\AdminEvents\**" />
+    <None Remove="Areas\Dashboard\Validators\**" />
     <None Remove="Validators\**" />
   </ItemGroup>
 
@@ -24,9 +32,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\js\admin.js" />
-    <None Include="wwwroot\js\profile.js" />
-    <None Include="wwwroot\scss\profile.scss" />
+    <None Include="wwwroot\js\dashboard\dashboard.js" />
+    <None Include="wwwroot\js\profile\profile.js" />
+    <None Include="wwwroot\scss\profile\profile.scss" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,7 +53,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.6" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
   </ItemGroup>
 
   <ItemGroup>
@@ -71,17 +79,15 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <Content Update="wwwroot\js\dashboard\dashboard-user.js">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
-    <_ContentIncludedByDefault Remove="Areas\Admin\Views\ManageSite\Banner\Banners.cshtml" />
-    <_ContentIncludedByDefault Remove="Areas\Admin\Views\ManageUsers\User\DanhSach.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <AdditionalFiles Include="Views\Account\Login.cshtml" />
-    <AdditionalFiles Include="Views\Account\Register.cshtml" />
-    <AdditionalFiles Include="Views\Profile\Information.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Dashboard\Views\ManageSite\Banner\Banners.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\Dashboard\Views\ManageUsers\User\DanhSach.cshtml" />
   </ItemGroup>
 
 </Project>

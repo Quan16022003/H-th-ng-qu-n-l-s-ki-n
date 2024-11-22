@@ -6,24 +6,23 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.Entities;
 using Domain.Repositories;
+using Constracts.DTO;
 
 namespace Services.Abtractions
 {
     public interface IEventService
     {
+        Task<IEnumerable<EventDTO>> GetAllEventsAsync();
 
-        Task<IEnumerable<Events>> GetAllEventsAsync();
+        Task<EventDTO> GetEventByIdAsync(int id);
 
-        Task<Events> GetEventByIdAsync(int id);
+        Task AddEventAsync(EventDTO events);
 
-        Task AddEventAsync(Events events);
+        Task UpdateEventAsync(EventDTO events);
 
+        Task DeleteEventAsyncById(int id);
 
-
-        Task UpdateEventAsync(Events events);
-
-
-        Task DeleteEventAsync(Events events);
+        Task DeleteEventAsync(EventDTO events);
 
     }
 }

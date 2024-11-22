@@ -1,0 +1,146 @@
+﻿@using System.Web
+@using Web.Authorize
+@using Microsoft.AspNetCore.Html
+@functions {
+	string getNavigateAction(string baseUrl, string current, IEnumerable<string> navigateItems)
+	{
+		string result = "";
+		bool isCurrent = false;
+
+		foreach (var page in navigateItems)
+		{
+			result += "<i class='fa-solid fa-chevron-right'></i>";
+
+			string capitalizeFirst = page[0].ToString().ToUpper() + page.Substring(1);
+			isCurrent = page.ToLower().Contains(current);
+
+			string[] nameAction = capitalizeFirst.Split('?');
+			string currentClass = "text-reset";
+
+			result += $"<a class='{(isCurrent ? currentClass : "")} text-decoration-none' href='{baseUrl}/{page}'><span>{nameAction[0]}</span></a>";
+		}
+
+		return result;
+	}
+
+	IHtmlContent GetHeaderNavigation()
+	{
+		string path = Context.Request.Path;
+
+		string[] pages = path.Split("/");
+
+		// skip the "" and take 2
+		var homePages = pages.Skip(1).Take(2);
+		string baseUrl = $"/{string.Join("/", homePages)}";
+
+		string current = pages.Last().ToLower();
+		bool isInBase = current.Contains("index");
+
+		//get the rest but Index action
+		var navigateItems = isInBase ? pages.Skip(3).SkipLast(1) : pages.Skip(3);
+
+		string html = "<i class='fa-solid fa-chevron-right'></i>"
+							+ $"<a class='{(isInBase ? "text-reset" : "")} text-decoration-none' href='{baseUrl}/index'><span>{ViewBag.Current}</span></a>"
+							+ getNavigateAction(baseUrl, current, navigateItems);
+
+		return Html.Raw(HttpUtility.HtmlDecode(html));
+	}
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<!--ADMIN LAYOUT-->
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"]</title>
+</head>
+<body>
+	<!--Header-->
+	<!--TODO: ADD HEADER-->
+	<!--End Header-->
+	@await Html.PartialAsync("_DashboardSideMenu.cshtml")
+	<section class="dashboard-header w-100 d-flex">
+		<button class="side-menu-button">
+			<i class="fa-solid fa-arrow-left"></i>
+			<i class="fa-solid fa-bars d-none"></i>
+		</button>
+		<div class="flex-grow-1 d-flex align-items-center">
+			<div class="navigate-container d-flex align-items-center rounded-pill bg-light p-2 shadow">
+				<a asp-area='Dashboard' asp-controller='Statistics' asp-action='Index' class='dashboard-base text-decoration-none'>
+					<i class="fa-solid fa-ship"></i>
+					Dashboard
+				</a>
+				@GetHeaderNavigation()
+			</div>
+		</div>
+		<!--model-->
+		<div class="profile-dropdown d-flex align-items-center dropdown">
+			<button class="dropdown-button d-flex align-items-center dropdown-toggle bg-transparent border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+				<div class="prevent-select" style="width: 44px; height: 44px; margin-left: 9px">
+					<img class="w-100 h-100" src="https://www.svgrepo.com/show/420329/anime-away-face.svg" />
+				</div>
+			</button>
+			<ul class="dropdown-menu" style="width: 230px; white-space: normal">
+				<li>
+					<div class="w-100 container">
+						<div class="row">
+							<div class="col-4">
+								<div class="prevent-select" style="width: 70px; height: 70px">
+									<img class="w-100 h-100" src="https://www.svgrepo.com/show/420329/anime-away-face.svg" />
+								</div>
+							</div>
+							<div class="col-8 d-flex flex-column justify-content-center">
+								<!--Model-->
+								<span class="w-100 profile-text" style="font-size: 15px">Admin</span>
+								<span class="w-100 profile-text">admin@gmail.com</span>
+							</div>
+						</div>
+						<hr />
+					</div>
+				</li>
+				<li>
+					<a asp-area="Profile"
+					   asp-controller="Profile"
+					   asp-action="Information"
+					   class="user-profile-link dropdown-item d-flex align-items-center text-color-reset">
+						<i class="fa-solid fa-user" style="font-size: 12px; transform: translateY(-1px)"></i>
+						<span>Profile</span>
+					</a>
+				</li>
+				<li>
+					<a asp-area=""
+					   asp-controller="Home"
+					   asp-action="Index"
+					   class="user-profile-link dropdown-item d-flex align-items-center text-color-reset">
+						<i class="fa-solid fa-house" style="font-size: 12px; transform: translateY(-1px)"></i>
+						<span>Visit Website</span>
+					</a>
+				</li>
+				<li>
+					<!--TODO: Navigate to sign in page, log out current user-->
+					<form method="post" asp-area="Dashboard" asp-controller="Account" asp-action="Logout" class="d-inline">
+						@Html.AntiForgeryToken()
+						<div class="d-flex justify-content-center align-items-center w-100" style="height: 100px">
+							<button type="submit" class="log-out-button w-75 btn btn-danger rounded-pill">
+								<i class="fa-solid fa-arrow-right-from-bracket" style="font-size: 12px; transform: translateY(-1px)"></i>
+								<span>Log Out</span>
+							</button>
+						</div>
+					</form>
+				</li>
+			</ul>
+		</div>
+	</section>
+	<div class="container body-container w-100 d-flex">
+		<div class="dashboard-box"></div>
+		<main role="main" class="dashboard-main d-flex flex-column flex-grow-1 overflow-hidden">
+			@RenderBody()
+		</main>
+	</div>
+
+	<script src="~/dist/bundle.js" asp-append-version="true"></script>
+	<script asp-append-version="true" src="~/js/dashboard/dashboard.js"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

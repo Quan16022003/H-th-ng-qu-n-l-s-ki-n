@@ -18,13 +18,27 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
+    "aos": "^2.3.4",
     "bootstrap": "^5.3.3",
+    "datatables.net": "^2.1.8",
+    "datatables.net-bs5": "^2.1.8",
+    "datatables.net-plugins": "^2.1.7",
+    "imports-loader": "^5.0.0",
+    "bootstrap-icons": "^1.11.3",
     "jquery": "^3.7.1",
     "jquery-validation": "^1.21.0",
-    "jquery-validation-unobtrusive": "^4.0.0"
+    "jquery-validation-unobtrusive": "^4.0.0",
+    "toastr": "^2.1.4"
   },
   "dev-server": "webpack-dev-server --env=development --hot",
   "scripts": {
     "watch": "webpack --watch"
-  }
+  },
+  "name": "he-thong-quan-ly-su-kien",
+  "version": "1.0.0",
+  "description": "## Overview This project is built using ASP.NET Core MVC, targeting .NET 8. The application follows the Onion Architecture, as described in [Code Maze](https://code-maze.com/onion-architecture-in-aspnetcore/).",
+  "main": "webpack.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
