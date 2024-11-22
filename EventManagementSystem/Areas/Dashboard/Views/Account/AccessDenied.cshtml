@@ -1,0 +1,42 @@
+@{
+    ViewData["Title"] = "Access Denied";
+    Layout = "_AccountLayout";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <div class="alert alert-danger">
+                <h2><i class="fas fa-exclamation-triangle"></i> Access Denied</h2>
+                <p class="lead">Bạn không có quyền truy cập trang này.</p>
+            </div>
+
+            <div class="mt-4">
+                <a href="@ViewBag.ReturnUrl" class="btn btn-primary me-2">
+                    <i class="fas fa-arrow-left"></i> Quay lại
+                </a>
+                <form method="post" asp-area="Dashboard" asp-controller="Account" asp-action="Logout" class="d-inline">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                    </button>
+                </form>
+            </div>
+
+            <div class="mt-4">
+                <h4>Thông tin người dùng:</h4>
+                <div class="card">
+                    <div class="card-body">
+                        <dl class="row">
+                            @foreach (var claim in User.Claims)
+                            {
+                                <dt class="col-sm-4">@claim.Type:</dt>
+                                <dd class="col-sm-8">@claim.Value</dd>
+                            }
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
