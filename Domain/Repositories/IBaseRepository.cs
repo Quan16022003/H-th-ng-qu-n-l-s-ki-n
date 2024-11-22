@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Commons;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -11,7 +12,7 @@ namespace Domain.Repositories
     /// Base Repository Interface.
     /// </summary>
     /// <typeparam name="T">The Type of Entity to operate on</typeparam>
-    public interface IBaseRepository<T> where T : class
+    public interface IBaseRepository<T> where T : BaseEntity
     {
         Task<T> AddAsync(T entity);
         Task UpdateAsync(T entity);

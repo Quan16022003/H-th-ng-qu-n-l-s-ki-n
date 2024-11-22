@@ -1,4 +1,4 @@
-﻿using Constracts.EventCategory;
+﻿using Constracts.DTO;
 using Domain.Repositories;
 using Services.Abtractions;
 using System;
@@ -11,7 +11,7 @@ using Domain.Entities;
 
 namespace Services
 {
-    internal class EventCategoryService : IEventCategoryService
+    internal sealed class EventCategoryService : IEventCategoryService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ICategoryEventRepository _categoryEventRepository;
@@ -20,7 +20,7 @@ namespace Services
             _unitOfWork = unitOfWork;
             _categoryEventRepository = _unitOfWork.CategoryEventRepository;
         }
-        public async Task<EventCategoryDto> CreateAsync(CreateEventCategoryDto createDto)
+        public async Task<EventCategoryDTO> CreateAsync(EventCategoryDTO createDto)
         {
             if (createDto == null)
             {
@@ -38,7 +38,7 @@ namespace Services
             await _unitOfWork.CompleteAsync();
 
             // Sử dụng Mapster để chuyển đổi từ entity sang DTO
-            return categoryEvent.Adapt<EventCategoryDto>();
+            return categoryEvent.Adapt<EventCategoryDTO>();
         }
 
         public async Task DeleteAsync(int id)
@@ -63,17 +63,17 @@ namespace Services
             return categoryEvent != null && !categoryEvent.IsDeleted;
         }
 
-        public async Task<IEnumerable<EventCategoryDto>> GetAllAsync()
+        public async Task<IEnumerable<EventCategoryDTO>> GetAllAsync()
         {
             // Lấy tất cả category chưa bị xóa mềm
             var categories = await _categoryEventRepository.GetAllAsync();
             categories = categories.Where(c => !c.IsDeleted && c.Status).ToList();
 
             // Chuyển đổi sang DTO bằng Mapster
-            return categories.Adapt<IEnumerable<EventCategoryDto>>();
+            return categories.Adapt<IEnumerable<EventCategoryDTO>>();
         }
 
-        public async Task<EventCategoryDto> GetByIdAsync(int id)
+        public async Task<EventCategoryDTO> GetByIdAsync(int id)
         {
             // Lấy category theo id
             var categoryEvent = await _categoryEventRepository.GetByIdAsync(id);
@@ -81,20 +81,20 @@ namespace Services
             {
                 throw new KeyNotFoundException($"Không tìm thấy danh mục với id: {id}");
             }
-            return categoryEvent.Adapt<EventCategoryDto>();
+            return categoryEvent.Adapt<EventCategoryDTO>();
         }
 
-        public async Task<EventCategoryDto> GetBySlugAsync(string slug)
+        public async Task<EventCategoryDTO> GetBySlugAsync(string slug)
         {
             var categoryEvent = await _categoryEventRepository.GetBySlugAsync(slug);
             if (categoryEvent == null)
             {
                 throw new KeyNotFoundException($"Không tìm thấy danh mục với slug: {slug}");
             }
-            return categoryEvent.Adapt<EventCategoryDto>();
+            return categoryEvent.Adapt<EventCategoryDTO>();
         }
 
-        public async Task<EventCategoryDto> UpdateAsync(int id, UpdateEventCategoryDto updateDto)
+        public async Task<EventCategoryDTO> UpdateAsync(int id, EventCategoryDTO updateDto)
         {
             if (updateDto == null)
             {
@@ -112,7 +112,7 @@ namespace Services
 
             await _categoryEventRepository.UpdateAsync(categoryEvent);
             
-            return categoryEvent.Adapt<EventCategoryDto>();
+            return categoryEvent.Adapt<EventCategoryDTO>();
         }
 
 

@@ -1,0 +1,92 @@
+﻿<div class="container-fluid position-relative" style="background: url(https://www.ikeva.com/wp-content/uploads/2016/01/BeerDieEvents.jpg); background-size: cover; background-position: center; height: 30vh; width: 100%;">
+    <div class="row h-100">
+        <div class="col text-white position-absolute" style="bottom: 10px">
+            <h1 class="display-4">Event</h1>
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand"><i class="bi bi-house-fill" style="font-size: 1.5rem;"></i></a><i style="font-size: 1.5rem">/ Map</i>
+        </div>
+    </div>
+</div>
+<div class="container my-8">
+    <div class="d-flex justify-content-between align-items-center mb-3 filters-header">
+        <h5 class="d-flex align-items-center">
+            <i class="bi bi-list me-2 text-primary" style="font-size: 1.5rem;"></i>
+            <span class="filter-title">Filters</span>
+        </h5>
+        <button type="button" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-clockwise me-1"></i> Reset Filters
+        </button>
+    </div>
+
+    <div id="filterForm" style="display: none;">
+        <form>
+            <div class="row g-3 mb-3">
+                <div class="col-md-3">
+                    <label for="searchEvent" class="form-label">Search Event</label>
+                    <input type="text" class="form-control" id="searchEvent" placeholder="Type Event Name/Venue/City/State">
+                </div>
+
+                <div class="col-md-3">
+                    <label for="country" class="form-label">Country</label>
+                    <select class="form-control" id="country">
+                        <option>All</option>
+                        <option>USA</option>
+                        <option>Canada</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="city" class="form-label">City</label>
+                    <select class="form-control" id="city">
+                        <option>All</option>
+                        <option>New York</option>
+                        <option>Los Angeles</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="container my-5">
+    <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="card venue-card">
+                <a asp-area="" asp-controller="Events" asp-action="DetailMap" class="DetailMap text-dark" style="text-decoration: none;">
+
+                    <img src="https://vcdn1-dulich.vnecdn.net/2022/05/12/Hanoi2-1652338755-3632-1652338809.jpg?w=0&h=0&q=100&dpr=2&fit=crop&s=NxMN93PTvOTnHNryMx3xJw" class="card-img-top" alt="Australia Grand Hawk View">
+                    <div class="card-body">
+                        <h5 class="card-title">Australia Grand Hawk View</h5>
+                        <p class="card-text">Camperdown NSW Australia</p>
+                    </div>
+                    </a>
+                </div>
+            </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card venue-card">
+                <img src="https://example.com/image2.jpg" class="card-img-top" alt="Frances Show Town">
+                <div class="card-body">
+                    <h5 class="card-title">Frances Show Town</h5>
+                    <p class="card-text">London England United Kingdom</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card venue-card">
+                <img src="https://example.com/image2.jpg" class="card-img-top" alt="Frances Show Town">
+                <div class="card-body">
+                    <h5 class="card-title">Frances Show Town</h5>
+                    <p class="card-text">London England United Kingdom</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card venue-card">
+                <img src="https://example.com/image2.jpg" class="card-img-top" alt="Frances Show Town">
+                <div class="card-body">
+                    <h5 class="card-title">Frances Show Town</h5>
+                    <p class="card-text">London England United Kingdom</p>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+

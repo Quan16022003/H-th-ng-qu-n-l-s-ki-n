@@ -1,4 +1,6 @@
-﻿using Domain.Repositories;
+﻿using Domain.Entities;
+using Domain.Repositories;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Threading.Tasks;
 
@@ -11,6 +13,7 @@ namespace Persistence.Repositories
     {
         #region Properties
 
+        public UserManager<ApplicationUser> UserManager { get; set; }
         public ICategoryEventRepository CategoryEventRepository { get; }
         public IEventRepository EventRepository { get; }
         public ITicketRepository TicketRepository { get; }
@@ -31,6 +34,7 @@ namespace Persistence.Repositories
         /// Constructor.
         /// </summary>
         /// <param name="dbContext">The Database Context</param>
+        /// <param name="userManager">User Manager</param>
         /// <param name="categoryEventRepository">The Category Events Repository</param>
         /// <param name="eventRepository">The Event Repository</param>
         /// <param name="ticketRepository">The Ticket Repository</param>
@@ -40,6 +44,7 @@ namespace Persistence.Repositories
         /// <param name="attendeeRepository">The Attendee Repository</param>
         public UnitOfWork(
             RepositoryDbContext dbContext,
+            UserManager<ApplicationUser> userManager,
             ICategoryEventRepository categoryEventRepository,
             IEventRepository eventRepository,
             ITicketRepository ticketRepository,
@@ -49,6 +54,7 @@ namespace Persistence.Repositories
             IAttendeeRepository attendeeRepository)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            UserManager = userManager;
             CategoryEventRepository = categoryEventRepository ?? throw new ArgumentNullException(nameof(categoryEventRepository));
             EventRepository = eventRepository ?? throw new ArgumentNullException(nameof(eventRepository));
             TicketRepository = ticketRepository ?? throw new ArgumentNullException(nameof(ticketRepository));
