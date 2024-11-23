@@ -1,23 +1,10 @@
-﻿//export const getFormData = (form) => {
-//    let arr = form.serializeArray();
-//    arr = arr.filter((e, i) => {
-//        if (e['name'] === "__RequestVerificationToken") return false;
-//        return true;
-//    })
-
-//    var index_arr = {};
-//    let result = new FormData();
-
-//    $.map(arr, function (obj, i) {
-//        index_arr[obj['name']] = obj['value'];
-//        result.append(obj['name'], obj['value']);
-//    });
-
-//    return JSON.stringify(index_arr);
-//}
-
-export const getImageUrl = (file) => new Promise((resolve, rejects) => {
+﻿export const getImageUrl = (file) => new Promise((resolve, rejects) => {
     let reader = new FileReader();
+    if (!file.type.startsWith('image/')) {
+        reject(new Error("Selected file is not an image"));
+        return;
+    }
+
     reader.onload = (e) => {
         resolve(e.target.result);
     }

@@ -1,35 +1,40 @@
 @model Web.Areas.Dashboard.ViewModels.LoginViewModel
 
 @{
-    Layout = "Account/_AccountLayout";
-    ViewData["Title"] = "Đăng nhập";
+	Layout = "Account/_AccountLayout";
+	ViewData["Title"] = "Đăng nhập";
 }
 
-<div class="row justify-content-center align-items-center min-vh-100">
-    <div class="col-md-6 col-lg-4">
-        <div class="card shadow-lg">
-            <div class="card-body p-5">
-                <h2 class="text-center mb-4">Đăng nhập Admin</h2>
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <form asp-area="Dashboard" asp-controller="Account" asp-action="Login" method="post" asp-route-returnUrl="@ViewBag.ReturnURL">
-                    <div class="mb-3">
-                        <label asp-for="Email" class="form-label">Email</label>
-                        <input asp-for="Email" class="form-control" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="Password" class="form-label">Mật khẩu</label>
-                        <input asp-for="Password" type="password" class="form-control" />
-                        <span asp-validation-for="Password" class="text-danger"></span>
-                    </div>
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary">Đăng nhập</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+<div class="dashboard-login d-flex justify-content-center align-items-center min-vh-100">
+	<div class="col-md-6 col-lg-4" style="background-color: transparent">
+		<div class="card shadow-lg" style="background-color: transparent">
+			<div class="card-body p-5 dashboard-login-form-container">
+				<h2 class="text-center mb-4 text-light">Đăng nhập Admin</h2>
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+				<form class="dashboard-login-form" asp-area="Dashboard" asp-controller="Account" asp-action="Login" method="post" asp-route-returnUrl="@ViewBag.ReturnURL">
+					<div class="mb-3">
+						<label asp-for="Email" class="form-label">Email</label>
+						<input asp-for="Email" class="form-control" />
+						<span asp-validation-for="Email" class="text-danger"></span>
+					</div>
+					<div class="mb-3">
+						<label asp-for="Password" class="form-label">Mật khẩu</label>
+						<input asp-for="Password" type="password" class="form-control" />
+						<span asp-validation-for="Password" class="text-danger"></span>
+					</div>
+					<div class="d-grid">
+						<button type="submit" class="btn">
+							<i class="fa-solid fa-arrow-right-to-bracket"></i>
+							Đăng nhập
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
 }

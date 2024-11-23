@@ -449,8 +449,94 @@ $table-background: #404040;
 
 /* #endregion */
 
-/* #region Responsive */
+/* #region Login */
 
+.dashboard-login {
+    background: url(../../images/loginbg.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
+.dashboard-login-form-container {
+    background-color: rgba(56, 56, 56, 0.7);
+}
+
+.dashboard-login-form {
+    > * {
+        color: $dashboard-font-color !important;
+    }
+
+    > div {
+        background-color: inherit !important;
+    }
+
+    select, input, input:focus, textarea, textarea:focus {
+        background-color: inherit !important;
+    }
+
+    select option:hover {
+        background-color: $selected-color !important;
+    }
+
+    input, input:focus, textarea, textarea:focus {
+        color: $dashboard-font-color !important;
+    }
+
+    button {
+        background: linear-gradient(to right, rgb(234, 65, 112), rgb(128,0,128)) !important;
+        border: unset;
+        color: white;
+        font-weight: bold;
+    }
+}
+
+.access-denied-page {
+    background-image: url(../../images/403bg.gif);
+    background-position: center;
+    background-size: cover;
+}
+
+.access-denied-title {
+    margin-top: 50px;
+    min-height: 50vh;
+    min-width: 300px;
+    width: 27%;
+
+    div {
+        text-align: center;
+        font-weight: bold;
+    }
+}
+
+.access-denied-content {
+    color: $dashboard-font-color;
+    background-color: rgba(56, 56, 56, 0.3);
+    border-radius: 10px;
+    padding: 10px;
+    min-width: 300px;
+    width: 30%;
+
+    * {
+        overflow: hidden;
+    }
+}
+
+.access-denied-navigation {
+    margin-top: 50px;
+    gap: 15px;
+}
+
+.access-denied-back {
+    background-color: $selected-color !important;
+    transition: background-color 0.3s !important;
+}
+
+.access-denied-back:hover {
+    background-color: #CF3963 !important;
+}
+
+/* #endregion */
+/* #region Responsive */
 @media screen and (max-width: $dashboard-responsive-max-width) {
     .side-menu {
         z-index: 100;

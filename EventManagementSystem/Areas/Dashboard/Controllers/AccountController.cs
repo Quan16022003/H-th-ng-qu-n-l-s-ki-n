@@ -30,11 +30,13 @@ namespace Web.Areas.Dashboard.Controllers
         [IgnoreAntiforgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl)
         {
-            returnUrl ??= Url.Action("Index", "Statistics");
-            if (!ModelState.IsValid)
+            returnUrl ??= Url.Action("Index", "Statistics", new
             {
-                return View(model);
-            }
+                area = "Dashboard"
+            });
+
+            if (!ModelState.IsValid) return View(model);
+
             Console.WriteLine(model.Email);
             var user = await _signInManager.UserManager.FindByNameAsync(model.Email);
             if (user == null)
@@ -55,6 +57,7 @@ namespace Web.Areas.Dashboard.Controllers
                         return LocalRedirect(returnUrl);
                     }
                 }
+
                 ModelState.AddModelError(string.Empty, "Bạn không có quyền truy cập");
                 foreach (Claim userClaim in User.Claims)
                 {
@@ -63,6 +66,7 @@ namespace Web.Areas.Dashboard.Controllers
                 await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
                 return View(model);
             }
+
             if (result.IsLockedOut)
             {
                 ModelState.AddModelError(string.Empty, "Tài khoản của bạn đã bị khóa");
@@ -82,11 +86,27 @@ namespace Web.Areas.Dashboard.Controllers
         }
         
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         public IActionResult AccessDenied()
         {
-            ViewBag.ReturnUrl = Url.Action("Index", "Statistics") ?? string.Empty;
+            string dashboardUrl = Url.Action("Index", "Statistics", new
+            {
+                area = "Dashboard"
+            }) ?? string.Empty;
+
+            string customerUrl = Url.Action("Index", "Home", new
+            {
+                area = ""
+            }) ?? string.Empty;
+
+            ViewBag.ReturnUrl = IsCustomer() ? customerUrl : dashboardUrl;
             return View();
+        }
+
+        private bool IsCustomer()
+        {
+            string? role = User?.FindFirstValue(ClaimTypes.Role)?.ToLower();
+            return role == null || role == "customer" || role == "";
         }
     }
 }
