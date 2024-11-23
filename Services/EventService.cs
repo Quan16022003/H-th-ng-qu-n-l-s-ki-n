@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Constracts.EventDto;
 using Domain.Entities;
 using Domain.Repositories;
+using Mapster;
 using Microsoft.Extensions.Logging;
 using Services.Abtractions;
 using Mapster;
@@ -13,7 +14,7 @@ using Domain.Exceptions;
 
 namespace Services
 {
-    public sealed class EventService : IEventService
+    internal sealed class EventService : IEventService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<EventService> _logger;
