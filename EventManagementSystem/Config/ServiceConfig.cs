@@ -43,12 +43,12 @@ namespace Web.Config
                     policy => policy.RequireRole(Roles.Administrator, Roles.Organizer))
                 .AddPolicy("EventManagement",
                     policy => policy.RequireRole(Roles.Administrator, Roles.Organizer))
-                .AddPolicy("CategoryManagement",
-                    policy => policy.RequireRole(Roles.Administrator, Roles.Organizer))
                 .AddPolicy("OrderManagement",
                     policy => policy.RequireRole(Roles.Administrator, Roles.Organizer))
                 .AddPolicy("TicketManagement",
                     policy => policy.RequireRole(Roles.Administrator, Roles.Organizer))
+                .AddPolicy("CategoryManagement",
+                    policy => policy.RequireRole(Roles.Administrator))
                 .AddPolicy("UserManagement",
                     policy => policy.RequireRole(Roles.Administrator))
                 .AddPolicy("SiteManagement",

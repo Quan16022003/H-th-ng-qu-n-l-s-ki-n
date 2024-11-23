@@ -4,7 +4,7 @@ const route = "/dashboard/event";
 const deleteAction = "handle-delete"
 
 $(document).ready(() => {
-    $('.dashboard-event-table').find(".table").DataTable({
+    $('.dashboard-table-container').find(".table").DataTable({
         search: false,
         searching: false,
         lengthChange: false,

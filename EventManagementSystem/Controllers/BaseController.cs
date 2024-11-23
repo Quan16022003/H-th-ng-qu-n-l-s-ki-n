@@ -26,9 +26,8 @@ namespace Web.Controllers
         protected void LoadCurrentUser()
         {
             if (User == null) return;
-            CurrentUser = UserService.GetCurrentUserAsync(User).Result;
 
-            //CurrentUser = UserService.GetUserByIdAsync("8e445865-a24d-4543-a6c6-9443d048cdb9").Result;
+            CurrentUser = UserService.GetCurrentUserAsync(User).Result;
             Permissions = new AccessPermission(CurrentUser);
 
             ViewBag.CurrentUser = CurrentUser;

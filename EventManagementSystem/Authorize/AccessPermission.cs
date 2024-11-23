@@ -58,11 +58,11 @@ namespace Web.Authorize
 
             switch (role)
             {
-                case "Administrator":
+                case nameof(Roles.Administrator):
                     GrantAdminPermission();
                     break;
 
-                case "Organizer":
+                case nameof(Roles.Organizer):
                     GrantOrganizerPermission();
                     break;
 

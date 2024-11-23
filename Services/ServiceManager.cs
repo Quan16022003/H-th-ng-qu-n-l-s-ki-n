@@ -15,11 +15,12 @@ namespace Services
 
         public ServiceManager(IUnitOfWork unitOfWork,
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            IFileService fileService)
         {
             _lazyUserService = new Lazy<IUserService>(() => new UserService(unitOfWork));
             _lazyEventService = new Lazy<IEventService>(() => new EventService(unitOfWork));
-            _lazyEventCategoryService = new Lazy<IEventCategoryService>(() => new EventCategoryService(unitOfWork));
+            _lazyEventCategoryService = new Lazy<IEventCategoryService>(() => new EventCategoryService(unitOfWork, fileService));
             //_lazyOwnerService = new Lazy<IOwnerService>(() => new OwnerService(repositoryManager));
         }
 

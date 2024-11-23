@@ -1,5 +1,4 @@
 ﻿@using System.Web
-@using Web.Authorize
 @using Microsoft.AspNetCore.Html
 @functions {
 	string getNavigateAction(string baseUrl, string current, IEnumerable<string> navigateItems)
@@ -9,15 +8,15 @@
 
 		foreach (var page in navigateItems)
 		{
-			result += "<i class='fa-solid fa-chevron-right'></i>";
+			result += "<i class='fa-solid fa-chevron-right dashboard-text-color-reset'></i>";
 
 			string capitalizeFirst = page[0].ToString().ToUpper() + page.Substring(1);
 			isCurrent = page.ToLower().Contains(current);
 
 			string[] nameAction = capitalizeFirst.Split('?');
-			string currentClass = "text-reset";
+			string currentClass = isCurrent ? "dashboard-text-color-reset" : "dashboard-text-selected";
 
-			result += $"<a class='{(isCurrent ? currentClass : "")} text-decoration-none' href='{baseUrl}/{page}'><span>{nameAction[0]}</span></a>";
+			result += $"<a class='{currentClass} text-decoration-none' href='{baseUrl}/{page}'><span>{nameAction[0]}</span></a>";
 		}
 
 		return result;
@@ -39,8 +38,8 @@
 		//get the rest but Index action
 		var navigateItems = isInBase ? pages.Skip(3).SkipLast(1) : pages.Skip(3);
 
-		string html = "<i class='fa-solid fa-chevron-right'></i>"
-							+ $"<a class='{(isInBase ? "text-reset" : "")} text-decoration-none' href='{baseUrl}/index'><span>{ViewBag.Current}</span></a>"
+		string html = "<i class='fa-solid fa-chevron-right dashboard-text-color-reset'></i>"
+							+ $"<a class='{(isInBase ? "dashboard-text-color-reset" : "dashboard-text-selected")} text-decoration-none' href='{baseUrl}/index'><span>{ViewBag.Current}</span></a>"
 							+ getNavigateAction(baseUrl, current, navigateItems);
 
 		return Html.Raw(HttpUtility.HtmlDecode(html));
@@ -53,21 +52,25 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/9783/9783268.png" />
 	<title>@ViewData["Title"]</title>
 </head>
-<body>
+<body style="background-color: #292929">
 	<!--Header-->
 	<!--TODO: ADD HEADER-->
 	<!--End Header-->
 	@await Html.PartialAsync("_DashboardSideMenu.cshtml")
 	<section class="dashboard-header w-100 d-flex">
 		<button class="side-menu-button">
-			<i class="fa-solid fa-arrow-left"></i>
-			<i class="fa-solid fa-bars d-none"></i>
+			<i class="fa-solid fa-arrow-left dashboard-text-color-reset"></i>
+			<i class="fa-solid fa-bars d-none dashboard-text-color-reset"></i>
 		</button>
 		<div class="flex-grow-1 d-flex align-items-center">
-			<div class="navigate-container d-flex align-items-center rounded-pill bg-light p-2 shadow">
-				<a asp-area='Dashboard' asp-controller='Statistics' asp-action='Index' class='dashboard-base text-decoration-none'>
+			<div class="navigate-container d-flex align-items-center rounded-pill p-2 shadow">
+				<a asp-area='Dashboard'
+				   asp-controller='Statistics'
+				   asp-action='Index'
+				   class='dashboard-base text-decoration-none'>
 					<i class="fa-solid fa-ship"></i>
 					Dashboard
 				</a>
@@ -76,12 +79,14 @@
 		</div>
 		<!--model-->
 		<div class="profile-dropdown d-flex align-items-center dropdown">
-			<button class="dropdown-button d-flex align-items-center dropdown-toggle bg-transparent border-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+			<button class="dropdown-button d-flex align-items-center dropdown-toggle bg-transparent dashboard-text-color-reset border-0"
+					type="button"
+					data-bs-toggle="dropdown" aria-expanded="false">
 				<div class="prevent-select" style="width: 44px; height: 44px; margin-left: 9px">
 					<img class="w-100 h-100" src="https://www.svgrepo.com/show/420329/anime-away-face.svg" />
 				</div>
 			</button>
-			<ul class="dropdown-menu" style="width: 230px; white-space: normal">
+			<ul class="dropdown-menu" style="width: 230px; white-space: normal; background: #525252">
 				<li>
 					<div class="w-100 container">
 						<div class="row">
@@ -92,8 +97,8 @@
 							</div>
 							<div class="col-8 d-flex flex-column justify-content-center">
 								<!--Model-->
-								<span class="w-100 profile-text" style="font-size: 15px">Admin</span>
-								<span class="w-100 profile-text">admin@gmail.com</span>
+								<span class="w-100 profile-text" style="font-size: 15px">@ViewBag.CurrentUser.Role</span>
+								<span class="w-100 profile-text">@ViewBag.CurrentUser.UserName</span>
 							</div>
 						</div>
 						<hr />

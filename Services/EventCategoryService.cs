@@ -15,16 +15,24 @@ namespace Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ICategoryEventRepository _categoryEventRepository;
-        public EventCategoryService(IUnitOfWork unitOfWork)
+        private readonly IFileService _fileService;
+
+        public EventCategoryService(IUnitOfWork unitOfWork, IFileService fileService)
         {
             _unitOfWork = unitOfWork;
             _categoryEventRepository = _unitOfWork.CategoryEventRepository;
+            _fileService = fileService;
         }
         public async Task<EventCategoryDTO> CreateAsync(EventCategoryDTO createDto)
         {
             if (createDto == null)
             {
                 throw new ArgumentNullException(nameof(createDto));
+            }
+
+            if (createDto.ImageFile != null)
+            {
+                createDto.ThumbnailUrl = await _fileService.UploadFileAsync(createDto.ImageFile, "C:\\Users\\ADMIN\\source\\repos\\.vs\\Project\\He-thong-quan-ly-su-kien\\EventManagementSystem\\wwwroot\\images\\categories");
             }
 
             // Sử dụng Mapster để chuyển đổi từ DTO sang entity

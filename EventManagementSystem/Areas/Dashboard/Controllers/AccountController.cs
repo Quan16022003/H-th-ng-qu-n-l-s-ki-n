@@ -25,11 +25,12 @@ namespace Web.Areas.Dashboard.Controllers
             ViewBag.ReturnURL = returnUrl;
             return View();
         }
+
         [HttpPost]
         [IgnoreAntiforgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string? returnUrl)
         {
-            returnUrl ??= Url.Action("Index", "Event");
+            returnUrl ??= Url.Action("Index", "Statistics");
             if (!ModelState.IsValid)
             {
                 return View(model);

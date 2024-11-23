@@ -1,4 +1,4 @@
-﻿import { addEntity, deleteEntity } from "../service/service.js"
+﻿import { getImageUrl, postEntity, deleteEntity } from "../service/service.js"
 
 const route = "/dashboard/category";
 const action = {
@@ -7,7 +7,7 @@ const action = {
 }
 
 $(document).ready(() => {
-    $('.dashboard-category-table').find(".table").DataTable({
+    $('.dashboard-table-container').find(".table").DataTable({
         search: false,
         searching: false,
         lengthChange: false,
@@ -29,24 +29,54 @@ $(document).ready(() => {
     });
 
     stylingAdminPaginate();
+    assignEvent();
+});
 
+//#region assign event
+
+function assignEvent() {
     $(".delete-button").on("click", deleteCategory);
     $(".dashboard-category-form").on("submit", (e) => {
         e.preventDefault();
         addCategory();
     });
-});
+    $(".choose-img-button").find("input[type=file]").on("change", (e) => {
+        setImage(e.target);
+    });
+}
+
+//#endregion
+
+//#region REST
 
 function addCategory() {
-    let form = $(".dashboard-category-form");
-    var url = `${route}/${action.add}`
+    let form = $(".dashboard-category-form")[0];
+    let url = `${route}/${action.add}`
+
+    let formData = new FormData(form);
 
     $(".dashboard-submit-button").addClass("disabled");
-    addEntity(url, form);
+    postEntity(url, formData);
 }
 
 function deleteCategory() {
-    var id = $(this).data("id");
-    var url = `${route}/${action.delete}/${id}`
+    let id = $(this).data("id");
+    let url = `${route}/${action.delete}/${id}`
     deleteEntity(url);
+}
+
+//#endregion
+
+function setImage(input) {
+    let imgContainer = $(".dashboard-category-img")[0];
+    let imgElement = $(imgContainer).find("img")[0];
+
+    getImageUrl(input.files[0])
+        .then((res) => {
+            imgElement.src = res;
+            imgContainer.style.backgroundImage = `url(${res})`;
+        })
+        .catch((err) => {
+            window.toastr.error("Cant read Image");
+        });
 }

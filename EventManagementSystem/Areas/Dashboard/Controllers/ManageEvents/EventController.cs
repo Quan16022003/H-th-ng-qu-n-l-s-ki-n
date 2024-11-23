@@ -9,8 +9,8 @@ using Web.Utils.ViewsPathServices;
 
 namespace Web.Areas.Dashboard.Controllers.ManageEvents
 {
-    [Authorize(Policy = "EventManagement")]
     [Area("Dashboard")]
+    [Authorize(Policy = "EventManagement")]
     public class EventController : BaseController
     {
         private readonly IEventService _eventService;

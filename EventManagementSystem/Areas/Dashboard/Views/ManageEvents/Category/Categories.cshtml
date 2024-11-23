@@ -8,7 +8,7 @@
 
 @Html.AntiForgeryToken()
 
-<div class="w-100 h-100" style="background-color: #F2F2F2">
+<div class="w-100 h-100">
 	<section class="w-100 d-flex justify-content-center">
 		<div class="d-flex flex-wrap" style="width: 95%; gap: 20px">
 			<div class="dashboard-page-title d-flex align-items-center justify-content-end" style="height: 120px">
@@ -28,9 +28,9 @@
 		</div>
 	</section>
 	<section class="d-flex justify-content-center w-100">
-		<div class="dashboard-page-content d-flex flex-column align-items-center bg-light shadow">
+		<div class="dashboard-page-content d-flex flex-column align-items-center shadow">
 			<div style="width: 98%; min-height: 80px">
-				<form method="get" class="w-100 h-100 dashboard-search-form d-flex align-items-center">
+				<form method="get" class="w-100 h-100 dashboard-form dashboard-search-form d-flex align-items-center">
 					<select id="searchOption"
 							name="searchOption"
 							class="form-select border-radius-tr-reset border-radius-br-reset remove-border-focus"
@@ -38,7 +38,7 @@
 						<option>Contain</option>
 						<option>Equal</option>
 					</select>
-					<button type="button" class="dashboard-filter-button btn btn-primary border-radius-reset remove-border-focus"
+					<button type="button" class="dashboard-filter-button btn dashboard-selected-background border-radius-reset remove-border-focus"
 							style="width: 7%">
 						<i class="fa-solid fa-filter"></i>
 						<span>Filter</span>
@@ -56,7 +56,7 @@
 					</div>
 				</form>
 			</div>
-			<div class="dashboard-category-table table-responsive-xxl">
+			<div class="dashboard-table-container table-responsive-xxl">
 				<table class="table dashboard-table">
 					<thead>
 						<tr>

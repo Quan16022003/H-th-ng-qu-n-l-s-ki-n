@@ -1,11 +1,20 @@
 ﻿@using Web.Authorize
 <nav class="side-menu open position-fixed overflow-hidden d-flex flex-column">
-	<a asp-area="Dashboard" asp-controller="Statistics" asp-action="Index" class="dashboard-shortcut d-flex align-items-center text-decoration-none">
+	<a asp-area="Dashboard"
+	   asp-controller="Statistics" 
+	   asp-action="Index"
+	   class="dashboard-shortcut d-flex align-items-center text-decoration-none">
 		<div style="width: 30px; height: 30px; margin-left: 17px">
-			<img style="object-fit: contain" class="w-100 h-100" src="https://eventmie.classiebit.com/storage/settings/February2024/kLnsc9P2UQfpHIrkzQC4.png" />
+			<img style="object-fit: contain" class="w-100 h-100" src="https://cdn-icons-png.flaticon.com/512/9783/9783268.png" />
 		</div>
 		<span style="height: fit-content; width: fit-content" class="text-light">Eventmie 3.0</span>
 		<svg class="dashboard-wave-bg" viewBox="0 0 250 79" preserveAspectRatio="xMinYMin meet">
+			<defs>
+				<linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+					<stop offset="0%" style="stop-color: rgb(234, 65, 112)" />
+					<stop offset="100%" style="stop-color: rgb(128,0,128)" />
+				</linearGradient>
+			</defs>
 			<path d="M0,70 C75,110 180,0 290,110 L250,00 L0,0 Z"></path>
 		</svg>
 	</a>
@@ -14,7 +23,7 @@
 			<img class="w-100 h-100" src="https://www.svgrepo.com/show/420329/anime-away-face.svg" />
 		</div>
 		<!--dashboard model-->
-		<span style="height: fit-content; width: fit-content; font-size: 20px">Admin</span>
+		<span style="height: fit-content; width: fit-content; font-size: 20px">@ViewBag.CurrentUser.Role</span>
 	</div>
 	<div class="dashboard-menu-list-item w-100 h-100 overflow-y-auto">
 		<ul class="w-100 list-unstyled">

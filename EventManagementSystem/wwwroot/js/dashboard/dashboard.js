@@ -61,14 +61,14 @@ let profileDropdown = document.getElementsByClassName("profile-dropdown")[0];
 let profileButton = profileDropdown.querySelector(".dropdown-button");
 
 profileDropdown.addEventListener("hidden.bs.dropdown", () => {
-    if (profileButton.classList.contains("text-primary")) {
-        profileButton.classList.remove("text-primary");
+    if (profileButton.classList.contains("dashboard-text-selected")) {
+        profileButton.classList.remove("dashboard-text-selected");
     }
 })
 
 profileDropdown.addEventListener("shown.bs.dropdown", () => {
-    if (!profileButton.classList.contains("text-primary")) {
-        profileButton.classList.add("text-primary");
+    if (!profileButton.classList.contains("dashboard-text-selected")) {
+        profileButton.classList.add("dashboard-text-selected");
     }
 })
 
@@ -159,6 +159,7 @@ function changeSideMenuButtonIcon(button) {
  * This function at dashboard.js
  */
 function stylingAdminPaginate() {
-    $('.pagination').find('.previous').addClass("bg-light datatables-previous-icon text-primary");
-    $('.pagination').find('.next').addClass("bg-light datatables-next-icon text-primary");
+    $('.pagination').find('.page-item').addClass("dashboard-table-paginate");
+    $('.pagination').find('.previous').addClass("dashboard-text-selected datatables-previous-icon");
+    $('.pagination').find('.next').addClass("dashboard-text-selected datatables-next-icon");
 }
