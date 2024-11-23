@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Domain.Enum;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Services.Abtractions;
 using Web.Controllers;
 using Web.Utils.ViewsPathServices;
 
 namespace Web.Areas.Dashboard.Controllers
 {
+    [Authorize(Policy = "SiteManagement")]
     [Area("Dashboard")]
     public class ContactController : BaseController
     {
@@ -18,7 +21,7 @@ namespace Web.Areas.Dashboard.Controllers
         public IActionResult Index()
         {
             LoadCurrentUser();
-            return View($"{ViewPath}/ContactIndex.cshtml");
+            return View($"{ViewPath}/Contact.cshtml");
         }
     }
 }

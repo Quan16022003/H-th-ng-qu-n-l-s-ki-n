@@ -1,4 +1,6 @@
 ﻿using Constracts.DTO;
+using Domain.Enum;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abtractions;
 using Web.Controllers;
@@ -7,6 +9,7 @@ using Web.Utils.ViewsPathServices;
 
 namespace Web.Areas.Dashboard.Controllers.ManageEvents
 {
+    [Authorize(Policy = "CategoryManagement")]
     [Area("Dashboard")]
     public class CategoryController : BaseController
     {
@@ -67,7 +70,6 @@ namespace Web.Areas.Dashboard.Controllers.ManageEvents
             model.Slug = _slugService.GenerateSlug(model.Name!);
             model.ModifiedDate = model.CreatedDate;
             model.Status = true;
-            model.ThumbnailUrl = "../../images/categories/science&tech.webp";
 
             var result = await _categoryEventService.CreateAsync(model);
 

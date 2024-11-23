@@ -1,19 +1,19 @@
-﻿function getJsonDataFromForm(form) {
-    let arr = form.serializeArray();
-    arr = arr.filter((e, i) => {
-        if (e['name'] === "__RequestVerificationToken") return false;
-        return true;
-    })
+﻿export const getImageUrl = (file) => new Promise((resolve, rejects) => {
+    let reader = new FileReader();
+    if (!file.type.startsWith('image/')) {
+        reject(new Error("Selected file is not an image"));
+        return;
+    }
 
-    var index_arr = {};
+    reader.onload = (e) => {
+        resolve(e.target.result);
+    }
+    reader.onerror = (e) => {
+        rejects(new Error("Cant read file"));
+    }
 
-    $.map(arr, function (obj, i) {
-        index_arr[obj['name']] = obj['value'];
-    });
-
-    var json = JSON.stringify(index_arr);
-    return JSON.parse(json);
-}
+    reader.readAsDataURL(file);
+})
 
 function redirect(url) {
     if (url === undefined) return;
@@ -25,9 +25,9 @@ function redirect(url) {
  * @param {any} url Url of add action in controller
  * @param {any} data Json data of DTO
  */
-export const addEntity = (url, form) => {
+export const postEntity = (url, data) => {
     var token = $("input[name='__RequestVerificationToken']").val();
-    var json = getJsonDataFromForm(form);
+    data.delete("__RequestVerificationToken");
 
     $.ajax({
         url: url,
@@ -35,7 +35,9 @@ export const addEntity = (url, form) => {
         headers: {
             RequestVerificationToken: token,
         },
-        data: json,
+        processData: false,
+        contentType: false,
+        data: data,
         success: (response) => {
             window.toastr.success(response.message)
             setTimeout(() => redirect(response.redirectUrl), 2000)

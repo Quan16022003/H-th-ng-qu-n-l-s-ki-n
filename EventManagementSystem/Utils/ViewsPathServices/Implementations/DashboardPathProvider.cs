@@ -13,6 +13,7 @@ namespace Web.Utils.ViewsPathServices.Implementations
             string target = type.Name;
             return target switch
             {
+                nameof(AccountController) => "~/Areas/Dashboard/Views/Account",
                 nameof(StatisticsController) => "~/Areas/Dashboard/Views/Statistics",
                 nameof(ContactController) => "~/Areas/Dashboard/Views/Contact",
                 nameof(SettingController) => "~/Areas/Dashboard/Views/Setting",

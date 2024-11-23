@@ -6,9 +6,12 @@ using Web.Utils.ViewsPathServices;
 using Constracts.DTO;
 using Services.Abtractions;
 using Web.Controllers;
+using Microsoft.AspNetCore.Authorization;
+using Domain.Enum;
 
 namespace Web.Areas.Dashboard.Controllers.ManageUsers
 {
+    [Authorize(Policy = "UserManagement")]
     [Area("Dashboard")]
     public class UserController : BaseController
     {

@@ -1,13 +1,5 @@
 ﻿$content-width: 95%;
-
-.dashboard-event-table {
-    width: 98%;
-
-    tbody {
-        font-size: 13px !important;
-        text-align: center;
-    }
-}
+$page-content-bg: #404040;
 
 .dashboard-event-divider {
     > hr {
@@ -55,5 +47,6 @@
     min-height: 600px;
     border-radius: 10px;
     padding: 20px;
+    background-color: $page-content-bg;
     //margin-top: 50px;
 }

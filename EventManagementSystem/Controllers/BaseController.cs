@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Services;
 using Services.Abtractions;
+using System.Security.Claims;
 using Web.Authorize;
 
 namespace Web.Controllers
@@ -24,10 +25,9 @@ namespace Web.Controllers
 
         protected void LoadCurrentUser()
         {
-            //if (User == null) return;
-            //CurrentUser = userService.GetCurrentUserAsync(User).Result;
+            if (User == null) return;
 
-            CurrentUser = UserService.GetUserByIdAsync("8e445865-a24d-4543-a6c6-9443d048cdb9").Result;
+            CurrentUser = UserService.GetCurrentUserAsync(User).Result;
             Permissions = new AccessPermission(CurrentUser);
 
             ViewBag.CurrentUser = CurrentUser;

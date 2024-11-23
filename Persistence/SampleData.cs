@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Enum;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,21 +10,31 @@ namespace Persistence
         public static void InitializeAsync(ModelBuilder modelBuilder)
         {
             //Seeding a  'Administrator' role to AspNetRoles table
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Id = "2c5e174e-3b0e-446f-86af-483d56fd7210", Name = "Administrator", NormalizedName = "ADMINISTRATOR".ToUpper() });
+            modelBuilder.Entity<IdentityRole>()
+                .HasData(
+                    new IdentityRole { Id = "2c5e174e-3b0e-446f-86af-483d56fd7210", Name = Roles.Administrator, NormalizedName = Roles.Administrator.ToUpper() },
+                    new IdentityRole { Id = "5045af52-8d12-4add-9d03-8deeb4500523", Name = Roles.Organizer, NormalizedName = Roles.Organizer.ToUpper() },
+                    new IdentityRole { Id = "4ebae836-eaaa-41b2-9209-b7a77f2c7087", Name = Roles.Customer, NormalizedName = Roles.Customer.ToUpper() }
+                    );
 
 
             //a hasher to hash the password before seeding the user to the db
             var hasher = new PasswordHasher<IdentityUser>();
-
-
             //Seeding the User to AspNetUsers table
             modelBuilder.Entity<ApplicationUser>().HasData(
                 new ApplicationUser
                 {
                     Id = "8e445865-a24d-4543-a6c6-9443d048cdb9", // primary key
-                    UserName = "myuser",
-                    NormalizedUserName = "MYUSER",
-                    PasswordHash = hasher.HashPassword(null, "Pa$$w0rd")
+                    UserName = "admin@admin.com",
+                    NormalizedUserName = "ADMIN@ADMIN.COM",
+                    PasswordHash = hasher.HashPassword(null, "Password")
+                },
+                new ApplicationUser()
+                {
+                    Id = "029c00f5-5c22-48a1-bbf5-2a17bf6a2279",
+                    UserName = "organizer@admin.com",
+                    NormalizedUserName = "ORGANIZER@ADMIN.COM",
+                    PasswordHash = hasher.HashPassword(null, "Password")
                 }
             );
 
@@ -34,6 +45,11 @@ namespace Persistence
                 {
                     RoleId = "2c5e174e-3b0e-446f-86af-483d56fd7210",
                     UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9"
+                },
+                new IdentityUserRole<string>()
+                {
+                    RoleId = "5045af52-8d12-4add-9d03-8deeb4500523",
+                    UserId = "029c00f5-5c22-48a1-bbf5-2a17bf6a2279"
                 }
             );
 

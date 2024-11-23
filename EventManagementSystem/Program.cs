@@ -76,6 +76,7 @@ builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 // Add repositories to DI container
 builder.Services.RegisterAllRepositories();
 builder.Services.RegisterAllServices();
+builder.Services.RegisterPolicy();
 
 #region add path provider service for views in front end
 

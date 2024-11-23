@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.AspNetCore.Mvc;
-using Web.Utils;
-using Web.Utils.ViewsPathServices;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Controllers.Profile
 {

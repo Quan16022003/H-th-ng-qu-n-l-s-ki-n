@@ -1,19 +1,21 @@
 ﻿$side-menu-width-open: 250px;
 $side-menu-width-close: 70px;
-$list-background: #F7F7F7;
-$selected-color: #2176FF;
+$list-background: #383838;
+$selected-color: #EA4170;
 $group-max-height: 200px;
-$group-background: #D9D9D9;
+$group-background: #404040;
+$page-content-bg: #404040;
 $side-menu-transition-time: 0.5s;
 $log-out-button-color: #fa2a00;
-$dashboard-font-color: #555;
+$dashboard-font-color: white;
 $dashboard-responsive-max-width: 1400px;
-$table-background: #ECF7FC;
+$dashboard-background-light: #4F4F4F;
+$table-background: #404040;
 
 .side-menu {
     height: 100%;
     overflow: hidden;
-    background-color: white;
+    background-color: $list-background;
     z-index: 100;
     width: $side-menu-width-open;
     transition: width $side-menu-transition-time;
@@ -76,7 +78,7 @@ $table-background: #ECF7FC;
 .dashboard-header {
     height: 79px;
     min-height: 79px;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(64, 64, 64, 0.9);
     padding-left: 250px;
     position: sticky;
     top: 0px;
@@ -90,6 +92,7 @@ $table-background: #ECF7FC;
 
 .dashboard-main {
     min-height: 100vh;
+    background-color: #292929;
 
     > * {
         color: $dashboard-font-color;
@@ -113,10 +116,11 @@ $table-background: #ECF7FC;
     top: 0px;
     left: 0;
     z-index: -10;
+    background-color: $group-background;
 
     path {
         stroke: none;
-        fill: blue;
+        fill: url(#waveGradient);
     }
 }
 
@@ -124,6 +128,7 @@ $table-background: #ECF7FC;
     height: 100px;
     width: 100%;
     gap: 10%;
+    background-color: $group-background;
 }
 
 .dashboard-menu-list-item {
@@ -241,6 +246,7 @@ $table-background: #ECF7FC;
     height: 60%;
     gap: 10px;
     font-size: 13px;
+    background: #525252;
 }
 
 .dashboard-base {
@@ -261,22 +267,20 @@ $table-background: #ECF7FC;
 
     .profile-text {
         font-size: 13px;
-        color: gray;
+        color: white;
     }
 }
 
 .user-profile-link {
     height: 40px;
     gap: 10px;
-    color: gray;
-
-    i, span {
-        transition: color 1s;
-    }
+    color: white;
+    background-color: inherit;
+    transition: background-color 0.3s;
 }
 
 .user-profile-link:hover {
-    color: black !important;
+    background-color: $selected-color !important;
 }
 
 .log-out-button {
@@ -307,13 +311,57 @@ $table-background: #ECF7FC;
     width: 98%;
     min-height: 300px;
     overflow: hidden;
+    border-radius: 10px;
+    background-color: $page-content-bg !important;
+}
+
+.dashboard-table-container {
+    width: 98%;
+    border-radius: 10px;
+    background-color: $table-background;
+
+    tbody {
+        * {
+            font-size: 13px !important;
+            text-align: center;
+            color: white !important;
+        }
+
+        td {
+            background-color: $table-background;
+        }
+    }
 }
 
 .dashboard-table {
+    background-color: $table-background;
+
     th {
-        background-color: $table-background;
-        color: midnightblue !important;
+        background-color: $dashboard-background-light !important;
+        color: $selected-color !important;
         font-size: 13px !important;
+    }
+}
+
+.dashboard-table-paginate {
+    button {
+        color: $selected-color !important;
+        background-color: $dashboard-background-light !important;
+        transition: background-color 0.3s;
+    }
+}
+
+.dashboard-table-paginate:hover {
+    button {
+        background-color: rgba(234, 65, 112, 0.5) !important;
+    }
+}
+
+.dashboard-table-paginate.active {
+    button {
+        color: white !important;
+        background-color: $selected-color !important;
+        border: 1px solid white;
     }
 }
 
@@ -323,21 +371,24 @@ $table-background: #ECF7FC;
     > * {
         height: 38px !important;
     }
+}
 
-    .dashboard-search-button {
-        height: 36px !important;
-    }
+.dashboard-filter-button {
+    border-top: 1px solid white !important;
+    border-bottom: 1px solid white !important;
 }
 
 .dashboard-search-button {
-    border-top-left-radius: 35px;
-    border-bottom-left-radius: 35px;
+    height: 36px !important;
+    border-top-left-radius: 35px !important;
+    border-bottom-left-radius: 35px !important;
     border-right: unset !important;
     border-top: unset !important;
     border-bottom: unset !important;
     padding: unset !important;
     transition: background-color 0.7s;
     color: $dashboard-font-color !important;
+    background-color: $dashboard-background-light !important;
 }
 
 .dashboard-search-button:hover {
@@ -360,8 +411,132 @@ $table-background: #ECF7FC;
     font-size: 14px !important;
 }
 
-/* #region Responsive */
+/* #region Utility */
 
+.dashboard-text-color-reset {
+    color: $dashboard-font-color !important;
+}
+
+.dashboard-text-selected {
+    color: $selected-color !important;
+}
+
+.dashboard-selected-background {
+    background-color: $selected-color !important;
+}
+
+.dashboard-form {
+    > * {
+        color: $dashboard-font-color !important;
+    }
+
+    > div {
+        background-color: $dashboard-background-light !important;
+    }
+
+    select, input, input:focus, textarea, textarea:focus {
+        background-color: $dashboard-background-light !important;
+    }
+
+    select option:hover {
+        background-color: $selected-color !important;
+    }
+
+    input, input:focus, textarea, textarea:focus {
+        color: $dashboard-font-color !important;
+    }
+}
+
+/* #endregion */
+
+/* #region Login */
+
+.dashboard-login {
+    background: url(../../images/loginbg.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
+.dashboard-login-form-container {
+    background-color: rgba(56, 56, 56, 0.7);
+}
+
+.dashboard-login-form {
+    > * {
+        color: $dashboard-font-color !important;
+    }
+
+    > div {
+        background-color: inherit !important;
+    }
+
+    select, input, input:focus, textarea, textarea:focus {
+        background-color: inherit !important;
+    }
+
+    select option:hover {
+        background-color: $selected-color !important;
+    }
+
+    input, input:focus, textarea, textarea:focus {
+        color: $dashboard-font-color !important;
+    }
+
+    button {
+        background: linear-gradient(to right, rgb(234, 65, 112), rgb(128,0,128)) !important;
+        border: unset;
+        color: white;
+        font-weight: bold;
+    }
+}
+
+.access-denied-page {
+    background-image: url(../../images/403bg.gif);
+    background-position: center;
+    background-size: cover;
+}
+
+.access-denied-title {
+    margin-top: 50px;
+    min-height: 50vh;
+    min-width: 300px;
+    width: 27%;
+
+    div {
+        text-align: center;
+        font-weight: bold;
+    }
+}
+
+.access-denied-content {
+    color: $dashboard-font-color;
+    background-color: rgba(56, 56, 56, 0.3);
+    border-radius: 10px;
+    padding: 10px;
+    min-width: 300px;
+    width: 30%;
+
+    * {
+        overflow: hidden;
+    }
+}
+
+.access-denied-navigation {
+    margin-top: 50px;
+    gap: 15px;
+}
+
+.access-denied-back {
+    background-color: $selected-color !important;
+    transition: background-color 0.3s !important;
+}
+
+.access-denied-back:hover {
+    background-color: #CF3963 !important;
+}
+
+/* #endregion */
+/* #region Responsive */
 @media screen and (max-width: $dashboard-responsive-max-width) {
     .side-menu {
         z-index: 100;

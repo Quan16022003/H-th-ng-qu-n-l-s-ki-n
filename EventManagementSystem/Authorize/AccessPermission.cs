@@ -1,4 +1,5 @@
 ﻿using Constracts.DTO;
+using Domain.Enum;
 
 namespace Web.Authorize
 {
@@ -53,15 +54,15 @@ namespace Web.Authorize
             ResetPermissions();
             if (user == null) return;
 
-            string role = user.Role!.ToLower();
+            string role = user.Role!;
 
             switch (role)
             {
-                case "administrator":
+                case nameof(Roles.Administrator):
                     GrantAdminPermission();
                     break;
 
-                case "organizer":
+                case nameof(Roles.Organizer):
                     GrantOrganizerPermission();
                     break;
 

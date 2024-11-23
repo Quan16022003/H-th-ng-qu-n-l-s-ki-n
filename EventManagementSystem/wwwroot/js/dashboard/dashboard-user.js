@@ -1,5 +1,5 @@
 ﻿$(document).ready(() => {
-    $('.dashboard-user-table').find(".table").DataTable({
+    $('.dashboard-table-container').find(".table").DataTable({
         search: false,
         searching: false,
         lengthChange: false,

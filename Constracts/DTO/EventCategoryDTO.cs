@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
 namespace Constracts.DTO
 {
@@ -13,6 +14,8 @@ namespace Constracts.DTO
         public string? Slug { get; set; }
 
         public string? ThumbnailUrl { get; set; }
+
+        public IFormFile? ImageFile { get; set; }
 
         public bool Status { get; set; }
     }

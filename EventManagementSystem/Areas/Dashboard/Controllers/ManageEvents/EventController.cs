@@ -1,4 +1,5 @@
 ﻿using Constracts.DTO;
+using Domain.Enum;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abtractions;
@@ -9,6 +10,7 @@ using Web.Utils.ViewsPathServices;
 namespace Web.Areas.Dashboard.Controllers.ManageEvents
 {
     [Area("Dashboard")]
+    [Authorize(Policy = "EventManagement")]
     public class EventController : BaseController
     {
         private readonly IEventService _eventService;

@@ -33,7 +33,7 @@ html, body {
     font-family: Open Sans,sans-serif;
 }
 
-body{
+body {
     //height: 100vh;
     min-height: 100vh !important;
 }
@@ -43,6 +43,16 @@ body{
     padding-right: 0px !important;
     max-width: 100% !important;
     width: 100%;
+}
+
+.dataTable > thead tr:first-child {
+    th:first-child {
+        border-top-left-radius: 10px;
+    }
+
+    th:last-child {
+        border-top-right-radius: 10px;
+    }
 }
 
 /* #region Utility Class */
@@ -111,6 +121,18 @@ body{
 
 .text-color-inherit {
     color: inherit !important;
+}
+
+.bubble-hover {
+    transition: transform 0.2s !important;
+}
+
+.bubble-hover.btn {
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, transform 0.2s !important;
+}
+
+.bubble-hover:hover {
+    transform: translateY(-2px);
 }
 
 /* #endregion */

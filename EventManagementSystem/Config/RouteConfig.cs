@@ -1,4 +1,6 @@
-﻿using System.Security.Policy;
+﻿using Domain.Enum;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Policy;
 using Web.Utils.UrlTransform;
 
 namespace Web.Config
@@ -30,6 +32,6 @@ namespace Web.Config
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller:slugify=Home}/{action:slugify=Index}/{id?}");
-        }
+        }   
     }
 }
