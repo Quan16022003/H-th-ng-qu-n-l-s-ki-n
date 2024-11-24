@@ -7,41 +7,6 @@ $page-content-bg: #404040;
     }
 }
 
-.dashboard-event-img {
-    max-height: 720px;
-    min-height: 720px;
-    position: relative;
-    background-image: url("../../images/events/hanhitoichoem.png");
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-
-    img {
-        object-fit: fill;
-        object-position: center;
-        width: $content-width;
-        aspect-ratio: 16/9;
-        max-height: inherit;
-        border-radius: 10px;
-        z-index: 10;
-    }
-}
-
-.dashboard-event-img::before {
-    content: "";
-    background-image: inherit;
-    background-size: cover;
-    background-position: inherit;
-    background-repeat: inherit;
-    position: absolute;
-    z-index: 1;
-    top: 0px;
-    left: 0px;
-    filter: blur(30px);
-    width: 100%;
-    height: 100%;
-}
-
 .dashboard-event-content {
     width: $content-width;
     min-height: 600px;

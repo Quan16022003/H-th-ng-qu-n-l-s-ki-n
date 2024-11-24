@@ -32,7 +32,7 @@ namespace Services
 
             if (createDto.ImageFile != null)
             {
-                createDto.ThumbnailUrl = await _fileService.UploadFileAsync(createDto.ImageFile, "C:\\Users\\ADMIN\\source\\repos\\.vs\\Project\\He-thong-quan-ly-su-kien\\EventManagementSystem\\wwwroot\\images\\categories");
+                createDto.ThumbnailUrl = await _fileService.UploadFileAsync(createDto.ImageFile, "images/client");
             }
 
             // Sử dụng Mapster để chuyển đổi từ DTO sang entity

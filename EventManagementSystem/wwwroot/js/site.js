@@ -1,21 +1,7 @@
-﻿// add dependency for webpack
-import '../scss/site.scss'
-import '../scss/event.scss'
-
-//#region Profile SCSS
-
-import '../scss/profile/profile.scss'
-
-//#endregion
-
-//#region Dashboard SCSS
-
-import '../scss/dashboard/dashboard.scss'
-import '../scss/dashboard/dashboard-event.scss'
-import '../scss/dashboard/dashboard-category.scss'
-import '../scss/dashboard/dashboard-user.scss'
-
-//#endregion
+﻿import '../scss/site.scss';
+import '../scss/dashboard/__dashboard__.scss';
+import '../scss/profile/profile.scss';
+import '../scss/event.scss';
 
 //#region JS
 
@@ -43,12 +29,6 @@ AOS.init();
 import toastr from 'toastr';
 import 'toastr/build/toastr.min.css';
 window.toastr = toastr;
-
-//#endregion
-
-//#region custom js
-
-import '../js/service/service.js'
 
 //#endregion
 

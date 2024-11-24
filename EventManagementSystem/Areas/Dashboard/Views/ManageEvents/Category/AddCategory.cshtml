@@ -8,22 +8,7 @@
 @Html.AntiForgeryToken()
 <div class="w-100 h-100">
 	<form method="post" class="dashboard-form dashboard-category-form w-100 h-100">
-		<div class="dashboard-category-img w-100 d-flex justify-content-center">
-			<img class="d-block"
-				 src="/images/categories/science&tech.webp" />
-			<div class="choose-img-button-container">
-				<div class="choose-img-button btn p-2 position-relative">
-					<i class="fa-solid fa-image"></i>
-					Add Image
-					<input type="file"
-						   id="imageFile"
-						   name="imageFile"
-						   required
-						   accept=".jpg, .jpeg, .png, .webp"
-						   class="opacity-0 position-absolute w-100 h-100 top-0 start-0" />
-				</div>
-			</div>
-		</div>
+		@await Html.PartialAsync("./Components/_ImageInput")
 		<div class="dashboard-category-divider w-100 d-flex justify-content-center">
 			<hr />
 		</div>

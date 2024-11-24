@@ -1,4 +1,6 @@
-﻿import { getImageUrl, postEntity, deleteEntity } from "../service/service.js"
+﻿import { postEntity, deleteEntity } from "../service/service.js";
+import { stylingDashboardPaginate } from "../service/datatables-utility.js";
+import { assignImageInputEvent } from "./form-utility.js"
 
 const route = "/dashboard/category";
 const action = {
@@ -25,10 +27,10 @@ $(document).ready(() => {
             }
         },
         pagingType: "simple_numbers",
-        drawCallback: stylingAdminPaginate
+        drawCallback: stylingDashboardPaginate
     });
 
-    stylingAdminPaginate();
+    stylingDashboardPaginate();
     assignEvent();
 });
 
@@ -40,9 +42,7 @@ function assignEvent() {
         e.preventDefault();
         addCategory();
     });
-    $(".choose-img-button").find("input[type=file]").on("change", (e) => {
-        setImage(e.target);
-    });
+    assignImageInputEvent();
 }
 
 //#endregion
@@ -66,17 +66,3 @@ function deleteCategory() {
 }
 
 //#endregion
-
-function setImage(input) {
-    let imgContainer = $(".dashboard-category-img")[0];
-    let imgElement = $(imgContainer).find("img")[0];
-
-    getImageUrl(input.files[0])
-        .then((res) => {
-            imgElement.src = res;
-            imgContainer.style.backgroundImage = `url(${res})`;
-        })
-        .catch((err) => {
-            window.toastr.error("Cant read Image");
-        });
-}

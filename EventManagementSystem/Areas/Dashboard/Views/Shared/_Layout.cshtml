@@ -62,11 +62,11 @@
 	@await Html.PartialAsync("_DashboardSideMenu.cshtml")
 	<section class="dashboard-header w-100 d-flex">
 		<button class="side-menu-button">
-			<i class="fa-solid fa-arrow-left dashboard-text-color-reset"></i>
-			<i class="fa-solid fa-bars d-none dashboard-text-color-reset"></i>
+			<i class="fa-solid fa-arrow-left d-none dashboard-text-color-reset"></i>
+			<i class="fa-solid fa-bars dashboard-text-color-reset"></i>
 		</button>
 		<div class="flex-grow-1 d-flex align-items-center">
-			<div class="navigate-container d-flex align-items-center rounded-pill p-2 shadow">
+			<div class="navigate-container rounded-pill p-2 shadow">
 				<a asp-area='Dashboard'
 				   asp-controller='Statistics'
 				   asp-action='Index'

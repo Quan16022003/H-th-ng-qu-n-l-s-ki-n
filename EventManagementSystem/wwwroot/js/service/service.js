@@ -43,12 +43,11 @@ export const postEntity = (url, data) => {
             setTimeout(() => redirect(response.redirectUrl), 2000)
         },
         error: (xhr, status, error) => {
+            $(".dashboard-submit-button").removeClass("disabled");
             let response = JSON.parse(xhr.responseText);
             if (xhr.status === 400) {
                 window.toastr.error(response.message)
             }
-
-            $(".dashboard-submit-button").removeClass("disabled");
         }
     })
 }

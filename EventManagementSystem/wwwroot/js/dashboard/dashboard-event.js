@@ -1,4 +1,6 @@
 ﻿import { deleteEntity } from "../service/service.js"
+import { stylingDashboardPaginate } from "../service/datatables-utility.js";
+import { assignImageInputEvent } from "./form-utility.js"
 
 const route = "/dashboard/event";
 const deleteAction = "handle-delete"
@@ -25,12 +27,17 @@ $(document).ready(() => {
             }
         },
         pagingType: "simple_numbers",
-        drawCallback: stylingAdminPaginate
+        drawCallback: stylingDashboardPaginate
     });
-    stylingAdminPaginate();
 
-    $(".delete-button").on("click", deleteEvent);
+    stylingDashboardPaginate();
+    assignElementEvent();
 });
+
+function assignElementEvent() {
+    $(".delete-button").on("click", deleteEvent);
+    assignImageInputEvent();
+}
 
 function deleteEvent() {
     var id = $(this).data("id");

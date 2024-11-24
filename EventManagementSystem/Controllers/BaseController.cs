@@ -25,7 +25,7 @@ namespace Web.Controllers
 
         protected void LoadCurrentUser()
         {
-            if (User == null) return;
+            if (User.Identity == null) return;
 
             CurrentUser = UserService.GetCurrentUserAsync(User).Result;
             Permissions = new AccessPermission(CurrentUser);

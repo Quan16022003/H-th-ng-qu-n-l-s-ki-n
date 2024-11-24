@@ -1,4 +1,6 @@
-﻿$(document).ready(() => {
+﻿import { stylingDashboardPaginate } from "../service/datatables-utility.js";
+
+$(document).ready(() => {
     $('.dashboard-table-container').find(".table").DataTable({
         search: false,
         searching: false,
@@ -16,8 +18,8 @@
             }
         },
         pagingType: "simple_numbers",
-        drawCallback: stylingAdminPaginate
+        drawCallback: stylingDashboardPaginate
     });
 
-    stylingAdminPaginate();
+    stylingDashboardPaginate();
 });
