@@ -90,4 +90,8 @@
     <_ContentIncludedByDefault Remove="Areas\Dashboard\Views\ManageUsers\User\DanhSach.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\client\" />
+  </ItemGroup>
+
 </Project>
