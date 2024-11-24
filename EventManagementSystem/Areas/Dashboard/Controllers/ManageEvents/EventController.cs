@@ -55,7 +55,7 @@ namespace Web.Areas.Dashboard.Controllers.ManageEvents
         [HttpDelete]
         public async Task<IActionResult> HandleDelete(int id)
         {
-            await _eventService.DeleteEventAsyncById(id);
+            await _eventService.DeleteEventAsync(id);
             return Ok(
                 new {
                     message = "Delete event successfully"

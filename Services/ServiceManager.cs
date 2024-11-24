@@ -2,6 +2,7 @@
 using Domain.Entities;
 using Domain.Repositories;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 using Services.Abtractions;
 
 namespace Services
@@ -16,10 +17,11 @@ namespace Services
         public ServiceManager(IUnitOfWork unitOfWork,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
+            ILoggerFactory loggerFactory,
             IFileService fileService)
         {
             _lazyUserService = new Lazy<IUserService>(() => new UserService(unitOfWork));
-            _lazyEventService = new Lazy<IEventService>(() => new EventService(unitOfWork));
+            _lazyEventService = new Lazy<IEventService>(() => new EventService(unitOfWork, loggerFactory.CreateLogger<EventService>(), fileService));
             _lazyEventCategoryService = new Lazy<IEventCategoryService>(() => new EventCategoryService(unitOfWork, fileService));
             //_lazyOwnerService = new Lazy<IOwnerService>(() => new OwnerService(repositoryManager));
         }
