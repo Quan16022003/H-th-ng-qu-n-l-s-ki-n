@@ -7,22 +7,23 @@ using System.Threading.Tasks;
 using Domain.Entities;
 using Domain.Repositories;
 using Constracts.DTO;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 
 namespace Services.Abtractions
 {
     public interface IEventService
     {
         Task<IEnumerable<EventDTO>> GetAllEventsAsync();
-
         Task<EventDTO> GetEventByIdAsync(int id);
 
-        Task AddEventAsync(EventDTO events);
+        Task AddEventAsync(EventDetailDTO eventDetailDTO);
 
-        Task UpdateEventAsync(EventDTO events);
-
-        Task DeleteEventAsyncById(int id);
-
-        Task DeleteEventAsync(EventDTO events);
+        Task UpdateEventDetailAsync(EventDetailDTO eventDetailDTO);
+        Task UpdateEventTiminglAsync(EventTimingDTO eventTimingDTO);
+        Task UpdateEventMediaAsync(EventMediaDTO eventMediaDTO, IFormFile? thumbnailFile, IFormFile? coverFile);
+        Task UpdateEventVenueAsync(EventVenueDTO eventVenueDTO);
+        Task DeleteEventAsync(int id);
 
     }
 }
