@@ -62,6 +62,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddRazorPages();
 
+builder.Services.AddHttpClient();
+
 builder.Services.AddFluentValidationAutoValidation();
 
 builder.Services.AddFluentValidationClientsideAdapters();

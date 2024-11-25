@@ -22,12 +22,5 @@ namespace Persistence.Repositories
                 e => e.Attendees!
             ]);
         }
-
-        public async Task DeleteAsync(Events events)
-        {
-            events.IsDeleted = true;
-            await UpdateAsync(events);
-        }
-
     }
 }

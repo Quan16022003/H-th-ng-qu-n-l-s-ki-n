@@ -1,0 +1,40 @@
+@model dynamic
+<nav class="navbar navbar-expand-lg navbar-light fixed-top text-light" id="navbar">
+    <div class="container">
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">
+            <img src="https://cdn-icons-png.flaticon.com/512/9783/9783268.png" alt="Logo" class="logo-img me-2">
+            Eventmie Lite
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <partial name="_LoginPartial" />
+                <li class="nav-item">
+                    <a asp-area="" asp-controller="Events" asp-action="Maps" class="nav-link">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Địa điểm
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" style="color: inherit" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-th-list"></i>
+                        Loại sự kiện
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
+                        @foreach (var category in Model)
+                        {
+                        <li><a class="dropdown-item" asp-controller="Events" asp-action="AllEvent" asp-route-category="@category.Slug">@category.Name</a></li>
+                        }
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a asp-area="" asp-controller="Events" asp-action="AllEvent" class="btn btn-primary text-white">Khám phá sự kiện</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
