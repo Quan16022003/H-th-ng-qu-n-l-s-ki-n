@@ -21,7 +21,6 @@ namespace Web.Areas.Dashboard.Controllers.ManageBookings
 
         public IActionResult Index()
         {
-            LoadCurrentUser();
             return View($"{ViewPath}/Bookings.cshtml");
         }
     }

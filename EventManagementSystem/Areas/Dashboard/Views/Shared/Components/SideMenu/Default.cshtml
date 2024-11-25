@@ -1,4 +1,6 @@
 ﻿@using Web.Authorize
+@model Web.Areas.Dashboard.ViewModels.AuthorizedViewModel
+
 <nav class="side-menu open position-fixed overflow-hidden d-flex flex-column">
 	<a asp-area="Dashboard"
 	   asp-controller="Statistics" 
@@ -22,12 +24,11 @@
 		<div style="width: 44px; height: 44px; margin-left: 9px">
 			<img class="w-100 h-100" src="https://www.svgrepo.com/show/420329/anime-away-face.svg" />
 		</div>
-		<!--dashboard model-->
-		<span style="height: fit-content; width: fit-content; font-size: 20px">@ViewBag.CurrentUser.Role</span>
+		<span style="height: fit-content; width: fit-content; font-size: 20px">@Model.CurrentUser.Role</span>
 	</div>
 	<div class="dashboard-menu-list-item w-100 h-100 overflow-y-auto">
 		<ul class="w-100 list-unstyled">
-			<li class="dashboard-menu-item @ViewBag.Statistics @(!ViewBag.Permissions[EPermission.Statistics] ? "d-none" : "")">
+			<li class="dashboard-menu-item @ViewBag.Statistics @(!Model.Permissions[EPermission.Statistics] ? "d-none" : "")">
 				<a asp-area="Dashboard" asp-controller="Statistics" asp-action="Index" class="text-reset text-decoration-none w-100 h-100">
 					<div class="h-100 d-flex justify-content-center menu-icon">
 						<i class="fa-solid fa-chart-line"></i>
@@ -35,7 +36,7 @@
 					<span>Statistics</span>
 				</a>
 			</li>
-			<li class="dashboard-menu-item @ViewBag.ManageEvents @(!ViewBag.Permissions[EPermission.Event] ? "d-none" : "")">
+			<li class="dashboard-menu-item @ViewBag.ManageEvents @((!Model.Permissions[EPermission.Event] && !Model.Permissions[EPermission.Category]) ? "d-none" : "")">
 				<a class="text-reset text-decoration-none w-100 h-100 icon group">
 					<div class="h-100 d-flex justify-content-center menu-icon">
 						<i class="fa-solid fa-store"></i>
@@ -44,7 +45,7 @@
 				</a>
 				<div>
 					<ul class="item-child collapse list-unstyled">
-						<li class="dashboard-menu-item @ViewBag.Event">
+						<li class="dashboard-menu-item @ViewBag.Event @(!Model.Permissions[EPermission.Event] ? "d-none" : "")">
 							<a asp-area="Dashboard" asp-controller="Event" asp-action="Index" class="text-reset text-decoration-none w-100 h-100">
 								<div class="h-100 d-flex justify-content-center menu-icon ms-4">
 									<i class="fa-solid fa-calendar-days"></i>
@@ -52,7 +53,7 @@
 								<span>Events</span>
 							</a>
 						</li>
-						<li class="dashboard-menu-item @ViewBag.Category">
+						<li class="dashboard-menu-item @ViewBag.Category @(!Model.Permissions[EPermission.Category] ? "d-none" : "")">
 							<a asp-area="Dashboard" asp-controller="Category" asp-action="Index" class="text-reset text-decoration-none w-100 h-100">
 								<div class="h-100 d-flex justify-content-center menu-icon ms-4">
 									<i class="fa-solid fa-table-list"></i>
@@ -63,7 +64,7 @@
 					</ul>
 				</div>
 			</li>
-			<li class="dashboard-menu-item @ViewBag.ManageBookings @(!ViewBag.Permissions[EPermission.Booking] ? "d-none" : "")">
+			<li class="dashboard-menu-item @ViewBag.ManageBookings @(!Model.Permissions[EPermission.Booking] ? "d-none" : "")">
 				<a class="text-reset text-decoration-none w-100 h-100 group">
 					<div class="h-100 d-flex justify-content-center menu-icon">
 						<i class="fa-solid fa-bag-shopping"></i>
@@ -83,7 +84,7 @@
 					</ul>
 				</div>
 			</li>
-			<li class="dashboard-menu-item @ViewBag.ManageUsers @(!ViewBag.Permissions[EPermission.User] ? "d-none" : "")">
+			<li class="dashboard-menu-item @ViewBag.ManageUsers @(!Model.Permissions[EPermission.User] ? "d-none" : "")">
 				<a class="text-reset text-decoration-none w-100 h-100 group">
 					<div class="h-100 d-flex justify-content-center menu-icon">
 						<i class="fa-solid fa-users"></i>
@@ -103,7 +104,7 @@
 					</ul>
 				</div>
 			</li>
-			<li class="dashboard-menu-item @ViewBag.ManageSite @(!ViewBag.Permissions[EPermission.Site] ? "d-none" : "")">
+			<li class="dashboard-menu-item @ViewBag.ManageSite @(!Model.Permissions[EPermission.Site] ? "d-none" : "")">
 				<a class="text-reset text-decoration-none w-100 h-100 icon group">
 					<div class="h-100 d-flex justify-content-center menu-icon">
 						<i class="fa-solid fa-gamepad"></i>
@@ -139,7 +140,7 @@
 					</ul>
 				</div>
 			</li>
-			<li class="dashboard-menu-item @ViewBag.Contact @(!ViewBag.Permissions[EPermission.Contact] ? "d-none" : "")">
+			<li class="dashboard-menu-item @ViewBag.Contact @(!Model.Permissions[EPermission.Contact] ? "d-none" : "")">
 				<a asp-area="Dashboard" asp-controller="Contact" asp-action="Index" class="text-reset text-decoration-none w-100 h-100">
 					<div class="h-100 d-flex justify-content-center menu-icon">
 						<i class="fa-solid fa-envelope"></i>
@@ -147,7 +148,7 @@
 					<span>Contacts</span>
 				</a>
 			</li>
-			<li class="dashboard-menu-item @ViewBag.Setting @(!ViewBag.Permissions[EPermission.Setting] ? "d-none" : "")">
+			<li class="dashboard-menu-item @ViewBag.Setting @(!Model.Permissions[EPermission.Setting] ? "d-none" : "")">
 				<a asp-area="Dashboard" asp-controller="Setting" asp-action="Index" class="text-reset text-decoration-none w-100 h-100">
 					<div class="h-100 d-flex justify-content-center menu-icon">
 						<i class="fa-solid fa-gear"></i>

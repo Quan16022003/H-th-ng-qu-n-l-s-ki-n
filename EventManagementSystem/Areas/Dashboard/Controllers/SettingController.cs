@@ -20,7 +20,6 @@ namespace Web.Areas.Dashboard.Controllers
 
         public IActionResult Index()
         {
-            LoadCurrentUser();
             return View($"{ViewPath}/Setting.cshtml");
         }
     }

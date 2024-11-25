@@ -40,14 +40,12 @@ namespace Web.Areas.Dashboard.Controllers.ManageEvents
             [FromQuery(Name = "searchOption")] string searchType = "",
             [FromQuery(Name = "searchQuery")] string query = "")
         {
-            LoadCurrentUser();
             var events = await FetchEvents(searchType, query);
             return View($"{ViewPath}/Events.cshtml", events);
         }
 
         public IActionResult Add()
         {
-            LoadCurrentUser();
             return View($"{ViewPath}/AddEvent.cshtml");
         }
 
