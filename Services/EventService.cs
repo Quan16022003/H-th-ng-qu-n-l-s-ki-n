@@ -33,7 +33,7 @@ namespace Services
         {
             try
             {
-                _logger.LogInformation("Creating new event: {@CreateEventDto}", eventDetailDTO);
+                _logger.LogInformation("Creating new event: {@CreateEventDTO}", eventDetailDTO);
                 var _event = eventDetailDTO.Adapt<Events>();
                 await _unitOfWork.EventRepository.AddAsync(_event);
                 await _unitOfWork.CompleteAsync();
@@ -41,7 +41,7 @@ namespace Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error occurred while creating event: {@EventDto}", eventDetailDTO);
+                _logger.LogError(ex, "Error occurred while creating event: {@EventDTO}", eventDetailDTO);
                 throw new EventCreationException(ex.Message, ex);
             }
         }
@@ -131,7 +131,7 @@ namespace Services
             }
             catch (Exception ex) when (ex is not EventNotFoundException)
             {
-                _logger.LogError(ex, "Error occurred while updating event detail: {@EventDto}", eventDetailDTO);
+                _logger.LogError(ex, "Error occurred while updating event detail: {@EventDTO}", eventDetailDTO);
                 throw new EventDetailUpdateException(eventDetailDTO.Id, ex.Message, ex);
             }
         }
@@ -167,7 +167,7 @@ namespace Services
             }
             catch (Exception ex) when (ex is not EventNotFoundException)
             {
-                _logger.LogError(ex, "Error occurred while updating event media: {@EventDto}", eventMediaDTO);
+                _logger.LogError(ex, "Error occurred while updating event media: {@EventDTO}", eventMediaDTO);
                 throw new EventMediaUpdateException(eventMediaDTO.Id, ex.Message, ex);
             }
         }
@@ -191,7 +191,7 @@ namespace Services
             }
             catch (Exception ex) when (ex is not EventNotFoundException)
             {
-                _logger.LogError(ex, "Error occurred while updating event timing: {@EventDto}", eventTimingDTO);
+                _logger.LogError(ex, "Error occurred while updating event timing: {@EventDTO}", eventTimingDTO);
                 throw new EventTimingUpdateException(eventTimingDTO.Id, ex.Message, ex);
             }
         }
@@ -225,7 +225,7 @@ namespace Services
             }
             catch (Exception ex) when (ex is not EventNotFoundException)
             {
-                _logger.LogError(ex, "Error occurred while updating event venue: {@EventDto}", eventVenueDTO);
+                _logger.LogError(ex, "Error occurred while updating event venue: {@EventDTO}", eventVenueDTO);
                 throw new EventVenueUpdateException(eventVenueDTO.Id, ex.Message, ex);
             }
         }

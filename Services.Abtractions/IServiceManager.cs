@@ -11,5 +11,6 @@ namespace Services.Abtractions
         IUserService UserService { get; }
         IEventService EventService { get; }
         IEventCategoryService EventCategoryService { get; }
+        ITicketService TicketService { get; }
     }
 }
