@@ -27,7 +27,7 @@ namespace Web.Config
             app.MapAreaControllerRoute(
                 name: "Dashboard",
                 areaName: "Dashboard",
-                pattern: "dashboard/{controller:slugify}/{action:slugify}/{id?}");
+                pattern: "dashboard/{controller:slugify=Event}/{action:slugify=Index}/{id?}");
 
             app.MapControllerRoute(
                 name: "default",
