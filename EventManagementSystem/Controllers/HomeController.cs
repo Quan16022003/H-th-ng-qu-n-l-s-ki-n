@@ -1,5 +1,5 @@
 ﻿using Constracts.DTO;
-using EventManagementSystem.ViewModels;
+using Web.ViewModels;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abtractions;
@@ -32,9 +32,7 @@ namespace Web.Controllers
             {
                 FeaturedEvents = featuredEvents.Adapt<IEnumerable<EventCardViewModel>>()
             };
-            JsonSerializerOptions jsonOptions = new() { WriteIndented = true };
-            string jsonString = JsonSerializer.Serialize(featuredEvents, jsonOptions);
-            Console.WriteLine(jsonString);
+            
             return View(viewModel);
         }
 
