@@ -8,22 +8,24 @@ namespace Web.Utils.ViewsPathServices.Implementations
 {
     public class DashboardPathProvider : IPathProvider
     {
+        private readonly string folder = "~/Areas/Dashboard/Views";
+
         public string GetViewsPath(Type type)
         {
             string target = type.Name;
             return target switch
             {
-                nameof(AccountController) => "~/Areas/Dashboard/Views/Account",
-                nameof(StatisticsController) => "~/Areas/Dashboard/Views/Statistics",
-                nameof(ContactController) => "~/Areas/Dashboard/Views/Contact",
-                nameof(SettingController) => "~/Areas/Dashboard/Views/Setting",
-                nameof(BookingController) => "~/Areas/Dashboard/Views/ManageBookings",
-                nameof(CategoryController) => "~/Areas/Dashboard/Views/ManageEvents/Category",
-                nameof(EventController) => "~/Areas/Dashboard/Views/ManageEvents/Event",
+                nameof(AccountController) => $"{folder}/Account",
+                nameof(StatisticsController) => $"{folder}/Statistics",
+                nameof(ContactController) => $"{folder}/Contact",
+                nameof(SettingController) => $"{folder}/Setting",
+                nameof(BookingController) => $"{folder}/ManageBookings",
+                nameof(CategoryController) => $"{folder}/ManageEvents/Category",
+                nameof(EventController) => $"{folder}/ManageEvents/Event",
                 nameof(BannerController) or nameof(MediaController) or nameof(PageController) 
-                    => "~/Areas/Dashboard/Views/ManageSite",
-                nameof(UserController) => "~/Areas/Dashboard/Views/ManageUsers",
-                _ => throw new ArgumentException($"Does not found {target} in Admin Area")
+                    => $"{folder}/ManageSite",
+                nameof(UserController) => $"{folder}/ManageUsers",
+                _ => throw new ArgumentException($"Does not found {target} in Dashboard Area")
             };
         }
     }

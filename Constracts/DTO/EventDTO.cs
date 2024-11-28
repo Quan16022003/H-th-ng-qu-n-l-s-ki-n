@@ -14,7 +14,6 @@ namespace Constracts.DTO
         public bool IsPublic { get; set; } = false;
 
         public string? Slug { get; set; }
-        public string? OrganizerId { get; set; }
 
         [Required]
         public UserDTO? Organizer { get; set; }
@@ -27,7 +26,8 @@ namespace Constracts.DTO
         public TimeSpan? StartTime { get; set; }
         public TimeSpan? EndTime { get; set; }
 
-        #region Venue
+        #region venue
+
         public string? VenueName { get; set; }
         public string? City { get; set; }
         public string? District { get; set; }

@@ -2,9 +2,9 @@ using Constracts.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abtractions;
 
-namespace Web.ViewComponent
+namespace Web.ViewComponents
 {
-    public class NavbarViewComponent : Microsoft.AspNetCore.Mvc.ViewComponent
+    public class NavbarViewComponent : ViewComponent
     {
         private readonly IEventCategoryService _categoryService;
         public NavbarViewComponent(IServiceManager serviceManager)

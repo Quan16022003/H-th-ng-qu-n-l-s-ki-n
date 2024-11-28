@@ -43,14 +43,12 @@ namespace Web.Areas.Dashboard.Controllers.ManageEvents
             [FromQuery(Name = "searchOption")] string searchType = "",
             [FromQuery(Name = "searchQuery")] string query = "")
         {
-            LoadCurrentUser();
             var categories = await FetchCategories(searchType, query);
             return View($"{ViewPath}/Categories.cshtml", categories);
         }
 
         public IActionResult Add()
         {
-            LoadCurrentUser();
             return View($"{ViewPath}/AddCategory.cshtml");
         }
 
@@ -67,10 +65,6 @@ namespace Web.Areas.Dashboard.Controllers.ManageEvents
                 );
             }
 
-            model.Slug = _slugService.GenerateSlug(model.Name!);
-            model.ModifiedDate = model.CreatedDate;
-            model.Status = true;
-
             var result = await _categoryEventService.CreateAsync(model);
 
             return Ok(
@@ -85,6 +79,37 @@ namespace Web.Areas.Dashboard.Controllers.ManageEvents
             );
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Update(int id)
+        {
+            var category = await _categoryEventService.GetByIdAsync(id);
+            return View($"{ViewPath}/UpdateCategory.cshtml", category);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> HandleUpdate(EventCategoryDTO data)
+        {
+            if (data == null)
+            {
+                return BadRequest(
+                    new
+                    {
+                        message = "Cannot update category"
+                    });
+            }
+
+            var result = await _categoryEventService.UpdateAsync(data.Id, data);
+            return Ok(
+                new
+                {
+                    message = "Update category successfully",
+                    redirectUrl = Url.Action(nameof(Index), "Category", new
+                    {
+                        area = "Dashboard"
+                    })
+                });
+        }
+
         [HttpDelete]
         public async Task<IActionResult> HandleDelete(int id)
         {
@@ -93,7 +118,8 @@ namespace Web.Areas.Dashboard.Controllers.ManageEvents
             if (category.Status)
             {
                 return BadRequest(
-                    new {
+                    new
+                    {
                         message = "Category cannot be deleted cause status still activated"
                     }
                 );

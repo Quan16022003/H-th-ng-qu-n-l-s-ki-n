@@ -38,7 +38,6 @@ namespace Web.Areas.Dashboard.Controllers.ManageUsers
             [FromQuery(Name = "searchOption")] string searchType = "",
             [FromQuery(Name = "searchQuery")] string query = "")
         {
-            LoadCurrentUser();
             var users = await FetchUsers(searchType, query);
             return View($"{ViewPath}/Users.cshtml", users);
         }

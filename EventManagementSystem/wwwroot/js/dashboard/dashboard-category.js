@@ -1,8 +1,11 @@
-﻿import { getImageUrl, postEntity, deleteEntity } from "../service/service.js"
+﻿import { postEntity, putEntity, deleteEntity } from "../service/service.js";
+import { stylingDashboardPaginate } from "../service/datatables-utility.js";
+import { assignCheckBoxInput, assignImageInputEvent } from "./form-utility.js"
 
 const route = "/dashboard/category";
 const action = {
     add: "handle-add",
+    put: "handle-update",
     delete: "handle-delete"
 }
 
@@ -25,10 +28,10 @@ $(document).ready(() => {
             }
         },
         pagingType: "simple_numbers",
-        drawCallback: stylingAdminPaginate
+        drawCallback: stylingDashboardPaginate
     });
 
-    stylingAdminPaginate();
+    stylingDashboardPaginate();
     assignEvent();
 });
 
@@ -36,13 +39,18 @@ $(document).ready(() => {
 
 function assignEvent() {
     $(".delete-button").on("click", deleteCategory);
-    $(".dashboard-category-form").on("submit", (e) => {
+    $(".add-form").on("submit", (e) => {
         e.preventDefault();
         addCategory();
     });
-    $(".choose-img-button").find("input[type=file]").on("change", (e) => {
-        setImage(e.target);
-    });
+
+    $(".update-form").on("submit", (e) => {
+        e.preventDefault();
+        updateCategory();
+    })
+
+    assignCheckBoxInput();
+    assignImageInputEvent();
 }
 
 //#endregion
@@ -59,6 +67,20 @@ function addCategory() {
     postEntity(url, formData);
 }
 
+function updateCategory() {
+    let form = $(".dashboard-category-form")[0];
+    let url = `${route}/${action.put}`
+
+    let formData = new FormData(form);
+
+    for (var item of formData.entries()) {
+        console.log(`${item[0]}: ${item[1]}`);
+    };
+
+    $(".dashboard-submit-button").addClass("disabled");
+    putEntity(url, formData);
+}
+
 function deleteCategory() {
     let id = $(this).data("id");
     let url = `${route}/${action.delete}/${id}`
@@ -66,17 +88,3 @@ function deleteCategory() {
 }
 
 //#endregion
-
-function setImage(input) {
-    let imgContainer = $(".dashboard-category-img")[0];
-    let imgElement = $(imgContainer).find("img")[0];
-
-    getImageUrl(input.files[0])
-        .then((res) => {
-            imgElement.src = res;
-            imgContainer.style.backgroundImage = `url(${res})`;
-        })
-        .catch((err) => {
-            window.toastr.error("Cant read Image");
-        });
-}

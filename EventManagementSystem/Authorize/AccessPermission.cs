@@ -75,6 +75,7 @@ namespace Web.Authorize
         {
             this[EPermission.Statistics] = false;
             this[EPermission.Event] = false;
+            this[EPermission.Category] = false;
             this[EPermission.Booking] = false;
             this[EPermission.User] = false;
             this[EPermission.Site] = false;

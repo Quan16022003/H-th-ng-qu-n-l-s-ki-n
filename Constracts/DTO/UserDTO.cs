@@ -12,10 +12,12 @@ namespace Constracts.DTO
     {
         public string? Id { get; set; }
 
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? AvatarUrl { get; set; }
+
         [Required]
         public string? UserName { get; set; }
-
-        public string? PasswordHash { get; set; }
 
         [Required]
         public string? PhoneNumber { get; set; }

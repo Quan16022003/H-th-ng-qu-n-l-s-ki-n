@@ -4,6 +4,7 @@
     {
         Statistics,
         Event,
+        Category,
         Booking,
         User,
         Site,

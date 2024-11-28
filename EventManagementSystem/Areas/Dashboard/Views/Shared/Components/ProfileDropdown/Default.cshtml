@@ -1,0 +1,60 @@
+﻿@model Web.Areas.Dashboard.ViewModels.AuthorizedViewModel
+
+<div class="profile-dropdown d-flex align-items-center dropdown">
+	<button class="dropdown-button d-flex align-items-center dropdown-toggle bg-transparent dashboard-text-color-reset border-0"
+			type="button"
+			data-bs-toggle="dropdown" aria-expanded="false">
+		<div class="prevent-select" style="width: 44px; height: 44px; margin-left: 9px">
+			<img class="w-100 h-100" src="https://www.svgrepo.com/show/420329/anime-away-face.svg" />
+		</div>
+	</button>
+	<ul class="dropdown-menu" style="width: 230px; white-space: normal; background: #525252">
+		<li>
+			<div class="w-100 container">
+				<div class="row">
+					<div class="col-4">
+						<div class="prevent-select" style="width: 70px; height: 70px">
+							<img class="w-100 h-100" src="https://www.svgrepo.com/show/420329/anime-away-face.svg" />
+						</div>
+					</div>
+					<div class="col-8 d-flex flex-column justify-content-center">
+						<!--Model-->
+						<span class="w-100 profile-text" style="font-size: 15px">@($"{Model.CurrentUser.FirstName} {Model.CurrentUser.LastName}")</span>
+						<span class="w-100 profile-text">@Model.CurrentUser.UserName</span>
+					</div>
+				</div>
+				<hr />
+			</div>
+		</li>
+		<li>
+			<a asp-area="Profile"
+			   asp-controller="Profile"
+			   asp-action="Information"
+			   class="user-profile-link dropdown-item d-flex align-items-center text-color-reset">
+				<i class="fa-solid fa-user" style="font-size: 12px; transform: translateY(-1px)"></i>
+				<span>Profile</span>
+			</a>
+		</li>
+		<li>
+			<a asp-area=""
+			   asp-controller="Home"
+			   asp-action="Index"
+			   class="user-profile-link dropdown-item d-flex align-items-center text-color-reset">
+				<i class="fa-solid fa-house" style="font-size: 12px; transform: translateY(-1px)"></i>
+				<span>Visit Website</span>
+			</a>
+		</li>
+		<li>
+			<!--TODO: Navigate to sign in page, log out current user-->
+			<form method="post" asp-area="Dashboard" asp-controller="Account" asp-action="Logout" class="d-inline">
+				@Html.AntiForgeryToken()
+				<div class="d-flex justify-content-center align-items-center w-100" style="height: 100px">
+					<button type="submit" class="log-out-button w-75 btn btn-danger rounded-pill">
+						<i class="fa-solid fa-arrow-right-from-bracket" style="font-size: 12px; transform: translateY(-1px)"></i>
+						<span>Log Out</span>
+					</button>
+				</div>
+			</form>
+		</li>
+	</ul>
+</div>
