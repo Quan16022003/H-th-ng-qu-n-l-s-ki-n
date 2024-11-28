@@ -84,7 +84,93 @@ namespace Services
                 throw;
             }
         }
-      
+        // sự kiện sắp tới
+        public async Task<IEnumerable<EventDTO>> GetAllEventsComingAsync()
+        {
+            try
+            {
+                _logger.LogInformation("Fetching all upcoming events");
+                var _events = await _unitOfWork.EventRepository.GetAllAsync();
+                var upcomingEvents = _events
+                    .Where(c => c.IsDeleted == false && c.StartDate.HasValue && c.StartDate.Value > DateTime.Now)
+                    .OrderBy(c => c.StartDate)
+                    .ToList();
+
+                return upcomingEvents.Adapt<IEnumerable<EventDTO>>();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while fetching all upcoming events");
+                throw;
+            }
+        }
+        // sự kiện bán chạy
+        public async Task<IEnumerable<EventDTO>> GetAllEventsBestSellingAsync()
+        {
+            try
+            {
+                _logger.LogInformation("Fetching all events best selling");
+                var _events = await _unitOfWork.EventRepository.GetAllAsync();
+                var activeEvents = _events.Where(c => c.IsDeleted == false).ToList();
+                var _tickets = await _unitOfWork.TicketRepository.GetAllAsync();
+                var bestSellingEvents = activeEvents
+                    .Select(e => new
+                    {
+                        Event = e,
+                        TotalSold = _tickets.Where(t => t.EventId == e.Id).Sum(t => t.QuantitySold),
+                        TotalAvailable = _tickets.Where(t => t.EventId == e.Id).Sum(t => t.QuantityAvailable)
+                    })
+                    .Where(x => x.TotalAvailable > 0)
+                    .Select(x => new
+                    {
+                        x.Event,
+                        SalesRatio = (double)x.TotalSold / x.TotalAvailable
+                    })
+                    .OrderByDescending(x => x.SalesRatio)
+                    .Select(x => x.Event)
+                    .ToList();
+                return bestSellingEvents.Adapt<IEnumerable<EventDTO>>();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while fetching all events best selling");
+                throw;
+            }
+        }
+        // sự kiện nổi bật điều kiện public + Bán chạy(tỉ lệ vé bán/tổng vé >=0,75) + diễn ra trong 1 tháng tới.
+        public async Task<IEnumerable<EventDTO>> GetAllEventsOutstandingAsync()
+        {
+            try
+            {
+                _logger.LogInformation("Fetching all outstanding events");
+                var _events = await _unitOfWork.EventRepository.GetAllAsync();
+                var activeEvents = _events.Where(c => c.IsDeleted==false && c.IsPublic== true).ToList();
+                var _tickets = await _unitOfWork.TicketRepository.GetAllAsync();
+                var currentDate = DateTime.Now;
+                var nextMonthDate = currentDate.AddMonths(1);
+                var outstandingEvents = activeEvents
+                    .Select(e => new
+                    {
+                        Event = e,
+                        TotalSold = _tickets.Where(t => t.EventId == e.Id).Sum(t => t.QuantitySold),
+                        TotalAvailable = _tickets.Where(t => t.EventId == e.Id).Sum(t => t.QuantityAvailable)
+                    })
+                    .Where(x => x.TotalAvailable > 0 &&
+                                (double)x.TotalSold / x.TotalAvailable > 0.75 &&
+                                x.Event.StartDate.HasValue &&
+                                x.Event.StartDate.Value > currentDate &&
+                                x.Event.StartDate.Value <= nextMonthDate)
+                    .OrderBy(x => x.Event.StartDate) 
+                    .Select(x => x.Event)
+                    .ToList();
+                return outstandingEvents.Adapt<IEnumerable<EventDTO>>();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while fetching all outstanding events");
+                throw;
+            }
+        }
 
         public async Task<EventDTO> GetEventByIdAsync(int id)
         {
