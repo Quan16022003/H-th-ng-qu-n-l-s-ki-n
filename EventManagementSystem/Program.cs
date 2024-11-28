@@ -1,4 +1,5 @@
-﻿using Domain.Repositories;
+﻿using Constracts;
+using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 using Services.Abtractions;
@@ -13,6 +14,7 @@ using Web.Utils.ViewsPathServices;
 using Web.Utils.ViewsPathServices.Implementations;
 using Microsoft.AspNetCore.Mvc;
 using Web.Config;
+using EmailService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -91,6 +93,14 @@ builder.Services.RegisterSlugifyTransformer();
 builder.Services.AddScoped<IFileService>(provider => 
     new FileService(builder.Environment.WebRootPath));
 
+var emailConfig = builder.Configuration.GetSection("EmailConfiguration")
+    .Get<EmailConfiguration>();
+if (emailConfig == null)
+{
+    throw new ArgumentNullException(nameof(emailConfig), "Email configuration cannot be null.");
+}
+
+builder.Services.AddSingleton(emailConfig);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
