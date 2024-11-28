@@ -1,4 +1,6 @@
 ﻿using Constracts.DTO;
+using Constracts.EventCategory;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,7 @@ namespace Services.Abtractions
     {
         Task<EventCategoryDTO> GetByIdAsync(int id);
         Task<IEnumerable<EventCategoryDTO>> GetAllAsync();
-        Task<EventCategoryDTO> CreateAsync(EventCategoryDTO createDto);
+        Task<EventCategoryDTO> CreateAsync(EventCategoryCreationDto createDto);
         Task<EventCategoryDTO> UpdateAsync(int id, EventCategoryDTO updateDto);
         Task DeleteAsync(int id);
         Task<bool> ExistsAsync(int id);
