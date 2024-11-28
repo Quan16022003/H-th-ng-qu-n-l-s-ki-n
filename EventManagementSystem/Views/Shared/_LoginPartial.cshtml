@@ -6,10 +6,10 @@
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
+        <li class="nav-item" style="color: inherit">
         <a id="manage" class="nav-link text-dark" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
     </li>
-    <li class="nav-item">
+        <li class="nav-item" style="color: inherit">
         <form id="logoutForm" class="form-inline" method="post" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
             <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">Logout</button>
         </form>
@@ -17,10 +17,10 @@
 }
 else
 {
-    <li class="nav-item">
-        <a class="nav-link text-dark" id="login" asp-controller="Account" asp-action="Login">Đăng nhập</a>
+        <li class="nav-item" style="color: inherit">
+        <a class="nav-link text-dark"  id="login" asp-controller="Account" asp-action="Login">Đăng nhập</a>
     </li>
-    <li class="nav-item">
+        <li class="nav-item" style="color: inherit">
         <a class="nav-link text-dark" id="register" asp-controller="Account" asp-action="Register">Đăng ký</a>
     </li>
 }
