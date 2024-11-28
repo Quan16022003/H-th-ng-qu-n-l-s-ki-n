@@ -111,8 +111,9 @@ namespace Services
             {
                 _logger.LogInformation("Fetching all events best selling");
                 var _events = await _unitOfWork.EventRepository.GetAllAsync();
-                var activeEvents = _events.Where(c => c.IsDeleted == false).ToList();
+                var activeEvents = _events.Where(c => c.IsDeleted==false).ToList();
                 var _tickets = await _unitOfWork.TicketRepository.GetAllAsync();
+                var currentDate = DateTime.Now;
                 var bestSellingEvents = activeEvents
                     .Select(e => new
                     {
@@ -120,7 +121,9 @@ namespace Services
                         TotalSold = _tickets.Where(t => t.EventId == e.Id).Sum(t => t.QuantitySold),
                         TotalAvailable = _tickets.Where(t => t.EventId == e.Id).Sum(t => t.QuantityAvailable)
                     })
-                    .Where(x => x.TotalAvailable > 0)
+                    .Where(x => x.TotalAvailable > 0 &&
+                                x.Event.StartDate.HasValue &&
+                                x.Event.StartDate.Value > currentDate)
                     .Select(x => new
                     {
                         x.Event,
