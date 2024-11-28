@@ -14,7 +14,8 @@ namespace Persistence.Configurations
         public override void Configure(EntityTypeBuilder<OrderTicket> builder)
         {
             base.Configure(builder);
-
+            builder.Navigation(ot => ot.Order).AutoInclude();
+            builder.Navigation(ot => ot.Ticket).AutoInclude();
         }
     }
 }
