@@ -52,6 +52,38 @@ export const postEntity = (url, data) => {
     })
 }
 
+/**
+ * Update entity
+ * @param {any} url Url of update action in controller
+ * @param {any} data Json data of DTO
+ */
+export const putEntity = (url, data) => {
+    var token = $("input[name='__RequestVerificationToken']").val();
+    data.delete("__RequestVerificationToken");
+
+    $.ajax({
+        url: url,
+        type: 'PUT',
+        headers: {
+            RequestVerificationToken: token
+        },
+        processData: false,
+        contentType: false,
+        data: data,
+        success: (response) => {
+            window.toastr.success(response.message)
+            setTimeout(() => redirect(response.redirectUrl), 2000)
+        },
+        error: (xhr, status, error) => {
+            $(".dashboard-submit-button").removeClass("disabled");
+            let response = JSON.parse(xhr.responseText);
+            if (xhr.status === 400) {
+                window.toastr.error(response.message)
+            }
+        }
+    })
+}
+
 
 /**
  * Delete entity by Id

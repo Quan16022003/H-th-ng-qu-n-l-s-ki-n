@@ -4,8 +4,9 @@ using Services.Abtractions;
 using Web.Areas.Dashboard.ViewModels;
 using Web.Authorize;
 
-namespace Web.Areas.Dashboard.Views.Shared.Components.SideMenuComponent
+namespace Web.Areas.Dashboard.Views.Shared.Components.SideMenu
 {
+    [Area("Dashboard")]
     public class SideMenuViewComponent : ViewComponent
     {
         private readonly IUserService _userService;

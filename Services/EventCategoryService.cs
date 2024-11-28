@@ -16,12 +16,17 @@ namespace Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly ICategoryEventRepository _categoryEventRepository;
         private readonly IFileService _fileService;
+        private readonly ISlugService _slugService;
 
-        public EventCategoryService(IUnitOfWork unitOfWork, IFileService fileService)
+        public EventCategoryService(
+            IUnitOfWork unitOfWork, 
+            IFileService fileService, 
+            ISlugService slugService)
         {
             _unitOfWork = unitOfWork;
             _categoryEventRepository = _unitOfWork.CategoryEventRepository;
             _fileService = fileService;
+            _slugService = slugService;
         }
         public async Task<EventCategoryDTO> CreateAsync(EventCategoryDTO createDto)
         {
@@ -34,6 +39,9 @@ namespace Services
             {
                 createDto.ThumbnailUrl = await _fileService.UploadFileAsync(createDto.ImageFile, "images/client");
             }
+            createDto.Slug = _slugService.GenerateSlug(createDto.Name!);
+            createDto.CreatedDate = DateTime.Now;
+            createDto.ModifiedDate = createDto.CreatedDate;
 
             // Sử dụng Mapster để chuyển đổi từ DTO sang entity
             var categoryEvent = createDto.Adapt<CategoryEvents>();
@@ -116,13 +124,21 @@ namespace Services
                 throw new KeyNotFoundException($"Không tìm thấy danh mục với id: {id}");
             }
 
-            categoryEvent.Adapt(updateDto);
+            if (updateDto.ImageFile != null)
+            {
+                updateDto.ThumbnailUrl = await _fileService.UploadFileAsync(updateDto.ImageFile, "images/client");
+            }
+
+            updateDto.CreatedDate = categoryEvent.CreatedDate;
+            updateDto.Slug = _slugService.GenerateSlug(updateDto.Name!);
+            updateDto.ModifiedDate = DateTime.Now;
+
+            updateDto.Adapt(categoryEvent);
 
             await _categoryEventRepository.UpdateAsync(categoryEvent);
-            
+            await _unitOfWork.CompleteAsync();
+
             return categoryEvent.Adapt<EventCategoryDTO>();
         }
-
-
     }
 }

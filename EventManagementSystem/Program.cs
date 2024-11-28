@@ -13,6 +13,7 @@ using Web.Utils.ViewsPathServices;
 using Web.Utils.ViewsPathServices.Implementations;
 using Microsoft.AspNetCore.Mvc;
 using Web.Config;
+using Mapster;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -80,11 +81,7 @@ builder.Services.RegisterAllRepositories();
 builder.Services.RegisterAllServices();
 builder.Services.RegisterPolicy();
 
-#region add path provider service for views in front end
-
 builder.Services.RegisterPathProvideManager();
-
-#endregion
 
 builder.Services.RegisterSlugifyTransformer();
 
@@ -113,5 +110,7 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.RegisterAllRoutes();
 app.MapRazorPages();
+
+TypeAdapterConfig.GlobalSettings.Default.IgnoreNullValues(true);
 
 app.Run();

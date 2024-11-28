@@ -9,9 +9,18 @@ $page-content-bg: #404040;
 
 .dashboard-event-content {
     width: $content-width;
-    min-height: 600px;
     border-radius: 10px;
     padding: 20px;
     background-color: $page-content-bg;
     //margin-top: 50px;
+}
+
+.dashboard-event-tab {
+    .nav-link {
+        color: white !important;
+    }
+
+    .nav-link.active {
+        background: linear-gradient(to right, rgb(234, 65, 112), rgb(128,0,128)) !important;
+    }
 }

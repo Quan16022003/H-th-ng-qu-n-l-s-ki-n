@@ -19,7 +19,7 @@
 					</div>
 					<div class="col-8 d-flex flex-column justify-content-center">
 						<!--Model-->
-						<span class="w-100 profile-text" style="font-size: 15px">@Model.CurrentUser.Role</span>
+						<span class="w-100 profile-text" style="font-size: 15px">@($"{Model.CurrentUser.FirstName} {Model.CurrentUser.LastName}")</span>
 						<span class="w-100 profile-text">@Model.CurrentUser.UserName</span>
 					</div>
 				</div>

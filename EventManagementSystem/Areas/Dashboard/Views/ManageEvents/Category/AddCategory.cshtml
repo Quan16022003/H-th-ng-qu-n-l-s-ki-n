@@ -1,13 +1,13 @@
 ﻿@{
 	ViewData["Title"] = "Add Category";
 	ViewBag.Current = "Categories";
-	ViewBag.ManageEvents = "selected";
-	ViewBag.Category = "selected";
+	ViewBag.IsInManageEvents = "selected";
+	ViewBag.IsInCategory = "selected";
 }
 
 @Html.AntiForgeryToken()
 <div class="w-100 h-100">
-	<form method="post" class="dashboard-form dashboard-category-form w-100 h-100">
+	<form method="post" class="dashboard-form dashboard-category-form add-form w-100 h-100">
 		@await Html.PartialAsync("./Partials/_ImageInput")
 		<div class="dashboard-category-divider w-100 d-flex justify-content-center">
 			<hr />

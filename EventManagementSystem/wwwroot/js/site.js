@@ -32,5 +32,8 @@ window.toastr = toastr;
 
 //#endregion
 
+import "../js/service/service.js"
+import "../js/dashboard/form-utility.js"
+
 //#endregion
 

@@ -1,10 +1,11 @@
-﻿import { postEntity, deleteEntity } from "../service/service.js";
+﻿import { postEntity, putEntity, deleteEntity } from "../service/service.js";
 import { stylingDashboardPaginate } from "../service/datatables-utility.js";
-import { assignImageInputEvent } from "./form-utility.js"
+import { assignCheckBoxInput, assignImageInputEvent } from "./form-utility.js"
 
 const route = "/dashboard/category";
 const action = {
     add: "handle-add",
+    put: "handle-update",
     delete: "handle-delete"
 }
 
@@ -38,10 +39,17 @@ $(document).ready(() => {
 
 function assignEvent() {
     $(".delete-button").on("click", deleteCategory);
-    $(".dashboard-category-form").on("submit", (e) => {
+    $(".add-form").on("submit", (e) => {
         e.preventDefault();
         addCategory();
     });
+
+    $(".update-form").on("submit", (e) => {
+        e.preventDefault();
+        updateCategory();
+    })
+
+    assignCheckBoxInput();
     assignImageInputEvent();
 }
 
@@ -57,6 +65,20 @@ function addCategory() {
 
     $(".dashboard-submit-button").addClass("disabled");
     postEntity(url, formData);
+}
+
+function updateCategory() {
+    let form = $(".dashboard-category-form")[0];
+    let url = `${route}/${action.put}`
+
+    let formData = new FormData(form);
+
+    for (var item of formData.entries()) {
+        console.log(`${item[0]}: ${item[1]}`);
+    };
+
+    $(".dashboard-submit-button").addClass("disabled");
+    putEntity(url, formData);
 }
 
 function deleteCategory() {

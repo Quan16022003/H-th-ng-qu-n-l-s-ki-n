@@ -1,6 +1,13 @@
-﻿<div class="dashboard-img-input w-100 d-flex justify-content-center">
+﻿@model Constracts.DTO.EventCategoryDTO
+
+@{
+	string imagePath = Model != null && Model.ThumbnailUrl != null
+							? $"/{Model.ThumbnailUrl}" : "/images/403bg.gif";
+}
+
+<div class="dashboard-img-input w-100 d-flex justify-content-center" style="background-image: url(@imagePath)">
 	<img class="d-block"
-		 src="/images/403bg.gif" />
+		 src="@imagePath" />
 	<div class="choose-img-button-container d-flex align-items-center">
 		<div class="image-recommend"
 			 style="height: 30px; width: 30px">
@@ -11,13 +18,13 @@
 		</div>
 		<div class="choose-img-button btn p-2 position-relative">
 			<i class="fa-solid fa-image"></i>
-			Add Image
+			Update Image
 			<input type="file"
 				   id="imageFile"
 				   name="imageFile"
-				   required
 				   accept=".jpg, .jpeg, .png, .webp"
-				   class="opacity-0 position-absolute w-100 h-100 top-0 start-0" />
+				   class="opacity-0 position-absolute w-100 h-100 top-0 start-0"
+				   @(Model == null ? "required" : "") />
 		</div>
 	</div>
 </div>

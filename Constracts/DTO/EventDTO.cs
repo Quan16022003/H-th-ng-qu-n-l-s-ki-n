@@ -14,7 +14,6 @@ namespace Constracts.DTO
         public bool IsPublic { get; set; } = false;
 
         public string? Slug { get; set; }
-        public string? OrganizerId { get; set; }
 
         [Required]
         public UserDTO? Organizer { get; set; }

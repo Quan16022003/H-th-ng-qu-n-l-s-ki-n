@@ -3,8 +3,9 @@ using Services.Abtractions;
 using Web.Areas.Dashboard.ViewModels;
 using Web.Authorize;
 
-namespace Web.Areas.Dashboard.Views.Shared.Components.Profile_Dropdown
+namespace Web.Areas.Dashboard.Views.Shared.Components.ProfileDropdown
 {
+    [Area("Dashboard")]
     public class ProfileDropdownViewComponent : ViewComponent
     {
         private readonly IUserService _userService;

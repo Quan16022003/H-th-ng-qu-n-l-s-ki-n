@@ -1,8 +1,7 @@
 ﻿import { getImageUrl } from "../service/service.js"
 
 /**
- * Assgin event for preview image change when choose image file, 
- * should be called when load (e.g: in $(document).ready)
+ * Assgin event for preview image change when choose image file, should be called when load (e.g: in $(document).ready)
  * 
  * This only applied for partial view _ImageInput in dashboard
  */
@@ -25,4 +24,29 @@ function setImage(input) {
             window.toastr.error("Cant read Image");
             $(".choose-img-button").find("input[type=file]").val('');
         });
+}
+
+/**
+ * This make checkbox value to true false when submit form
+ * 
+ * Only work with bootstrap input checkbox and need an hidden input with class "form-check-value" inside "form-check" class to handle the value
+ */
+export const assignCheckBoxInput = () => {
+    let containers = $(".form-check");
+
+    for (var item of containers) {
+        let checkBox = $(item).find(".form-check-input");
+        let inputValue = $(item).find(".form-check-value")[0];
+
+        inputValue.value = "true";
+
+        checkBox.on('change', (e) => {
+            if ($(e.target).is(':checked')) {
+                inputValue.value = "true";
+            }
+            else inputValue.value = "false";
+
+            console.log(inputValue.value);
+        })
+    }
 }

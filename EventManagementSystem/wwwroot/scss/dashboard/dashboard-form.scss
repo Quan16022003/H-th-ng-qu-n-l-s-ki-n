@@ -1,11 +1,80 @@
 ﻿$selected-color: #EA4170;
 $content-width: 95%;
+$dashboard-font-color: white;
+$dashboard-background-light: #4F4F4F;
+
+.dashboard-form {
+    > * {
+        color: $dashboard-font-color !important;
+    }
+
+    > div {
+        background-color: $dashboard-background-light !important;
+    }
+
+    label {
+        color: $dashboard-font-color !important;
+        font-weight: bold;
+    }
+
+    select, input, input:focus, textarea, textarea:focus {
+        background-color: $dashboard-background-light !important;
+    }
+
+    select option:hover {
+        background-color: $selected-color !important;
+    }
+
+    select, input, input:focus, textarea, textarea:focus {
+        color: $dashboard-font-color !important;
+    }
+
+    select.disabled, input.disabled, textarea.disabled {
+        color: lightgray !important;
+    }
+
+    .form-check-input {
+        border: unset;
+    }
+
+    .form-check-input:checked {
+        background-color: $selected-color !important;
+    }
+}
+
+.dashboard-login-form {
+    > * {
+        color: $dashboard-font-color !important;
+    }
+
+    > div {
+        background-color: inherit !important;
+    }
+
+    select, input, input:focus, textarea, textarea:focus {
+        background-color: inherit !important;
+    }
+
+    select option:hover {
+        background-color: $selected-color !important;
+    }
+
+    input, input:focus, textarea, textarea:focus {
+        color: $dashboard-font-color !important;
+    }
+
+    button {
+        background: linear-gradient(to right, rgb(234, 65, 112), rgb(128,0,128)) !important;
+        border: unset;
+        color: white;
+        font-weight: bold;
+    }
+}
 
 .dashboard-img-input {
     max-height: 720px;
     min-height: 720px;
     position: relative;
-    background-image: url(../../images/403bg.gif);
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
