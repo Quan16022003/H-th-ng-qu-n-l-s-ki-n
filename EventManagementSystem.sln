@@ -57,6 +57,10 @@ Global
 		{AB5503C2-FE3F-420E-AFAC-C30D2AC38301}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB5503C2-FE3F-420E-AFAC-C30D2AC38301}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB5503C2-FE3F-420E-AFAC-C30D2AC38301}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C491369D-5F4B-4592-80B0-1FAE47E9D453}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C491369D-5F4B-4592-80B0-1FAE47E9D453}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C491369D-5F4B-4592-80B0-1FAE47E9D453}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C491369D-5F4B-4592-80B0-1FAE47E9D453}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
