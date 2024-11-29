@@ -1,0 +1,266 @@
+@{
+    Layout = null;
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="~/css/select-ticket.css">
+    <title>Chọn vé</title>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Phần chọn vé bên trái -->
+        <div class="col-lg-9 col-left">
+            <div class="ticket-list-container">
+                <h3>Chọn vé</h3>
+                
+                <!-- Vé Sinh viên -->
+                <div class="ticket-card">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h5>Vé Sinh viên</h5>
+                            <div class="ticket-features">
+                                <div class="feature-item">
+                                    <i class="fas fa-graduation-cap"></i>
+                                    <span>Ghế ngồi thường</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-glass-water"></i>
+                                    <span>Nước uống miễn phí</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-id-card"></i>
+                                    <span>Yêu cầu thẻ sinh viên</span>
+                                </div>
+                            </div>
+                            <div class="ticket-description">
+                                Giá ưu đãi dành cho sinh viên, mang theo thẻ sinh viên khi check-in
+                            </div>
+                            <div class="ticket-price">300,000 VNĐ</div>
+                        </div>
+                        <div class="d-flex align-items-start">
+                            <button class="btn btn-outline-secondary btn-circle" onclick="decreaseQuantity('student')">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <input type="number" id="student-quantity" class="form-control quantity-input" value="0" min="0">
+                            <button class="btn btn-outline-secondary btn-circle" onclick="increaseQuantity('student')">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vé Thường -->
+                <div class="ticket-card">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h5>Vé Thường</h5>
+                            <div class="ticket-features">
+                                <div class="feature-item">
+                                    <i class="fas fa-chair"></i>
+                                    <span>Ghế ngồi thường</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-glass-water"></i>
+                                    <span>Nước uống miễn phí</span>
+                                </div>
+                            </div>
+                            <div class="ticket-description">
+                                Trải nghiệm sự kiện với góc nhìn thoải m��i, phù hợp cho nhóm bạn và gia đình
+                            </div>
+                            <div class="ticket-price">500,000 VNĐ</div>
+                        </div>
+                        <div class="d-flex align-items-start">
+                            <button class="btn btn-outline-secondary btn-circle" onclick="decreaseQuantity('normal')">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <input type="number" id="normal-quantity" class="form-control quantity-input" value="0" min="0">
+                            <button class="btn btn-outline-secondary btn-circle" onclick="increaseQuantity('normal')">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vé Premium -->
+                <div class="ticket-card">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h5>Vé Premium</h5>
+                            <div class="ticket-features">
+                                <div class="feature-item">
+                                    <i class="fas fa-couch"></i>
+                                    <span>Ghế ngồi cao cấp</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-utensils"></i>
+                                    <span>Snack & Đồ uống</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-gift"></i>
+                                    <span>Quà lưu niệm</span>
+                                </div>
+                            </div>
+                            <div class="ticket-description">
+                                Trải nghiệm premium với ghế ngồi thoải mái và các ưu đãi đặc biệt
+                            </div>
+                            <div class="ticket-price">800,000 VNĐ</div>
+                        </div>
+                        <div class="d-flex align-items-start">
+                            <button class="btn btn-outline-secondary btn-circle" onclick="decreaseQuantity('premium')">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <input type="number" id="premium-quantity" class="form-control quantity-input" value="0" min="0">
+                            <button class="btn btn-outline-secondary btn-circle" onclick="increaseQuantity('premium')">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vé VIP -->
+                <div class="ticket-card">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h5>Vé VIP</h5>
+                            <div class="ticket-features">
+                                <div class="feature-item">
+                                    <i class="fas fa-crown"></i>
+                                    <span>Ghế VIP hàng đầu</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-utensils"></i>
+                                    <span>Set menu cao cấp</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-parking"></i>
+                                    <span>Bãi đỗ xe riêng</span>
+                                </div>
+                            </div>
+                            <div class="ticket-description">
+                                Trải nghiệm VIP với vị trí ghế đẹp nhất, dịch vụ ẩm thực cao cấp và các đặc quyền riêng
+                            </div>
+                            <div class="ticket-price">1,000,000 VNĐ</div>
+                        </div>
+                        <div class="d-flex align-items-start">
+                            <button class="btn btn-outline-secondary btn-circle" onclick="decreaseQuantity('vip')">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <input type="number" id="vip-quantity" class="form-control quantity-input" value="0" min="0">
+                            <button class="btn btn-outline-secondary btn-circle" onclick="increaseQuantity('vip')">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vé VVIP -->
+                <div class="ticket-card">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h5>Vé VVIP</h5>
+                            <div class="ticket-features">
+                                <div class="feature-item">
+                                    <i class="fas fa-crown"></i>
+                                    <span>Ghế VVIP hàng đầu</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-champagne-glasses"></i>
+                                    <span>Tiệc buffet & Champagne</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-car"></i>
+                                    <span>Đưa đón VIP</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="fas fa-handshake"></i>
+                                    <span>Gặp gỡ nghệ sĩ</span>
+                                </div>
+                            </div>
+                            <div class="ticket-description">
+                                Trải nghiệm độc quyền VVIP với dịch vụ cao cấp nhất và cơ hội gặp gỡ nghệ sĩ
+                            </div>
+                            <div class="ticket-price">2,000,000 VNĐ</div>
+                        </div>
+                        <div class="d-flex align-items-start">
+                            <button class="btn btn-outline-secondary btn-circle" onclick="decreaseQuantity('vvip')">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <input type="number" id="vvip-quantity" class="form-control quantity-input" value="0" min="0">
+                            <button class="btn btn-outline-secondary btn-circle" onclick="increaseQuantity('vvip')">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phần summary bên phải -->
+        <div class="col-lg-3 col-right">
+            <div class="summary-card">
+                <div class="summary-content">
+                    <h4>Thông tin đặt vé</h4>
+                    <div class="event-info">
+                        <h5>Tên sự kiện</h5>
+                        <p class="text-muted">Ngày: DD/MM/YYYY</p>
+                        <p class="text-muted">Địa điểm: Location</p>
+                    </div>
+                    <hr>
+                    <div class="ticket-summary">
+                        <h6>Vé đã chọn</h6>
+                        <div id="student-ticket-summary" class="d-none">
+                            <div class="d-flex justify-content-between">
+                                <span>Vé Sinh viên x <span id="student-count">0</span></span>
+                                <span id="student-total">0 VNĐ</span>
+                            </div>
+                        </div>
+                        <div id="normal-ticket-summary" class="d-none">
+                            <div class="d-flex justify-content-between">
+                                <span>Vé Thường x <span id="normal-count">0</span></span>
+                                <span id="normal-total">0 VNĐ</span>
+                            </div>
+                        </div>
+                        <div id="premium-ticket-summary" class="d-none">
+                            <div class="d-flex justify-content-between">
+                                <span>Vé Premium x <span id="premium-count">0</span></span>
+                                <span id="premium-total">0 VNĐ</span>
+                            </div>
+                        </div>
+                        <div id="vvip-ticket-summary" class="d-none">
+                            <div class="d-flex justify-content-between">
+                                <span>Vé VVIP x <span id="vvip-count">0</span></span>
+                                <span id="vvip-total">0 VNĐ</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="summary-footer">
+                    <div class="d-flex justify-content-between">
+                        <h6>Tổng số vé:</h6>
+                        <h6 id="total-tickets">0 vé</h6>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <h6>Tổng tiền:</h6>
+                        <h6 id="total-amount">0 VNĐ</h6>
+                    </div>
+                    <form asp-controller="Booking" asp-action="SelectTicket" method="post">
+                        <button type="submit" class="btn btn-primary w-100 mt-3">Tiếp tục</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Thêm div để tạo padding bottom khi summary fixed ở mobile -->
+<div class="summary-spacer d-lg-none" style="height: 60vh;"></div>
+
+<script src="~/js/select-ticket.js"></script>
+</body>
+</html>

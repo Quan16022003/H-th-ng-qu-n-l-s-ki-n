@@ -1,4 +1,5 @@
 ﻿using Constracts.DTO;
+using Constracts.EventCategory;
 
 namespace Web.Areas.Dashboard.ViewModels.EventForm
 {

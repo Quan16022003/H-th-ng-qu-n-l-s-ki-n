@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Constracts.DTO;
+using Constracts.Home;
 using Domain.Entities;
 using Domain.Repositories;
 using Mapster;
@@ -87,18 +88,17 @@ namespace Services
             }
         }
         // sự kiện sắp tới
-        public async Task<IEnumerable<EventDTO>> GetAllEventsComingAsync()
+        public async Task<IEnumerable<HomeEventDto>> GetAllEventsComingAsync()
         {
             try
             {
                 _logger.LogInformation("Fetching all upcoming events");
-                var _events = await _unitOfWork.EventRepository.GetAllAsync();
-                var upcomingEvents = _events
-                    .Where(c => c.IsDeleted == false && c.StartDate.HasValue && c.StartDate.Value > DateTime.Now)
-                    .OrderBy(c => c.StartDate)
-                    .ToList();
-
-                return upcomingEvents.Adapt<IEnumerable<EventDTO>>();
+                var upcomingEvents = await _unitOfWork.EventRepository.GetManyAsync(
+                    filter: e => !e.IsDeleted && e.StartDate.HasValue && e.StartDate.Value > DateTime.Now,
+                    orderBy: q => q.OrderBy(e => e.StartDate),
+                    includeProperties: [nameof(Events.CategoryEvent),nameof(Events.Tickets)]
+                );
+                return upcomingEvents.Select(c=>new HomeEventDto(c));
             }
             catch (Exception ex)
             {

@@ -1,4 +1,5 @@
 using Constracts.DTO;
+using Constracts.EventCategory;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abtractions;
 

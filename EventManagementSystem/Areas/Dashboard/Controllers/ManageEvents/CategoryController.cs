@@ -1,4 +1,5 @@
 ﻿using Constracts.DTO;
+using Constracts.EventCategory;
 using Domain.Enum;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -53,7 +54,7 @@ namespace Web.Areas.Dashboard.Controllers.ManageEvents
         }
 
         [HttpPost]
-        public async Task<IActionResult> HandleAdd(EventCategoryDTO model)
+        public async Task<IActionResult> HandleAdd(EventCategoryCreationDto model)
         {
             if (model == null)
             {
