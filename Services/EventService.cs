@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Constracts.DTO;
+using Constracts.Home;
 using Domain.Entities;
 using Domain.Repositories;
 using Mapster;
@@ -85,18 +86,19 @@ namespace Services
             }
         }
         // sự kiện sắp tới
-        public async Task<IEnumerable<EventDTO>> GetAllEventsComingAsync()
+        public async Task<IEnumerable<HomeEventDTO>> GetAllEventsComingAsync()
         {
             try
             {
                 _logger.LogInformation("Fetching all upcoming events");
-                var _events = await _unitOfWork.EventRepository.GetAllAsync();
-                var upcomingEvents = _events
-                    .Where(c => c.IsDeleted == false && c.StartDate.HasValue && c.StartDate.Value > DateTime.Now)
-                    .OrderBy(c => c.StartDate)
-                    .ToList();
 
-                return upcomingEvents.Adapt<IEnumerable<EventDTO>>();
+                var upcomingEvents = await _unitOfWork.EventRepository.GetManyAsync(
+                    filter: e => !e.IsDeleted && e.StartDate.HasValue && e.StartDate.Value > DateTime.Now,
+                    includeProperties: new[] { "CategoryEvent", "Tickets" },
+                    orderBy: q => q.OrderBy(e => e.StartDate)
+                );
+
+                return upcomingEvents.Select(e => new HomeEventDTO(e)).ToList();
             }
             catch (Exception ex)
             {
@@ -105,21 +107,25 @@ namespace Services
             }
         }
         // sự kiện bán chạy
-        public async Task<IEnumerable<EventDTO>> GetAllEventsBestSellingAsync()
+        public async Task<IEnumerable<HomeEventDTO>> GetAllEventsBestSellingAsync()
         {
             try
             {
                 _logger.LogInformation("Fetching all events best selling");
-                var _events = await _unitOfWork.EventRepository.GetAllAsync();
-                var activeEvents = _events.Where(c => c.IsDeleted==false).ToList();
-                var _tickets = await _unitOfWork.TicketRepository.GetAllAsync();
+                var activeEvents = await _unitOfWork.EventRepository.GetManyAsync(
+                    filter: e => !e.IsDeleted,
+                    includeProperties: new[] { "CategoryEvent", "Tickets" },
+                    orderBy: q => q.OrderBy(e => e.StartDate)
+                );
+
                 var currentDate = DateTime.Now;
+
                 var bestSellingEvents = activeEvents
                     .Select(e => new
                     {
                         Event = e,
-                        TotalSold = _tickets.Where(t => t.EventId == e.Id).Sum(t => t.QuantitySold),
-                        TotalAvailable = _tickets.Where(t => t.EventId == e.Id).Sum(t => t.QuantityAvailable)
+                        TotalSold = e.Tickets?.Sum(t => t.QuantitySold) ?? 0, 
+                        TotalAvailable = e.Tickets?.Sum(t => t.QuantityAvailable) ?? 0 
                     })
                     .Where(x => x.TotalAvailable > 0 &&
                                 x.Event.StartDate.HasValue &&
@@ -132,7 +138,8 @@ namespace Services
                     .OrderByDescending(x => x.SalesRatio)
                     .Select(x => x.Event)
                     .ToList();
-                return bestSellingEvents.Adapt<IEnumerable<EventDTO>>();
+
+                return bestSellingEvents.Select(e => new HomeEventDTO(e)).ToList();
             }
             catch (Exception ex)
             {
@@ -141,32 +148,34 @@ namespace Services
             }
         }
         // sự kiện nổi bật điều kiện public + Bán chạy(tỉ lệ vé bán/tổng vé >=0,75) + diễn ra trong 1 tháng tới.
-        public async Task<IEnumerable<EventDTO>> GetAllEventsOutstandingAsync()
+        public async Task<IEnumerable<HomeEventDTO>> GetAllEventsOutstandingAsync()
         {
             try
             {
                 _logger.LogInformation("Fetching all outstanding events");
-                var _events = await _unitOfWork.EventRepository.GetAllAsync();
-                var activeEvents = _events.Where(c => c.IsDeleted==false && c.IsPublic== true).ToList();
-                var _tickets = await _unitOfWork.TicketRepository.GetAllAsync();
+
                 var currentDate = DateTime.Now;
                 var nextMonthDate = currentDate.AddMonths(1);
+
+                var activeEvents = await _unitOfWork.EventRepository.GetManyAsync(
+                    filter: e => !e.IsDeleted && e.IsPublic && e.StartDate.HasValue && e.StartDate.Value > currentDate && e.StartDate.Value <= nextMonthDate,
+                    includeProperties: new[] { "CategoryEvent", "Tickets" },
+                    orderBy: q => q.OrderBy(e => e.StartDate)
+                );
+
                 var outstandingEvents = activeEvents
                     .Select(e => new
                     {
                         Event = e,
-                        TotalSold = _tickets.Where(t => t.EventId == e.Id).Sum(t => t.QuantitySold),
-                        TotalAvailable = _tickets.Where(t => t.EventId == e.Id).Sum(t => t.QuantityAvailable)
+                        TotalSold = e.Tickets?.Sum(t => t.QuantitySold) ?? 0,
+                        TotalAvailable = e.Tickets?.Sum(t => t.QuantityAvailable) ?? 0
                     })
-                    .Where(x => x.TotalAvailable > 0 &&
-                                (double)x.TotalSold / x.TotalAvailable > 0.75 &&
-                                x.Event.StartDate.HasValue &&
-                                x.Event.StartDate.Value > currentDate &&
-                                x.Event.StartDate.Value <= nextMonthDate)
-                    .OrderBy(x => x.Event.StartDate) 
+                    .Where(x => x.TotalAvailable > 0 && (double)x.TotalSold / x.TotalAvailable >= 0.75)
+                    .OrderBy(x => x.Event.StartDate)
                     .Select(x => x.Event)
                     .ToList();
-                return outstandingEvents.Adapt<IEnumerable<EventDTO>>();
+
+                return outstandingEvents.Select(e => new HomeEventDTO(e)).ToList();
             }
             catch (Exception ex)
             {
