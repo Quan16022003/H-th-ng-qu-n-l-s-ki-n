@@ -1,21 +1,39 @@
+﻿using Constracts.DTO;
+using Web.ViewModels;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
+using Services.Abtractions;
 using System.Diagnostics;
 using Web.Models;
+using System.Text.Json;
 
-namespace Web.Areas.Home.Controllers.Home
+namespace Web.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IServiceManager _serviceManager;
+        public HomeController(
+            ILogger<HomeController> logger, 
+            IServiceManager serviceManager)
         {
             _logger = logger;
+            _serviceManager = serviceManager;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            // Lấy dữ lieu từ csdl
+            IEnumerable<EventDTO> featuredEvents = await _serviceManager.EventService.GetAllEventsAsync();
+            // Chỉ lấy 3 event đầu tiên
+            featuredEvents = featuredEvents.Take(3);
+            // Chuyển đổi dữ liệu sang dạng ViewModel
+            HomeViewModel viewModel = new()
+            {
+                FeaturedEvents = featuredEvents.Adapt<IEnumerable<EventCardViewModel>>()
+            };
+            
+            return View(viewModel);
         }
 
         public IActionResult Privacy()

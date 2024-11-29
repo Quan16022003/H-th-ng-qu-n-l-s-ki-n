@@ -1,0 +1,40 @@
+@using System.Security.Claims
+@{
+    ViewData["Title"] = "Access Denied";
+    Layout = "Account/_AccountLayout";
+}
+
+<div class="access-denied-page d-flex flex-column align-items-center min-vh-100">
+    <div class="access-denied-title d-flex flex-column align-items-center">
+        <div style="font-size: 100px">403</div>
+        <div style="font-size: 45px">Oops... Access Denied</div>
+    </div>
+    <div class="access-denied-content d-flex flex-column align-items-center">
+        <h3 style="text-align: center; font-size: 25px">Bạn không có quyền truy cập trang này</h3>
+        <div class="access-denied-information w-100 h-75 d-flex flex-wrap mt-4">
+            <div class="w-75" style="min-width: 280px; font-size: 17px">
+                <span class="fw-bold">Username: </span> 
+                @User?.FindFirst(ClaimTypes.Name)?.Value
+            </div>
+            <div class="w-25" style="min-width: 120px; font-size: 17px">
+                <span class="fw-bold">Role: </span>
+                @User?.FindFirst(ClaimTypes.Role)?.Value
+            </div>
+        </div>
+        <div class="access-denied-navigation d-flex justify-content-center align-items-center h-25 w-100">
+            <div>
+                <a href="@ViewBag.ReturnUrl" class="btn access-denied-back border-0 text-light">
+                    <i class="fas fa-arrow-left"></i> 
+                    Quay lại
+                </a>
+            </div>
+            <form asp-area="Dashboard" asp-controller="Account" asp-action="Logout" class="d-inline">
+                @Html.AntiForgeryToken()
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> 
+                    Đăng xuất
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

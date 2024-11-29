@@ -8,49 +8,7 @@
 <script defer src="/dist/bundle.js"></script></head>
 <body>
 	<header>
-		<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="navbar">
-			<div class="container">
-				<a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">
-					<img src="https://eventmie.classiebit.com/storage/settings/February2024/iC99LPYEaUTVhWOuAi0j.png"
-						 alt="Logo" 
-						 class="logo-img me-2">
-						 Eventmie Lite
-				</a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarNav">
-					<ul class="navbar-nav ms-auto">
-						<li class="nav-item">
-							<a asp-area="Account" asp-controller="Account" asp-action="Login" class="nav-link">
-								<i class="fas fa-sign-in-alt"></i> <!-- Icon Font Awesome -->
-								Login
-							</a>
-						</li>
-						<li class="nav-item">
-							<a asp-area="Account" asp-controller="Register" asp-action="Register" class="nav-link">
-								<i class="fas fa-user-plus"></i> <!-- Icon Font Awesome -->
-								Register
-							</a>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								<i class="fas fa-th-list"></i> <!-- Icon cho Categories -->
-								Categories
-							</a>
-							<ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
-								<li><a class="dropdown-item" href="#">Category 1</a></li>
-								<li><a class="dropdown-item" href="#">Category 2</a></li>
-								<li><a class="dropdown-item" href="#">Category 3</a></li>
-							</ul>
-						</li>
-						<li class="nav-item">
-							<a asp-area="Event" asp-controller="Event" asp-action="AllEvent" class="nav-link btn btn-primary text-white">Browse Events</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</nav>
+		@await Component.InvokeAsync("Navbar")
 	</header>
 
 	<div class="container body-container">
@@ -64,29 +22,41 @@
 			<div class="row">
 				<!-- Useful Links -->
 				<div class="col-md-3">
-					<h5>Useful Links</h5>
+					<h5>Thông tin</h5>
 					<ul class="list-unstyled">
-						<li><a href="#" class="text-white">About</a></li>
+						<li><a asp-area="" asp-controller="Events" asp-action="About" class="text-white">About</a></li>
 						<li><a href="#" class="text-white">Events</a></li>
-						<li><a href="#" class="text-white">Terms & Conditions</a></li>
-						<li><a href="#" class="text-white">Privacy Policy</a></li>
+						<li><a asp-area="" asp-controller="Events" asp-action="Terms" class="text-white">Terms & Conditions</a></li>
+						<li><a asp-area="" asp-controller="Events" asp-action="Privacy" class="text-white">Privacy Policy</a></li>
 					</ul>
 				</div>
 
 				<!-- Social Connections -->
 				<div class="col-md-3">
-					<h5>Social Connections</h5>
+					<h5>Liên kết xã hội</h5>
 					<ul class="list-unstyled">
-						<li><a href="https://www.facebook.com/profile.php?id=100008880122469" class="text-white">Facebook</a></li>
-						<li><a href="#" class="text-white">Twitter</a></li>
-						<li><a href="#" class="text-white">Instagram</a></li>
-						<li><a href="#" class="text-white">LinkedIn</a></li>
+						<li>
+							<a href="https://www.facebook.com/profile.php?id=100008880122469" class="text-white" target="_blank">
+								<i class="fab fa-facebook"></i> Facebook
+							</a>
+						</li>
+						<li>
+							<a href="https://x.com/kotogawam" class="text-white" target="_blank">
+								<i class="fab fa-twitter"></i> Twitter
+							</a>
+						</li>
+						<li>
+							<a href="https://x.com/kotogawam" class="text-white" target="_blank">
+								<i class="fab fa-instagram"></i> Instagram
+							</a>
+						</li>
 					</ul>
 				</div>
 
+
 				<!-- Contact -->
 				<div class="col-md-3">
-					<h5>Contact</h5>
+					<h5>Liên hệ</h5>
 					<ul class="list-unstyled">
 						<li><a href="#" class="text-white">Send us a message</a></li>
 						<li><a href="#" class="text-white">Find us on Map</a></li>
@@ -95,13 +65,12 @@
 
 				<!-- Icon -->
 				<div class="col-md-3 text-center">
-					<img src="https://eventmie.classiebit.com/storage/settings/February2024/iC99LPYEaUTVhWOuAi0j.png" alt="Event Icon" class="img-fluid" style="max-width: 100px;">
+					<img src="https://cdn.pixabay.com/animation/2024/07/26/22/37/22-37-10-148_512.gif" alt="Event Icon" class="img-fluid" style="max-width: 150px;">
 				</div>
 			</div>
 
 			<div class="row mt-4">
 				<div class="col-12 text-center">
-					<!-- Language Links -->
 					<ul class="list-inline">
 						<li class="list-inline-item"><a href="#" class="text-white">العربية</a></li>
 						<li class="list-inline-item"><a href="#" class="text-white">Deutsche</a></li>
@@ -129,7 +98,7 @@
 	</footer>
 
 	<script src="~/dist/bundle.js"></script>
-	<script src="~/js/event.js" asp-append-version="true"> </script>
+	<script src="~/js/event/event.js" asp-append-version="true"> </script>
 	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

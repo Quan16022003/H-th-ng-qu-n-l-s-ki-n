@@ -8,6 +8,9 @@ namespace Services.Abtractions
 {
     public interface IServiceManager
     {
+        IUserService UserService { get; }
         IEventService EventService { get; }
+        IEventCategoryService EventCategoryService { get; }
+        ITicketService TicketService { get; }
     }
 }

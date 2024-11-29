@@ -1,4 +1,5 @@
-﻿using Domain.Repositories;
+﻿using Constracts;
+using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 using Services.Abtractions;
@@ -11,6 +12,11 @@ using FluentValidation;
 using Domain.Entities;
 using Web.Utils.ViewsPathServices;
 using Web.Utils.ViewsPathServices.Implementations;
+using Microsoft.AspNetCore.Mvc;
+using Web.Config;
+using Mapster;
+
+using EmailService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +50,8 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.User.RequireUniqueEmail = false;
 });
 
+builder.Services.AddMvc(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
+
 builder.Services.ConfigureApplicationCookie(options =>
 {
     // Cookie settings
@@ -58,6 +66,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddRazorPages();
 
+builder.Services.AddHttpClient();
+
 builder.Services.AddFluentValidationAutoValidation();
 
 builder.Services.AddFluentValidationClientsideAdapters();
@@ -65,24 +75,30 @@ builder.Services.AddFluentValidationClientsideAdapters();
 //builder.Services.AddValidatorsFromAssemblyContaining<OwnerForCreationInputModelValidator>(); // Nhớ mở ra để sử dụng FluentValidation
 
 builder.Services.AddScoped<IServiceManager, ServiceManager>();
-
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
-builder.Services.AddScoped<IEventRepository, EventRepository>();
+// Add repositories to DI container
+builder.Services.RegisterAllRepositories();
+builder.Services.RegisterAllServices();
+builder.Services.RegisterPolicy();
 
-builder.Services.AddScoped<EventService>();
+builder.Services.RegisterPathProvideManager();
 
-#region add path provider service for views in front end
+builder.Services.RegisterSlugifyTransformer();
 
-// key: area name, value: service match
-builder.Services.AddKeyedTransient<IPathProvider, AdminPathProvider>("Admin");
-builder.Services.AddKeyedTransient<IPathProvider, ProfilePathProvider>("Profile");
-builder.Services.AddKeyedTransient<IPathProvider, AccountPathProvider>("Account");
+builder.Services.AddScoped<IFileService>(provider => 
+    new FileService(builder.Environment.WebRootPath));
 
-#endregion
+var emailConfig = builder.Configuration.GetSection("EmailConfiguration")
+    .Get<EmailConfiguration>();
+if (emailConfig == null)
+{
+    throw new ArgumentNullException(nameof(emailConfig), "Email configuration cannot be null.");
+}
 
+builder.Services.AddSingleton(emailConfig);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -103,34 +119,9 @@ app.UseAuthorization();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
-#region Area Route
-
-app.MapAreaControllerRoute(
-    name: "Admin",
-    areaName: "Admin",
-    pattern: "Admin/{controller}/{action}/{id?}");
-
-app.MapAreaControllerRoute(
-    name: "Profile",
-    areaName: "Profile",
-    pattern: "Profile/{controller}/{action}/{id?}");
-
-app.MapAreaControllerRoute(
-    name: "Account",
-    areaName: "Account",
-    pattern: "Account/{controller}/{action}/{id?}");
-
-app.MapAreaControllerRoute(
-    name: "Event",
-    areaName: "Event",
-    pattern: "Event/{controller}/{action}/{id?}");
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-#endregion
-
+app.RegisterAllRoutes();
 app.MapRazorPages();
+
+TypeAdapterConfig.GlobalSettings.Default.IgnoreNullValues(true);
 
 app.Run();

@@ -1,0 +1,16 @@
+﻿$content-width: 95%;
+$page-content-bg: #404040;
+
+.dashboard-category-divider {
+    > hr {
+        width: $content-width
+    }
+}
+
+.dashboard-category-content {
+    width: $content-width;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: $page-content-bg;
+    //margin-top: 50px;
+}

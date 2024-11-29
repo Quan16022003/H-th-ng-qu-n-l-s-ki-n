@@ -15,11 +15,5 @@ namespace Persistence.Repositories
         public EventRepository(RepositoryDbContext dbContext) : base(dbContext)
         {
         }
-        public async Task DeleteAsync(Events events)
-        {
-            events.IsDeleted = true;
-            await UpdateAsync(events);
-        }
-
     }
 }

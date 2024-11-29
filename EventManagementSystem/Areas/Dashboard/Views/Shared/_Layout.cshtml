@@ -1,0 +1,94 @@
+﻿@using System.Web
+@using Microsoft.AspNetCore.Html
+@functions {
+	string getNavigateAction(string baseUrl, string current, IEnumerable<string> navigateItems)
+	{
+		string result = "";
+		bool isCurrent = false;
+
+		foreach (var page in navigateItems)
+		{
+			result += "<i class='fa-solid fa-chevron-right dashboard-text-color-reset'></i>";
+
+			string capitalizeFirst = page[0].ToString().ToUpper() + page.Substring(1);
+			isCurrent = page.ToLower().Contains(current);
+
+			string[] nameAction = capitalizeFirst.Split('?');
+			string currentClass = isCurrent ? "dashboard-text-color-reset" : "dashboard-text-selected";
+
+			result += $"<a class='{currentClass} text-decoration-none' href='{baseUrl}/{page}'><span>{nameAction[0]}</span></a>";
+		}
+
+		return result;
+	}
+
+	IHtmlContent GetHeaderNavigation()
+	{
+		string path = Context.Request.Path;
+
+		string[] pages = path.Split("/");
+
+		// skip the "" and take 2
+		var homePages = pages.Skip(1).Take(2);
+		string baseUrl = $"/{string.Join("/", homePages)}";
+
+		string current = pages.Last().ToLower();
+		bool isInBase = current.Contains("index");
+
+		//get the rest but Index action
+		var navigateItems = isInBase ? pages.Skip(3).SkipLast(1) : pages.Skip(3);
+
+		string html = "<i class='fa-solid fa-chevron-right dashboard-text-color-reset'></i>"
+							+ $"<a class='{(isInBase ? "dashboard-text-color-reset" : "dashboard-text-selected")} text-decoration-none' href='{baseUrl}/index'><span>{ViewBag.Current}</span></a>"
+							+ getNavigateAction(baseUrl, current, navigateItems);
+
+		return Html.Raw(HttpUtility.HtmlDecode(html));
+	}
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<!--ADMIN LAYOUT-->
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/9783/9783268.png" />
+	<title>@ViewData["Title"]</title>
+</head>
+<body style="background-color: #292929">
+	<!--Header-->
+	<!--TODO: ADD HEADER-->
+	<!--End Header-->
+	@await Component.InvokeAsync("SideMenu")
+	<section class="dashboard-header w-100 d-flex">
+		<button class="side-menu-button">
+			<i class="fa-solid fa-arrow-left d-none dashboard-text-color-reset"></i>
+			<i class="fa-solid fa-bars dashboard-text-color-reset"></i>
+		</button>
+		<div class="flex-grow-1 d-flex align-items-center">
+			<div class="navigate-container rounded-pill p-2 shadow">
+				<a asp-area='Dashboard'
+				   asp-controller='Statistics'
+				   asp-action='Index'
+				   class='dashboard-base text-decoration-none'>
+					<i class="fa-solid fa-ship"></i>
+					Dashboard
+				</a>
+				@GetHeaderNavigation()
+			</div>
+		</div>
+		<!--model-->
+		@await Component.InvokeAsync("ProfileDropdown")
+	</section>
+	<div class="container body-container w-100 d-flex">
+		<div class="dashboard-box"></div>
+		<main role="main" class="dashboard-main d-flex flex-column flex-grow-1 overflow-hidden">
+			@RenderBody()
+		</main>
+	</div>
+
+	<script src="~/dist/bundle.js" asp-append-version="true"></script>
+	<script asp-append-version="true" src="~/js/dashboard/dashboard.js"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

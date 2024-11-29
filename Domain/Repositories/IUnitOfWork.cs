@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Domain.Entities;
+using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +15,14 @@ namespace Domain.Repositories
     {
         #region Properties
 
-        //ITodoRepository TodoRepository { get; }
+        UserManager<ApplicationUser> UserManager { get; }
+        ICategoryEventRepository CategoryEventRepository { get; }
+        IEventRepository EventRepository { get; }
+        ITicketRepository TicketRepository { get; }
+        IOrderRepository OrderRepository { get; }
+        IOrderItemRepository OrderItemRepository { get; }
+        IOrderTicketRepository OrderTicketRepository { get; }
+        IAttendeeRepository AttendeeRepository { get; }
 
         #endregion
 

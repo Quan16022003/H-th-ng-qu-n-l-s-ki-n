@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Commons;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -11,12 +12,14 @@ namespace Domain.Repositories
     /// Base Repository Interface.
     /// </summary>
     /// <typeparam name="T">The Type of Entity to operate on</typeparam>
-    public interface IBaseRepository<T> where T : class
+    public interface IBaseRepository<T> where T : BaseEntity
     {
         Task<T> AddAsync(T entity);
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);
+        Task SoftDeleteAsync(T entity);
         Task DeleteManyAsync(Expression<Func<T, bool>> filter);
+        Task SoftDeleteManyAsync(Expression<Func<T, bool>> filter);
         Task<IEnumerable<T>> GetAllAsync();
         Task<T> GetByIdAsync(int id);
         Task<IEnumerable<T>> GetManyAsync(Expression<Func<T, bool>> filter = null,

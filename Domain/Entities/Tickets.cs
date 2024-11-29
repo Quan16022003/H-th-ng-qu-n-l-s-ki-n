@@ -19,8 +19,8 @@ namespace Domain.Entities
         public TicketStatus Status { get; set; }
 
         public int EventId { get; set; }
-        public required Events Event { get; set; }
-        public IEnumerable<Attendees> Attendees { get; set; }
-        public IEnumerable<OrderTicket> OrderTickets { get; set; }
+        public Events? Event { get; set; }
+        public IEnumerable<Attendees>? Attendees { get; set; }
+        public IEnumerable<OrderTicket>? OrderTickets { get; set; }
     }
 }
