@@ -39,7 +39,7 @@ public class OrdersService : IOrdersService
             UserId = orderDTO.UserId,
             EventId = orderDTO.EventId,
             CreatedDate = DateTime.Now,
-            ModifiedDate = null,
+            ModifiedDate = DateTime.Now,
             IsDeleted = false
         };
         await _orderRepository.AddAsync(order); // Thêm vào repository
@@ -53,7 +53,7 @@ public class OrdersService : IOrdersService
                 Quantity = orderItemDTO.Quantity,
                 UnitPrice = orderItemDTO.UnitPrice,
                 CreatedDate = DateTime.Now,
-                ModifiedDate = null,
+                ModifiedDate = DateTime.Now,
                 IsDeleted = false
             };
             await _orderItemRepository.AddAsync(orderItem); // Thêm vào repository
