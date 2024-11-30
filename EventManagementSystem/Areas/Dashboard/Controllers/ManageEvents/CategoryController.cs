@@ -1,6 +1,7 @@
 ﻿using Constracts.DTO;
 using Constracts.EventCategory;
 using Domain.Enum;
+using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abtractions;
@@ -66,7 +67,7 @@ namespace Web.Areas.Dashboard.Controllers.ManageEvents
                 );
             }
 
-            var result = await _categoryEventService.CreateAsync(model);
+            var result = await _categoryEventService.CreateAsync(model.Adapt<EventCategoryCreationDto>());
 
             return Ok(
                 new
