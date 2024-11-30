@@ -23,14 +23,9 @@ namespace Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            // Lấy dữ lieu từ csdl
-            IEnumerable<EventDTO> featuredEvents = await _serviceManager.EventService.GetAllEventsAsync();
-            // Chỉ lấy 3 event đầu tiên
-            featuredEvents = featuredEvents.Take(3);
-            // Chuyển đổi dữ liệu sang dạng ViewModel
             HomeViewModel viewModel = new()
             {
-                FeaturedEvents = featuredEvents.Adapt<IEnumerable<EventCardViewModel>>()
+                FeaturedEvents = await _serviceManager.EventService.GetAllEventsComingAsync()
             };
             
             return View(viewModel);

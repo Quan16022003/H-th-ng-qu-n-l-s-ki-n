@@ -46,7 +46,6 @@ namespace Web.Areas.Dashboard.Controllers.ManageEvents
             return View($"{ViewPath}/AddCategory.cshtml");
         }
 
-        [HttpPost]
         public async Task<IActionResult> HandleAdd(EventCategoryCreationDto data)
         {
             if (!ModelState.IsValid)

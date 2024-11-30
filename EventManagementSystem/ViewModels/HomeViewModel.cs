@@ -1,7 +1,9 @@
+using Constracts.Home;
+
 namespace Web.ViewModels;
 
 public class HomeViewModel
 {
-    public IEnumerable<EventCardViewModel> FeaturedEvents { get; set; }
-    public IEnumerable<EventCardViewModel> UpcomingEvents { get; set; }
+    public IEnumerable<HomeEventDto> FeaturedEvents { get; set; }
+    public IEnumerable<HomeEventDto> UpcomingEvents { get; set; }
 }

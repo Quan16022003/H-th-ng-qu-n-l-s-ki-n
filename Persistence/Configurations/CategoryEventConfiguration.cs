@@ -37,6 +37,7 @@ namespace Persistence.Configurations
                 .WithOne(e => e.CategoryEvent)
                 .HasForeignKey(e => e.CategoryId)
                 .OnDelete(DeleteBehavior.Cascade);
+            
         }
     }
 }

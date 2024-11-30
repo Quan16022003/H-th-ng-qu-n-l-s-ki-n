@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using MimeKit;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace EmailService;
 

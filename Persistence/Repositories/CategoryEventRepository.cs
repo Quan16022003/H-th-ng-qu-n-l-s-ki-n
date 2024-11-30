@@ -19,7 +19,7 @@ namespace Persistence.Repositories
 
         public bool IsCategoryInUse(int id)
         {
-            return _dbSet.Any(c => c.Id == id && c.Events.Any());
+            return _dbSet.Any(c => c.Id == id);
         }
 
         public bool HasSlug(string slug)
