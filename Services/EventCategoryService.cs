@@ -36,14 +36,15 @@ namespace Services
                 throw new ArgumentNullException(nameof(createDto));
             }
 
-            CategoryEvents categoryEvent = new() { Name = createDto.Name, Description = createDto.Description, };
-            
-            
-            categoryEvent.ThumbnailUrl = await _fileService.UploadFileAsync(createDto.ImageFile, "images/client");
-            categoryEvent.Slug = _slugService.GenerateSlug(createDto.Name!);
-            categoryEvent.CreatedDate = DateTime.Now;
-            categoryEvent.ModifiedDate = DateTime.Now;
-            categoryEvent.Status = true;
+            CategoryEvents categoryEvent = new()
+            {
+                Name = createDto.Name, Description = createDto.Description, ThumbnailUrl = await _fileService.UploadFileAsync(createDto.ImageFile, "images/client"),
+                Slug = _slugService.GenerateSlug(createDto.Name!),
+                CreatedDate = DateTime.Now,
+                ModifiedDate = DateTime.Now,
+                Status = true
+            };
+
 
             await _categoryEventRepository.AddAsync(categoryEvent);
             
