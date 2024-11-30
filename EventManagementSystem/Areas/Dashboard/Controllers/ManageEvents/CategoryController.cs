@@ -1,12 +1,10 @@
-﻿using Constracts.DTO;
-using Constracts.EventCategory;
-using Domain.Enum;
-using Mapster;
+﻿using Constracts.EventCategory;
+using Domain.ValueObjects;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Services.Abtractions;
 using Web.Controllers;
-using Web.Utils;
 using Web.Utils.ViewsPathServices;
 
 namespace Web.Areas.Dashboard.Controllers.ManageEvents
@@ -15,29 +13,16 @@ namespace Web.Areas.Dashboard.Controllers.ManageEvents
     [Area("Dashboard")]
     public class CategoryController : BaseController
     {
-        private readonly IEventCategoryService _categoryEventService;
-        private readonly ISlugService _slugService;
+        private readonly ICategoryService _categoryService;
+        private readonly ILogger<CategoryController> _logger;
 
         public CategoryController(
             IPathProvideManager pathProvideManager,
-            IServiceManager serviceManager,
-            ISlugService slugService) : base(serviceManager)
+            IServiceManager serviceManager, ILogger<CategoryController> logger) : base(serviceManager)
         {
+            _logger = logger;
             ViewPath = pathProvideManager.Get<CategoryController>();
-            _categoryEventService = serviceManager.EventCategoryService;
-            _slugService = slugService;
-        }
-
-        private async Task<IEnumerable<EventCategoryDTO>> FetchCategories(string type = "", string query = "")
-        {
-            var events = await _categoryEventService.GetAllAsync();
-            if (string.IsNullOrEmpty(query)) return events;
-
-            if (type == "Equal")
-            {
-                return events.Where(e => e.Name!.Equals(query, StringComparison.CurrentCultureIgnoreCase));
-            }
-            else return events.Where(e => e.Name!.Contains(query, StringComparison.CurrentCultureIgnoreCase));
+            _categoryService = serviceManager.CategoryService;
         }
 
         [HttpGet]
@@ -45,8 +30,15 @@ namespace Web.Areas.Dashboard.Controllers.ManageEvents
             [FromQuery(Name = "searchOption")] string searchType = "",
             [FromQuery(Name = "searchQuery")] string query = "")
         {
-            var categories = await FetchCategories(searchType, query);
-            return View($"{ViewPath}/Categories.cshtml", categories);
+            var result = await _categoryService.GetAllAsync(searchType, query);
+            if (result.IsFailure)
+            {
+                return BadRequest(result.Error.Message);
+            }
+            ViewBag.SearchOption = searchType;
+            _logger.LogInformation("SearchOption: {searchOption}, SearchQuery: {searchQuery}", searchType, query);
+            ViewBag.SearchQuery = query;
+            return View($"{ViewPath}/Categories.cshtml", result.Value);
         }
 
         public IActionResult Add()
@@ -54,86 +46,78 @@ namespace Web.Areas.Dashboard.Controllers.ManageEvents
             return View($"{ViewPath}/AddCategory.cshtml");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> HandleAdd(EventCategoryCreationDto model)
+        public async Task<IActionResult> HandleAdd(EventCategoryCreationDto data)
         {
-            if (model == null)
+            if (!ModelState.IsValid)
             {
-                return BadRequest(
-                    new
-                    {
-                        message = "Category is null"
-                    }
-                );
+                IEnumerable<string> errors = ModelState.Values.SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage);
+                return BadRequest(new { message = errors.ToList() });
             }
 
-            var result = await _categoryEventService.CreateAsync(model.Adapt<EventCategoryCreationDto>());
+            Result<int> result = await _categoryService.CreateAsync(data);
+            if (result.IsFailure)
+            {
+                return BadRequest(new { message = result.Error.Message });
+            }
 
-            return Ok(
-                new
-                {
-                    message = "Create Successfully",
-                    redirectUrl = Url.Action(nameof(Index), "Category", new
-                    {
-                        area = "Dashboard"
-                    })
-                }
-            );
+            var successResponse = new 
+            {
+                message = "Thêm thành công",
+                redirectUrl = Url.Action(nameof(Index), "Category", new { area = "Dashboard" })
+            };
+            return Ok(successResponse);
         }
 
         [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            var category = await _categoryEventService.GetByIdAsync(id);
-            return View($"{ViewPath}/UpdateCategory.cshtml", category);
+            var result = await _categoryService.GetByIdAsync(id);
+            if (result.IsFailure)
+            {
+                return BadRequest(new { message = result.Error.Message });
+            }
+            return View($"{ViewPath}/UpdateCategory.cshtml", result.Value);
         }
 
         [HttpPut]
-        public async Task<IActionResult> HandleUpdate(EventCategoryDTO data)
+        public async Task<IActionResult> HandleUpdate(EventCategoryUpdateDto data)
         {
-            if (data == null)
+            if (!ModelState.IsValid)
             {
-                return BadRequest(
-                    new
-                    {
-                        message = "Cannot update category"
-                    });
+                IEnumerable<string> errors = ModelState.Values.SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage);
+                return BadRequest(new { message = errors.ToList() });
             }
-
-            var result = await _categoryEventService.UpdateAsync(data.Id, data);
-            return Ok(
-                new
-                {
-                    message = "Update category successfully",
-                    redirectUrl = Url.Action(nameof(Index), "Category", new
-                    {
-                        area = "Dashboard"
-                    })
-                });
+            _logger.LogInformation("Updating category with Data: {data}", data.ToString());
+            Result<int> result = await _categoryService.UpdateAsync(data);
+            if (result.IsFailure)
+            {
+                return BadRequest(new { message = result.Error.Message });
+            }
+            var successResponse = new 
+            {
+                message = "Sửa thành công",
+                redirectUrl = Url.Action(nameof(Index), "Category", new { area = "Dashboard" })
+            };
+            return Ok(successResponse);
         }
 
         [HttpDelete]
         public async Task<IActionResult> HandleDelete(int id)
         {
-            var category = await _categoryEventService.GetByIdAsync(id);
-
-            if (category.Status)
+            Result result = await _categoryService.DeleteAsync(id);
+            if (result.IsFailure)
             {
-                return BadRequest(
-                    new
-                    {
-                        message = "Category cannot be deleted cause status still activated"
-                    }
-                );
+                return BadRequest(new { message = result.Error.Message });
             }
-
-            await _categoryEventService.DeleteAsync(id);
-            return Ok(
-                new
-                {
-                    message = "Delete category successfully"
-                }
-            );
+            
+            var successResponse = new 
+            {
+                message = "Xoá thành công",
+                redirectUrl = Url.Action(nameof(Index), "Category", new { area = "Dashboard" })
+            };
+            return Ok(successResponse);
         }
     }
 }

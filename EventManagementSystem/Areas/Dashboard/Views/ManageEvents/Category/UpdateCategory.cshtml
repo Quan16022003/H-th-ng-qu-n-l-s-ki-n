@@ -9,11 +9,12 @@
 @Html.AntiForgeryToken()
 <div class="w-100 h-100">
 	<form method="post" class="dashboard-form dashboard-category-form update-form w-100 h-100">
-		<input id="id" name="id" type="number" hidden value="@Model.Id" />
+		<input id="id" name="id" value="@Model.Id" />
 		@await Html.PartialAsync("./Partials/_ImageInput", Model)
 		<div class="dashboard-category-divider w-100 d-flex justify-content-center">
 			<hr />
 		</div>
+		<input id="id" name="id" value="@Model.Id" />
 		<div class="w-100 d-flex justify-content-center">
 			<div class="dashboard-category-content shadow">
 				<div class="w-100 d-flex align-items-center pb-4" style="gap: 20px">
