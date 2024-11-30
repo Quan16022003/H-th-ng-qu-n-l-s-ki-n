@@ -46,7 +46,16 @@ export const postEntity = (url, data) => {
             $(".dashboard-submit-button").removeClass("disabled");
             let response = JSON.parse(xhr.responseText);
             if (xhr.status === 400) {
-                window.toastr.error(response.message)
+                if (Array.isArray(response.message)) {
+                    response.message.forEach((message, index) => {
+                        setTimeout(() => {
+                            window.toastr.error(message);
+                        }, index * 100);
+                    })
+                } else {
+                    window.toastr.error(response.message)
+                }
+                
             }
         }
     })
