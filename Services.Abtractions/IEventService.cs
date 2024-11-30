@@ -16,9 +16,10 @@ namespace Services.Abtractions
     public interface IEventService
     {
         Task<IEnumerable<EventDTO>> GetAllEventsAsync();
-        Task<IEnumerable<HomeEventDto>> GetAllEventsComingAsync();
-        Task<IEnumerable<EventDTO>> GetAllEventsBestSellingAsync();
-        Task<IEnumerable<EventDTO>> GetAllEventsOutstandingAsync();
+        Task<IEnumerable<HomeEventDTO>> GetAllEventsComingAsync();
+        Task<IEnumerable<HomeEventDTO>> GetAllEventsBestSellingAsync();
+        Task<IEnumerable<HomeEventDTO>> GetAllEventsOutstandingAsync();
+      
         Task<EventDTO> GetEventByIdAsync(int id);
 
         Task AddEventAsync(EventDetailDTO eventDetailDTO);
