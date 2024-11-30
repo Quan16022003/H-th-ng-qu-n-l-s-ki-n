@@ -21,7 +21,6 @@ namespace Web.Areas.Dashboard.Controllers.ManageSite
 
         public IActionResult Index()
         {
-            LoadCurrentUser();
             return View($"{ViewPath}/Pages.cshtml");
         }
     }

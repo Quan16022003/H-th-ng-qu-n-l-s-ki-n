@@ -1,5 +1,4 @@
 ﻿using Constracts.DTO;
-using Domain.Enum;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abtractions;
@@ -19,8 +18,8 @@ namespace Web.Areas.Dashboard.Controllers.ManageEvents
             IPathProvideManager pathProvideManager,
             IServiceManager serviceManager) : base(serviceManager)
         {
-            _eventService = serviceManager.EventService;
             ViewPath = pathProvideManager.Get<EventController>();
+            _eventService = serviceManager.EventService;
         }
 
         private async Task<IEnumerable<EventDTO>> FetchEvents(string type = "", string query = "")
@@ -40,16 +39,37 @@ namespace Web.Areas.Dashboard.Controllers.ManageEvents
             [FromQuery(Name = "searchOption")] string searchType = "",
             [FromQuery(Name = "searchQuery")] string query = "")
         {
-            LoadCurrentUser();
             var events = await FetchEvents(searchType, query);
             return View($"{ViewPath}/Events.cshtml", events);
         }
 
         public IActionResult Add()
         {
-            LoadCurrentUser();
             return View($"{ViewPath}/AddEvent.cshtml");
         }
+
+        //[HttpPost]
+        //public async Task<IActionResult> HandleAdd(EventDetailDTO dto)
+        //{
+        //    if (dto == null)
+        //    {
+        //        return BadRequest(new {
+        //           message = "Event is null"
+        //        });
+        //    }
+        //    await _eventService.GetAllEventsAsync();
+        //    return Ok();
+
+        //    //await _eventService.AddEventAsync(dto);
+        //    //return Ok(new
+        //    //{
+        //    //    message = "Create Successfully",
+        //    //    redirectUrl = Url.Action(nameof(Index), "Event", new
+        //    //    {
+        //    //        area = "Dashboard"
+        //    //    })
+        //    //});
+        //}
 
         // call by Ajax
         [HttpDelete]

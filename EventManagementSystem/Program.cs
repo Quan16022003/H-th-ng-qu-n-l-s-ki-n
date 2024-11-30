@@ -1,4 +1,5 @@
-﻿using Domain.Repositories;
+﻿using Constracts;
+using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 using Services.Abtractions;
@@ -13,6 +14,9 @@ using Web.Utils.ViewsPathServices;
 using Web.Utils.ViewsPathServices.Implementations;
 using Microsoft.AspNetCore.Mvc;
 using Web.Config;
+using Mapster;
+
+using EmailService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -80,17 +84,21 @@ builder.Services.RegisterAllRepositories();
 builder.Services.RegisterAllServices();
 builder.Services.RegisterPolicy();
 
-#region add path provider service for views in front end
-
 builder.Services.RegisterPathProvideManager();
-
-#endregion
 
 builder.Services.RegisterSlugifyTransformer();
 
 builder.Services.AddScoped<IFileService>(provider => 
     new FileService(builder.Environment.WebRootPath));
 
+var emailConfig = builder.Configuration.GetSection("EmailConfiguration")
+    .Get<EmailConfiguration>();
+if (emailConfig == null)
+{
+    throw new ArgumentNullException(nameof(emailConfig), "Email configuration cannot be null.");
+}
+
+builder.Services.AddSingleton(emailConfig);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -113,5 +121,7 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.RegisterAllRoutes();
 app.MapRazorPages();
+
+TypeAdapterConfig.GlobalSettings.Default.IgnoreNullValues(true);
 
 app.Run();

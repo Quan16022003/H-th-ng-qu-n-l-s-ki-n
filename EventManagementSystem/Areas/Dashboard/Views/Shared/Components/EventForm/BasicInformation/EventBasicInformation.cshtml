@@ -1,0 +1,29 @@
+﻿@using Web.Areas.Dashboard.ViewModels.EventForm
+@model EventBasicInformationViewModel
+
+<div class="w-100 d-flex flex-wrap justify-content-between">
+	<div style="min-width: 200px; width: 40%">
+		<label for="organizer">Organizer</label>
+		<input id="organizer" name="organizer" type="text" disabled
+			   class="form-control disabled"
+			   value="@Model.Organizer.UserName" />
+	</div>
+	<div style="min-width: 200px; width: 40%">
+		<label for="category">Category</label>
+		<select id="category" name="category" class="form-control">
+			@foreach (var item in Model.Categories)
+			{
+				<option value="@item.Id">
+					@item.Name
+				</option>
+			}
+		</select>
+	</div>
+</div>
+<label for="title">Title</label>
+<input id="title" name="title" type="text" class="form-control remove-border-focus" />
+<label>Description</label>
+<textarea id="description" name="description" required
+		  style="resize: none; height: 200px"
+		  class="form-control">
+</textarea>

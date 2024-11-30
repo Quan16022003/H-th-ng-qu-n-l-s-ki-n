@@ -1,44 +1,29 @@
-﻿@{
+﻿@model Constracts.EventCategory.EventCategoryCreationDto
+@{
 	ViewData["Title"] = "Add Category";
 	ViewBag.Current = "Categories";
-	ViewBag.ManageEvents = "selected";
-	ViewBag.Category = "selected";
+	ViewBag.IsInManageEvents = "selected";
+	ViewBag.IsInCategory = "selected";
 }
 
 @Html.AntiForgeryToken()
 <div class="w-100 h-100">
-	<form method="post" class="dashboard-form dashboard-category-form w-100 h-100">
-		<div class="dashboard-category-img w-100 d-flex justify-content-center">
-			<img class="d-block"
-				 src="/images/categories/science&tech.webp" />
-			<div class="choose-img-button-container">
-				<div class="choose-img-button btn p-2 position-relative">
-					<i class="fa-solid fa-image"></i>
-					Add Image
-					<input type="file"
-						   id="imageFile"
-						   name="imageFile"
-						   required
-						   accept=".jpg, .jpeg, .png, .webp"
-						   class="opacity-0 position-absolute w-100 h-100 top-0 start-0" />
-				</div>
-			</div>
-		</div>
+	<form method="post" class="dashboard-form dashboard-category-form add-form w-100 h-100">
+		@await Html.PartialAsync("./Partials/_ImageInput")
 		<div class="dashboard-category-divider w-100 d-flex justify-content-center">
 			<hr />
 		</div>
 		<div class="w-100 d-flex justify-content-center">
 			<div class="dashboard-category-content shadow">
-				<label for="name">Name</label>
-				<input id="name"
-					   name="name"
-					   type="text"
+				<label asp-for="Name">Name</label>
+				<input 
+						asp-for="Name"
+						type="text"
 					   required
 					   maxlength="100"
 					   class="form-control remove-border-focus" />
-				<label for="description">Description</label>
-				<textarea id="description"
-						  name="description"
+				<label asp-for="Description">Description</label>
+				<textarea asp-for="Description"
 						  required
 						  style="min-height: 300px; max-height: 400px; resize: none"
 						  class="form-control remove-border-focus"></textarea>

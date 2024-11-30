@@ -2,8 +2,8 @@
 @{
 	ViewData["Title"] = "Events";
 	ViewBag.Current = "Events";
-	ViewBag.ManageEvents = "selected";
-	ViewBag.Event = "selected";
+	ViewBag.IsInManageEvents = "selected";
+	ViewBag.IsInEvent = "selected";
 }
 
 @Html.AntiForgeryToken()
@@ -68,7 +68,6 @@
 							<th class="text-center" scope="col">Created Date</th>
 							<th class="text-center" scope="col">Modified Date</th>
 							<th class="text-center" scope="col">Public</th>
-							<th class="text-center" scope="col">Is Deleted</th>
 							<th style="min-width: 200px; max-width: 200px" class="text-end" scope="col">Actions</th>
 						</tr>
 					</thead>
@@ -90,14 +89,6 @@
 										<div style="width: fit-content"
 											 class="label @(item.IsPublic ? "bg-light-green" : "bg-danger")">
 											<div>@item.IsPublic</div>
-										</div>
-									</div>
-								</td>
-								<td>
-									<div class="d-flex justify-content-center">
-										<div style="width: fit-content"
-											 class="label @(item.IsDeleted ? "bg-light-green" : "bg-danger")">
-											<div>@item.IsDeleted</div>
 										</div>
 									</div>
 								</td>

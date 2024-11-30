@@ -5,8 +5,8 @@
         /// <summary>
         /// Get folder path which contain the view
         /// </summary>
-        /// <param name="target">Controller type which handle the Views</param>
+        /// <param name="type">Controller type which handle the Views</param>
         /// <returns>Path to folder contain the view</returns>
-        string GetViewsPath(Type target);
+        string GetViewsPath(Type type);
     }
 }

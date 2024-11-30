@@ -59,6 +59,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Constracts\Constracts.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\EmailService\EmailService.csproj" />
     <ProjectReference Include="..\Persistence\Persistence.csproj" />
     <ProjectReference Include="..\Services.Abtractions\Services.Abtractions.csproj" />
     <ProjectReference Include="..\Services\Services.csproj" />
@@ -88,6 +89,10 @@
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Areas\Dashboard\Views\ManageSite\Banner\Banners.cshtml" />
     <_ContentIncludedByDefault Remove="Areas\Dashboard\Views\ManageUsers\User\DanhSach.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\client\" />
   </ItemGroup>
 
 </Project>

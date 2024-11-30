@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Web.ViewModels.RegisterViewModel
+@{
     ViewData["Title"] = "Register";
 }
 <div class="bg-light py-3 py-md-5">
@@ -9,32 +10,41 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="mb-5">
-                                <h3>Sign In</h3>
+                                <h3>Đăng ký</h3>
                             </div>
                         </div>
                     </div>
-                    <form action="#!">
+                    <form asp-controller="Account" asp-action="Register" method="post">
                         <div class="row gy-3 gy-md-4 overflow-hidden">
-                            <div class="col-12">
-                                <label for="yourname" class="form-label">Your Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="yourname" id="yourname"  required>
+                            <div class="col-6">
+                                <label asp-for="LastName" class="form-label"></label>
+                                <input asp-for="LastName" class="form-control">
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+                            <div class="col-6">
+                                <label asp-for="FirstName" class="form-label"></label>
+                                <input asp-for="FirstName" class="form-control">
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
                             </div>
                             <div class="col-12">
-                                <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                                <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" required>
+                                <label asp-for="Email" class="form-label"></label>
+                                <input asp-for="Email" class="form-control" placeholder="name@example.com">
+                                <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
                             <div class="col-12">
-                                <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
-                                <input type="password" class="form-control" name="password" id="password" value="" required>
+                                <label asp-for="Password" class="form-label"></label>
+                                <input asp-for="Password" class="form-control">
+                                <span asp-validation-for="Password" class="text-danger"></span>
                             </div>
                             <div class="col-12">
-                                <label for="re-enter password" class="form-label">Re-Password <span class="text-danger">*</span></label>
-                                <input type="password" class="form-control" name="re-enter password" id="re-enter password" value="" required>
+                                <label asp-for="ConfirmPassword" class="form-label"></label>
+                                <input asp-for="ConfirmPassword" class="form-control">
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                             </div>
                            
                             <div class="col-12">
                                 <div class="d-grid">
-                                    <button class="btn btn-lg btn-primary" type="submit">Sign in now</button>
+                                    <button class="btn btn-lg btn-primary" type="submit">Đăng ký ngay</button>
                                 </div>
                             </div>
                         </div>
@@ -42,7 +52,7 @@
                     
                     <div class="row">
                         <div class="col-12">
-                            <p class="mt-5 mb-4">Or sign in with</p>
+                            <p class="mt-5 mb-4">Hoặc đăng ký với</p>
                             <div class="d-flex gap-3 flex-column flex-md-row">
                                 <a href="#!" class="btn bsb-btn-xl btn-outline-primary">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">

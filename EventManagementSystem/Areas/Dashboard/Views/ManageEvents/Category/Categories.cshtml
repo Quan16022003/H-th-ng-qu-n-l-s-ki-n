@@ -1,9 +1,9 @@
-﻿@model IEnumerable<Constracts.DTO.EventCategoryDTO>
+﻿@model IEnumerable<Constracts.EventCategory.EventCategoryDTO>
 @{
 	ViewData["Title"] = "Categories";
 	ViewBag.Current = "Categories";
-	ViewBag.ManageEvents = "selected";
-	ViewBag.Category = "selected";
+	ViewBag.IsInManageEvents = "selected";
+	ViewBag.IsInCategory = "selected";
 }
 
 @Html.AntiForgeryToken()
@@ -16,10 +16,9 @@
 				<span>@ViewData["Title"]</span>
 			</div>
 			<div class="dashboard-actions d-flex align-items-center" style="height: 120px">
-				<a 
-					asp-area="Dashboard" 
-					asp-controller="Category" 
-					asp-action="Add"
+				<a asp-area="Dashboard"
+				   asp-controller="Category"
+				   asp-action="Add"
 				   class="bg-light-green rounded-4 btn btn-primary border-0">
 					<i class="fa-solid fa-circle-plus"></i>
 					Add
@@ -60,14 +59,12 @@
 				<table class="table dashboard-table">
 					<thead>
 						<tr>
-							<th style="min-width: 50px; max-width: 50px" scope="col">Id</th>
+							<th style="min-width: 50px; max-width: 50px" class="text-center" scope="col">Id</th>
 							<th style="min-width: 100px; max-width: 200px" class="text-center" scope="col">Name</th>
 							<th style="min-width: 100px; max-width: 100px" class="text-center" scope="col">Slug</th>
-							@* <th style="min-width: 100px; max-width: 100px" class="text-center" scope="col">Thumb</th> *@
 							<th class="text-center" scope="col">Status</th>
 							<th class="text-center" scope="col">Created Date</th>
 							<th class="text-center" scope="col">Modified Date</th>
-							<th class="text-center" scope="col">Is Deleted</th>
 							<th style="min-width: 150px; max-width: 250px" class="text-end" scope="col">Actions</th>
 						</tr>
 					</thead>
@@ -90,20 +87,16 @@
 								<td>@item.CreatedDate</td>
 								<td>@item.ModifiedDate</td>
 								<td>
-									<div class="d-flex justify-content-center">
-										<div style="width: fit-content"
-											 class="label @(item.IsDeleted ? "bg-light-green" : "bg-danger")">
-											<div>@item.IsDeleted</div>
-										</div>
-									</div>
-								</td>
-								<td>
 									<div class="d-flex flex-wrap justify-content-end" style="gap: 10px">
 										<a class="btn btn-warning dashboard-action-button text-color-reset">
 											<i class="fa-solid fa-eye"></i>
 											View
 										</a>
-										<a class="btn btn-primary dashboard-action-button">
+										<a asp-area="Dashboard"
+										   asp-controller="Category"
+										   asp-action="Update"
+										   asp-route-id="@item.Id"
+										   class="btn btn-primary dashboard-action-button">
 											<i class="fa-solid fa-pen-to-square"></i>
 											Edit
 										</a>

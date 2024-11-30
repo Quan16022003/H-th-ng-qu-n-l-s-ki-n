@@ -1,4 +1,5 @@
 ﻿using Constracts.DTO;
+using Constracts.EventCategory;
 using Domain.Repositories;
 using Services.Abtractions;
 using System;
@@ -16,33 +17,37 @@ namespace Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly ICategoryEventRepository _categoryEventRepository;
         private readonly IFileService _fileService;
+        private readonly ISlugService _slugService;
 
-        public EventCategoryService(IUnitOfWork unitOfWork, IFileService fileService)
+        public EventCategoryService(
+            IUnitOfWork unitOfWork, 
+            IFileService fileService, 
+            ISlugService slugService)
         {
             _unitOfWork = unitOfWork;
             _categoryEventRepository = _unitOfWork.CategoryEventRepository;
             _fileService = fileService;
+            _slugService = slugService;
         }
-        public async Task<EventCategoryDTO> CreateAsync(EventCategoryDTO createDto)
+        public async Task<EventCategoryDTO> CreateAsync(EventCategoryCreationDto createDto)
         {
             if (createDto == null)
             {
                 throw new ArgumentNullException(nameof(createDto));
             }
 
-            if (createDto.ImageFile != null)
+            CategoryEvents categoryEvent = new()
             {
-                createDto.ThumbnailUrl = await _fileService.UploadFileAsync(createDto.ImageFile, "images\\categories");
-            }
+                Name = createDto.Name, Description = createDto.Description, ThumbnailUrl = await _fileService.UploadFileAsync(createDto.ImageFile, "images/client"),
+                Slug = _slugService.GenerateSlug(createDto.Name!),
+                CreatedDate = DateTime.Now,
+                ModifiedDate = DateTime.Now,
+                Status = true
+            };
 
-            // Sử dụng Mapster để chuyển đổi từ DTO sang entity
-            var categoryEvent = createDto.Adapt<CategoryEvents>();
-            categoryEvent.Status = true; // Mặc định active
 
-            // Thêm vào repository
             await _categoryEventRepository.AddAsync(categoryEvent);
             
-            // Lưu thay đổi
             await _unitOfWork.CompleteAsync();
 
             // Sử dụng Mapster để chuyển đổi từ entity sang DTO
@@ -52,30 +57,27 @@ namespace Services
         public async Task DeleteAsync(int id)
         {
             // Kiểm tra category có tồn tại không
-            var categoryEvent = await _categoryEventRepository.GetByIdAsync(id);
+            CategoryEvents? categoryEvent = await _categoryEventRepository.GetByIdAsync(id);
             if (categoryEvent == null)
             {
                 throw new KeyNotFoundException($"Không tìm thấy danh mục với id: {id}");
             }
 
-            // Thực hiện soft delete
             await _categoryEventRepository.SoftDeleteAsync(categoryEvent);
-            
-            // Lưu thay đổi
             await _unitOfWork.CompleteAsync();
         }
 
         public async Task<bool> ExistsAsync(int id)
         {
-            var categoryEvent = await _categoryEventRepository.GetByIdAsync(id);
-            return categoryEvent != null && !categoryEvent.IsDeleted;
+            CategoryEvents categoryEvent = await _categoryEventRepository.GetByIdAsync(id);
+            return !categoryEvent.IsDeleted;
         }
 
         public async Task<IEnumerable<EventCategoryDTO>> GetAllAsync()
         {
             // Lấy tất cả category chưa bị xóa mềm
-            var categories = await _categoryEventRepository.GetAllAsync();
-            categories = categories.Where(c => !c.IsDeleted && c.Status).ToList();
+            IEnumerable<CategoryEvents> categories = await _categoryEventRepository.GetAllAsync();
+            categories = categories.Where(c => !c.IsDeleted).ToList();
 
             // Chuyển đổi sang DTO bằng Mapster
             return categories.Adapt<IEnumerable<EventCategoryDTO>>();
@@ -116,13 +118,30 @@ namespace Services
                 throw new KeyNotFoundException($"Không tìm thấy danh mục với id: {id}");
             }
 
-            categoryEvent.Adapt(updateDto);
+            if (updateDto?.ImageFile != null)
+            {
+                categoryEvent.ThumbnailUrl = await _fileService.UploadFileAsync(updateDto.ImageFile, "images/client");
+            }
+
+            updateDto.Adapt(categoryEvent);
+            categoryEvent.CreatedDate = categoryEvent.CreatedDate;
+            categoryEvent.Slug = _slugService.GenerateSlug(updateDto.Name);
+            categoryEvent.ModifiedDate = DateTime.Now;
 
             await _categoryEventRepository.UpdateAsync(categoryEvent);
-            
+            await _unitOfWork.CompleteAsync();
+
             return categoryEvent.Adapt<EventCategoryDTO>();
         }
+        
+        public bool IsCategoryNameUnique(string name)
+        {
+            return _categoryEventRepository.GetByName(name);
+        }
 
-
+        public bool IsCategoryInUse(int id)
+        {
+            return _categoryEventRepository.IsCategoryInUse(id);
+        }
     }
 }

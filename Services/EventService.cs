@@ -76,7 +76,9 @@ namespace Services
             {
                 _logger.LogInformation("Fetching all events");
                 var _events = await _unitOfWork.EventRepository.GetAllAsync();
-                _events = _events.Where(c => c.IsDeleted = false).ToList();
+
+                _events = _events.Where(c => c.IsDeleted == false).ToList();
+
                 return _events.Adapt<IEnumerable<EventDTO>>();
             }
             catch (Exception ex)

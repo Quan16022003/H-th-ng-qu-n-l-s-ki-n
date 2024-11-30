@@ -1,0 +1,59 @@
+﻿@model Constracts.EventCategory.EventCategoryDTO
+@{
+	ViewData["Title"] = "Update Category";
+	ViewBag.Current = "Categories";
+	ViewBag.IsInManageEvents = "selected";
+	ViewBag.IsInCategory = "selected";
+}
+
+@Html.AntiForgeryToken()
+<div class="w-100 h-100">
+	<form method="post" class="dashboard-form dashboard-category-form update-form w-100 h-100">
+		<input id="id" name="id" type="number" hidden value="@Model.Id" />
+		@await Html.PartialAsync("./Partials/_ImageInput", Model)
+		<div class="dashboard-category-divider w-100 d-flex justify-content-center">
+			<hr />
+		</div>
+		<div class="w-100 d-flex justify-content-center">
+			<div class="dashboard-category-content shadow">
+				<div class="w-100 d-flex align-items-center pb-4" style="gap: 20px">
+					<label for="status">Status</label>
+					<div class="form-check form-switch">
+						<input class="form-check-input remove-border-focus"
+							   type="checkbox"
+							   role="switch"
+							   style="height: 25px; width: 45px"
+							   @(Model.Status ? "checked" : "") />
+						<input class="form-check-value" hidden id="status" name="status" type="text" />
+					</div>
+				</div>
+				<label for="name">Name</label>
+				<input id="name"
+					   name="name"
+					   type="text"
+					   required
+					   maxlength="100"
+					   value="@Model.Name"
+					   class="form-control remove-border-focus" />
+				<label for="description">Description</label>
+				<textarea id="description"
+						  name="description"
+						  required
+						  style="min-height: 300px; max-height: 400px; resize: none"
+						  class="form-control remove-border-focus">@Model.Description</textarea>
+				<div class="mt-4">
+					<button type="submit"
+					        class="dashboard-submit-button btn btn-primary rounded-4 shadow bg-light-green border-0 bubble-hover">
+						<i class="fa-solid fa-pen-to-square"></i>
+						Update
+					</button>
+				</div>
+				<input id="Id" name="Id" type="hidden" value="@Model.Id"/>
+			</div>
+		</div>
+	</form>
+</div>
+
+@section Scripts {
+	<script type="module" asp-append-version="true" src="~/js/dashboard/dashboard-category.js"></script>
+}

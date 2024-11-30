@@ -5,74 +5,65 @@ let isOpenHover = false;
 
 //#region assign event
 
-//#region side menu group item
+$(document).ready(() => {
+    assignSideMenu();
+    assignProfileDropdown();
+    assignSideMenuGroups();
 
-let groups = Array.from(document.querySelectorAll(".group"));
-
-groups.forEach(aTag => {
-    let parent = aTag.parentElement;
-    let group = parent.querySelector(".item-child");
-
-    if (parent.classList.contains("selected")) onGroupClick(group, aTag);
-
-    aTag.addEventListener("click", () => {
-        onGroupClick(group, aTag);
-    })
-});
-
-//#endregion
-
-//#region side menu slide in out hover while hide
-
-let sideMenu = document.getElementsByClassName("side-menu")[0];
-let content = document.getElementsByClassName("body-container")[0];
-
-// open when hover
-sideMenu.addEventListener("mouseenter", () => {
-    if (isClose && !isOpenHover) onSideMenuButtonClick(false);
-});
-
-// close when out
-content.addEventListener("mouseenter", () => {
-    setTimeout(() => {
-        if (isClose && isOpenHover) onSideMenuButtonClick(false);
-    }, 250);
-});
-
-//#endregion
-
-//#region expand/hide side menu click
-
-let sideMenuButton = document.getElementsByClassName("side-menu-button")[0];
-sideMenuButton.addEventListener("click", () => {
     onSideMenuButtonClick(true);
-    changeSideMenuButtonIcon(sideMenuButton);
+    changeSideMenuButtonIcon();
+    closeAllGroup();
 });
 
-// trigger when first load
-onSideMenuButtonClick(true);
-changeSideMenuButtonIcon(sideMenuButton);
+function assignSideMenu() {
+    // open when hover
+    $(".side-menu").on("mouseenter", () => {
+        if (isClose && !isOpenHover) onSideMenuButtonClick(false);
+    });
 
-//#endregion
+    // close when out
+    $(".body-container").on("mouseenter", () => {
+        setTimeout(() => {
+            if (isClose && isOpenHover) onSideMenuButtonClick(false);
+        }, 250);
+    });
 
-//#region profile button click
+    $(".side-menu-button").on("click", () => {
+        onSideMenuButtonClick(true);
+        changeSideMenuButtonIcon();
+    });
+}
 
-let profileDropdown = document.getElementsByClassName("profile-dropdown")[0];
-let profileButton = profileDropdown.querySelector(".dropdown-button");
+function assignProfileDropdown() {
+    let profileDropdown = $(".profile-dropdown");
+    let profileButton = profileDropdown.find(".dropdown-button")[0];
 
-profileDropdown.addEventListener("hidden.bs.dropdown", () => {
-    if (profileButton.classList.contains("dashboard-text-selected")) {
-        profileButton.classList.remove("dashboard-text-selected");
-    }
-})
+    profileDropdown.on("hidden.bs.dropdown", () => {
+        if (profileButton.classList.contains("dashboard-text-selected")) {
+            profileButton.classList.remove("dashboard-text-selected");
+        }
+    });
 
-profileDropdown.addEventListener("shown.bs.dropdown", () => {
-    if (!profileButton.classList.contains("dashboard-text-selected")) {
-        profileButton.classList.add("dashboard-text-selected");
-    }
-})
+    profileDropdown.on("shown.bs.dropdown", () => {
+        if (!profileButton.classList.contains("dashboard-text-selected")) {
+            profileButton.classList.add("dashboard-text-selected");
+        }
+    });
+}
 
-//#endregion
+function assignSideMenuGroups() {
+    let groups = Array.from(document.querySelectorAll(".group"));
+    groups.forEach(aTag => {
+        let parent = aTag.parentElement;
+        let group = parent.querySelector(".item-child");
+
+        if (parent.classList.contains("selected")) onGroupClick(group, aTag);
+
+        aTag.addEventListener("click", () => {
+            onGroupClick(group, aTag);
+        })
+    });
+}
 
 //#endregion
 
@@ -90,6 +81,8 @@ function onGroupClick(container, aTag) {
 }
 
 function closeAllGroup() {
+    let groups = Array.from(document.querySelectorAll(".group"));
+
     groups.forEach(aTag => {
         let parent = aTag.parentElement;
         let group = parent.querySelector(".item-child");
@@ -139,7 +132,9 @@ function onSideMenuButtonClick(isClick) {
     }
 }
 
-function changeSideMenuButtonIcon(button) {
+function changeSideMenuButtonIcon() {
+    let button = $(".side-menu-button")[0];
+
     let child = button.children;
     let close = child[0];
     let open = child[1];
@@ -152,14 +147,4 @@ function changeSideMenuButtonIcon(button) {
         open.classList.add("d-none");
         close.classList.remove("d-none");
     }
-}
-
-/**
- * Custom styling paginate for dashboard table
- * This function at dashboard.js
- */
-function stylingAdminPaginate() {
-    $('.pagination').find('.page-item').addClass("dashboard-table-paginate");
-    $('.pagination').find('.previous').addClass("dashboard-text-selected datatables-previous-icon");
-    $('.pagination').find('.next').addClass("dashboard-text-selected datatables-next-icon");
 }

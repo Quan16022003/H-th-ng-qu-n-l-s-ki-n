@@ -13,6 +13,12 @@ namespace Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
+            builder.Property(u => u.FirstName)
+                .HasMaxLength(255);
+            builder.Property(u => u.LastName)
+                .HasMaxLength(255);
+            builder.Property(u => u.AvatarUrl)
+                .HasMaxLength(255);
             builder.HasMany(u => u.Events)
                 .WithOne(e => e.Organizer)
                 .HasForeignKey(e => e.OrganizerId)
