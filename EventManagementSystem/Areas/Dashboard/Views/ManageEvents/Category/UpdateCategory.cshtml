@@ -10,7 +10,7 @@
 <div class="w-100 h-100">
 	<form method="post" class="dashboard-form dashboard-category-form update-form w-100 h-100">
 		<input id="id" name="id" type="number" hidden value="@Model.Id" />
-		@await Html.PartialAsync("./Partials/_ImageInput", Model)
+		@await Component.InvokeAsync("ImageInput", new { image = Model.ThumbnailUrl })
 		<div class="dashboard-category-divider w-100 d-flex justify-content-center">
 			<hr />
 		</div>

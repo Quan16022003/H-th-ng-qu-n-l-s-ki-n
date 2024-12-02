@@ -1,47 +1,46 @@
 ﻿@using System.Web
 @using Microsoft.AspNetCore.Html
+@using Web.Utils
 @functions {
-	string getNavigateAction(string baseUrl, string current, IEnumerable<string> navigateItems)
+	Dictionary<string, string> GetUrl(string controller, string action)
 	{
-		string result = "";
-		bool isCurrent = false;
+		if (controller == null || action == null) return new();
 
-		foreach (var page in navigateItems)
+		Dictionary<string, string> result = new();
+
+		result[controller] = Url.Action("index", controller, new
 		{
-			result += "<i class='fa-solid fa-chevron-right dashboard-text-color-reset'></i>";
+			area = "Dashboard"
+		})!;
 
-			string capitalizeFirst = page[0].ToString().ToUpper() + page.Substring(1);
-			isCurrent = page.ToLower().Contains(current);
-
-			string[] nameAction = capitalizeFirst.Split('?');
-			string currentClass = isCurrent ? "dashboard-text-color-reset" : "dashboard-text-selected";
-
-			result += $"<a class='{currentClass} text-decoration-none' href='{baseUrl}/{page}'><span>{nameAction[0]}</span></a>";
-		}
+		result[action] = Url.Action(action, controller, new
+		{
+			area = "Dashboard"
+		})!;
 
 		return result;
 	}
 
+	string GenerateNavigation()
+	{
+		string controller = ViewContext.RouteData.Values["controller"]!.ToString()!;
+		string action = ViewContext.RouteData.Values["action"]!.ToString()!;
+
+		var url = GetUrl(controller, action);
+		if (url == null) return "";
+
+		bool isInBase = action.ToLower() == "index";
+		string controllerHtml = $"<a class='{(isInBase ? "dashboard-text-color-reset" : "dashboard-text-selected")} text-decoration-none' href='{url[controller]}'><span>{ViewBag.Current}</span></a>";
+		string actionHtml = $"<a class='dashboard-text-color-reset text-decoration-none' href='{url[action]}'><span>{action.SplitCamelCase()[0]}</span></a>";
+
+		string arrow = "<i class='fa-solid fa-chevron-right dashboard-text-color-reset'></i>";
+
+		return isInBase ? $"{controllerHtml}" : $"{controllerHtml}{arrow}{actionHtml}";
+	}
+
 	IHtmlContent GetHeaderNavigation()
 	{
-		string path = Context.Request.Path;
-
-		string[] pages = path.Split("/");
-
-		// skip the "" and take 2
-		var homePages = pages.Skip(1).Take(2);
-		string baseUrl = $"/{string.Join("/", homePages)}";
-
-		string current = pages.Last().ToLower();
-		bool isInBase = current.Contains("index");
-
-		//get the rest but Index action
-		var navigateItems = isInBase ? pages.Skip(3).SkipLast(1) : pages.Skip(3);
-
-		string html = "<i class='fa-solid fa-chevron-right dashboard-text-color-reset'></i>"
-							+ $"<a class='{(isInBase ? "dashboard-text-color-reset" : "dashboard-text-selected")} text-decoration-none' href='{baseUrl}/index'><span>{ViewBag.Current}</span></a>"
-							+ getNavigateAction(baseUrl, current, navigateItems);
-
+		string html = GenerateNavigation();
 		return Html.Raw(HttpUtility.HtmlDecode(html));
 	}
 }
@@ -74,6 +73,7 @@
 					<i class="fa-solid fa-ship"></i>
 					Dashboard
 				</a>
+				<i class='fa-solid fa-chevron-right dashboard-text-color-reset'></i>
 				@GetHeaderNavigation()
 			</div>
 		</div>

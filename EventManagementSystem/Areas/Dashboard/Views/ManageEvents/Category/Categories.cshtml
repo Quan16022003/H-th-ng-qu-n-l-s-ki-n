@@ -88,7 +88,11 @@
 								<td>@item.ModifiedDate</td>
 								<td>
 									<div class="d-flex flex-wrap justify-content-end" style="gap: 10px">
-										<a class="btn btn-warning dashboard-action-button text-color-reset">
+										<a asp-area="Dashboard"
+										   asp-controller="Category"
+										   asp-action="ViewCategory"
+										   asp-route-id="@item.Id"
+										   class="btn btn-warning dashboard-action-button text-color-reset">
 											<i class="fa-solid fa-eye"></i>
 											View
 										</a>

@@ -8,7 +8,7 @@
 @Html.AntiForgeryToken()
 <div class="w-100 h-100">
 	<form method="post" class="dashboard-form dashboard-event-form w-100 h-100">
-		@await Html.PartialAsync("./Partials/_ImageInput")
+		@await Component.InvokeAsync("ImageInput")
 		<div class="dashboard-event-divider w-100 d-flex justify-content-center">
 			<hr />
 		</div>

@@ -6,22 +6,22 @@ using Web.Controllers;
 using Web.Utils;
 using Web.Utils.ViewsPathServices;
 
-namespace Web.Areas.Dashboard.Controllers.ManageSite
+namespace Web.Areas.Dashboard.Controllers.ManageBookings
 {
-    [Authorize(Policy = "SiteManagement")]
+    [Authorize(Policy = "TicketManagement")]
     [Area("Dashboard")]
-    public class MediaController : BaseController
+    public class TicketController : BaseController
     {
-        public MediaController(
+        public TicketController(
             IPathProvideManager pathProvideManager,
             IServiceManager serviceManager) : base(serviceManager)
         {
-            ViewPath = pathProvideManager.Get<MediaController>();
+            ViewPath = pathProvideManager.Get<TicketController>();
         }
 
         public IActionResult Index()
         {
-            return View($"{ViewPath}/Media.cshtml");
+            return View($"{ViewPath}/Ticket.cshtml");
         }
     }
 }

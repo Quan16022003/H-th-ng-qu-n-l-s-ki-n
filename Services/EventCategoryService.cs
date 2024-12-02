@@ -83,7 +83,7 @@ namespace Services
         {
             // Lấy tất cả category chưa bị xóa mềm
             var categories = await _categoryEventRepository.GetAllAsync();
-            categories = categories.Where(c => !c.IsDeleted && c.Status).ToList();
+            categories = categories.Where(c => !c.IsDeleted).ToList();
 
             // Chuyển đổi sang DTO bằng Mapster
             return categories.Adapt<IEnumerable<EventCategoryDTO>>();

@@ -1,8 +1,8 @@
-﻿@model Constracts.DTO.EventCategoryDTO
+﻿@model string
 
 @{
-	string imagePath = Model != null && Model.ThumbnailUrl != null
-							? $"/{Model.ThumbnailUrl}" : "/images/403bg.gif";
+	string imagePath = Model != null && Model != null
+							? $"/{Model}" : "/images/403bg.gif";
 }
 
 <div class="dashboard-img-input w-100 d-flex justify-content-center" style="background-image: url(@imagePath)">

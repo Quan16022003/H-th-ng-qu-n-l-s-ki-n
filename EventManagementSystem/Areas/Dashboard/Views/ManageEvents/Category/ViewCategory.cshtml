@@ -1,0 +1,11 @@
+﻿@model Constracts.DTO.EventCategoryDTO
+@{
+	ViewData["Title"] = "View Category";
+	ViewBag.Current = "Categories";
+	ViewBag.IsInManageEvents = "selected";
+	ViewBag.IsInCategory = "selected";
+}
+
+<div class="w-100 h-100">
+	@await Html.PartialAsync("./Partials/_ImageView", Model.ThumbnailUrl)
+</div>
