@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Constracts.DTO
 {
-    public class OrderItemDTO
+    public class OrderItemDTO :BaseDTO  
     {
         public string Title { get; set; }
         public int Quantity { get; set; }
