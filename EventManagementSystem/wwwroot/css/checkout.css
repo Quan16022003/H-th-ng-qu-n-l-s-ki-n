@@ -235,4 +235,12 @@ body {
         padding-top: 1rem !important;
         padding-bottom: 1rem !important;
     }
+}   
+
+/* Định dạng nút quay lại */
+.btn-secondary {
+    padding: 10px 20px;
+    font-weight: 600;
+    border-radius: 8px;
+    margin-bottom: 20px;
 } 

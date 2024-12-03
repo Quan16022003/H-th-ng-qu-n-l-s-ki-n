@@ -175,99 +175,23 @@ input[type=number] {
     }
 }
 
-/* Màn hình trung bình (md) */
-@media (max-width: 991.98px) {
-    .ticket-list-container {
-        max-width: 100%;
-        padding: 15px;
-    }
-    
-    .col-left {
-        width: 100%;
-        margin-bottom: 20px;
-    }
-    
-    .col-right {
-        width: 100%;
-    }
-    
-    .summary-card {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: auto;
-        max-height: 50vh;
-        border-radius: 20px 20px 0 0;
-        box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
-    }
-    
-    .summary-content {
-        max-height: calc(50vh - 120px);
-        overflow-y: auto;
-    }
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
 }
 
-/* Màn hình nhỏ (sm) và mobile */
-@media (max-width: 767.98px) {
-    .ticket-card {
-        padding: 12px;
-    }
-    
-    .ticket-features {
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-    
-    .feature-item {
-        font-size: 13px;
-    }
-    
-    .ticket-description {
-        font-size: 13px;
-    }
-    
-    .ticket-price {
-        font-size: 18px;
-    }
-    
-    h5 {
-        font-size: 16px;
-    }
-    
-    .btn-circle {
-        width: 28px;
-        height: 28px;
-        font-size: 14px;
-    }
-    
-    .quantity-input {
-        width: 50px;
-        font-size: 14px;
-    }
+.btn-secondary:hover {
+    background-color: #5a6268;
+    color: white;
 }
 
-/* Điều chỉnh spacing cho mobile */
-@media (max-width: 575.98px) {
-    .ticket-list-container {
-        padding: 10px;
-    }
-    
-    .ticket-card {
-        margin-bottom: 10px;
-    }
-    
-    .summary-card {
-        padding: 15px;
-        max-height: 60vh;
-    }
-    
-    .summary-content {
-        max-height: calc(60vh - 100px);
-    }
-    
-    .ticket-features {
-        gap: 8px;
-    }
+.btn-secondary i {
+    font-size: 14px;
 }

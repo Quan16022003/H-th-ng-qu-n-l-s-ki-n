@@ -15,6 +15,7 @@ namespace Services
         private readonly Lazy<ICategoryService> _lazyEventCategoryService;
         private readonly Lazy<ITicketService> _lazyTicketService;
         private readonly Lazy<IAttendeeService> _lazyAttendeeService;
+        private readonly Lazy<IVenueService> _lazyVenueService;
         public ServiceManager(IUnitOfWork unitOfWork,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
@@ -28,6 +29,7 @@ namespace Services
             _lazyTicketService = new Lazy<ITicketService>(() => new TicketService(unitOfWork, loggerFactory.CreateLogger<EventService>()));
             _lazyAttendeeService = new Lazy<IAttendeeService>(() => new AttendeeService(unitOfWork, loggerFactory.CreateLogger<AttendeeService>()));
             //_lazyOwnerService = new Lazy<IOwnerService>(() => new OwnerService(repositoryManager));
+            _lazyVenueService = new Lazy<IVenueService>(() => new VenueService(unitOfWork));
         }
 
         //public IOwnerService OwnerService => _lazyOwnerService.Value;
@@ -37,5 +39,6 @@ namespace Services
 
         public ITicketService TicketService => _lazyTicketService.Value;
         public IAttendeeService AttendeeService => _lazyAttendeeService.Value;
+        public IVenueService VenueService => _lazyVenueService.Value;
     }
 }

@@ -28,6 +28,7 @@ namespace Web.Controllers
             {
                 HomeViewModel viewModel = new()
                 {
+                    Venues = await _serviceManager.VenueService.GetCitiesSortedByEventCountAsync(),
                     FeaturedEvents = await _serviceManager.EventService.GetAllEventsOutstandingAsync(),
                     UpcomingEvents = await _serviceManager.EventService.GetAllEventsComingAsync(),
                     BestSellerEvents = await _serviceManager.EventService.GetAllEventsBestSellingAsync(),

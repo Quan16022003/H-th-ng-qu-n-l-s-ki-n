@@ -25,6 +25,10 @@
         <ul class="dropdown-menu" aria-labelledby="cityDropdown">
             <li><a class="dropdown-item" href="#">All</a></li>
             <!-- Add more cities here -->
+            @foreach (var v in Model.Venues)
+            {
+                <li><a class="dropdown-item" href="#">@v.City</a></li>
+            }
         </ul>
     </div>
     <div class="dropdown">

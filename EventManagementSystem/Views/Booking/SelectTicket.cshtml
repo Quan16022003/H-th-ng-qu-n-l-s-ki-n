@@ -1,3 +1,6 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Org.BouncyCastle.Crypto.Engines
+@model Web.ViewModels.Booking.SelectTicketViewModel
 @{
     Layout = null;
 }
@@ -17,187 +20,53 @@
         <!-- Phần chọn vé bên trái -->
         <div class="col-lg-9 col-left">
             <div class="ticket-list-container">
-                <h3>Chọn vé</h3>
-                
-                <!-- Vé Sinh viên -->
-                <div class="ticket-card">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <h5>Vé Sinh viên</h5>
-                            <div class="ticket-features">
-                                <div class="feature-item">
-                                    <i class="fas fa-graduation-cap"></i>
-                                    <span>Ghế ngồi thường</span>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fas fa-glass-water"></i>
-                                    <span>Nước uống miễn phí</span>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fas fa-id-card"></i>
-                                    <span>Yêu cầu thẻ sinh viên</span>
-                                </div>
-                            </div>
-                            <div class="ticket-description">
-                                Giá ưu đãi dành cho sinh viên, mang theo thẻ sinh viên khi check-in
-                            </div>
-                            <div class="ticket-price">300,000 VNĐ</div>
-                        </div>
-                        <div class="d-flex align-items-start">
-                            <button class="btn btn-outline-secondary btn-circle" onclick="decreaseQuantity('student')">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <input type="number" id="student-quantity" class="form-control quantity-input" value="0" min="0">
-                            <button class="btn btn-outline-secondary btn-circle" onclick="increaseQuantity('student')">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
+                <div class="header-section mb-4">
+                    <div class="d-flex align-items-center">
+                        <a href="javascript:history.back()" class="btn btn-outline-secondary me-3">
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                        <h3 class="mb-0">Chọn vé cho sự kiện</h3>
                     </div>
+                    <p class="text-muted mt-2 mb-0">Vui lòng chọn loại vé và số lượng bạn muốn đặt</p>
                 </div>
 
-                <!-- Vé Thường -->
-                <div class="ticket-card">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <h5>Vé Thường</h5>
-                            <div class="ticket-features">
-                                <div class="feature-item">
-                                    <i class="fas fa-chair"></i>
-                                    <span>Ghế ngồi thường</span>
+                @foreach (var ticket in Model.ticketDTOs)
+                {
+                    <div class="ticket-card">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h5>@ticket.Title</h5>
+                                <div class="ticket-description">
+                                    @ticket.Description
                                 </div>
-                                <div class="feature-item">
-                                    <i class="fas fa-glass-water"></i>
-                                    <span>Nước uống miễn phí</span>
-                                </div>
-                            </div>
-                            <div class="ticket-description">
-                                Trải nghiệm sự kiện với góc nhìn thoải m��i, phù hợp cho nhóm bạn và gia đình
-                            </div>
-                            <div class="ticket-price">500,000 VNĐ</div>
-                        </div>
-                        <div class="d-flex align-items-start">
-                            <button class="btn btn-outline-secondary btn-circle" onclick="decreaseQuantity('normal')">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <input type="number" id="normal-quantity" class="form-control quantity-input" value="0" min="0">
-                            <button class="btn btn-outline-secondary btn-circle" onclick="increaseQuantity('normal')">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Vé Premium -->
-                <div class="ticket-card">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <h5>Vé Premium</h5>
-                            <div class="ticket-features">
-                                <div class="feature-item">
-                                    <i class="fas fa-couch"></i>
-                                    <span>Ghế ngồi cao cấp</span>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fas fa-utensils"></i>
-                                    <span>Snack & Đồ uống</span>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fas fa-gift"></i>
-                                    <span>Quà lưu niệm</span>
+                                <div class="ticket-price">@ticket.Price.ToString("N0") VNĐ</div>
+                                <div class="text-muted small">
+                                    <i class="fas fa-ticket-alt me-1"></i>
+                                    Còn @ticket.QuantityAvailable vé | Tối đa @ticket.MaxPerPerson vé/người
                                 </div>
                             </div>
-                            <div class="ticket-description">
-                                Trải nghiệm premium với ghế ngồi thoải mái và các ưu đãi đặc biệt
+                            <div class="d-flex align-items-start">
+                                <button class="btn btn-outline-secondary btn-circle" 
+                                        onclick="decreaseQuantity('@ticket.Id')"
+                                        id="decrease-@ticket.Id">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <input type="number" 
+                                       id="quantity-@ticket.Id" 
+                                       class="form-control quantity-input" 
+                                       value="0" 
+                                       min="0" 
+                                       max="@ticket.MaxPerPerson"
+                                       onchange="validateQuantity(this, @ticket.MaxPerPerson)">
+                                <button class="btn btn-outline-secondary btn-circle" 
+                                        onclick="increaseQuantity('@ticket.Id')"
+                                        id="increase-@ticket.Id">
+                                    <i class="fas fa-plus"></i>
+                                </button>
                             </div>
-                            <div class="ticket-price">800,000 VNĐ</div>
-                        </div>
-                        <div class="d-flex align-items-start">
-                            <button class="btn btn-outline-secondary btn-circle" onclick="decreaseQuantity('premium')">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <input type="number" id="premium-quantity" class="form-control quantity-input" value="0" min="0">
-                            <button class="btn btn-outline-secondary btn-circle" onclick="increaseQuantity('premium')">
-                                <i class="fas fa-plus"></i>
-                            </button>
                         </div>
                     </div>
-                </div>
-
-                <!-- Vé VIP -->
-                <div class="ticket-card">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <h5>Vé VIP</h5>
-                            <div class="ticket-features">
-                                <div class="feature-item">
-                                    <i class="fas fa-crown"></i>
-                                    <span>Ghế VIP hàng đầu</span>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fas fa-utensils"></i>
-                                    <span>Set menu cao cấp</span>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fas fa-parking"></i>
-                                    <span>Bãi đỗ xe riêng</span>
-                                </div>
-                            </div>
-                            <div class="ticket-description">
-                                Trải nghiệm VIP với vị trí ghế đẹp nhất, dịch vụ ẩm thực cao cấp và các đặc quyền riêng
-                            </div>
-                            <div class="ticket-price">1,000,000 VNĐ</div>
-                        </div>
-                        <div class="d-flex align-items-start">
-                            <button class="btn btn-outline-secondary btn-circle" onclick="decreaseQuantity('vip')">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <input type="number" id="vip-quantity" class="form-control quantity-input" value="0" min="0">
-                            <button class="btn btn-outline-secondary btn-circle" onclick="increaseQuantity('vip')">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Vé VVIP -->
-                <div class="ticket-card">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <h5>Vé VVIP</h5>
-                            <div class="ticket-features">
-                                <div class="feature-item">
-                                    <i class="fas fa-crown"></i>
-                                    <span>Ghế VVIP hàng đầu</span>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fas fa-champagne-glasses"></i>
-                                    <span>Tiệc buffet & Champagne</span>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fas fa-car"></i>
-                                    <span>Đưa đón VIP</span>
-                                </div>
-                                <div class="feature-item">
-                                    <i class="fas fa-handshake"></i>
-                                    <span>Gặp gỡ nghệ sĩ</span>
-                                </div>
-                            </div>
-                            <div class="ticket-description">
-                                Trải nghiệm độc quyền VVIP với dịch vụ cao cấp nhất và cơ hội gặp gỡ nghệ sĩ
-                            </div>
-                            <div class="ticket-price">2,000,000 VNĐ</div>
-                        </div>
-                        <div class="d-flex align-items-start">
-                            <button class="btn btn-outline-secondary btn-circle" onclick="decreaseQuantity('vvip')">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <input type="number" id="vvip-quantity" class="form-control quantity-input" value="0" min="0">
-                            <button class="btn btn-outline-secondary btn-circle" onclick="increaseQuantity('vvip')">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                }
             </div>
         </div>
 
@@ -207,50 +76,81 @@
                 <div class="summary-content">
                     <h4>Thông tin đặt vé</h4>
                     <div class="event-info">
-                        <h5>Tên sự kiện</h5>
-                        <p class="text-muted">Ngày: DD/MM/YYYY</p>
-                        <p class="text-muted">Địa điểm: Location</p>
+                        <h5>@Model.eventDTO.Title</h5>
+                        <div class="event-datetime mb-2">
+                            @if (Model.eventDTO.StartDate.HasValue)
+                            {
+                                <p class="text-muted mb-1">
+                                    <i class="far fa-calendar-alt me-2"></i>
+                                    @Model.eventDTO.StartDate.Value.ToString("dd/MM/yyyy")
+                                    @if (Model.eventDTO.EndDate.HasValue && Model.eventDTO.EndDate.Value != Model.eventDTO.StartDate.Value)
+                                    {
+                                        <span> - @Model.eventDTO.EndDate.Value.ToString("dd/MM/yyyy")</span>
+                                    }
+                                </p>
+                            }
+                            @if (Model.eventDTO.StartTime.HasValue)
+                            {
+                                <p class="text-muted mb-1">
+                                    <i class="far fa-clock me-2"></i>
+                                    @Model.eventDTO.StartTime.Value.ToString(@"hh\:mm")
+                                    @if (Model.eventDTO.EndTime.HasValue)
+                                    {
+                                        <span> - @Model.eventDTO.EndTime.Value.ToString(@"hh\:mm")</span>
+                                    }
+                                </p>
+                            }
+                        </div>
+                        <div class="event-location">
+                            @if (!string.IsNullOrEmpty(Model.eventDTO.VenueName))
+                            {
+                                <p class="text-muted mb-1">
+                                    <i class="fas fa-map-marker-alt me-2"></i>
+                                    @Model.eventDTO.VenueName
+                                </p>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.eventDTO.Address))
+                            {
+                                <p class="text-muted small mb-1">@Model.eventDTO.Address</p>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.eventDTO.Ward) || !string.IsNullOrEmpty(Model.eventDTO.District) || !string.IsNullOrEmpty(Model.eventDTO.City))
+                            {
+                                <p class="text-muted small mb-1">
+                                    @(!string.IsNullOrEmpty(Model.eventDTO.Ward) ? Model.eventDTO.Ward + ", " : "")
+                                    @(!string.IsNullOrEmpty(Model.eventDTO.District) ? Model.eventDTO.District + ", " : "")
+                                    @Model.eventDTO.City
+                                </p>
+                            }
+                        </div>
                     </div>
                     <hr>
                     <div class="ticket-summary">
                         <h6>Vé đã chọn</h6>
-                        <div id="student-ticket-summary" class="d-none">
-                            <div class="d-flex justify-content-between">
-                                <span>Vé Sinh viên x <span id="student-count">0</span></span>
-                                <span id="student-total">0 VNĐ</span>
-                            </div>
-                        </div>
-                        <div id="normal-ticket-summary" class="d-none">
-                            <div class="d-flex justify-content-between">
-                                <span>Vé Thường x <span id="normal-count">0</span></span>
-                                <span id="normal-total">0 VNĐ</span>
-                            </div>
-                        </div>
-                        <div id="premium-ticket-summary" class="d-none">
-                            <div class="d-flex justify-content-between">
-                                <span>Vé Premium x <span id="premium-count">0</span></span>
-                                <span id="premium-total">0 VNĐ</span>
-                            </div>
-                        </div>
-                        <div id="vvip-ticket-summary" class="d-none">
-                            <div class="d-flex justify-content-between">
-                                <span>Vé VVIP x <span id="vvip-count">0</span></span>
-                                <span id="vvip-total">0 VNĐ</span>
-                            </div>
+                        <div id="selected-tickets">
+                            @foreach (var ticket in Model.ticketDTOs)
+                            {
+                                <div id="ticket-summary-@ticket.Id" class="d-none">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span>@ticket.Title x <span id="count-@ticket.Id">0</span></span>
+                                        <span id="total-@ticket.Id">0 VNĐ</span>
+                                    </div>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
                 <div class="summary-footer">
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between mb-2">
                         <h6>Tổng số vé:</h6>
                         <h6 id="total-tickets">0 vé</h6>
                     </div>
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between mb-3">
                         <h6>Tổng tiền:</h6>
                         <h6 id="total-amount">0 VNĐ</h6>
                     </div>
-                    <form asp-controller="Booking" asp-action="SelectTicket" method="post">
-                        <button type="submit" class="btn btn-primary w-100 mt-3">Tiếp tục</button>
+                    <form id="ticketForm" asp-controller="Booking" asp-action="SelectTicket" method="post">
+                        <input type="hidden" id="selectedTicketsData" name="selectedTickets" />
+                        <button type="submit" class="btn btn-primary w-100">Tiếp tục</button>
                     </form>
                 </div>
             </div>
@@ -262,5 +162,26 @@
 <div class="summary-spacer d-lg-none" style="height: 60vh;"></div>
 
 <script src="~/js/select-ticket.js"></script>
+<script>
+document.getElementById('ticketForm').onsubmit = function(e) {
+    e.preventDefault();
+    
+    // Tạo object chứa các vé được chọn
+    const selectedTickets = {};
+    document.querySelectorAll('.quantity-input').forEach(input => {
+        const ticketId = input.id.replace('quantity-', '');
+        const quantity = parseInt(input.value);
+        if (quantity > 0) {
+            selectedTickets[ticketId] = quantity;
+        }
+    });
+
+    // Gán dữ liệu vào hidden input
+    document.getElementById('selectedTicketsData').value = JSON.stringify(selectedTickets);
+    
+    // Submit form
+    this.submit();
+};
+</script>
 </body>
 </html>
