@@ -80,7 +80,7 @@ public class OrdersService : IOrdersService
         return orderDTOs; // trả về danh sách đơn hàng theo id sự kiện
     }
     // lấy danh sách đơn hàng theo id user
-    public async Task<List<OrderDTO>> GetOrdersByUserIdAsync(int userId)
+    public async Task<List<OrderDTO>> GetOrdersByUserIdAsync(string userId)
     {
         // Lấy danh sách đơn hàng có EventId từ repository
         var orders = await _orderRepository.GetOrdersByUserIdAsync(userId);
