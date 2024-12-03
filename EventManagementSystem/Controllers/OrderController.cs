@@ -34,7 +34,7 @@ namespace Web.Controllers
         }
         // lấy danh sách đơn hàng theo id event
         [HttpGet("user/{userId}")]
-        public async Task<IActionResult> GetOrdersByUserId(int userId)
+        public async Task<IActionResult> GetOrdersByUserId(String userId)
         {
             var orders = await _ordersService.GetOrdersByUserIdAsync(userId);
             if (!orders.Any())
