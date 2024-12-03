@@ -2,7 +2,7 @@ using Domain.Entities;
 
 namespace Constracts.Home
 {
-    public class HomeEventDto
+    public class HomeEventDTO
     {
         public string Slug { get; set; }
         public string Title { get; set; }
@@ -13,7 +13,7 @@ namespace Constracts.Home
         public int MinTicketPrice { get; set; }
         public DateTime? StartDate { get; set; }
 
-        public HomeEventDto(Events e)
+        public HomeEventDTO(Events e)
         {
             Slug = e.Slug;
             Title = e.Title;
