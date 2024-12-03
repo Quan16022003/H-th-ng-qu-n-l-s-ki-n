@@ -1,4 +1,5 @@
 ﻿using Constracts.DTO;
+using Constracts.EventCategory;
 using Web.ViewModels;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
@@ -23,12 +24,23 @@ namespace Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            HomeViewModel viewModel = new()
+            try
             {
-                FeaturedEvents = await _serviceManager.EventService.GetAllEventsComingAsync()
-            };
-            
-            return View(viewModel);
+                HomeViewModel viewModel = new()
+                {
+                    FeaturedEvents = await _serviceManager.EventService.GetAllEventsOutstandingAsync(),
+                    UpcomingEvents = await _serviceManager.EventService.GetAllEventsComingAsync(),
+                    BestSellerEvents = await _serviceManager.EventService.GetAllEventsBestSellingAsync(),
+                };
+                var catogoryResult = await _serviceManager.CategoryService.GetAllAsync();
+                viewModel.EventCategoríes = (catogoryResult.IsSuccess) ? catogoryResult.Value : new List<EventCategoryDTO>();
+                return View(viewModel);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Error in Home Controller");
+                return View(new HomeViewModel());
+            }
         }
 
         public IActionResult Privacy()
