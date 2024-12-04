@@ -1,29 +1,58 @@
 ﻿@using Web.Areas.Dashboard.ViewModels.EventForm
 @model EventBasicInformationViewModel
+@{
+	bool isDefault = true;
+}
 
-<div class="w-100 d-flex flex-wrap justify-content-between">
-	<div style="min-width: 200px; width: 40%">
-		<label for="organizer">Organizer</label>
-		<input id="organizer" name="organizer" type="text" disabled
-			   class="form-control disabled"
-			   value="@Model.Organizer.UserName" />
+<div class="w-100 pb-4">
+	@await Component.InvokeAsync("ImageInput")
+	<div class="dashboard-event-divider w-100 d-flex justify-content-center">
+		<hr />
 	</div>
-	<div style="min-width: 200px; width: 40%">
-		<label for="category">Category</label>
-		<select id="category" name="category" class="form-control">
-			@foreach (var item in Model.Categories)
-			{
-				<option value="@item.Id">
-					@item.Name
-				</option>
-			}
-		</select>
+	<div class="w-100 d-flex justify-content-center">
+		<div style="width: 95%">
+			<div class="d-flex flex-wrap justify-content-between">
+				<div style="min-width: 200px; width: 40%">
+					<label for="organizer">Organizer</label>
+					<input id="organizer" name="organizer" type="text" disabled
+						   class="form-control disabled"
+						   value="@Model.Organizer.UserName" />
+				</div>
+				<div style="min-width: 200px; width: 40%">
+					<label for="category">Category</label>
+					<select id="category" name="category" required class="form-control">
+						@foreach (var item in Model.Categories)
+						{
+							if (isDefault)
+							{
+								<option selected value="@item.Id">
+									@item.Name
+								</option>
+								isDefault = false;
+							}
+							else
+							{
+								<option value="@item.Id">
+									@item.Name
+								</option>
+							}
+						}
+					</select>
+				</div>
+			</div>
+			<label for="title">Title</label>
+			<input id="title" name="title" type="text" class="form-control remove-border-focus" />
+			<label>Description</label>
+			<textarea id="description" name="description" required
+					  style="resize: none; height: 200px"
+					  class="form-control"></textarea>
+			<div class="mt-4">
+				<button type="submit"
+						class="dashboard-submit-button btn btn-primary rounded-4 shadow bg-light-green border-0 bubble-hover">
+					<i class="fa-solid fa-floppy-disk"></i>
+					Save
+				</button>
+			</div>
+		</div>
 	</div>
 </div>
-<label for="title">Title</label>
-<input id="title" name="title" type="text" class="form-control remove-border-focus" />
-<label>Description</label>
-<textarea id="description" name="description" required
-		  style="resize: none; height: 200px"
-		  class="form-control">
-</textarea>

@@ -368,3 +368,6 @@ FodyWeavers.xsd
 
 # Node Module
 ./node_modules
+
+# Client Image
+/EventManagementSystem/wwwroot/images/client/*

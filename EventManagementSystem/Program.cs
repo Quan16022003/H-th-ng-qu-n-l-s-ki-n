@@ -14,6 +14,7 @@ using Web.Utils.ViewsPathServices;
 using Web.Utils.ViewsPathServices.Implementations;
 using Microsoft.AspNetCore.Mvc;
 using Web.Config;
+using Web.Utils;
 using Mapster;
 
 using EmailService;
@@ -91,6 +92,8 @@ builder.Services.RegisterSlugifyTransformer();
 builder.Services.AddScoped<IFileService>(provider => 
     new FileService(builder.Environment.WebRootPath));
 
+builder.SetEnvRootPath();
+
 var emailConfig = builder.Configuration.GetSection("EmailConfiguration")
     .Get<EmailConfiguration>();
 if (emailConfig == null)
@@ -123,5 +126,6 @@ app.RegisterAllRoutes();
 app.MapRazorPages();
 
 TypeAdapterConfig.GlobalSettings.Default.IgnoreNullValues(true);
+EnvLoader.Load(".env");
 
 app.Run();

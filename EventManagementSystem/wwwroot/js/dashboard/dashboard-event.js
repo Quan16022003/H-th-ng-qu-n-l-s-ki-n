@@ -1,12 +1,15 @@
-﻿import { deleteEntity } from "../service/service.js"
+﻿import { postEntity, deleteEntity } from "../service/service.js"
 import { stylingDashboardPaginate } from "../service/datatables-utility.js";
 import { assignImageInputEvent } from "./form-utility.js"
+import { addSearch, loadMap } from "../service/map-utility.js"
 
 const route = "/dashboard/event";
 const action = {
-    add: "handle-add",
+    addDetail: "add/detail",
     delete: "handle-delete"
 }
+
+let map;
 
 $(document).ready(() => {
     $('.dashboard-table-container').find(".table").DataTable({
@@ -38,13 +41,27 @@ $(document).ready(() => {
 });
 
 function assignElementEvent() {
-    $(".dashboard-event-form").on("submit", (e) => {
+    $(".dashboard-event-binfor-form").on("submit", (e) => {
         e.preventDefault();
-        addEvent(e.target);
+        addDetailEvent(e.target);
     })
     $(".delete-button").on("click", deleteEvent);
+
     assignTabClick();
     assignImageInputEvent();
+
+    map = loadMap({
+        minZoom: 7,
+        doubleClickZoom: false
+    });
+
+    if (!map) return;
+
+    addSearch(map);
+
+    $(".dashboard-event-venue-header").on("click", () => {
+        map.invalidateSize(true);
+    })
 }
 
 function assignTabClick() {
@@ -68,21 +85,25 @@ function changeTab(tab) {
     $(`.${name}`)[0].classList.remove("d-none");
 }
 
-function tabClick(tab){
+function tabClick(tab) {
     let tabs = $(".dashboard-event-tab").find(".nav-link");
     for (var item of tabs) {
         item.classList.remove("active");
-        
+
     }
 
     tab.classList.add("active");
     changeTab(tab);
 }
 
+//#region Map
+
+//#endregion
+
 //#region REST
 
-function addEvent(form) {
-    let url = `${route}/${action.add}`
+function addDetailEvent(form) {
+    let url = `${route}/${action.addDetail}`
     let formData = new FormData(form);
 
     //for (var item of formData.entries()) {

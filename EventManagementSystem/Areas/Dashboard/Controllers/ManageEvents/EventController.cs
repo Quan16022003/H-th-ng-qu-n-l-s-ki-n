@@ -48,6 +48,26 @@ namespace Web.Areas.Dashboard.Controllers.ManageEvents
             return View($"{ViewPath}/AddEvent.cshtml");
         }
 
+        [HttpPost]
+        [Route("/dashboard/event/add/detail")]
+        public async Task<IActionResult> HandleAddDetail(EventDetailDTO dto)
+        {
+            var currentUser = await UserService.GetCurrentUserAsync(User);
+            dto.OrganizerId = currentUser.Id!;
+
+            if (dto == null) return BadRequest(
+                new
+                {
+                    message = "Model is null"
+                });
+
+            await _eventService.AddEventAsync(dto);
+            return Ok(new
+            {
+                message = "Save successfully"
+            });
+        }
+
         //[HttpPost]
         //public async Task<IActionResult> HandleAdd(EventDetailDTO dto)
         //{

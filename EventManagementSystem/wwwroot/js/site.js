@@ -18,6 +18,13 @@ import '@fortawesome/fontawesome-free/js/all'
 import '@fortawesome/fontawesome-free/css/all.css'
 import '@fortawesome/fontawesome-free/css/all.min.css'
 
+//#region env
+
+const processEnv = process.env;
+window.env = processEnv;
+
+//#endregion
+
 // Khởi tạo AOS
 
 import AOS from 'aos'
@@ -29,6 +36,19 @@ AOS.init();
 import toastr from 'toastr';
 import 'toastr/build/toastr.min.css';
 window.toastr = toastr;
+
+//#endregion
+
+//#region leaflet (map utility)
+
+import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
+import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch'
+import 'leaflet-geosearch/dist/geosearch.css'
+
+window.leaflet = L;
+window.GeoSearchControl = GeoSearchControl;
+window.OpenStreetMapProvider = OpenStreetMapProvider;
 
 //#endregion
 

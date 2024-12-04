@@ -7,45 +7,38 @@
 
 @Html.AntiForgeryToken()
 <div class="w-100 h-100">
-	<form method="post" class="dashboard-form dashboard-event-form w-100 h-100">
-		@await Component.InvokeAsync("ImageInput")
-		<div class="dashboard-event-divider w-100 d-flex justify-content-center">
-			<hr />
+	<div class="dashboard-event-tab w-100">
+		<ul class="nav nav-tabs">
+			<li class="nav-item">
+				<button data-classHandle="dashboard-event-information-tab"
+						type="button" class="nav nav-link active">
+					Thông tin cơ bản
+				</button>
+			</li>
+			<li class="nav-item">
+				<button data-classHandle="dashboard-event-venue-tab"
+						type="button"
+						class="dashboard-event-venue-header nav nav-link">
+					Địa điểm
+				</button>
+			</li>
+		</ul>
+	</div>
+	@* @await Component.InvokeAsync("ImageInput")
+	<div class="dashboard-event-divider w-100 d-flex justify-content-center">
+	<hr />
+	</div> *@
+	<div class="w-100 d-flex justify-content-center">
+		<div class="dashboard-event-content w-100 p-0">
+			<form method="post" class="dashboard-form dashboard-event-binfor-form dashboard-event-information-tab w-100">
+				@await Component.InvokeAsync("EventBasicInformationForm")
+			</form>
+			<form method="post" class="dashboard-form dashboard-event-venue-form dashboard-event-venue-tab w-100 d-none">
+				@await Component.InvokeAsync("EventVenueForm")
+			</form>
 		</div>
-		<div class="w-100 d-flex justify-content-center">
-			<div class="dashboard-event-content">
-				<div class="dashboard-event-tab w-100">
-					<ul class="nav nav-tabs">
-						<li class="nav-item">
-							<button data-classHandle="dashboard-event-information-tab"
-									type="button" class="nav nav-link active">
-								Thông tin cơ bản
-							</button>
-						</li>
-						<li class="nav-item">
-							<button data-classHandle="dashboard-event-venue-tab"
-									type="button" class="nav nav-link">
-								Địa điểm
-							</button>
-						</li>
-					</ul>
-				</div>
-				<div class="dashboard-event-information-tab w-100">
-					@await Component.InvokeAsync("EventBasicInformationForm")
-				</div>
-				<div class="dashboard-event-venue-tab w-100 d-none">
-					@await Component.InvokeAsync("EventVenueForm")
-				</div>
-				<div class="mt-4">
-					<button type="submit"
-							class="dashboard-submit-button btn btn-primary rounded-4 shadow bg-light-green border-0 bubble-hover">
-						<i class="fa-solid fa-plus"></i>
-						Create
-					</button>
-				</div>
-			</div>
-		</div>
-	</form>
+	</div>
+
 </div>
 
 

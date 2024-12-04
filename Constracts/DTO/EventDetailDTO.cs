@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Constracts.DTO
 {
-    public class EventDetailDTO: BaseDTO
+    public class EventDetailDTO : BaseDTO
     {
         public string Slug { get; set; }
         public string OrganizerId { get; set; }

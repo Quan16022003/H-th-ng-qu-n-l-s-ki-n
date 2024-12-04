@@ -22,7 +22,7 @@ namespace Services
             ISlugService slugService)
         {
             _lazyUserService = new Lazy<IUserService>(() => new UserService(unitOfWork));
-            _lazyEventService = new Lazy<IEventService>(() => new EventService(unitOfWork, loggerFactory.CreateLogger<EventService>(), fileService));
+            _lazyEventService = new Lazy<IEventService>(() => new EventService(unitOfWork, loggerFactory.CreateLogger<EventService>(), fileService, slugService));
             _lazyEventCategoryService = new Lazy<IEventCategoryService>(() => new EventCategoryService(unitOfWork, fileService, slugService));
             _lazyTicketService = new Lazy<ITicketService>(() => new TicketService(unitOfWork, loggerFactory.CreateLogger<EventService>()));
             //_lazyOwnerService = new Lazy<IOwnerService>(() => new OwnerService(repositoryManager));

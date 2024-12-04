@@ -22,11 +22,14 @@ namespace Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<EventService> _logger;
         private readonly IFileService _fileService;
-        public EventService(IUnitOfWork unitOfWork, ILogger<EventService> logger, IFileService fileService)
+        private readonly ISlugService _slugService;
+
+        public EventService(IUnitOfWork unitOfWork, ILogger<EventService> logger, IFileService fileService, ISlugService slugService)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
             _fileService = fileService;
+            _slugService = slugService;
         }
 
         public async Task AddEventAsync(EventDetailDTO eventDetailDTO)
@@ -34,9 +37,14 @@ namespace Services
             try
             {
                 _logger.LogInformation("Creating new event: {@CreateEventDTO}", eventDetailDTO);
+
+                eventDetailDTO.Slug = _slugService.GenerateSlug(eventDetailDTO.Title);
+
                 var _event = eventDetailDTO.Adapt<Events>();
+                
                 await _unitOfWork.EventRepository.AddAsync(_event);
                 await _unitOfWork.CompleteAsync();
+
                 _logger.LogInformation("Event created successfully with id: {EventId}", _event.Id);
             }
             catch (Exception ex)
@@ -233,7 +241,7 @@ namespace Services
         }
         public async Task<PlaceDetailsDTO> GetPlaceDetailsAsync(string placeId)
         {
-            var apiKey = "YOUR_API_KEY"; // Thay thế bằng API key đúng
+            var apiKey = Environment.GetEnvironmentVariable("GOOGLE_API_KEY"); // Thay thế bằng API key đúng
             var url = $"https://maps.googleapis.com/maps/api/place/details/json?place_id={placeId}&key={apiKey}";
 
             using (var httpClient = new HttpClient())
