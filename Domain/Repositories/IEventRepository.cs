@@ -9,6 +9,6 @@ namespace Domain.Repositories
 {
     public interface IEventRepository : IBaseRepository<Events>
     {
-
+        Task<Events?> GetBySlugAsync(string slug);
     }
 }

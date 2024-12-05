@@ -19,7 +19,8 @@ namespace Services.Abtractions
         Task<IEnumerable<HomeEventDTO>> GetAllEventsComingAsync();
         Task<IEnumerable<HomeEventDTO>> GetAllEventsBestSellingAsync();
         Task<IEnumerable<HomeEventDTO>> GetAllEventsOutstandingAsync();
-      
+        Task<IEnumerable<HomeEventDTO>> GetAllEventsSelectedAsync(string? query, int? categoryId, string? city, DateTime? startDate, DateTime? endDate);
+        Task<EventDTO> GetEventBySlugAsync(string slug);
         Task<EventDTO> GetEventByIdAsync(int id);
 
         Task AddEventAsync(EventDetailDTO eventDetailDTO);
