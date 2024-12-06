@@ -1,5 +1,5 @@
 ﻿// store open or close based on user click
-let isClose = false;
+let isClose = true;
 // store open or close based on user hover
 let isOpenHover = false;
 
@@ -10,8 +10,8 @@ $(document).ready(() => {
     assignProfileDropdown();
     assignSideMenuGroups();
 
-    onSideMenuButtonClick(true);
-    changeSideMenuButtonIcon();
+    //onSideMenuButtonClick(true);
+    //changeSideMenuButtonIcon();
     closeAllGroup();
 });
 

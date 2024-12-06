@@ -6,6 +6,7 @@ import { addSearch, loadMap } from "../service/map-utility.js"
 const route = "/dashboard/event";
 const action = {
     addDetail: "add/detail",
+    updateDetail: "update/detail",
     delete: "handle-delete"
 }
 
@@ -41,10 +42,14 @@ $(document).ready(() => {
 });
 
 function assignElementEvent() {
-    $(".dashboard-event-binfor-form").on("submit", (e) => {
+    $(".dashboard-event-basic-infor-form.add-form").on("submit", (e) => {
         e.preventDefault();
         addDetailEvent(e.target);
-    })
+    });
+    $(".dashboard-event-basic-infor-form.update-form").on("submit", (e) => {
+        e.preventDefault();
+        updateDetailEvent(e.target);
+    });
     $(".delete-button").on("click", deleteEvent);
 
     assignTabClick();
@@ -57,7 +62,7 @@ function assignElementEvent() {
 
     if (!map) return;
 
-    addSearch(map);
+    addSearch(map, onMapSearch);
 
     $(".dashboard-event-venue-header").on("click", () => {
         map.invalidateSize(true);
@@ -98,6 +103,26 @@ function tabClick(tab) {
 
 //#region Map
 
+function onMapSearch(result) {
+    console.log(result)
+    let element = {
+        venueName: "",
+        city: "",
+        district: "",
+        ward: "",
+        latitude: "",
+        longitude: ""
+    }
+}
+
+function gatherMapInformation(element, result) {
+    let informations = result.raw.display_name.split(',');
+
+    for (var item of informations) {
+        //let road = 
+    }
+}
+
 //#endregion
 
 //#region REST
@@ -110,8 +135,14 @@ function addDetailEvent(form) {
     //    console.log(`${item[0]}: ${item[1]}`);
     //};
 
-    $(".dashboard-submit-button").addClass("disabled");
     postEntity(url, formData);
+}
+
+function updateDetailEvent(form) {
+    let url = `${route}/${action.updateDetail}`
+    let formData = new FormData(form);
+
+    putEntity(url, formData);
 }
 
 function deleteEvent() {

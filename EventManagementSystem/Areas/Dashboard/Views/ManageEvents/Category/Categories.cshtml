@@ -70,7 +70,6 @@
 							<th style="min-width: 50px; max-width: 50px" class="text-center" scope="col">Id</th>
 							<th style="min-width: 100px; max-width: 200px" class="text-center" scope="col">Name</th>
 							<th style="min-width: 100px; max-width: 100px" class="text-center" scope="col">Slug</th>
-							<th class="text-center" scope="col">Status</th>
 							<th class="text-center" scope="col">Created Date</th>
 							<th class="text-center" scope="col">Modified Date</th>
 							<th style="min-width: 150px; max-width: 250px" class="text-end" scope="col">Actions</th>
@@ -84,14 +83,6 @@
 								<th scope="row">@item.Id</th>
 								<td>@item.Name</td>
 								<td>@item.Slug</td>
-								<td>
-									<div class="d-flex justify-content-center">
-										<div style="width: fit-content"
-											 class="label @(item.Status ? "bg-light-green" : "bg-danger")">
-											<div>@(item.Status ? "Active" : "Inactive")</div>
-										</div>
-									</div>
-								</td>
 								<td>@item.CreatedDate</td>
 								<td>@item.ModifiedDate</td>
 								<td>

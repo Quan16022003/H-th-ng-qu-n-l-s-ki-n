@@ -1,0 +1,49 @@
+﻿@{
+	ViewData["Title"] = "Update Event";
+	ViewBag.Current = "Events";
+	ViewBag.IsInManageEvents = "selected";
+	ViewBag.IsInEvent = "selected";
+}
+@model Constracts.DTO.EventDTO
+
+<div class="w-100 h-100">
+	<div class="dashboard-event-tab w-100">
+		<ul class="nav nav-tabs">
+			<li class="nav-item">
+				<button data-classHandle="dashboard-event-information-tab"
+						type="button" class="nav nav-link active">
+					Thông tin cơ bản
+				</button>
+			</li>
+			<li class="nav-item">
+				<button data-classHandle="dashboard-event-venue-tab"
+						type="button"
+						class="dashboard-event-venue-header nav nav-link">
+					Địa điểm
+				</button>
+			</li>
+		</ul>
+	</div>
+	<div class="w-100 d-flex justify-content-center">
+		<div class="dashboard-event-content w-100 p-0">
+			<form method="post" class="dashboard-form dashboard-event-basic-infor-form update-form dashboard-event-information-tab w-100">
+				@Html.AntiForgeryToken()
+				<input id="id" name="id" value="@Model.Id" hidden />
+				@await Component.InvokeAsync("EventBasicInformationForm", new {
+					id = Model.Id
+				})
+			</form>
+			<form method="post" class="dashboard-form dashboard-event-venue-form dashboard-event-venue-tab w-100 d-none">
+				@Html.AntiForgeryToken()
+				<input id="id" name="id" value="@Model.Id" hidden />
+				@await Component.InvokeAsync("EventVenueForm")
+			</form>
+		</div>
+	</div>
+
+</div>
+
+
+@section Scripts {
+	<script type="module" asp-append-version="true" src="~/js/dashboard/dashboard-event.js"></script>
+}

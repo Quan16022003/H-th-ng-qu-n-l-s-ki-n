@@ -1,11 +1,8 @@
 ﻿@using Web.Areas.Dashboard.ViewModels.EventForm
 @model EventBasicInformationViewModel
-@{
-	bool isDefault = true;
-}
 
 <div class="w-100 pb-4">
-	@await Component.InvokeAsync("ImageInput")
+	@await Component.InvokeAsync("ImageInput", Model.Event?.ThumbnailUrl)
 	<div class="dashboard-event-divider w-100 d-flex justify-content-center">
 		<hr />
 	</div>
@@ -19,16 +16,15 @@
 						   value="@Model.Organizer.UserName" />
 				</div>
 				<div style="min-width: 200px; width: 40%">
-					<label for="category">Category</label>
-					<select id="category" name="category" required class="form-control">
+					<label for="categoryId">Category</label>
+					<select id="categoryId" name="categoryId" required class="form-control">
 						@foreach (var item in Model.Categories)
 						{
-							if (isDefault)
+							@if(Model.Event?.CategoryEvent != null && Model.Event.CategoryEvent.Id == item.Id)
 							{
 								<option selected value="@item.Id">
 									@item.Name
 								</option>
-								isDefault = false;
 							}
 							else
 							{
@@ -41,11 +37,11 @@
 				</div>
 			</div>
 			<label for="title">Title</label>
-			<input id="title" name="title" type="text" class="form-control remove-border-focus" />
+			<input id="title" name="title" value="@Model.Event?.Title" type="text" class="form-control remove-border-focus" />
 			<label>Description</label>
 			<textarea id="description" name="description" required
 					  style="resize: none; height: 200px"
-					  class="form-control"></textarea>
+					  class="form-control">@Model.Event?.Description</textarea>
 			<div class="mt-4">
 				<button type="submit"
 						class="dashboard-submit-button btn btn-primary rounded-4 shadow bg-light-green border-0 bubble-hover">

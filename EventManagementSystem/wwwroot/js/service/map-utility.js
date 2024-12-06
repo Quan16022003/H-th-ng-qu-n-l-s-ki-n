@@ -25,10 +25,10 @@ export const loadMap = (config = undefined) => {
  * Add search utility to Map
  * @param {any} map
  */
-export const addSearch = (map) => {
+export const addSearch = (map, onResultCallBack) => {
     const icon = leaflet.icon({
         iconUrl: "../../../images/marker.png",
-        iconSize: [30, 65]
+        iconSize: [45, 65]
     })
 
     let searchControl = new GeoSearchControl({
@@ -44,6 +44,7 @@ export const addSearch = (map) => {
 
     map.on("geosearch/showlocation", (result) => {
         setTimeout(() => map.setZoom(20), 500);
+        onResultCallBack(result);
     })
 }
 

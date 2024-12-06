@@ -60,7 +60,7 @@
 	<!--TODO: ADD HEADER-->
 	<!--End Header-->
 	@await Component.InvokeAsync("SideMenu")
-	<section class="dashboard-header w-100 d-flex">
+	<section class="dashboard-header close w-100 d-flex">
 		<button class="side-menu-button">
 			<i class="fa-solid fa-arrow-left d-none dashboard-text-color-reset"></i>
 			<i class="fa-solid fa-bars dashboard-text-color-reset"></i>
@@ -82,7 +82,7 @@
 		@await Component.InvokeAsync("ProfileDropdown")
 	</section>
 	<div class="container body-container w-100 d-flex">
-		<div class="dashboard-box"></div>
+		<div class="dashboard-box close"></div>
 		<main role="main" class="dashboard-main d-flex flex-column flex-grow-1 overflow-hidden">
 			@RenderBody()
 		</main>

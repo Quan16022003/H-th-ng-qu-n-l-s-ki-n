@@ -16,25 +16,18 @@
 				</button>
 			</li>
 			<li class="nav-item">
-				<button data-classHandle="dashboard-event-venue-tab"
-						type="button"
-						class="dashboard-event-venue-header nav nav-link">
+				<button type="button"
+						disabled
+						class="nav nav-link">
 					Địa điểm
 				</button>
 			</li>
 		</ul>
 	</div>
-	@* @await Component.InvokeAsync("ImageInput")
-	<div class="dashboard-event-divider w-100 d-flex justify-content-center">
-	<hr />
-	</div> *@
 	<div class="w-100 d-flex justify-content-center">
 		<div class="dashboard-event-content w-100 p-0">
-			<form method="post" class="dashboard-form dashboard-event-binfor-form dashboard-event-information-tab w-100">
+			<form method="post" class="dashboard-form dashboard-event-basic-infor-form add-form dashboard-event-information-tab w-100">
 				@await Component.InvokeAsync("EventBasicInformationForm")
-			</form>
-			<form method="post" class="dashboard-form dashboard-event-venue-form dashboard-event-venue-tab w-100 d-none">
-				@await Component.InvokeAsync("EventVenueForm")
 			</form>
 		</div>
 	</div>

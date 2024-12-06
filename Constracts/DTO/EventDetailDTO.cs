@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +15,6 @@ namespace Constracts.DTO
         public required string Title { get; set; }
         public required string Description { get; set; }
         public bool IsPublic { get; set; } = false;
+        public IFormFile? ThumbnailUrl { get; set; }
     }
 }

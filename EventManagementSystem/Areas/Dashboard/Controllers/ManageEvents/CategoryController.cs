@@ -44,7 +44,7 @@ namespace Web.Areas.Dashboard.Controllers.ManageEvents
         [HttpGet]
         public async Task<IActionResult> ViewCategory(int id)
         {
-            var category = await _categoryEventService.GetByIdAsync(id);
+            var category = await _categoryService.GetByIdAsync(id);
             return View($"{ViewPath}/ViewCategory.cshtml", category);
         }
 

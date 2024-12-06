@@ -22,7 +22,7 @@ namespace Services.Abtractions
       
         Task<EventDTO> GetEventByIdAsync(int id);
 
-        Task AddEventAsync(EventDetailDTO eventDetailDTO);
+        Task<EventDTO> AddEventAsync(EventDetailDTO eventDetailDTO);
 
         Task UpdateEventDetailAsync(EventDetailDTO eventDetailDTO);
         Task UpdateEventTiminglAsync(EventTimingDTO eventTimingDTO);

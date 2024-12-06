@@ -1,4 +1,5 @@
 ﻿using Constracts.DTO;
+using Humanizer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abtractions;
@@ -61,35 +62,47 @@ namespace Web.Areas.Dashboard.Controllers.ManageEvents
                     message = "Model is null"
                 });
 
-            await _eventService.AddEventAsync(dto);
+            var result = await _eventService.AddEventAsync(dto);
+            int id = result.Id;
+
+            return Ok(new
+            {
+                message = "Save successfully",
+                redirectUrl = Url.Action(nameof(Update), "Event", new
+                {
+                    area = "Dashboard",
+                    id
+                })
+            });
+        }
+
+        public async Task<IActionResult> Update(int id)
+        {
+            var model = await _eventService.GetEventByIdAsync(id);
+            return View($"{ViewPath}/UpdateEvent.cshtml", model);
+        }
+
+        [HttpPut]
+        [Route("/dashboard/event/update/detail")]
+        public async Task<IActionResult> HandleUpdateDetail(EventDetailDTO dto)
+        {
+            var currentUser = await UserService.GetCurrentUserAsync(User);
+            dto.OrganizerId = currentUser.Id!;
+
+            if (dto == null) return BadRequest(
+                new
+                {
+                    message = "Model is null"
+                });
+
+            await _eventService.UpdateEventDetailAsync(dto);
+
             return Ok(new
             {
                 message = "Save successfully"
             });
+
         }
-
-        //[HttpPost]
-        //public async Task<IActionResult> HandleAdd(EventDetailDTO dto)
-        //{
-        //    if (dto == null)
-        //    {
-        //        return BadRequest(new {
-        //           message = "Event is null"
-        //        });
-        //    }
-        //    await _eventService.GetAllEventsAsync();
-        //    return Ok();
-
-        //    //await _eventService.AddEventAsync(dto);
-        //    //return Ok(new
-        //    //{
-        //    //    message = "Create Successfully",
-        //    //    redirectUrl = Url.Action(nameof(Index), "Event", new
-        //    //    {
-        //    //        area = "Dashboard"
-        //    //    })
-        //    //});
-        //}
 
         // call by Ajax
         [HttpDelete]

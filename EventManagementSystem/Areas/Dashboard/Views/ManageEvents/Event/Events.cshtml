@@ -98,7 +98,11 @@
 											<i class="fa-solid fa-eye"></i>
 											View
 										</a>
-										<a class="btn btn-primary dashboard-action-button">
+										<a asp-area="Dashboard"
+										   asp-controller="Event"
+										   asp-action="Update"
+										   asp-route-id="@item.Id"
+										   class="btn btn-primary dashboard-action-button">
 											<i class="fa-solid fa-pen-to-square"></i>
 											Edit
 										</a>

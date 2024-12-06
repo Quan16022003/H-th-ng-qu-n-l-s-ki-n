@@ -33,7 +33,7 @@ namespace Services
             _slugService = slugService;
         }
 
-        public async Task AddEventAsync(EventDetailDTO eventDetailDTO)
+        public async Task<EventDTO> AddEventAsync(EventDetailDTO eventDetailDTO)
         {
             try
             {
@@ -43,10 +43,12 @@ namespace Services
 
                 var _event = eventDetailDTO.Adapt<Events>();
                 
-                await _unitOfWork.EventRepository.AddAsync(_event);
+                var result = await _unitOfWork.EventRepository.AddAsync(_event);
                 await _unitOfWork.CompleteAsync();
 
                 _logger.LogInformation("Event created successfully with id: {EventId}", _event.Id);
+
+                return result.Adapt<EventDTO>();
             }
             catch (Exception ex)
             {

@@ -25,7 +25,7 @@ function redirect(url) {
  * @param {any} url Url of add action in controller
  * @param {any} data Json data of DTO
  */
-export const postEntity = (url, data) => {
+export const postEntity = (url, data, submitButton = undefined) => {
     var token = $("input[name='__RequestVerificationToken']").val();
     data.delete("__RequestVerificationToken");
 
@@ -43,7 +43,7 @@ export const postEntity = (url, data) => {
             setTimeout(() => redirect(response.redirectUrl), 2000)
         },
         error: (xhr, status, error) => {
-            $(".dashboard-submit-button").removeClass("disabled");
+            if (submitButton) submitButton.removeClass("disabled");
             let response = JSON.parse(xhr.responseText);
             if (xhr.status === 400) {
                 if (Array.isArray(response.message)) {
@@ -66,7 +66,7 @@ export const postEntity = (url, data) => {
  * @param {any} url Url of update action in controller
  * @param {any} data Json data of DTO
  */
-export const putEntity = (url, data) => {
+export const putEntity = (url, data, submitButton = undefined) => {
     var token = $("input[name='__RequestVerificationToken']").val();
     data.delete("__RequestVerificationToken");
 
@@ -84,7 +84,7 @@ export const putEntity = (url, data) => {
             setTimeout(() => redirect(response.redirectUrl), 2000)
         },
         error: (xhr, status, error) => {
-            $(".dashboard-submit-button").removeClass("disabled");
+            if (submitButton) submitButton.removeClass("disabled");
             let response = JSON.parse(xhr.responseText);
             if (xhr.status === 400) {
                 window.toastr.error(response.message)

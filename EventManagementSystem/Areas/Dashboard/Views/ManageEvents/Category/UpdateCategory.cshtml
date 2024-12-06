@@ -14,20 +14,8 @@
 		<div class="dashboard-category-divider w-100 d-flex justify-content-center">
 			<hr />
 		</div>
-		<input id="id" name="id" value="@Model.Id" />
 		<div class="w-100 d-flex justify-content-center">
 			<div class="dashboard-category-content shadow">
-				<div class="w-100 d-flex align-items-center pb-4" style="gap: 20px">
-					<label for="status">Status</label>
-					<div class="form-check form-switch">
-						<input class="form-check-input remove-border-focus"
-							   type="checkbox"
-							   role="switch"
-							   style="height: 25px; width: 45px"
-							   @(Model.Status ? "checked" : "") />
-						<input class="form-check-value" hidden id="status" name="status" type="text" />
-					</div>
-				</div>
 				<label for="name">Name</label>
 				<input id="name"
 					   name="name"
