@@ -15,5 +15,9 @@ namespace Persistence.Repositories
         public EventRepository(RepositoryDbContext dbContext) : base(dbContext)
         {
         }
+        public async Task<Events?> GetBySlugAsync(string slug)
+        {
+            return await _dbSet.SingleOrDefaultAsync(e => e.Slug == slug && !e.IsDeleted);
+        }
     }
 }

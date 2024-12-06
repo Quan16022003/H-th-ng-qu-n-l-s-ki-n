@@ -388,5 +388,53 @@ namespace Services
             }
             return null; 
         }
+        public async Task<IEnumerable<HomeEventDTO>> GetAllEventsSelectedAsync(string? query, int? categoryId, string? city, DateTime? startDate, DateTime? endDate)
+        {
+            try
+            {
+                _logger.LogInformation("Fetching all selected events with query: {Query}, categoryId: {CategoryId}, city: {City}, startDate: {StartDate}, endDate: {EndDate}", query, categoryId, city, startDate, endDate);
+
+
+                var eventsQuery = await _unitOfWork.EventRepository.GetManyAsync(
+                    filter: e =>
+                        !e.IsDeleted &&
+                        (string.IsNullOrEmpty(query) || e.Title.Contains(query)) &&
+                        (!categoryId.HasValue || e.CategoryId == categoryId) &&
+                        (string.IsNullOrEmpty(city) || e.City == city) &&
+                        (!startDate.HasValue || !endDate.HasValue || (e.StartDate >= startDate && e.StartDate <= endDate)),
+                    includeProperties: new[] { "CategoryEvent", "Tickets" },
+                    orderBy: q => q.OrderBy(e => e.StartDate)
+                );
+
+                return eventsQuery.Select(e => new HomeEventDTO(e)).ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while fetching selected events");
+                throw;
+            }
+        }
+
+        public async Task<EventDTO> GetEventBySlugAsync(string slug)
+        {
+            try
+            {
+                _logger.LogInformation("Fetching event with slug: {Slug}", slug);
+
+                var _event = await _unitOfWork.EventRepository.GetBySlugAsync(slug);
+                if (_event == null)
+                {
+                    _logger.LogWarning("Event with slug: {Slug} not found", slug);
+                    throw new EventBySlugNotFoundException(slug);
+                }
+
+                return _event.Adapt<EventDTO>();
+            }
+            catch (Exception ex) when (ex is not EventBySlugNotFoundException)
+            {
+                _logger.LogError(ex, "Error occurred while fetching event with slug: {Slug}", slug);
+                throw;
+            }
+        }
     }
 }
