@@ -1,4 +1,4 @@
-﻿@model Constracts.DTO.EventCategoryDTO
+﻿@model Constracts.EventCategory.EventCategoryDTO
 @{
 	ViewData["Title"] = "Update Category";
 	ViewBag.Current = "Categories";
@@ -14,6 +14,7 @@
 		<div class="dashboard-category-divider w-100 d-flex justify-content-center">
 			<hr />
 		</div>
+		<input id="id" name="id" value="@Model.Id" />
 		<div class="w-100 d-flex justify-content-center">
 			<div class="dashboard-category-content shadow">
 				<div class="w-100 d-flex align-items-center pb-4" style="gap: 20px">
@@ -43,11 +44,12 @@
 						  class="form-control remove-border-focus">@Model.Description</textarea>
 				<div class="mt-4">
 					<button type="submit"
-							class="dashboard-submit-button btn btn-primary rounded-4 shadow bg-light-green border-0 bubble-hover">
+					        class="dashboard-submit-button btn btn-primary rounded-4 shadow bg-light-green border-0 bubble-hover">
 						<i class="fa-solid fa-pen-to-square"></i>
 						Update
 					</button>
 				</div>
+				<input id="Id" name="Id" type="hidden" value="@Model.Id"/>
 			</div>
 		</div>
 	</form>

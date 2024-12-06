@@ -11,5 +11,20 @@ namespace Persistence.Repositories
         {
             return await _dbSet.FirstOrDefaultAsync(c => c.Slug == slug);
         }
+
+        public bool IsNameDuplicate(string name)
+        {
+            return _dbSet.Any(c => c.Name == name);
+        }
+
+        public bool IsCategoryInUse(int id)
+        {
+            return _dbSet.Any(c => c.Id == id);
+        }
+
+        public bool HasSlug(string slug)
+        {
+            return _dbSet.Any(c => c.Slug == slug);
+        }
     }
 }

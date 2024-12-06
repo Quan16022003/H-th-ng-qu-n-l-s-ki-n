@@ -12,7 +12,7 @@ namespace Web.Areas.Dashboard.Views.Shared.Components.EventForm.BasicInformation
     public class EventBasicInformation : ViewComponent
     {
         private readonly string viewPath;
-        private readonly IEventCategoryService _eventCategoryService;
+        private readonly ICategoryService _categoryService;
         private readonly IUserService _userService;
 
         public EventBasicInformation(
@@ -20,7 +20,7 @@ namespace Web.Areas.Dashboard.Views.Shared.Components.EventForm.BasicInformation
             IPathProvideManager pathProvideManager)
         {
             viewPath = pathProvideManager.Get<EventBasicInformation>();
-            _eventCategoryService = serviceManager.EventCategoryService;
+            _categoryService = serviceManager.CategoryService;
             _userService = serviceManager.UserService;
         }
 
@@ -34,7 +34,7 @@ namespace Web.Areas.Dashboard.Views.Shared.Components.EventForm.BasicInformation
         {
             if (User.Identity == null) return null!;
 
-            var categories = await _eventCategoryService.GetAllAsync();
+            var categories = (await _categoryService.GetAllAsync()).Value;
             var currentUser = await _userService.GetCurrentUserAsync(HttpContext.User);
 
             return new EventBasicInformationViewModel

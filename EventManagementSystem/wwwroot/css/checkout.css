@@ -1,0 +1,238 @@
+:root {
+    --primary-color: #EA4170;
+    --primary-hover: #d93763;
+}
+
+/* Layout chính */
+.checkout-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Form sections */
+.form-section {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Payment methods */
+.payment-methods {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.btn-outline-payment {
+    width: 100%;
+    height: 80px;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-payment img {
+    height: 30px;
+    width: auto;
+    object-fit: contain;
+}
+
+.btn-outline-payment i {
+    font-size: 24px;
+    color: #6c757d;
+}
+
+.btn-check:checked + .btn-outline-payment {
+    background-color: #f8f9fa;
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn-check:checked + .btn-outline-payment i {
+    color: var(--primary-color);
+}
+
+/* Summary card */
+.summary-card {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    position: sticky;
+    top: 20px;
+    height: calc(100vh - 40px);
+    display: flex;
+    flex-direction: column;
+}
+
+.summary-content {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.event-info {
+    margin: 15px 0;
+}
+
+.event-image {
+    width: 100%;
+    height: 150px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.event-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.event-info p {
+    margin-bottom: 5px;
+    color: #6c757d;
+}
+
+.event-info i {
+    width: 20px;
+    margin-right: 5px;
+}
+
+.ticket-details {
+    margin: 15px 0;
+}
+
+.ticket-item {
+    margin: 10px 0;
+}
+
+.summary-footer {
+    border-top: 1px solid #dee2e6;
+    padding-top: 15px;
+    margin-top: auto;
+}
+
+/* Responsive styles */
+@media (max-width: 991.98px) {
+    .col-left {
+        margin-bottom: 20px;
+    }
+
+    .summary-card {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: auto;
+        max-height: 50vh;
+        border-radius: 20px 20px 0 0;
+        box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+    }
+
+    .summary-content {
+        max-height: calc(50vh - 120px);
+    }
+
+    .event-image {
+        height: 100px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .checkout-container {
+        padding: 15px;
+    }
+
+    .form-section {
+        padding: 15px;
+    }
+
+    .payment-methods {
+        grid-template-columns: 1fr;
+    }
+
+    .btn-outline-payment {
+        height: 60px;
+    }
+}
+
+/* Thêm spacing cho mobile khi có summary fixed */
+.summary-spacer {
+    height: 60vh;
+    display: none;
+}
+
+@media (max-width: 991.98px) {
+    .summary-spacer {
+        display: block;
+    }
+}
+
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    border: none;
+}
+
+.form-control {
+    border-radius: 8px;
+    padding: 10px 15px;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.2rem rgba(13,110,253,0.15);
+}
+
+.payment-methods {
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.payment-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.payment-label img {
+    object-fit: contain;
+}
+
+.event-info {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.btn-primary {
+    padding: 12px;
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+.text-muted i {
+    margin-right: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+    .container {
+        padding-top: 1rem !important;
+        padding-bottom: 1rem !important;
+    }
+} 

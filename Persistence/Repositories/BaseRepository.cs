@@ -1,13 +1,7 @@
 ﻿using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Ultils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Entities;
 using Domain.Commons;
 
 namespace Persistence.Repositories
@@ -100,12 +94,12 @@ namespace Persistence.Repositories
         /// </summary>
         /// <param name="id">The ID of the entity to retrieve</param>
         /// <returns>The entity object if found, otherwise null</returns>
-        public virtual async Task<T> GetByIdAsync(int id)
+        public virtual async Task<T?> GetByIdAsync(int id)
         {
-            var result = await _dbSet
+            T? result = await _dbSet
                 .SingleOrDefaultAsync(e => e.Id == id);
 
-            return result!;
+            return result;
         }
 
         /// <summary>
@@ -118,8 +112,8 @@ namespace Persistence.Repositories
         /// <param name="includeProperties">Any other navigation properties to include when returning the collection</param>
         /// <returns>A collection of entities</returns>
         public virtual async Task<IEnumerable<T>> GetManyAsync(
-            Expression<Func<T, bool>> filter = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+            Expression<Func<T, bool>>? filter = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
             int? top = null,
             int? skip = null,
             params string[] includeProperties)

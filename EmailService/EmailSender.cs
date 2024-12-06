@@ -1,4 +1,7 @@
 using MimeKit;
+using System;
+using System.IO;
+using System.Linq;
 
 namespace EmailService;
 
@@ -10,14 +13,13 @@ public class EmailSender : IEmailSender
     {
         _emailConfig = emailConfig;
     }
-        
-    public void SendEmail(Message message)
+
+    public async Task SendEmailAsync(Message message)
     {
         var emailMessage = CreateEmailMessage(message);
-            
-        Send(emailMessage);
+        await SendAsync(emailMessage);
     }
-        
+
     private MimeMessage CreateEmailMessage(Message message)
     {
         var emailMessage = new MimeMessage();
@@ -46,20 +48,19 @@ public class EmailSender : IEmailSender
         
         return emailMessage;
     }
-    private void Send(MimeMessage mailMessage)
+    private async Task SendAsync(MimeMessage mailMessage)
     {
         using var client = new MailKit.Net.Smtp.SmtpClient();
         try
         {
-            client.Connect(_emailConfig.SmtpServer, _emailConfig.SmtpPort, true);
+            await client.ConnectAsync(_emailConfig.SmtpServer, _emailConfig.SmtpPort, true);
             client.AuthenticationMechanisms.Remove("XOAUTH2");
-            client.Authenticate(_emailConfig.SmtpUsername, _emailConfig.SmtpPassword);
-            Console.WriteLine(_emailConfig.ToString());
-            client.Send(mailMessage);
+            await client.AuthenticateAsync(_emailConfig.SmtpUsername, _emailConfig.SmtpPassword);
+            await client.SendAsync(mailMessage);
         }
         finally
         {
-            client.Disconnect(true);
+            await client.DisconnectAsync(true);
         }
     }
 }

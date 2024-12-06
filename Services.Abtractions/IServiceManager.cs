@@ -10,7 +10,8 @@ namespace Services.Abtractions
     {
         IUserService UserService { get; }
         IEventService EventService { get; }
-        IEventCategoryService EventCategoryService { get; }
+        ICategoryService CategoryService { get; }
         ITicketService TicketService { get; }
+        IAttendeeService AttendeeService { get; }
     }
 }

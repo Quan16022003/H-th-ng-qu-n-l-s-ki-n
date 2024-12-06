@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Constracts.DTO;
+using Constracts.Home;
 using Domain.Entities;
 using Domain.Repositories;
 using Mapster;
@@ -94,7 +95,104 @@ namespace Services
                 throw;
             }
         }
-      
+        // sự kiện sắp tới
+        public async Task<IEnumerable<HomeEventDTO>> GetAllEventsComingAsync()
+        {
+            try
+            {
+                _logger.LogInformation("Fetching all upcoming events");
+
+                var upcomingEvents = await _unitOfWork.EventRepository.GetManyAsync(
+                    filter: e => !e.IsDeleted && e.StartDate.HasValue && e.StartDate.Value > DateTime.Now,
+                    includeProperties: new[] { "CategoryEvent", "Tickets" },
+                    orderBy: q => q.OrderBy(e => e.StartDate)
+                );
+
+                return upcomingEvents.Select(e => new HomeEventDTO(e)).ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while fetching all upcoming events");
+                throw;
+            }
+        }
+        // sự kiện bán chạy
+        public async Task<IEnumerable<HomeEventDTO>> GetAllEventsBestSellingAsync()
+        {
+            try
+            {
+                _logger.LogInformation("Fetching all events best selling");
+                var activeEvents = await _unitOfWork.EventRepository.GetManyAsync(
+                    filter: e => !e.IsDeleted,
+                    includeProperties: new[] { "CategoryEvent", "Tickets" },
+                    orderBy: q => q.OrderBy(e => e.StartDate)
+                );
+
+                var currentDate = DateTime.Now;
+
+                var bestSellingEvents = activeEvents
+                    .Select(e => new
+                    {
+                        Event = e,
+                        TotalSold = e.Tickets?.Sum(t => t.QuantitySold) ?? 0, 
+                        TotalAvailable = e.Tickets?.Sum(t => t.QuantityAvailable) ?? 0 
+                    })
+                    .Where(x => x.TotalAvailable > 0 &&
+                                x.Event.StartDate.HasValue &&
+                                x.Event.StartDate.Value > currentDate)
+                    .Select(x => new
+                    {
+                        x.Event,
+                        SalesRatio = (double)x.TotalSold / x.TotalAvailable
+                    })
+                    .OrderByDescending(x => x.SalesRatio)
+                    .Select(x => x.Event)
+                    .ToList();
+
+                return bestSellingEvents.Select(e => new HomeEventDTO(e)).ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while fetching all events best selling");
+                throw;
+            }
+        }
+        // sự kiện nổi bật điều kiện public + Bán chạy(tỉ lệ vé bán/tổng vé >=0,75) + diễn ra trong 1 tháng tới.
+        public async Task<IEnumerable<HomeEventDTO>> GetAllEventsOutstandingAsync()
+        {
+            try
+            {
+                _logger.LogInformation("Fetching all outstanding events");
+
+                var currentDate = DateTime.Now;
+                var nextMonthDate = currentDate.AddMonths(1);
+
+                var activeEvents = await _unitOfWork.EventRepository.GetManyAsync(
+                    filter: e => !e.IsDeleted && e.IsPublic && e.StartDate.HasValue && e.StartDate.Value > currentDate && e.StartDate.Value <= nextMonthDate,
+                    includeProperties: new[] { "CategoryEvent", "Tickets" },
+                    orderBy: q => q.OrderBy(e => e.StartDate)
+                );
+
+                var outstandingEvents = activeEvents
+                    .Select(e => new
+                    {
+                        Event = e,
+                        TotalSold = e.Tickets?.Sum(t => t.QuantitySold) ?? 0,
+                        TotalAvailable = e.Tickets?.Sum(t => t.QuantityAvailable) ?? 0
+                    })
+                    .Where(x => x.TotalAvailable > 0 && (double)x.TotalSold / x.TotalAvailable >= 0.75)
+                    .OrderBy(x => x.Event.StartDate)
+                    .Select(x => x.Event)
+                    .ToList();
+
+                return outstandingEvents.Select(e => new HomeEventDTO(e)).ToList();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while fetching all outstanding events");
+                throw;
+            }
+        }
 
         public async Task<EventDTO> GetEventByIdAsync(int id)
         {

@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Constracts.DTO;
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
-namespace Constracts.DTO
+namespace Constracts.EventCategory
 {
     public class EventCategoryDTO : BaseDTO
     {

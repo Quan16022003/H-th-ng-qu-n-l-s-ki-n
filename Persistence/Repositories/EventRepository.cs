@@ -14,13 +14,6 @@ namespace Persistence.Repositories
     {
         public EventRepository(RepositoryDbContext dbContext) : base(dbContext)
         {
-            References.AddMultiple([
-                e => e.Organizer!,
-                e => e.CategoryEvent!,
-                e => e.Tickets!,
-                e => e.Orders!,
-                e => e.Attendees!
-            ]);
         }
     }
 }

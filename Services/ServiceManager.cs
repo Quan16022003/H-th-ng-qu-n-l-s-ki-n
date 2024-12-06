@@ -12,8 +12,9 @@ namespace Services
         //private readonly Lazy<IOwnerService> _lazyOwnerService;
         private readonly Lazy<IUserService> _lazyUserService;
         private readonly Lazy<IEventService> _lazyEventService;
-        private readonly Lazy<IEventCategoryService> _lazyEventCategoryService;
+        private readonly Lazy<ICategoryService> _lazyEventCategoryService;
         private readonly Lazy<ITicketService> _lazyTicketService;
+        private readonly Lazy<IAttendeeService> _lazyAttendeeService;
         public ServiceManager(IUnitOfWork unitOfWork,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
@@ -22,17 +23,19 @@ namespace Services
             ISlugService slugService)
         {
             _lazyUserService = new Lazy<IUserService>(() => new UserService(unitOfWork));
-            _lazyEventService = new Lazy<IEventService>(() => new EventService(unitOfWork, loggerFactory.CreateLogger<EventService>(), fileService, slugService));
-            _lazyEventCategoryService = new Lazy<IEventCategoryService>(() => new EventCategoryService(unitOfWork, fileService, slugService));
+            _lazyEventService = new Lazy<IEventService>(() => new EventService(unitOfWork, loggerFactory.CreateLogger<EventService>(), fileService));
+            _lazyEventCategoryService = new Lazy<ICategoryService>(() => new CategoryService(unitOfWork, fileService, slugService, loggerFactory.CreateLogger<CategoryService>()));
             _lazyTicketService = new Lazy<ITicketService>(() => new TicketService(unitOfWork, loggerFactory.CreateLogger<EventService>()));
+            _lazyAttendeeService = new Lazy<IAttendeeService>(() => new AttendeeService(unitOfWork, loggerFactory.CreateLogger<AttendeeService>()));
             //_lazyOwnerService = new Lazy<IOwnerService>(() => new OwnerService(repositoryManager));
         }
 
         //public IOwnerService OwnerService => _lazyOwnerService.Value;
         public IUserService UserService => _lazyUserService.Value;
         public IEventService EventService => _lazyEventService.Value;
-        public IEventCategoryService EventCategoryService => _lazyEventCategoryService.Value;
+        public ICategoryService CategoryService => _lazyEventCategoryService.Value;
 
         public ITicketService TicketService => _lazyTicketService.Value;
+        public IAttendeeService AttendeeService => _lazyAttendeeService.Value;
     }
 }

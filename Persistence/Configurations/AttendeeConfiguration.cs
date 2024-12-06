@@ -37,6 +37,10 @@ namespace Persistence.Configurations
 
             builder.Property(a => a.ArrivalTime)
                 .IsRequired(false);
+            builder.Navigation(a => a.User).AutoInclude();
+            builder.Navigation(a => a.Order).AutoInclude();
+            builder.Navigation(a => a.Ticket).AutoInclude();
+            builder.Navigation(a => a.Event).AutoInclude();
         }
     }
 }

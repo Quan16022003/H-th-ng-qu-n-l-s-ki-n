@@ -1,4 +1,4 @@
-@model Web.ViewModels.EventCardViewModel
+@model Constracts.Home.HomeEventDTO
 
 <div class="event-card">
     <a asp-area="" asp-controller="Events" asp-action="DetailEvent" asp-route-slug="@Model.Slug" style="text-decoration: none;">
@@ -7,18 +7,14 @@
         </div>
 
         <div class="event-content">
-            <span class="event-tag">@(Model.IsOnetime ? "One-time" : "Repetitive")</span>
             <h3 class="event-title">@Model.Title</h3>
             <p class="event-category">@Model.CategoryName</p>
             <p class="event-location">
-                <i class="@(Model.IsOnline ? "fas fa-video" : "fas fa-map-marker-alt")"></i>
+                <i class="fas fa-map-marker-alt"></i>
                 @Model.VenueName
             </p>
             <p class="event-price">
-                @if (Model.IsFree)
-                {
-                    <span>Miễn phí</span>
-                }
+                Giá chỉ từ <span>@Model.MinTicketPrice.ToString("N0")</span> đ
             </p>
         </div>
     </a>

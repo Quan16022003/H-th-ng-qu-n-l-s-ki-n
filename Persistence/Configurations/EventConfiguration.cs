@@ -88,6 +88,8 @@ namespace Persistence.Configurations
                 .WithOne(a => a.Event)
                 .HasForeignKey(a => a.EventId)
                 .OnDelete(DeleteBehavior.Cascade);
+            builder.Navigation(x => x.Organizer).AutoInclude();
+            builder.Navigation(x => x.CategoryEvent).AutoInclude();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Constracts.DTO;
+using Constracts.EventCategory;
 using Web.ViewModels;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
@@ -23,17 +24,23 @@ namespace Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            // Lấy dữ lieu từ csdl
-            IEnumerable<EventDTO> featuredEvents = await _serviceManager.EventService.GetAllEventsAsync();
-            // Chỉ lấy 3 event đầu tiên
-            featuredEvents = featuredEvents.Take(3);
-            // Chuyển đổi dữ liệu sang dạng ViewModel
-            HomeViewModel viewModel = new()
+            try
             {
-                FeaturedEvents = featuredEvents.Adapt<IEnumerable<EventCardViewModel>>()
-            };
-            
-            return View(viewModel);
+                HomeViewModel viewModel = new()
+                {
+                    FeaturedEvents = await _serviceManager.EventService.GetAllEventsOutstandingAsync(),
+                    UpcomingEvents = await _serviceManager.EventService.GetAllEventsComingAsync(),
+                    BestSellerEvents = await _serviceManager.EventService.GetAllEventsBestSellingAsync(),
+                };
+                var catogoryResult = await _serviceManager.CategoryService.GetAllAsync();
+                viewModel.EventCategoríes = (catogoryResult.IsSuccess) ? catogoryResult.Value : new List<EventCategoryDTO>();
+                return View(viewModel);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Error in Home Controller");
+                return View(new HomeViewModel());
+            }
         }
 
         public IActionResult Privacy()

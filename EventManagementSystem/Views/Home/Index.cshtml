@@ -33,7 +33,10 @@
         </button>
         <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
             <li><a class="dropdown-item" href="#">All</a></li>
-            <!-- Add more categories here -->
+            @foreach(var c in Model.EventCategoríes)
+            {
+                <li><a class="dropdown-item" asp-controller="Events" asp-action="AllEvent" asp-route-category="@c.Slug" >@c.Name</a></li>
+            }
         </ul>
     </div>
     <div class="dropdown">
@@ -71,52 +74,12 @@
     </div>
 
     <div class="row g-3">
+        @foreach(var e in Model.BestSellerEvents)
+        {
         <div class="col-md-4">
-            <div class="event-card">
-                <div class="event-image" style="background-image: url('path/to/your/image1.jpg');">
-                    <span class="event-date">25 Nov 2024</span>
-                </div>
-                <div class="event-content">
-                    <span class="event-tag">Onetime</span>
-                    <span class="event-tag">Online</span>
-                    <h3 class="event-title">Digital Marketing Seminar</h3>
-                    <p class="event-category">Travel & Trekking</p>
-                    <p class="event-location"><i class="fas fa-map-marker-alt"></i> New York Theater, New York</p>
-                    <p class="event-price">0.00 USD / Free</p>
-                </div>
-            </div>
+            <partial name="Home/_ProductItem" , model="e"/>
         </div>
-
-        <div class="col-md-4">
-            <div class="event-card">
-                <div class="event-image" style="background-image: url('path/to/your/image2.jpg');">
-                    <span class="event-date">09 Dec 2024</span>
-                </div>
-                <div class="event-content">
-                    <span class="event-tag">Onetime</span>
-                    <h3 class="event-title">Product Marketing Workshop</h3>
-                    <p class="event-category">Business & Seminars</p>
-                    <p class="event-location"><i class="fas fa-map-marker-alt"></i> Los Pepe Fusion, Culiacán Rosales</p>
-                    <p class="event-price">0.00 USD / Free</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="event-card">
-                <div class="event-image" style="background-image: url('path/to/your/image3.jpg');">
-                    <span class="event-date">27 Dec 2024</span>
-                </div>
-                <div class="event-content">
-                    <span class="event-tag">Onetime</span>
-                    <span class="event-tag">Online</span>
-                    <h3 class="event-title">Seven Rocks Show</h3>
-                    <p class="event-category">Music & Concerts</p>
-                    <p class="event-location"><i class="fas fa-map-marker-alt"></i> Telford</p>
-                    <p class="event-price">0.00 USD / Free</p>
-                </div>
-            </div>
-        </div>
+        }
     </div>
 </div>
 
@@ -126,91 +89,30 @@
         <a asp-area="" asp-controller="Events" asp-action="AllEvent" class="view-all-link">Xem tất cả →</a>
     </div>
     <div class="row g-3">
+        @foreach(var e in Model.UpcomingEvents)
+        {
         <div class="col-md-4">
-            <div class="event-card">
-                <div class="event-image" style="background-image: url('path/to/your/image1.jpg');">
-                    <span class="event-date">25 Nov 2024</span>
-                </div>
-                <div class="event-content">
-                    <span class="event-tag">Onetime</span>
-                    <span class="event-tag">Online</span>
-                    <h3 class="event-title">Digital Marketing Seminar</h3>
-                    <p class="event-category">Travel & Trekking</p>
-                    <p class="event-location"><i class="fas fa-map-marker-alt"></i> New York Theater, New York</p>
-                    <p class="event-price">0.00 USD / Free</p>
-                </div>
-            </div>
+            <partial name="Home/_ProductItem" , model="e"/>
         </div>
-
-        <div class="col-md-4">
-            <div class="event-card">
-                <div class="event-image" style="background-image: url('path/to/your/image2.jpg');">
-                    <span class="event-date">09 Dec 2024</span>
-                </div>
-                <div class="event-content">
-                    <span class="event-tag">Onetime</span>
-                    <h3 class="event-title">Product Marketing Workshop</h3>
-                    <p class="event-category">Business & Seminars</p>
-                    <p class="event-location"><i class="fas fa-map-marker-alt"></i> Los Pepe Fusion, Culiacán Rosales</p>
-                    <p class="event-price">0.00 USD / Free</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="event-card">
-                <div class="event-image" style="background-image: url('path/to/your/image3.jpg');">
-                    <span class="event-date">27 Dec 2024</span>
-                </div>
-                <div class="event-content">
-                    <span class="event-tag">Onetime</span>
-                    <span class="event-tag">Online</span>
-                    <h3 class="event-title">Seven Rocks Show</h3>
-                    <p class="event-category">Music & Concerts</p>
-                    <p class="event-location"><i class="fas fa-map-marker-alt"></i> Telford</p>
-                    <p class="event-price">0.00 USD / Free</p>
-                </div>
-            </div>
-        </div>
+        }
     </div>
 </div>
 <div class="event-categori" style="background: linear-gradient(to bottom, #00416A, #00C9FF);">
 <div class="container my-6 mt-5" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100">
         <h2 class="text-white mb-4">Danh mục sự kiện</h2>
-    <div class="row">
-        <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card bg-dark text-white">
-                <img src="https://eventmie.classiebit.com/storage/categories/October2019/oJbtSjHLoCcSEPva4IJe.jpg" class="card-img" alt="Business & Seminars">
-                <div class="card-img-overlay">
-                    <h5 class="card-title">Business & Seminars</h5>
-                </div>
-            </div>
+        <div class="row">
+            @foreach(var c in Model.EventCategoríes)
+            {
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card bg-dark text-white">
+                        <img src="@c.ThumbnailUrl" class="card-img" alt="@c.Name">
+                        <div class="card-img-overlay">
+                            <h5 class="card-title">@c.Name</h5>
+                        </div>
+                    </div>
+                </div>   
+            }
         </div>
-        <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card bg-dark text-white">
-                <img src="https://eventmie.classiebit.com/storage/categories/October2019/3YpGsqN75rDAjntQewmP.jpg" class="card-img" alt="Sports & Fitness">
-                <div class="card-img-overlay">
-                    <h5 class="card-title">Sports & Fitness</h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card bg-dark text-white">
-                <img src="https://eventmie.classiebit.com/storage/categories/October2019/1axS9qJxNWiuzqVmqPDr.jpg" class="card-img" alt="Music & Concerts">
-                <div class="card-img-overlay">
-                    <h5 class="card-title">Music & Concerts</h5>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card bg-dark text-white">
-                <img src="https://eventmie.classiebit.com/storage/categories/October2019/rMbuGTrvUFEC13tykKcq.jpg" class="card-img" alt="Food & Drink">
-                <div class="card-img-overlay">
-                    <h5 class="card-title">Food & Drink</h5>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 </div>
 <div class="event-citi" style="background: linear-gradient(to bottom, #00416A, #00C9FF);">

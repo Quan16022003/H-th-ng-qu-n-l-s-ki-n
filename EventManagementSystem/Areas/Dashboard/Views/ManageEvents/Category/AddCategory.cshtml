@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Constracts.EventCategory.EventCategoryCreationDto
+@{
 	ViewData["Title"] = "Add Category";
 	ViewBag.Current = "Categories";
 	ViewBag.IsInManageEvents = "selected";
@@ -14,16 +15,15 @@
 		</div>
 		<div class="w-100 d-flex justify-content-center">
 			<div class="dashboard-category-content shadow">
-				<label for="name">Name</label>
-				<input id="name"
-					   name="name"
-					   type="text"
+				<label asp-for="Name">Name</label>
+				<input 
+						asp-for="Name"
+						type="text"
 					   required
 					   maxlength="100"
 					   class="form-control remove-border-focus" />
-				<label for="description">Description</label>
-				<textarea id="description"
-						  name="description"
+				<label asp-for="Description">Description</label>
+				<textarea asp-for="Description"
 						  required
 						  style="min-height: 300px; max-height: 400px; resize: none"
 						  class="form-control remove-border-focus"></textarea>
