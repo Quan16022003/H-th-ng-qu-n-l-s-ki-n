@@ -3,6 +3,7 @@ using Domain.Entities;
 using Domain.Enum;
 using Domain.Repositories;
 using EmailService;
+using MapsterMapper;
 using Services.Abtractions;
 
 public class OrdersService : IOrdersService
@@ -12,12 +13,16 @@ public class OrdersService : IOrdersService
     private readonly IEventRepository _eventRepository;
     private readonly IOrderItemRepository _orderItemRepository;
     private readonly IEmailSender _emailSender;
-    public OrdersService(IOrderRepository orderRepository, IUnitOfWork unitOfWork, IEventRepository eventRepository, IOrderItemRepository orderItemRepository)
+    private readonly IAttendeeRepository _attendeeRepository;
+    private readonly IMapper _mapper;
+    public OrdersService(IOrderRepository orderRepository, IUnitOfWork unitOfWork, IEventRepository eventRepository, IOrderItemRepository orderItemRepository, IAttendeeRepository attendeeRepository, IMapper mapper)
     {
         _orderRepository = orderRepository;
         _unitOfWork = unitOfWork;
         _eventRepository = eventRepository;
         _orderItemRepository = orderItemRepository; 
+        _attendeeRepository = attendeeRepository;
+        _mapper = mapper;
     }
     //lấy danh sách đơn hàng
     public async Task<List<OrderDTO>> GetOrdersAsync()
@@ -154,7 +159,6 @@ public class OrdersService : IOrdersService
 
         return order.Id; // Trả về ID của đơn hàng mới tạo
     }
-    // xác nhận đơn hàng sau đó gửi mail
     public async Task<bool> ConfirmOrderAsync(int orderId)
     {
         // Tìm đơn hàng theo ID
@@ -166,14 +170,39 @@ public class OrdersService : IOrdersService
             throw new Exception("Đơn hàng không thể xác nhận vì không ở trạng thái chờ xử lý.");
 
         // Cập nhật trạng thái đơn hàng
-        order.OrderStatus = OrderStatus.Confirmed; // 2: xác nhận đơn hàng
+        order.OrderStatus = OrderStatus.Confirmed;
         order.ModifiedDate = DateTime.Now;
 
         // Lưu thay đổi
         await _unitOfWork.CompleteAsync();
-        // gửi mail xác nhận
 
-        
+        // Tạo các bản ghi attendee
+        foreach (var orderItem in order.OrderItems)
+        {
+            for (int i = 0; i < orderItem.Quantity; i++)
+            {
+                var attendeeDto = new AttendeeDTO
+                {
+                    FirstName = order.FirstName,
+                    LastName = order.LastName,
+                    Email = order.Email,
+                    IsCancelled = false,
+                    HasArrived = false,
+                    ArrivalTime = null,
+                    UserId = order.UserId,
+                    OrderId = order.Id,
+                    TicketId = 0, 
+                    EventId = order.EventId
+                };
+                 var attendee = _mapper.Map<Attendees>(attendeeDto);
+                await _attendeeRepository.AddAsync(attendee);
+               
+            }
+        }
+
+        // Lưu các bản ghi attendee
+        await _unitOfWork.CompleteAsync();
+
         return true;
     }
 
