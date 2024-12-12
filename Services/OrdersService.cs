@@ -3,26 +3,24 @@ using Domain.Entities;
 using Domain.Enum;
 using Domain.Repositories;
 using EmailService;
+using Mapster;
 using MapsterMapper;
 using Services.Abtractions;
 
 public class OrdersService : IOrdersService
 {
     private readonly IOrderRepository _orderRepository;
-    private readonly IUnitOfWork _unitOfWork;
     private readonly IEventRepository _eventRepository;
     private readonly IOrderItemRepository _orderItemRepository;
     private readonly IEmailSender _emailSender;
     private readonly IAttendeeRepository _attendeeRepository;
-    private readonly IMapper _mapper;
-    public OrdersService(IOrderRepository orderRepository, IUnitOfWork unitOfWork, IEventRepository eventRepository, IOrderItemRepository orderItemRepository, IAttendeeRepository attendeeRepository, IMapper mapper)
+    private readonly IUnitOfWork _unitOfWork;
+    public OrdersService(IOrderRepository orderRepository, IEventRepository eventRepository, IOrderItemRepository orderItemRepository, IAttendeeRepository attendeeRepository, IMapper mapper)
     {
         _orderRepository = orderRepository;
-        _unitOfWork = unitOfWork;
         _eventRepository = eventRepository;
         _orderItemRepository = orderItemRepository; 
         _attendeeRepository = attendeeRepository;
-        _mapper = mapper;
     }
     //lấy danh sách đơn hàng
     public async Task<List<OrderDTO>> GetOrdersAsync()
@@ -191,10 +189,10 @@ public class OrdersService : IOrdersService
                     ArrivalTime = null,
                     UserId = order.UserId,
                     OrderId = order.Id,
-                    TicketId = 0, 
+                    TicketId = orderItem.TicketId, 
                     EventId = order.EventId
                 };
-                 var attendee = _mapper.Map<Attendees>(attendeeDto);
+                var attendee = attendeeDto.Adapt<Attendees>();
                 await _attendeeRepository.AddAsync(attendee);
                
             }
