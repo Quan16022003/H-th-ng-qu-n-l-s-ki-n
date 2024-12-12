@@ -1,0 +1,225 @@
+﻿:root {
+    --primary-color: #EA4170;
+    --primary-hover: #d93763;
+    --text-color: #333;
+    --muted-text-color: #666;
+    --background-color: #f8f9fa;
+    --border-color: #ddd;
+    --white: #fff;
+    --step-active: #EA4170;
+    --step-completed: #28a745;
+    --step-pending: #adb5bd;
+}
+
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header Styles */
+.booking-header {
+    background-color: var(--white);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar {
+    padding: 15px 0;
+}
+
+.navbar-brand img {
+    height: 40px;
+}
+
+/* Booking Progress */
+.booking-progress {
+    background-color: var(--white);
+    padding: 20px 0;
+    border-top: 1px solid var(--border-color);
+}
+
+.booking-steps {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    flex: 1;
+}
+
+.step-number {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: var(--step-pending);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
+}
+
+.step.active .step-number {
+    background-color: var(--step-active);
+    transform: scale(1.1);
+}
+
+.step-text {
+    font-size: 14px;
+    color: var(--muted-text-color);
+    font-weight: 500;
+}
+
+.step.active .step-text {
+    color: var(--step-active);
+}
+
+.step-connector {
+    flex: 1;
+    height: 2px;
+    background-color: var(--step-pending);
+    margin: 0 15px;
+    margin-bottom: 25px;
+    max-width: 100px;
+}
+
+/* Main Content */
+.booking-main {
+    flex: 1;
+    padding: 40px 0;
+}
+
+/* Footer Styles */
+.booking-footer {
+    background-color: var(--white);
+    padding: 20px 0;
+    border-top: 1px solid var(--border-color);
+    margin-top: auto;
+}
+
+.footer-link {
+    color: var(--muted-text-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+    .footer-link:hover {
+        color: var(--primary-color);
+    }
+
+/* Responsive Design */
+@media (max-width: 767.98px) {
+    .booking-steps {
+        padding: 0 15px;
+    }
+
+    .step-text {
+        font-size: 12px;
+    }
+
+    .step-number {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+    }
+
+    .step-connector {
+        margin: 0 10px;
+        margin-bottom: 25px;
+    }
+
+    .booking-footer {
+        text-align: center;
+    }
+
+        .booking-footer .text-end {
+            text-align: center !important;
+            margin-top: 10px;
+        }
+}
+
+@media (max-width: 575.98px) {
+    .navbar {
+        padding: 10px 0;
+    }
+
+    .navbar-brand img {
+        height: 32px;
+    }
+
+    .booking-progress {
+        padding: 15px 0;
+    }
+
+    .booking-main {
+        padding: 20px 0;
+    }
+}
+
+/* Animation */
+@keyframes stepActivate {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1.1);
+    }
+}
+
+.step.active .step-number {
+    animation: stepActivate 0.3s ease-out;
+}
+
+/* Completed Step Styles */
+.step.completed .step-number {
+    background-color: var(--step-completed);
+}
+
+.step.completed .step-text {
+    color: var(--step-completed);
+}
+
+.step.completed + .step-connector {
+    background-color: var(--step-completed);
+}
+
+/* Hover Effects */
+.step:not(.active):hover .step-number {
+    transform: scale(1.05);
+}
+
+/* Loading State */
+.booking-main.loading {
+    position: relative;
+}
+
+.booking-main.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,255,255,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
