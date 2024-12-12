@@ -32,6 +32,9 @@ namespace Persistence.Configurations
             builder.Property(o => o.OrderStatus)
                 .IsRequired()
                 .HasConversion<int>();
+            /*builder.Property(o => o.ExpiredDate)
+                .IsRequired()
+                .HasDefaultValue(DateTime.Now.AddMinutes(15));*/
 
             // Configure relationships
             builder.HasMany(o => o.Attendees)

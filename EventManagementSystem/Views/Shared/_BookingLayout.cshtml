@@ -11,56 +11,56 @@
     @await RenderSectionAsync("Styles", required: false)
 </head>
 <body class="booking-layout">
-<!-- Header đơn giản -->
-<header class="booking-header">
-    <nav class="navbar navbar-expand-sm navbar-light">
+    <!-- Header đơn giản -->
+    <header class="booking-header">
+        <nav class="navbar navbar-expand-sm navbar-light">
+            <div class="container">
+                <a class="navbar-brand" href="/">
+                    <img src="~/images/logo.png" alt="EventHub" height="40">
+                </a>
+                <!-- Hiển thị các bước -->
+                <div class="booking-steps">
+                    <div class="step @(ViewContext.RouteData.Values["action"].ToString() == "SelectTicket" ? "active" : "")">
+                        <span class="step-number">1</span>
+                        <span class="step-text">Chọn vé</span>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="step @(ViewContext.RouteData.Values["action"].ToString() == "Payment" ? "active" : "")">
+                        <span class="step-number">2</span>
+                        <span class="step-text">Thanh toán</span>
+                    </div>
+                    <div class="step-connector"></div>
+                    <div class="step @(ViewContext.RouteData.Values["action"].ToString() == "Confirmation" ? "active" : "")">
+                        <span class="step-number">3</span>
+                        <span class="step-text">Xác nhận</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main content -->
+    <main role="main" class="booking-main">
+        @RenderBody()
+    </main>
+
+    <!-- Footer đơn giản -->
+    <footer class="booking-footer">
         <div class="container">
-            <a class="navbar-brand" href="/">
-                <img src="~/images/logo.png" alt="EventHub" height="40">
-            </a>
-            <!-- Hiển thị các bước -->
-            <div class="booking-steps">
-                <div class="step @(ViewContext.RouteData.Values["action"].ToString() == "SelectTicket" ? "active" : "")">
-                    <span class="step-number">1</span>
-                    <span class="step-text">Chọn vé</span>
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">© 2024 EventHub. All rights reserved.</p>
                 </div>
-                <div class="step-connector"></div>
-                <div class="step @(ViewContext.RouteData.Values["action"].ToString() == "Payment" ? "active" : "")">
-                    <span class="step-number">2</span>
-                    <span class="step-text">Thanh toán</span>
-                </div>
-                <div class="step-connector"></div>
-                <div class="step @(ViewContext.RouteData.Values["action"].ToString() == "Confirmation" ? "active" : "")">
-                    <span class="step-number">3</span>
-                    <span class="step-text">Xác nhận</span>
+                <div class="col-md-6 text-end">
+                    <a href="/help" class="footer-link me-3">Trợ giúp</a>
+                    <a href="/contact" class="footer-link">Liên hệ</a>
                 </div>
             </div>
         </div>
-    </nav>
-</header>
+    </footer>
 
-<!-- Main content -->
-<main role="main" class="booking-main">
-    @RenderBody()
-</main>
-
-<!-- Footer đơn giản -->
-<footer class="booking-footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <p class="mb-0">&copy; 2024 EventHub. All rights reserved.</p>
-            </div>
-            <div class="col-md-6 text-end">
-                <a href="/help" class="text-muted me-3">Trợ giúp</a>
-                <a href="/contact" class="text-muted">Liên hệ</a>
-            </div>
-        </div>
-    </div>
-</footer>
-
-<!-- Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-@await RenderSectionAsync("Scripts", required: false)
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

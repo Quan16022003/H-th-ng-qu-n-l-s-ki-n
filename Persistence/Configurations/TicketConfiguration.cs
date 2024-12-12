@@ -45,7 +45,7 @@ namespace Persistence.Configurations
                 .HasForeignKey(a => a.TicketId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasMany(t => t.OrderTickets)
+            builder.HasMany(t => t.OrderItems)
                 .WithOne(ot => ot.Ticket)
                 .HasForeignKey(ot => ot.TicketId)
                 .OnDelete(DeleteBehavior.Cascade);
