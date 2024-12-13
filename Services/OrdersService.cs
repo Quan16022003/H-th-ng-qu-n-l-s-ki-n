@@ -3,6 +3,7 @@ using Domain.Entities;
 using Domain.Enum;
 using Domain.Repositories;
 using EmailService;
+using Mapster;
 using MapsterMapper;
 using Services.Abtractions;
 
@@ -13,6 +14,7 @@ public class OrdersService : IOrdersService
     private readonly IOrderItemRepository _orderItemRepository;
     private readonly IEmailSender _emailSender;
     private readonly IAttendeeRepository _attendeeRepository;
+
     private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;
 
@@ -192,10 +194,10 @@ public class OrdersService : IOrdersService
                     ArrivalTime = null,
                     UserId = order.UserId,
                     OrderId = order.Id,
-                    TicketId = 0, 
+                    TicketId = orderItem.TicketId, 
                     EventId = order.EventId
                 };
-                 var attendee = _mapper.Map<Attendees>(attendeeDto);
+                var attendee = attendeeDto.Adapt<Attendees>();
                 await _attendeeRepository.AddAsync(attendee);
                
             }
