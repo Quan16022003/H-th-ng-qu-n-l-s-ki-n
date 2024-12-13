@@ -78,6 +78,7 @@ builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.AddScoped<IServiceManager, ServiceManager>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.AddScoped<IVnPayService, VnPayService>();
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
 // Add repositories to DI container
