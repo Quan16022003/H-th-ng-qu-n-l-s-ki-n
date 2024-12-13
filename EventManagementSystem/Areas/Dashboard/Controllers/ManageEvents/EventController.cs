@@ -23,6 +23,16 @@ namespace Web.Areas.Dashboard.Controllers.ManageEvents
             _eventService = serviceManager.EventService;
         }
 
+        private async Task<bool> CanAccessEvent(string? organizerId)
+        {
+            if (organizerId == null) return false;
+
+            var user = await UserService.GetCurrentUserAsync(User);
+
+            if (user.Role == "Administrator") return true;
+            return organizerId == user.Id;
+        }
+
         private async Task<IEnumerable<EventDTO>> FetchEvents(string type = "", string query = "")
         {
             var user = await UserService.GetCurrentUserAsync(User);
@@ -90,12 +100,11 @@ namespace Web.Areas.Dashboard.Controllers.ManageEvents
             });
         }
 
+        [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            var user = await UserService.GetCurrentUserAsync(User);
             EventDTO model = await _eventService.GetEventByIdAsync(id);
-
-            if (user.Id != model?.Organizer?.Id)
+            if (!CanAccessEvent(model.Organizer?.Id).Result)
             {
                 return RedirectToAction("AccessDenied", "Account", new
                 {
