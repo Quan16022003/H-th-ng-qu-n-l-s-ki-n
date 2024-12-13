@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace Constracts.DTO
         public string Email { get; set; }
         public string UserId { get; set; }
         public int EventId { get; set; }
+        public OrderStatus OrderStatus { get; set; }
         public List<OrderItemDTO> OrderItems { get; set; }
     }
 }

@@ -84,6 +84,8 @@ builder.Services.RegisterAllRepositories();
 builder.Services.RegisterAllServices();
 builder.Services.RegisterPolicy();
 
+builder.Services.AddHostedService<OrderCancelledService>();
+
 builder.Services.RegisterPathProvideManager();
 
 builder.Services.RegisterSlugifyTransformer();
@@ -99,7 +101,7 @@ if (emailConfig == null)
 }
 
 builder.Services.AddSingleton(emailConfig);
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
@@ -11,9 +12,11 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(RepositoryDbContext))]
-    partial class RepositoryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241213012536_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,13 +106,13 @@ namespace Persistence.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7023a0a0-94fe-4842-bc08-959b657bff6e",
+                            ConcurrencyStamp = "af0bd451-7dab-4fb0-ad94-e2a9799d9ac2",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAECgtIBP+xpLrlj/1KJWngCm2Z+p3tLEbE9pvMf3yXW/rXKtkKZCl1TtXM0iJQEx9/w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPwWU07TwnN2s2rJrhpD+BHorEGRQ3WUGo6/8jjtVNgDm6F3duBsxysHVKwIRcy5Sw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "af5a25c5-ea1b-41c2-bc1f-735f52b068dc",
+                            SecurityStamp = "48412a03-f8f2-49fb-8596-591ff46dfb74",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -117,13 +120,13 @@ namespace Persistence.Migrations
                         {
                             Id = "029c00f5-5c22-48a1-bbf5-2a17bf6a2279",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b3910538-ce05-45bf-a33d-6d3c695c2e32",
+                            ConcurrencyStamp = "a62ffe77-2642-4dcd-985c-4a06b53765f5",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ORGANIZER@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOXgPX5f1+ssaAli/GMcRb8ykBNEYQcJypBii55OjRfSmBOLcc+Rr0G1K/xi4JFn0g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIXyxsRRHNPV/uaOHzKJXDepEMo5GmS2Tz/JMTAyzTT4mZ+ygc3ZQqBnn0eNrB+tAg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c41fdef2-a57a-4e76-ad03-e933e08113de",
+                            SecurityStamp = "53fc703a-66fa-4bc1-a71c-2e69661bf245",
                             TwoFactorEnabled = false,
                             UserName = "organizer@admin.com"
                         });
@@ -181,6 +184,11 @@ namespace Persistence.Migrations
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
+
+                    b.Property<string>("PrivateReferenceNUmber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("TicketId")
                         .HasColumnType("int");

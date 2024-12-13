@@ -1,4 +1,4 @@
-@model Web.ViewModels.Booking.SelectTicketViewModel
+@model Web.ViewModels.SelectTicketViewModel
 
 @{
     ViewData["Title"] = "Chọn Vé";
@@ -9,7 +9,7 @@
 }
 
 <div class="container ticket-list-container">
-    <form method="post" asp-controller="Booking" asp-action="SelectTicket" asp-route-id="@Model.EventId">
+    <form method="post" asp-controller="Booking" asp-action="SelectTicket" asp-route-eventId="@Model.EventId">
         <div class="row">
             <div class="col-lg-9 col-md-12 col-left">
                 <h2 class="event-title">@Model.EventTitle</h2>
@@ -56,6 +56,7 @@
                             }
                         </div>
                         <input type="hidden" name="TicketTypes[@i].Id" value="@Model.TicketTypes[i].Id" />
+                        <input type="hidden" name="TicketTypes[@i].Title" value="@Model.TicketTypes[i].Title" />
                         <input type="hidden" name="TicketTypes[@i].QuantityBuy" id="hidden-quantity-@Model.TicketTypes[i].Id" value="@Model.TicketTypes[i].QuantityBuy" />
                     </div>
                 }

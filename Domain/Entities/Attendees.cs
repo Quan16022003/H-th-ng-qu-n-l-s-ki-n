@@ -13,7 +13,6 @@ namespace Domain.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public string PrivateReferenceNUmber { get; set; }
         public bool IsCancelled { get; set; }
         public bool HasArrived { get; set; }
         public DateTime? ArrivalTime { get; set; }

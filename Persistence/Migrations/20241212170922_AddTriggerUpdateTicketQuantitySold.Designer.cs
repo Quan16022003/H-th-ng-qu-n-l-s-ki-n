@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence;
 
@@ -11,9 +12,11 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(RepositoryDbContext))]
-    partial class RepositoryDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241212170922_AddTriggerUpdateTicketQuantitySold")]
+    partial class AddTriggerUpdateTicketQuantitySold
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,13 +106,13 @@ namespace Persistence.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7023a0a0-94fe-4842-bc08-959b657bff6e",
+                            ConcurrencyStamp = "f06d883a-116b-435f-bea7-16880286b741",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAECgtIBP+xpLrlj/1KJWngCm2Z+p3tLEbE9pvMf3yXW/rXKtkKZCl1TtXM0iJQEx9/w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHQ/Fdky5A3tDY89d0+Hy3ZpBNE9Qde1r7ruH+ptq1/909KTP1dOazFuJRrAtxL2OA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "af5a25c5-ea1b-41c2-bc1f-735f52b068dc",
+                            SecurityStamp = "6054ee56-e485-49f4-8cb5-669887183558",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -117,13 +120,13 @@ namespace Persistence.Migrations
                         {
                             Id = "029c00f5-5c22-48a1-bbf5-2a17bf6a2279",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b3910538-ce05-45bf-a33d-6d3c695c2e32",
+                            ConcurrencyStamp = "61f43f0d-e6b6-45ca-b18a-d89768bc8a9d",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ORGANIZER@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOXgPX5f1+ssaAli/GMcRb8ykBNEYQcJypBii55OjRfSmBOLcc+Rr0G1K/xi4JFn0g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPPTaEW3D3G+0HE+QG2OenNTOP03GD2VLUeEkWS2BWvhe5P09MsYbTyrEV95LZ1egg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c41fdef2-a57a-4e76-ad03-e933e08113de",
+                            SecurityStamp = "d63b534c-2a58-4595-a45b-7f65be32187e",
                             TwoFactorEnabled = false,
                             UserName = "organizer@admin.com"
                         });
@@ -181,6 +184,11 @@ namespace Persistence.Migrations
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
+
+                    b.Property<string>("PrivateReferenceNUmber")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("TicketId")
                         .HasColumnType("int");

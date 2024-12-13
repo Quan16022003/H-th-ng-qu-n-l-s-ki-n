@@ -52,6 +52,7 @@ namespace Persistence.Configurations
                 .HasForeignKey(ot => ot.OrderId)
                 .OnDelete(DeleteBehavior.Cascade);
             builder.Navigation(o => o.User).AutoInclude();
+            builder.Navigation(o => o.OrderItems).AutoInclude();
         }
     }
 }
