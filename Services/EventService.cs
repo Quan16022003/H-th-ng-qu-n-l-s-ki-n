@@ -44,13 +44,13 @@ namespace Services
 
                 var _event = eventDetailDTO.Adapt<Events>();
                 _event.Slug = _slugService.GenerateSlug(eventDetailDTO.Title);
-                
+
                 if (eventDetailDTO.ImageFile != null)
                 {
                     var img = await _fileService.UploadFileAsync(eventDetailDTO.ImageFile, "images/events");
                     _event.ThumbnailUrl = img;
                 }
-                
+
                 var result = await _unitOfWork.EventRepository.AddAsync(_event);
                 await _unitOfWork.CompleteAsync();
 
@@ -105,6 +105,18 @@ namespace Services
                 throw;
             }
         }
+
+        public async Task<IEnumerable<EventDTO>> GetAllEventByOrganizerId(string id)
+        {
+            var events = await _unitOfWork.EventRepository.GetManyAsync(
+                filter: e => e.Organizer != null && e.Organizer.Id == id,
+                includeProperties: new[] { "CategoryEvent", "Tickets" },
+                orderBy: q => q.OrderBy(e => e.StartDate)
+            );
+
+            return events.Adapt<IEnumerable<EventDTO>>();
+        }
+
         // sự kiện sắp tới
         public async Task<IEnumerable<HomeEventDTO>> GetAllEventsComingAsync()
         {
@@ -144,8 +156,8 @@ namespace Services
                     .Select(e => new
                     {
                         Event = e,
-                        TotalSold = e.Tickets?.Sum(t => t.QuantitySold) ?? 0, 
-                        TotalAvailable = e.Tickets?.Sum(t => t.QuantityAvailable) ?? 0 
+                        TotalSold = e.Tickets?.Sum(t => t.QuantitySold) ?? 0,
+                        TotalAvailable = e.Tickets?.Sum(t => t.QuantityAvailable) ?? 0
                     })
                     .Where(x => x.TotalAvailable > 0 &&
                                 x.Event.StartDate.HasValue &&
@@ -268,7 +280,7 @@ namespace Services
                     _logger.LogWarning("Event media with id: {EventId} was not found for update", eventMediaDTO.Id);
                     throw new EventNotFoundException(eventMediaDTO.Id);
                 }
-       
+
                 if (thumbnailFile != null)
                 {
                     var thumbnailUrl = await _fileService.UploadFileAsync(thumbnailFile, "images\\events\\thumbnails");
@@ -329,7 +341,7 @@ namespace Services
             {
                 _logger.LogInformation("Updating event venue with id: {EventId}", eventVenueDTO.Id);
                 var _event = await _unitOfWork.EventRepository.GetByIdAsync(eventVenueDTO.Id);
-                
+
                 if (_event == null)
                 {
                     _logger.LogWarning("Event venue with id: {EventId} was not found for update", eventVenueDTO.Id);
@@ -361,14 +373,14 @@ namespace Services
         //        var response = await httpClient.GetStringAsync(url);
         //        var placeDetails = JsonDocument.Parse(response).RootElement;
 
-            
+
         //        if (placeDetails.GetProperty("status").GetString() != "OK")
         //        {
         //            throw new Exception($"Lỗi khi lấy thông tin địa điểm: {placeDetails.GetProperty("status").GetString()}");
         //        }
 
         //        var result = placeDetails.GetProperty("result");
-       
+
         //        return new PlaceDetailsDTO
         //        {
         //            PostalCode = GetPostalCode(result),
@@ -424,7 +436,7 @@ namespace Services
             return Result<int>.Success(id);
         }
 
-        
+
         public async Task<IEnumerable<HomeEventDTO>> GetAllEventsSelectedAsync(string? query, int? categoryId, string? city, DateTime? startDate, DateTime? endDate)
         {
             try

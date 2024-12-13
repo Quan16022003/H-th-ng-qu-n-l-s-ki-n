@@ -25,7 +25,15 @@ namespace Web.Areas.Dashboard.Controllers.ManageEvents
 
         private async Task<IEnumerable<EventDTO>> FetchEvents(string type = "", string query = "")
         {
-            var events = await _eventService.GetAllEventsAsync();
+            var user = await UserService.GetCurrentUserAsync(User);
+
+            IEnumerable<EventDTO> events;
+            if (user.Role == "Administrator")
+            {
+                events = await _eventService.GetAllEventsAsync();
+            }
+            else events = await _eventService.GetAllEventByOrganizerId(user.Id!);
+
             if (string.IsNullOrEmpty(query)) return events;
 
             if (type == "Equal")
@@ -84,7 +92,17 @@ namespace Web.Areas.Dashboard.Controllers.ManageEvents
 
         public async Task<IActionResult> Update(int id)
         {
+            var user = await UserService.GetCurrentUserAsync(User);
             EventDTO model = await _eventService.GetEventByIdAsync(id);
+
+            if (user.Id != model?.Organizer?.Id)
+            {
+                return RedirectToAction("AccessDenied", "Account", new
+                {
+                    area = "Dashboard"
+                });
+            }
+
             return View($"{ViewPath}/UpdateEvent.cshtml", model);
         }
 
