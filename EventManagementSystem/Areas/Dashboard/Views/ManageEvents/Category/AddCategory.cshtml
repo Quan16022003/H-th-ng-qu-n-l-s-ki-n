@@ -15,14 +15,15 @@
 		</div>
 		<div class="w-100 d-flex justify-content-center">
 			<div class="dashboard-category-content shadow">
-				<label asp-for="Name">Name</label>
-				<input 
-						asp-for="Name"
-						type="text"
+				<label asp-for="Name">@Html.LabelFor(m => m.Name)</label>
+				<div><span asp-validation-for="Name" class="text-danger"></span></div>
+				<input asp-for="Name"
+					   type="text"
 					   required
 					   maxlength="100"
 					   class="form-control remove-border-focus" />
-				<label asp-for="Description">Description</label>
+				<label asp-for="Description">@Html.LabelFor(m => m.Description)</label>
+				<div><span asp-validation-for="Description" class="text-danger"></span></div>
 				<textarea asp-for="Description"
 						  required
 						  style="min-height: 300px; max-height: 400px; resize: none"

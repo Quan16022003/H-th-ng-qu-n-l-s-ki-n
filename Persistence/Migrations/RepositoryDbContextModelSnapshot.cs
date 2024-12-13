@@ -103,13 +103,13 @@ namespace Persistence.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2bbb9d7a-bd70-49f1-bb11-a2cd651a34de",
+                            ConcurrencyStamp = "8b3d3a26-8752-4ee9-9b88-a3eb8c6c0641",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAiYnkFfQBPdWh6qoFm7zTBSlF+ZqirtFd9n4pjsK6KoQgDiBDOPtCOY1xH4wesX+g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHfgmH5Wnzxk8p72KqBuFykf0LhGRemqX4XAfyJR2R7Cp8vrTjFuwFyTl6RccmpfeA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "988b32d0-4fec-4e8d-a1dc-3e1f2896502e",
+                            SecurityStamp = "5ed8df51-f5cb-4771-b211-05e985e9544d",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -117,13 +117,13 @@ namespace Persistence.Migrations
                         {
                             Id = "029c00f5-5c22-48a1-bbf5-2a17bf6a2279",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "10371730-b4be-4e4b-bdf2-41d1625282cc",
+                            ConcurrencyStamp = "1c5cb455-c189-4b53-8a3f-3ad3a2716b0c",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ORGANIZER@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFOxjmDE7MTPV1BtWpYSSeFkh9BKqRLUMGq1Pkta/zGQXuMctviwaLU1MwHeXo2gqA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOjMmgXCEEEqrFB83vGbtj3+wV4saHvRLurY1CjGyguDSZW+smxcp6HtDOJXTpi44Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "23be56f3-b396-4be8-86a2-9731fe7f3218",
+                            SecurityStamp = "ef52dd7f-f04a-45f8-91d7-3023d11bcc73",
                             TwoFactorEnabled = false,
                             UserName = "organizer@admin.com"
                         });
@@ -412,6 +412,9 @@ namespace Persistence.Migrations
 
                     b.Property<TimeSpan?>("StartTime")
                         .HasColumnType("time");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ThumbnailUrl")
                         .HasMaxLength(2048)
@@ -764,6 +767,9 @@ namespace Persistence.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
+                    b.Property<int>("TicketId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -775,6 +781,8 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId");
+
+                    b.HasIndex("TicketId");
 
                     b.ToTable("OrderItems");
                 });
@@ -1159,7 +1167,15 @@ namespace Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.Tickets", "Ticket")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("TicketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Order");
+
+                    b.Navigation("Ticket");
                 });
 
             modelBuilder.Entity("Domain.Entities.OrderTicket", b =>
@@ -1171,7 +1187,7 @@ namespace Persistence.Migrations
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Tickets", "Ticket")
-                        .WithMany("OrderTickets")
+                        .WithMany()
                         .HasForeignKey("TicketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1298,7 +1314,7 @@ namespace Persistence.Migrations
                 {
                     b.Navigation("Attendees");
 
-                    b.Navigation("OrderTickets");
+                    b.Navigation("OrderItems");
                 });
 #pragma warning restore 612, 618
         }

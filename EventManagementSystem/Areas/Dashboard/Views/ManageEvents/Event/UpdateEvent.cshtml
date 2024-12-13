@@ -11,15 +11,29 @@
 		<ul class="nav nav-tabs">
 			<li class="nav-item">
 				<button data-classHandle="dashboard-event-information-tab"
-						type="button" class="nav nav-link active">
+						type="button" class="nav nav-link active available">
 					Thông tin cơ bản
 				</button>
 			</li>
 			<li class="nav-item">
 				<button data-classHandle="dashboard-event-venue-tab"
 						type="button"
-						class="dashboard-event-venue-header nav nav-link">
+						class="dashboard-event-venue-header nav nav-link available">
 					Địa điểm
+				</button>
+			</li>
+			<li class="nav-item">
+				<button data-classHandle="dashboard-event-time-tab"
+						type="button"
+						class="dashboard-event-venue-header nav nav-link available">
+					Thời gian
+				</button>
+			</li>
+			<li class="nav-item">
+				<button data-classHandle="dashboard-event-publish-tab"
+						type="button"
+						class="dashboard-event-publish-header nav nav-link available">
+					Publish
 				</button>
 			</li>
 		</ul>
@@ -29,20 +43,47 @@
 			<form method="post" class="dashboard-form dashboard-event-basic-infor-form update-form dashboard-event-information-tab w-100">
 				@Html.AntiForgeryToken()
 				<input id="id" name="id" value="@Model.Id" hidden />
-				@await Component.InvokeAsync("EventBasicInformationForm", new {
-					id = Model.Id
-				})
+				@await Component.InvokeAsync("EventBasicInformationForm", new
+					{
+						id = Model.Id
+					})
 			</form>
-			<form method="post" class="dashboard-form dashboard-event-venue-form dashboard-event-venue-tab w-100 d-none">
+			<form method="post" class="dashboard-form dashboard-event-venue-form update-form dashboard-event-venue-tab w-100 d-none">
 				@Html.AntiForgeryToken()
 				<input id="id" name="id" value="@Model.Id" hidden />
-				@await Component.InvokeAsync("EventVenueForm")
+				@await Component.InvokeAsync("EventVenueForm", new { id = Model.Id })
+			</form>
+			<form method="post" class="dashboard-form dashboard-event-time-form update-form dashboard-event-time-tab w-100 d-none">
+				<input id="id" name="id" value="@Model.Id" hidden />
+				@await Component.InvokeAsync("EventTimeForm", new { id = Model.Id })
+			</form>
+			<form method="post" class="dashboard-form dashboard-event-publish-form update-form dashboard-event-publish-tab w-100 d-none">
+				@Html.AntiForgeryToken()
+				<input id="id" name="id" value="@Model.Id" hidden />
+				<div class="w-100 p-4 min-vh-100">
+					<div class="p-4 w-100 border rounded">
+						<h3>Publish</h3>
+						<div class="text-danger">Kiểm tra lại tất cả các thông tin trước khi publish nhé</div>
+						<div class="text-danger">Ấn save khi sửa thông tin ở các trang</div>
+						<div class="mt-4 d-flex align-items-center" style="gap: 10px">
+							<button type="submit"
+									class="dashboard-submit-button btn btn-primary rounded-4 shadow bg-light-green border-0 bubble-hover"
+									@(Model.IsPublic ? "disabled" : "")>
+								<i class="fa-solid fa-eye"></i>
+								Publish
+							</button>
+							@if (Model.IsPublic)
+							{
+								<div class="text-success">Sự kiện này đã được publish</div>
+							}
+						</div>
+					</div>
+				</div>
 			</form>
 		</div>
 	</div>
 
 </div>
-
 
 @section Scripts {
 	<script type="module" asp-append-version="true" src="~/js/dashboard/dashboard-event.js"></script>

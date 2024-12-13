@@ -10,6 +10,7 @@ using Constracts.DTO;
 using Constracts.Home;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using Domain.ValueObjects;
 
 namespace Services.Abtractions
 {
@@ -29,6 +30,7 @@ namespace Services.Abtractions
         Task UpdateEventTiminglAsync(EventTimingDTO eventTimingDTO);
         Task UpdateEventMediaAsync(EventMediaDTO eventMediaDTO, IFormFile? thumbnailFile, IFormFile? coverFile);
         Task UpdateEventVenueAsync(EventVenueDTO eventVenueDTO);
+        Task<Result<int>> PublishEvent(int id);
         Task DeleteEventAsync(int id);
 
     }

@@ -21,6 +21,6 @@ namespace Domain.Entities
         public int EventId { get; set; }
         public Events? Event { get; set; }
         public IEnumerable<Attendees>? Attendees { get; set; }
-        public IEnumerable<OrderTicket>? OrderTickets { get; set; }
+        public IEnumerable<OrderItems>? OrderItems { get; set; }
     }
 }

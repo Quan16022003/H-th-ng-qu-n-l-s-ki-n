@@ -15,6 +15,8 @@ using Domain.Exceptions;
 using System.Net.Http;
 using System.Text.Json;
 using Microsoft.AspNetCore.Http;
+using Domain.ValueObjects;
+using Domain.ValidateEntity;
 
 namespace Services
 {
@@ -39,9 +41,15 @@ namespace Services
             {
                 _logger.LogInformation("Creating new event: {@CreateEventDTO}", eventDetailDTO);
 
-                eventDetailDTO.Slug = _slugService.GenerateSlug(eventDetailDTO.Title);
 
                 var _event = eventDetailDTO.Adapt<Events>();
+                _event.Slug = _slugService.GenerateSlug(eventDetailDTO.Title);
+                
+                if (eventDetailDTO.ImageFile != null)
+                {
+                    var img = await _fileService.UploadFileAsync(eventDetailDTO.ImageFile, "images/events");
+                    _event.ThumbnailUrl = img;
+                }
                 
                 var result = await _unitOfWork.EventRepository.AddAsync(_event);
                 await _unitOfWork.CompleteAsync();
@@ -234,7 +242,10 @@ namespace Services
                     throw new EventNotFoundException(eventDetailDTO.Id);
                 }
 
+                eventDetailDTO.CreatedDate = _event.CreatedDate;
+                eventDetailDTO.ModifiedDate = DateTime.Now;
                 eventDetailDTO.Adapt(_event);
+
                 await _unitOfWork.EventRepository.UpdateAsync(_event);
                 await _unitOfWork.CompleteAsync();
                 _logger.LogInformation("Event detail with id: {EventId} updated successfully", eventDetailDTO.Id);
@@ -270,7 +281,10 @@ namespace Services
                     _event.CoverUrl = coverUrl;
                 }
 
+                eventMediaDTO.CreatedDate = _event.CreatedDate;
+                eventMediaDTO.ModifiedDate = DateTime.Now;
                 eventMediaDTO.Adapt(_event);
+
                 await _unitOfWork.EventRepository.UpdateAsync(_event);
                 await _unitOfWork.CompleteAsync();
                 _logger.LogInformation("Event media with id: {EventId} updated successfully", eventMediaDTO.Id);
@@ -294,7 +308,10 @@ namespace Services
                     throw new EventNotFoundException(eventTimingDTO.Id);
                 }
 
+                eventTimingDTO.CreatedDate = _event.CreatedDate;
+                eventTimingDTO.ModifiedDate = DateTime.Now;
                 eventTimingDTO.Adapt(_event);
+
                 await _unitOfWork.EventRepository.UpdateAsync(_event);
                 await _unitOfWork.CompleteAsync();
                 _logger.LogInformation("Event timing with id: {EventId} updated successfully", eventTimingDTO.Id);
@@ -312,22 +329,16 @@ namespace Services
             {
                 _logger.LogInformation("Updating event venue with id: {EventId}", eventVenueDTO.Id);
                 var _event = await _unitOfWork.EventRepository.GetByIdAsync(eventVenueDTO.Id);
+                
                 if (_event == null)
                 {
                     _logger.LogWarning("Event venue with id: {EventId} was not found for update", eventVenueDTO.Id);
                     throw new EventNotFoundException(eventVenueDTO.Id);
                 }
 
-               
-                var placeDetails = await GetPlaceDetailsAsync(eventVenueDTO.PlaceId);
-
-                
-                _event.PostalCode = placeDetails.PostalCode;
-                _event.Latitude = placeDetails.Latitude;
-                _event.Longitude = placeDetails.Longitude;
-                _event.PlaceId = placeDetails.PlaceId;
-                _event.PhoneNumber = placeDetails.PhoneNumber;
-                _event.WebsiteUrl = placeDetails.WebsiteUrl;
+                eventVenueDTO.CreatedDate = _event.CreatedDate;
+                eventVenueDTO.ModifiedDate = DateTime.Now;
+                eventVenueDTO.Adapt(_event);
 
                 await _unitOfWork.EventRepository.UpdateAsync(_event);
                 await _unitOfWork.CompleteAsync();
@@ -339,55 +350,81 @@ namespace Services
                 throw new EventVenueUpdateException(eventVenueDTO.Id, ex.Message, ex);
             }
         }
-        public async Task<PlaceDetailsDTO> GetPlaceDetailsAsync(string placeId)
-        {
-            var apiKey = Environment.GetEnvironmentVariable("GOOGLE_API_KEY"); // Thay thế bằng API key đúng
-            var url = $"https://maps.googleapis.com/maps/api/place/details/json?place_id={placeId}&key={apiKey}";
 
-            using (var httpClient = new HttpClient())
-            {
-                var response = await httpClient.GetStringAsync(url);
-                var placeDetails = JsonDocument.Parse(response).RootElement;
+        //public async Task<PlaceDetailsDTO> GetPlaceDetailsAsync(string placeId)
+        //{
+        //    var apiKey = Environment.GetEnvironmentVariable("GOOGLE_API_KEY"); // Thay thế bằng API key đúng
+        //    var url = $"https://maps.googleapis.com/maps/api/place/details/json?place_id={placeId}&key={apiKey}";
+
+        //    using (var httpClient = new HttpClient())
+        //    {
+        //        var response = await httpClient.GetStringAsync(url);
+        //        var placeDetails = JsonDocument.Parse(response).RootElement;
 
             
-                if (placeDetails.GetProperty("status").GetString() != "OK")
-                {
-                    throw new Exception($"Lỗi khi lấy thông tin địa điểm: {placeDetails.GetProperty("status").GetString()}");
-                }
+        //        if (placeDetails.GetProperty("status").GetString() != "OK")
+        //        {
+        //            throw new Exception($"Lỗi khi lấy thông tin địa điểm: {placeDetails.GetProperty("status").GetString()}");
+        //        }
 
-                var result = placeDetails.GetProperty("result");
+        //        var result = placeDetails.GetProperty("result");
        
-                return new PlaceDetailsDTO
-                {
-                    PostalCode = GetPostalCode(result),
-                    Latitude = result.GetProperty("geometry").GetProperty("location").GetProperty("lat").GetDecimal(),
-                    Longitude = result.GetProperty("geometry").GetProperty("location").GetProperty("lng").GetDecimal(),
-                    PlaceId = result.GetProperty("place_id").GetString(),
-                    PhoneNumber = result.TryGetProperty("formatted_phone_number", out var phone) ? phone.GetString() : null,
-                    WebsiteUrl = result.TryGetProperty("website", out var website) ? website.GetString() : null
-                };
-            }
-        }
-        private string GetPostalCode(JsonElement result)
+        //        return new PlaceDetailsDTO
+        //        {
+        //            PostalCode = GetPostalCode(result),
+        //            Latitude = result.GetProperty("geometry").GetProperty("location").GetProperty("lat").GetDecimal(),
+        //            Longitude = result.GetProperty("geometry").GetProperty("location").GetProperty("lng").GetDecimal(),
+        //            PlaceId = result.GetProperty("place_id").GetString(),
+        //            PhoneNumber = result.TryGetProperty("formatted_phone_number", out var phone) ? phone.GetString() : null,
+        //            WebsiteUrl = result.TryGetProperty("website", out var website) ? website.GetString() : null
+        //        };
+        //    }
+        //}
+        //private string GetPostalCode(JsonElement result)
+        //{
+        //    if (result.TryGetProperty("address_components", out var components) && components.ValueKind == JsonValueKind.Array)
+        //    {
+        //        foreach (var component in components.EnumerateArray())
+        //        {
+        //            if (component.TryGetProperty("types", out var types) && types.ValueKind == JsonValueKind.Array)
+        //            {
+        //                foreach (var type in types.EnumerateArray())
+        //                {
+        //                    if (type.GetString() == "postal_code" && component.TryGetProperty("long_name", out var longName))
+        //                    {
+        //                        return longName.GetString();
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return null; 
+        //}
+
+        public async Task<Result<int>> PublishEvent(int id)
         {
-            if (result.TryGetProperty("address_components", out var components) && components.ValueKind == JsonValueKind.Array)
+            var model = await _unitOfWork.EventRepository.GetByIdAsync(id);
+
+            if (model == null)
             {
-                foreach (var component in components.EnumerateArray())
-                {
-                    if (component.TryGetProperty("types", out var types) && types.ValueKind == JsonValueKind.Array)
-                    {
-                        foreach (var type in types.EnumerateArray())
-                        {
-                            if (type.GetString() == "postal_code" && component.TryGetProperty("long_name", out var longName))
-                            {
-                                return longName.GetString();
-                            }
-                        }
-                    }
-                }
+                _logger.LogWarning("Event venue with id: {EventId} was not found for update", id);
+                return Result<int>.Failure(EventError.PublishFailed);
             }
-            return null; 
+
+            if (!model.NullOrEmptyValidate())
+            {
+                return Result<int>.Failure(EventError.ValidationFailed);
+            }
+
+            model.IsPublic = true;
+
+            await _unitOfWork.EventRepository.UpdateAsync(model);
+            await _unitOfWork.CompleteAsync();
+
+            return Result<int>.Success(id);
         }
+
+        
         public async Task<IEnumerable<HomeEventDTO>> GetAllEventsSelectedAsync(string? query, int? categoryId, string? city, DateTime? startDate, DateTime? endDate)
         {
             try

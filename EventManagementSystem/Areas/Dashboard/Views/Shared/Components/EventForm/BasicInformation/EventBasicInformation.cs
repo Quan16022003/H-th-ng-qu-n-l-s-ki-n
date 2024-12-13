@@ -33,6 +33,11 @@ namespace Web.Areas.Dashboard.Views.Shared.Components.EventForm.BasicInformation
             return View($"{viewPath}/EventBasicInformation.cshtml", viewModel);
         }
 
+        /// <summary>
+        /// Loading model for view component, if id is -1 (user is create new model), return with event is null
+        /// </summary>
+        /// <param name="id">Event Id</param>
+        /// <returns></returns>
         private async Task<EventBasicInformationViewModel> LoadModel(int id)
         {
             if (User.Identity == null) return null!;
@@ -44,9 +49,15 @@ namespace Web.Areas.Dashboard.Views.Shared.Components.EventForm.BasicInformation
 
             return new EventBasicInformationViewModel
             {
+                EventDetail = new EventDetailDTO
+                {
+                    Title = eventModel != null ? eventModel.Title : string.Empty,
+                    Description = eventModel != null ? eventModel.Description : string.Empty,
+                    CategoryId = eventModel?.CategoryEvent?.Id ?? -1
+                },
+                ThumbnailUrl = eventModel != null ? eventModel.ThumbnailUrl : string.Empty,
                 Categories = categories,
                 Organizer = currentUser,
-                Event = eventModel
             };
         }
     }

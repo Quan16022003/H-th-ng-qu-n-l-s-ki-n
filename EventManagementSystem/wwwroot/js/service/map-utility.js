@@ -67,3 +67,82 @@ export const enableInteractions = (map) => {
     map.keyboard.enable();
     if (map.tap) map.tap.enable(); // For touch devices
 }
+
+/**
+ * Not supported location with province or outside VietNam
+ * @param {any} location
+ * @returns
+ */
+export const isSupportedLocation = (location) => {
+    for (var item in location) {
+        if (!location[item] || location[item] === "") return false;
+    }
+
+    return true;
+}
+
+function gatherInformation(location, informations) {
+    let isCityNext = false;
+    let isPostalCodeNext = false;
+    let count = 0;
+    let tempStreet = "";
+
+    for (let information of informations) {
+        information = information.trim();
+        if (count == 2) {
+            tempStreet = information;
+        }
+
+        if (isCityNext) {
+            location.city = information;
+            isCityNext = false;
+            isPostalCodeNext = true;
+        }
+
+        else if (isPostalCodeNext) {
+            location.postalCode = information;
+            isPostalCodeNext = false;
+        }
+
+        else if (information.includes("Đường")
+            || information.includes("Street") || information.includes("Road")) {
+            location.street = information;
+        }
+
+        else if (information.includes("Phường") || information.includes("Ward")) {
+            location.ward = information;
+        }
+
+        else if (information.includes("Quận") || information.includes("District")) {
+            location.district = information;
+            isCityNext = true;
+        }
+
+        count++;
+    }
+
+    if (location.street === "") location.street = tempStreet;
+}
+
+/**
+ * Get location information from result of geosearch
+ * @param {any} result
+ * @returns
+ */
+export const getLocationInformation = (result) => {
+    let informations = result.location.raw.display_name.split(',');
+    let location = {
+        venueName: result.location.raw.name,
+        street: "",
+        city: "",
+        district: "",
+        ward: "",
+        postalCode: "",
+        latitude: result.location.raw.lat,
+        longitude: result.location.raw.lon,
+        address: result.location.raw.display_name
+    }
+
+    gatherInformation(location, informations);
+    return location;
+}
