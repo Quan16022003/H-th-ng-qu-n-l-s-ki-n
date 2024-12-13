@@ -23,6 +23,7 @@ namespace Domain.Repositories
         IOrderItemRepository OrderItemRepository { get; }
         IOrderTicketRepository OrderTicketRepository { get; }
         IAttendeeRepository AttendeeRepository { get; }
+       
 
         #endregion
 
