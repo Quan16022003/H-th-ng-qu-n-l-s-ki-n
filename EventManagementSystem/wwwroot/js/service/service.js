@@ -20,6 +20,17 @@ function redirect(url) {
     window.location.href = url;
 }
 
+// for re-render but not reload the page
+export const reRender = (url, container) => {
+    $.ajax({
+        url: url,
+        type: 'GET',
+        success: (response) => {
+            container.innerHTML = response;
+        }
+    })
+}
+
 /**
  * Add new Entity
  * @param {any} url Url of add action in controller
@@ -98,7 +109,7 @@ export const putEntity = (url, data, submitButton = undefined) => {
  * Delete entity by Id
  * @param {any} url Url of delete action in controller
  */
-export const deleteEntity = (url) => {
+export const deleteEntity = (url, isReload = true) => {
     var token = $("input[name='__RequestVerificationToken']").val();
     $.ajax({
         url: url,
@@ -108,7 +119,7 @@ export const deleteEntity = (url) => {
         },
         success: (response) => {
             window.toastr.success(response.message)
-            setTimeout(() => window.location.reload(), 2000)
+            if (isReload) setTimeout(() => window.location.reload(), 2000)
         },
         error: (xhr, status, error) => {
             let response = JSON.parse(xhr.responseText);

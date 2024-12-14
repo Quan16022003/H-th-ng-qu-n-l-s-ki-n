@@ -11,7 +11,7 @@
 		<hr class="w-100" />
 		<div class="d-flex w-100" style="gap: 10px">
 			<div class="w-50" style="min-width: 100px">
-				<label for="venueName">@Html.LabelFor(m => m.VenueName)</label>
+				@Html.LabelFor(m => m.VenueName)
 				<span class="text-warning">*</span>
 				<input disabled required id="venueName" name="venueName"
 					   value="@Model.VenueName"
@@ -19,7 +19,7 @@
 				<input hidden value="@Model.VenueName" name="venueName" />
 			</div>
 			<div class="w-50" style="min-width: 100px">
-				<label for="city">@Html.LabelFor(m => m.City)</label>
+				@Html.LabelFor(m => m.City)
 				<span class="text-warning">*</span>
 				<input disabled required id="city" name="city"
 					   value="@Model.City"
@@ -29,7 +29,7 @@
 		</div>
 		<div class="d-flex w-100" style="gap: 10px">
 			<div class="w-50" style="min-width: 100px">
-				<label for="street">@Html.LabelFor(m => m.Street)</label>
+				@Html.LabelFor(m => m.Street)
 				<span class="text-warning">*</span>
 				<input disabled required id="street" name="street"
 					   value="@Model.Street"
@@ -37,7 +37,7 @@
 				<input hidden value="@Model.Street" name="street" />
 			</div>
 			<div class="w-50" style="min-width: 100px">
-				<label for="postalCode">@Html.LabelFor(m => m.PostalCode)</label>
+				@Html.LabelFor(m => m.PostalCode)
 				<span class="text-warning">*</span>
 				<input disabled required id="postalCode" name="postalCode"
 					   value="@Model.PostalCode"
@@ -47,7 +47,7 @@
 		</div>
 		<div class="d-flex w-100" style="gap: 10px">
 			<div class="w-50" style="min-width: 100px">
-				<label for="district">@Html.LabelFor(m => m.District)</label>
+				@Html.LabelFor(m => m.District)
 				<span class="text-warning">*</span>
 				<input disabled required id="district" name="district"
 					   value="@Model.District"
@@ -55,7 +55,7 @@
 				<input hidden value="@Model.District" name="district" />
 			</div>
 			<div class="w-50" style="min-width: 100px">
-				<label for="ward">@Html.LabelFor(m => m.Ward)</label>
+				@Html.LabelFor(m => m.Ward)
 				<span class="text-warning">*</span>
 				<input disabled required id="ward" name="ward"
 					   value="@Model.Ward"
@@ -65,7 +65,7 @@
 		</div>
 		<div class="d-flex w-100" style="gap: 10px">
 			<div class="w-50" style="min-width: 100px">
-				<label for="latitude">@Html.LabelFor(m => m.Latitude)</label>
+				@Html.LabelFor(m => m.Latitude)
 				<span class="text-warning">*</span>
 				<input disabled required id="latitude" name="latitude"
 					   value="@Model.Latitude"
@@ -73,7 +73,7 @@
 				<input hidden value="@Model.Latitude" name="latitude" />
 			</div>
 			<div class="w-50" style="min-width: 100px">
-				<label for="longitude">@Html.LabelFor(m => m.Longitude)</label>
+				@Html.LabelFor(m => m.Longitude)
 				<span class="text-warning">*</span>
 				<input disabled required id="longitude" name="longitude"
 					   value="@Model.Longitude"

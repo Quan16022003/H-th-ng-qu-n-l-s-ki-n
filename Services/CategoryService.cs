@@ -77,6 +77,12 @@ namespace Services
             try
             {
                 // Implement the deletion logic here
+                var category = await _unitOfWork.CategoryEventRepository.GetByIdAsync(id);
+                category!.IsDeleted = true;
+
+                await _unitOfWork.CategoryEventRepository.UpdateAsync(category);
+                await _unitOfWork.CompleteAsync();
+
                 return Result.Success();
             }
             catch
@@ -91,11 +97,12 @@ namespace Services
             {
                 _logger.LogInformation($"Type: {type}, Query: {query}");
                 IEnumerable<CategoryEvents> categories = string.IsNullOrEmpty(query) ? 
-                    await _categoryEventRepository.GetAllAsync() : 
+                    await _categoryEventRepository.GetManyAsync(
+                        filter: e => !e.IsDeleted) : 
                     await _categoryEventRepository.GetManyAsync(
                         filter: e => type == "Equal" 
-                            ? e.Name.ToLower().Equals(query.ToLower())
-                            : e.Name.ToLower().Contains(query.ToLower()));
+                            ? e.Name.ToLower().Equals(query.ToLower()) && !e.IsDeleted
+                            : e.Name.ToLower().Contains(query.ToLower()) && !e.IsDeleted);
 
                 var categoryDtos = categories.Adapt<IEnumerable<EventCategoryDTO>>();
                 return EventCategoryListResult.Success(categoryDtos);
@@ -167,6 +174,7 @@ namespace Services
                 }
 
                 categoryEvent.Name = updateDto.Name;
+                categoryEvent.Description = updateDto.Description;
                 categoryEvent.Slug = GenerateSlug(updateDto.Name);
 
                 if (updateDto.ImageFile != null)

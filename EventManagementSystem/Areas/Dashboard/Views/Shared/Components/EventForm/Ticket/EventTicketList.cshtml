@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Constracts.DTO.TicketDTO>
+
+<div class="w-100 p-4 min-vh-100">
+	<div class="w-100">
+		<h3>Các loại vé hiện tại</h3>
+		<hr />
+		<div class="dashboard-ticket-container">
+			@foreach (var item in Model)
+			{
+				<div class="dashboard-ticket-item-container w-100 rounded-5">
+					<div class="w-100 d-flex flex-wrap justify-content-center p-4"
+						 style="gap: 10px">
+						<div style="width: 60%; min-width: 200px">
+							@Html.LabelFor(m => item.Title)
+							<input value="@item.Title" disabled class="form-control" />
+						</div>
+						<div style="width: 35%; min-width: 200px">
+							@Html.LabelFor(m => item.Price)
+							<input value="@item.Price" disabled class="form-control" />
+						</div>
+					</div>
+					<div class="w-100 d-flex flex-wrap justify-content-center p-4"
+						 style="gap: 10px">
+						<div style="width: 47.5%; min-width: 200px">
+							@Html.LabelFor(m => item.QuantityAvailable)
+							<input value="@item.QuantityAvailable" disabled class="form-control" />
+						</div>
+						<div style="width: 47.5%; min-width: 200px">
+							@Html.LabelFor(m => item.MaxPerPerson)
+							<input value="@item.MaxPerPerson" disabled class="form-control" />
+						</div>
+					</div>
+					<div class="d-flex justify-content-end p-4 w-100" style="gap: 10px">
+						<button type="button"
+							    data-ticketId="@item.Id"
+								class="edit-ticket-button btn btn-primary rounded-3 shadow border-0">
+							<i class="fa-solid fa-pen-to-square"></i>
+							Edit
+						</button>
+						<button type="button"
+								data-ticketId="@item.Id"
+								class="delete-ticket-button dashboard-ticket-form-cancel btn btn-danger rounded-3 shadow border-0">
+							<i class="fa-solid fa-trash"></i>
+							Delete
+						</button>
+					</div>
+				</div>
+				<hr />
+			}
+		</div>
+		<button type="button"
+				class="btn add-ticket-button dashboard-selected-background rounded-4 shadow text-light border-0 bubble-hover">
+			<i class="fa-solid fa-plus"></i>
+			Add Ticket
+		</button>
+	</div>
+</div>

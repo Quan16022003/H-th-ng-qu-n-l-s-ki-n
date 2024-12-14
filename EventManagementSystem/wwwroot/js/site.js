@@ -53,6 +53,7 @@ window.OpenStreetMapProvider = OpenStreetMapProvider;
 //#endregion
 
 import "../js/service/service.js"
+import "../js/service/route.js"
 import "../js/dashboard/form-utility.js"
 
 //#endregion

@@ -16,7 +16,7 @@
 		</div>
 		<div class="w-100 d-flex justify-content-center">
 			<div class="dashboard-category-content shadow">
-				<label asp-for="Name">@Html.LabelFor(m => m.Name)</label>
+				@Html.LabelFor(m => m.Name)
 				<div><span asp-validation-for="Name" class="text-danger"></span></div>
 				<input id="name"
 					   name="name"
@@ -25,7 +25,7 @@
 					   maxlength="100"
 					   value="@Model.Name"
 					   class="form-control remove-border-focus" />
-				<label asp-for="Description">@Html.LabelFor(m => m.Description)</label>
+				@Html.LabelFor(m => m.Description)
 				<div><span asp-validation-for="Description" class="text-danger"></span></div>
 				<textarea id="description"
 						  name="description"

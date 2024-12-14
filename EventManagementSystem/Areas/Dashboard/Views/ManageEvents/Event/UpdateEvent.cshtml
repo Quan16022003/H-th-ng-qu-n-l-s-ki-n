@@ -30,6 +30,13 @@
 				</button>
 			</li>
 			<li class="nav-item">
+				<button data-classHandle="dashboard-event-ticket-tab"
+						type="button"
+						class="dashboard-event-event-header nav nav-link available">
+					Vé
+				</button>
+			</li>
+			<li class="nav-item">
 				<button data-classHandle="dashboard-event-publish-tab"
 						type="button"
 						class="dashboard-event-publish-header nav nav-link available">
@@ -56,6 +63,15 @@
 			<form method="post" class="dashboard-form dashboard-event-time-form update-form dashboard-event-time-tab w-100 d-none">
 				<input id="id" name="id" value="@Model.Id" hidden />
 				@await Component.InvokeAsync("EventTimeForm", new { id = Model.Id })
+			</form>
+			<form method="post" class="dashboard-form dashboard-event-ticket-form update-form dashboard-event-ticket-tab w-100 d-none">
+				<div class="dashboard-event-ticket-list">
+					@await Component.InvokeAsync("EventTicketList", new { eventId = Model.Id })
+				</div>
+				<input hidden id="eventId" name="eventId" value="@Model.Id" />
+				<div class="dashboard-event-ticket-form-container">
+					@await Html.PartialAsync("./Partials/_EventTicketForm", new Constracts.DTO.TicketDTO())
+				</div>
 			</form>
 			<form method="post" class="dashboard-form dashboard-event-publish-form update-form dashboard-event-publish-tab w-100 d-none">
 				@Html.AntiForgeryToken()

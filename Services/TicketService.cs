@@ -70,7 +70,7 @@ namespace Services
             {
                 _logger.LogInformation("Fetching all tickets");
                 var _tickets = await _unitOfWork.TicketRepository.GetAllAsync();
-                _tickets = _tickets.Where(c => c.IsDeleted = false).ToList();
+                _tickets = _tickets.Where(c => !c.IsDeleted).ToList();
                 return _tickets.Adapt<IEnumerable<TicketDTO>>();
             }
             catch (Exception ex)
@@ -87,7 +87,7 @@ namespace Services
             {
                 _logger.LogInformation("Fetching all tickets by id event");
                 var _tickets = await _unitOfWork.TicketRepository.GetAllAsync();
-                _tickets = _tickets.Where(c => c.EventId == id).ToList();
+                _tickets = _tickets.Where(c => c.EventId == id && !c.IsDeleted).ToList();
                 return _tickets.Adapt<IEnumerable<TicketDTO>>();
             }
             catch (Exception ex)
