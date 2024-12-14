@@ -1,6 +1,8 @@
 ﻿using Domain.Entities;
 using Domain.Repositories;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 
@@ -27,6 +29,7 @@ namespace Persistence.Repositories
         #region Readonlys
 
         private readonly RepositoryDbContext _dbContext;
+        private IDbContextTransaction? _currentTransaction;
 
         #endregion
 
@@ -71,48 +74,28 @@ namespace Persistence.Repositories
         /// </summary>
         /// <returns><see cref="Task"/></returns>
         public async Task CompleteAsync() => await _dbContext.SaveChangesAsync();
-
-        #endregion
-
-        #region Implements IDisposable
-
-        #region Private Dispose Fields
-
-        private bool _disposed;
-
-        #endregion
-
-        /// <summary>
-        /// Cleans up any resources being used.
-        /// </summary>
-        /// <returns><see cref="ValueTask"/></returns>
-        public async ValueTask DisposeAsync()
+        public async Task<IDbContextTransaction> BeginTransactionAsync()
         {
-            await DisposeAsync(true);
-
-            // Take this object off the finalization queue to prevent
-            // finalization code for this object from executing a second time.
-            GC.SuppressFinalize(this);
+            _currentTransaction = await _dbContext.Database.BeginTransactionAsync();
+            return _currentTransaction;
         }
 
-        /// <summary>
-        /// Cleans up any resources being used.
-        /// </summary>
-        /// <param name="disposing">Whether or not we are disposing</param>
-        /// <returns><see cref="ValueTask"/></returns>
-        private async ValueTask DisposeAsync(bool disposing)
+        public async Task CommitTransactionAsync()
         {
-            if (!_disposed)
+            if (_currentTransaction != null)
             {
-                if (disposing)
-                {
-                    // Dispose managed resources.
-                    await _dbContext.DisposeAsync();
-                }
-
-                // Dispose any unmanaged resources here...
-
-                _disposed = true;
+                await _currentTransaction.CommitAsync();
+                await _currentTransaction.DisposeAsync();
+                _currentTransaction = null;
+            }
+        }
+        public async Task RollbackTransactionAsync()
+        {
+            if (_currentTransaction != null)
+            {
+                await _currentTransaction.RollbackAsync();
+                await _currentTransaction.DisposeAsync();
+                _currentTransaction = null;
             }
         }
 

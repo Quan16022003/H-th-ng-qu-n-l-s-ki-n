@@ -1,27 +1,108 @@
-﻿@page
-@model Constracts.DTO.PaymentInfomationDTO;
+﻿@model Web.ViewModels.PaymentViewModel
+
 @{
-    ViewData["Title"] = "Create Payment URL";
+    ViewData["Title"] = "Thanh toán";
+    Layout = "_BookingLayout";
 }
 
-<h1>Create Payment URL</h1>
+@section Styles {
+    <link rel="stylesheet" href="~/css/payment.css"/>
+    <style>
+        .readonly-input {
+            pointer-events: none;
+            background-color: #f0f0f0;
+        }
+    </style>
+}
 
-<form method="post" asp-action="CreatePaymentUrlVnpay">
-    <div>
-        <label for="Amount">Amount:</label>
-        <input type="number" id="Amount" name="Amount" required />
+<div class="container">
+    <form method="post" asp-controller="Payment" asp-action="Payment" asp-route-eventId="@Model.EventId" asp-route-orderId="@ViewBag.OrderId">
+        <h2>Thông tin thanh toán</h2>
+        <h3>@Model.EventTitle</h3>
+        <p><strong>Ngày:</strong> @Model.EventDate</p>
+        <p><strong>Địa điểm:</strong> @Model.EventLocation</p>
+
+        <hr />
+        <h4>Thông tin cá nhân</h4>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="text" class="form-control readonly-input" id="email" asp-for="Email" readonly/>
     </div>
-    <div>
-        <label for="Name">Name:</label>
-        <input type="text" id="Name" name="Name" required />
+        <div class="form-group">
+            <label for="firstName">Họ:</label>
+            <input type="text" class="form-control" id="firstName" asp-for="FirstName" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
     </div>
-    <div>
-        <label for="OrderDescription">Order Description:</label>
-        <input type="text" id="OrderDescription" name="OrderDescription" required />
+        <div class="form-group">
+            <label for="lastName">Tên:</label>
+            <input type="text" class="form-control" id="lastName" asp-for="LastName" />
+            <span asp-validation-for="LastName" class="text-danger"></span>
     </div>
-    <div>
-        <label for="OrderType">Order Type:</label>
-        <input type="text" id="OrderType" name="OrderType" required />
+        <div class="form-group">
+            <label for="phoneNumber">Số điện thoại:</label>
+            <input type="tel" class="form-control" id="phoneNumber" asp-for="PhoneNumber" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+        <hr />
+        <h4>Vé đã mua <button type="button" class="btn btn-secondary" id="chooseAgain">Chọn lại vé</button></h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Tên vé</th>
+                    <th>Số lượng</th>
+                    <th>Đơn giá</th>
+                    <th>Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ticket in Model.TicketTypes)
+                {
+                    <tr>
+                        <td>@ticket.Title</td>
+                        <td>@ticket.QuantityBuy</td>
+                        <td>@ticket.FormattedPrice</td>
+                        <td>@((ticket.QuantityBuy * ticket.Price.Value).ToString("N0") + " VNĐ")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <h4>Tổng tiền: @(Model.TotalAmount.ToString("N0") + " VNĐ")</h4>
+        <hr />
+        <h4>Chọn phương thức thanh toán</h4>
+        <div class="form-check">
+            <input class="form-check-input" checked type="radio" name="paymentMethod" id="paymentMethodVNPay" value="vnpay" @(Model.TotalAmount > 0 ? "" : "disabled") />
+            <label class="form-check-label" for="paymentMethodVNPay">
+                VNPay
+            </label>
     </div>
-    <button type="submit">Create Payment URL</button>
+
+        <button class="btn btn-primary" type="submit">@(Model.TotalAmount > 0 ? "Thanh toán ngay" : "Đặt vé miễn phí")</button>
 </form>
+</div>
+
+@section Scripts {
+    <script>
+    $(document).ready(function() {
+        $("#chooseAgain").click(function() {
+            if (confirm("Bạn có chắc chắn muốn chọn lại vé?  Đơn hàng hiện tại sẽ bị hủy.")) {
+                $.ajax({
+                    url: '@Url.Action("CancelOrder", "Payment")?orderId=@ViewBag.OrderId',
+                    type: 'POST',
+                    success: function(response) {
+                        if (response.success) {
+                            window.location.href = '@Url.Action("Index", "Booking")';
+                        } else {
+                            alert("Có lỗi xảy ra khi hủy đơn hàng. Vui lòng thử lại.");
+                        }
+                    },
+                    error: function(error) {
+                        alert("Có lỗi xảy ra khi hủy đơn hàng. Vui lòng thử lại.");
+                        console.error(error);
+                    }
+                });
+            }
+        });
+    });
+</script>
+}

@@ -13,5 +13,6 @@ namespace Services.Abtractions
         ICategoryService CategoryService { get; }
         ITicketService TicketService { get; }
         IAttendeeService AttendeeService { get; }
+        IOrdersService OrdersService { get; }
     }
 }

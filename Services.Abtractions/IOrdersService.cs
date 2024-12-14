@@ -14,5 +14,9 @@ namespace Services.Abtractions
         Task<List<OrderDTO>> GetOrdersByEventIdAsync(int eventId);
         Task<List<OrderDTO>> GetOrdersByUserIdAsync(string userId);
         Task<bool> ConfirmOrderAsync(int orderId);
+        Task<OrderDTO> GetOrderByIdAsync(int orderId);
+        Task<bool> UpdateOrderAsync(OrderDTO order);
+        Task<int> CancelledOrderAsync(int orderId);
+        Task<int?> GetPendingEventOrderId(string userId, int eventId);
     }
 }

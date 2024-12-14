@@ -12,8 +12,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(RepositoryDbContext))]
-    [Migration("20241212070328_configTicketAndOrderItem")]
-    partial class configTicketAndOrderItem
+    [Migration("20241214034238_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -106,13 +106,13 @@ namespace Persistence.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "08cbfbf0-4faa-485b-9dd0-d71ab1682df5",
+                            ConcurrencyStamp = "ec9be6b8-ec3c-438e-ac5b-095a6b58366e",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIi0RhzHAW/OxcEf6qmCuZ4vOBdadtzODFYoExcEWFnd+yg5PSe075s8dYrocXj3hQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELK4dGKGA7+V90vQfo/oSaQETPlaMbYOPRcgSZ0LChVra2XlqGe7dfiP103/2/Vfpg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "297cce95-4355-4359-8f50-7ddbee2210d0",
+                            SecurityStamp = "5f5d5c01-cbc9-447a-a0f0-809be9b88c1c",
                             TwoFactorEnabled = false,
                             UserName = "admin@admin.com"
                         },
@@ -120,13 +120,13 @@ namespace Persistence.Migrations
                         {
                             Id = "029c00f5-5c22-48a1-bbf5-2a17bf6a2279",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1ba6f84f-6b85-4361-8f3d-4a5e1641d2ea",
+                            ConcurrencyStamp = "2afa91fd-e517-4d36-9f5d-6bcac4f657f3",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ORGANIZER@ADMIN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHBZtu+sH82TdWiw7xLZhwgCz152xWeqZKWPzyrQxpM4pQX5INBAHVs9ZaRf0gTvSg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHTimvdgc2t+OjaCrZJbX0migDxgnOun4taYm6xNCXjoJZzuH+iqIqYGIPtWWbrWcQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c04b3b6e-f54e-4181-a13b-a570aa1c248a",
+                            SecurityStamp = "9816d483-7720-44f7-b1b8-01ae19476429",
                             TwoFactorEnabled = false,
                             UserName = "organizer@admin.com"
                         });
@@ -184,11 +184,6 @@ namespace Persistence.Migrations
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
-
-                    b.Property<string>("PrivateReferenceNUmber")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("TicketId")
                         .HasColumnType("int");
@@ -938,6 +933,143 @@ namespace Persistence.Migrations
                     b.HasIndex("EventId");
 
                     b.ToTable("Tickets");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Trải nghiệm cao cấp với khu vực VIP và nhiều đặc quyền.",
+                            EventId = 1,
+                            IsDeleted = false,
+                            MaxPerPerson = 2,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Price = 1000000,
+                            QuantityAvailable = 100,
+                            QuantitySold = 0,
+                            Status = 1,
+                            Title = "Vé vàng"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Trải nghiệm phổ thông nhưng đầy đủ tiện nghi.",
+                            EventId = 1,
+                            IsDeleted = false,
+                            MaxPerPerson = 4,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Price = 500000,
+                            QuantityAvailable = 200,
+                            QuantitySold = 0,
+                            Status = 1,
+                            Title = "Vé bạc"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Trải nghiệm cơ bản, phù hợp với ngân sách thấp.",
+                            EventId = 1,
+                            IsDeleted = false,
+                            MaxPerPerson = 5,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Price = 300000,
+                            QuantityAvailable = 300,
+                            QuantitySold = 0,
+                            Status = 1,
+                            Title = "Vé Đồng"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Giá ưu đãi cho người đặt vé sớm.",
+                            EventId = 1,
+                            IsDeleted = false,
+                            MaxPerPerson = 1,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Price = 2000000,
+                            QuantityAvailable = 50,
+                            QuantitySold = 0,
+                            Status = 1,
+                            Title = "Vé Early Bird"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Vé tham dự sự kiện Yoga for Beginners",
+                            EventId = 2,
+                            IsDeleted = false,
+                            MaxPerPerson = 2,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Price = 200000,
+                            QuantityAvailable = 50,
+                            QuantitySold = 0,
+                            Status = 1,
+                            Title = "Vé thường"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Vé VIP tham dự sự kiện Yoga for Beginners",
+                            EventId = 2,
+                            IsDeleted = false,
+                            MaxPerPerson = 1,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Price = 300000,
+                            QuantityAvailable = 20,
+                            QuantitySold = 0,
+                            Status = 1,
+                            Title = "Vé VIP"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Vé tham dự Marathon Training Program",
+                            EventId = 3,
+                            IsDeleted = false,
+                            MaxPerPerson = 1,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Price = 100000,
+                            QuantityAvailable = 100,
+                            QuantitySold = 0,
+                            Status = 1,
+                            Title = "Vé chạy bộ"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Vé VIP tham dự Marathon Training Program",
+                            EventId = 3,
+                            IsDeleted = false,
+                            MaxPerPerson = 1,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Price = 200000,
+                            QuantityAvailable = 50,
+                            QuantitySold = 0,
+                            Status = 1,
+                            Title = "Vé VIP chạy bộ"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Vé nhóm tham dự Marathon Training Program (cho 3 người)",
+                            EventId = 3,
+                            IsDeleted = false,
+                            MaxPerPerson = 3,
+                            ModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Price = 250000,
+                            QuantityAvailable = 30,
+                            QuantitySold = 0,
+                            Status = 1,
+                            Title = "Vé nhóm chạy bộ"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

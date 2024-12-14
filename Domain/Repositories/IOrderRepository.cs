@@ -8,5 +8,9 @@ namespace Domain.Repositories
         // lấy danh sách đơn hàng theo id sự kiện
         Task<List<Orders>>GetOrdersByEventIdAsync(int eventId);
         Task<List<Orders>> GetOrdersByUserIdAsync(string userId);
+
+
+        Task<IEnumerable<Orders>> GetOrdersReadyForCancellationAsync(CancellationToken cancellationToken);
+        Task<Orders?> GetOrderByUserAndEventIdAsync(string userId, int eventId);
     }
 } 

@@ -2,6 +2,7 @@ using Domain.Entities;
 using Domain.Enum;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace Persistence
 {
@@ -56,6 +57,7 @@ namespace Persistence
             // Seeding Category event
             SeedCategories(modelBuilder);
             SeedEvents(modelBuilder);
+            SeedTickets(modelBuilder);
         }
 
         private static void SeedCategories(ModelBuilder modelBuilder)
@@ -373,6 +375,118 @@ namespace Persistence
                 CoverUrl = "/images/events/science-discovery-day-cover.jpg"
             }
                 );
+        }
+        private static void SeedTickets(ModelBuilder builder)
+        {
+            builder.Entity<Tickets>().HasData(
+                new Tickets
+                {
+                    Id = 1,
+                    Title = "Vé vàng",
+                    Description = "Trải nghiệm cao cấp với khu vực VIP và nhiều đặc quyền.",
+                    Price = 1000000,
+                    MaxPerPerson = 2,
+                    QuantityAvailable = 100,
+                    QuantitySold = 0,
+                    Status = TicketStatus.Available,
+                    EventId = 1
+                },
+                new Tickets
+                {
+                    Id = 2,
+                    Title = "Vé bạc",
+                    Description = "Trải nghiệm phổ thông nhưng đầy đủ tiện nghi.",
+                    Price = 500000,
+                    MaxPerPerson = 4,
+                    QuantityAvailable = 200,
+                    QuantitySold = 0,
+                    Status = TicketStatus.Available,
+                    EventId = 1
+                },
+                new Tickets
+                {
+                    Id = 3,
+                    Title = "Vé Đồng",
+                    Description = "Trải nghiệm cơ bản, phù hợp với ngân sách thấp.",
+                    Price = 300000,
+                    MaxPerPerson = 5,
+                    QuantityAvailable = 300,
+                    QuantitySold = 0,
+                    Status = TicketStatus.Available,
+                    EventId = 1
+                },
+                new Tickets
+                {
+                    Id = 4,
+                    Title = "Vé Early Bird",
+                    Description = "Giá ưu đãi cho người đặt vé sớm.",
+                    Price = 2000000,
+                    MaxPerPerson = 1,
+                    QuantityAvailable = 50,
+                    QuantitySold = 0,
+                    Status = TicketStatus.Available,
+                    EventId = 1
+                },
+                new Tickets
+                {
+                    Id = 5,
+                    Title = "Vé thường",
+                    Description = "Vé tham dự sự kiện Yoga for Beginners",
+                    Price = 200000,
+                    MaxPerPerson = 2,
+                    QuantityAvailable = 50,
+                    QuantitySold = 0,
+                    Status = TicketStatus.Available,
+                    EventId = 2
+                },
+                new Tickets
+                {
+                    Id = 6,
+                    Title = "Vé VIP",
+                    Description = "Vé VIP tham dự sự kiện Yoga for Beginners",
+                    Price = 300000,
+                    MaxPerPerson = 1,
+                    QuantityAvailable = 20,
+                    QuantitySold = 0,
+                    Status = TicketStatus.Available,
+                    EventId = 2
+                },
+                new Tickets
+                {
+                    Id = 7,
+                    Title = "Vé chạy bộ",
+                    Description = "Vé tham dự Marathon Training Program",
+                    Price = 100000,
+                    MaxPerPerson = 1,
+                    QuantityAvailable = 100,
+                    QuantitySold = 0,
+                    Status = TicketStatus.Available,
+                    EventId = 3
+                },
+                new Tickets
+                {
+                    Id = 8,
+                    Title = "Vé VIP chạy bộ",
+                    Description = "Vé VIP tham dự Marathon Training Program",
+                    Price = 200000,
+                    MaxPerPerson = 1,
+                    QuantityAvailable = 50,
+                    QuantitySold = 0,
+                    Status = TicketStatus.Available,
+                    EventId = 3
+                },
+                new Tickets
+                {
+                    Id = 9,
+                    Title = "Vé nhóm chạy bộ",
+                    Description = "Vé nhóm tham dự Marathon Training Program (cho 3 người)",
+                    Price = 250000,
+                    MaxPerPerson = 3,
+                    QuantityAvailable = 30,
+                    QuantitySold = 0,
+                    Status = TicketStatus.Available,
+                    EventId = 3
+                });
         }
     }
 }

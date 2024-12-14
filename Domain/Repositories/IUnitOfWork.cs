@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Domain.Repositories
     /// <summary>
     /// Unit of Work Interface.
     /// </summary>
-    public interface IUnitOfWork : IAsyncDisposable
+    public interface IUnitOfWork
     {
         #region Properties
 
@@ -28,8 +29,10 @@ namespace Domain.Repositories
         #endregion
 
         #region Methods
-
+        Task<IDbContextTransaction> BeginTransactionAsync();
         Task CompleteAsync();
+        Task CommitTransactionAsync();
+        Task RollbackTransactionAsync();
 
         #endregion
     }

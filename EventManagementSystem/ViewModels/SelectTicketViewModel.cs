@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Web.ViewModels.Booking
+namespace Web.ViewModels
 {
     public class SelectTicketViewModel
     {
@@ -21,7 +21,7 @@ namespace Web.ViewModels.Booking
         public int Id { get; set; }
         public string? Title { get; set; }
         public string? Description { get; set; }
-        public decimal? Price { get; set; }
+        public int? Price { get; set; }
         public int QuantityBuy { get; set; }
         public int? QuantityAvailable { get; set; }
         public int? QuantitySold { get; set; }

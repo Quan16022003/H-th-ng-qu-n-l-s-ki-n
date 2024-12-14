@@ -1,0 +1,154 @@
+﻿/* CSS Variables */
+:root {
+    --primary-color: #EA4170;
+    --primary-hover: #d93763;
+    --text-color: #333;
+    --muted-text-color: #666;
+    --background-color: #f8f9fa;
+    --border-color: #ddd;
+    --white: #fff;
+}
+
+/* Reset Default Styles */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Body and Container Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    flex-grow: 1;
+}
+
+/* Heading Styles */
+h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+h4 {
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+}
+
+
+/* Event Info Styles */
+.event-info {
+    margin-bottom: 1rem;
+    color: var(--muted-text-color);
+}
+
+    .event-info strong {
+        font-weight: bold;
+    }
+
+.event-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 1.2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+
+/* Ticket List Styles */
+ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+    color: var(--muted-text-color)
+}
+
+/* Payment Method Styles */
+.form-check {
+    margin-bottom: 0.5rem;
+}
+
+.form-check-input {
+    margin-top: 0.25rem;
+}
+/* Button styles */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+    .btn-primary:hover,
+    .btn-primary:focus,
+    .btn-primary:active {
+        background-color: var(--primary-hover) !important;
+        border-color: var(--primary-hover) !important;
+    }
+
+.btn-block {
+    display: block;
+    width: 100%;
+}
+/* Responsive styles */
+@media (min-width: 992px) {
+    .container {
+        max-width: 800px;
+    }
+}
+/* Responsive styles for smaller devices */
+@media (max-width: 767.98px) {
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    h3 {
+        font-size: 1.3rem;
+    }
+
+    h4 {
+        font-size: 1rem;
+    }
+
+    .form-check {
+        margin-bottom: 0.3rem;
+    }
+
+    .event-info {
+        font-size: 0.9rem;
+    }
+
+    li {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .container {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+}
