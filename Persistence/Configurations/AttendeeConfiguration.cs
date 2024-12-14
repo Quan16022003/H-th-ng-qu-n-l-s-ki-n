@@ -26,9 +26,6 @@ namespace Persistence.Configurations
                 .IsRequired()
                 .HasMaxLength(200);
 
-            builder.Property(a => a.PrivateReferenceNUmber)
-                .HasMaxLength(50);
-
             builder.Property(a => a.IsCancelled)
                 .IsRequired();
 

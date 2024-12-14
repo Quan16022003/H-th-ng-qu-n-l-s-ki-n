@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Enum;
 using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -31,5 +32,19 @@ namespace Persistence.Repositories
                 .ToListAsync();
         }
 
+        public async Task<IEnumerable<Orders>> GetOrdersReadyForCancellationAsync(CancellationToken cancellationToken)
+        {
+            return await _dbSet
+                .Where( o => o.OrderStatus == Domain.Enum.OrderStatus.Pending && o.CreatedDate <= DateTime.Now.AddMinutes(-15) )
+                .Take(100)
+                .ToListAsync(cancellationToken);
+        }
+        public async Task<Orders?> GetOrderByUserAndEventIdAsync(string userId, int eventId)
+        {
+            return await _dbSet
+                .FirstOrDefaultAsync(o => o.UserId == userId && o.EventId == eventId &&
+                                  o.OrderStatus == OrderStatus.Pending &&
+                                  o.CreatedDate >= DateTime.Now.AddMinutes(-15));
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace Constracts.DTO
 {
     public class EventDTO : BaseDTO
     {
-        public required string Title { get; set; }
+        public string? Title { get; set; }
         public string? Description { get; set; }
         public bool IsPublic { get; set; } = false;
 
@@ -30,6 +30,7 @@ namespace Constracts.DTO
         #region venue
 
         public string? VenueName { get; set; }
+        public string? Street { get; set; }
         public string? City { get; set; }
         public string? District { get; set; }
         public string? Ward { get; set; }
@@ -37,9 +38,6 @@ namespace Constracts.DTO
         public string? PostalCode { get; set; }
         public decimal? Latitude { get; set; }
         public decimal? Longitude { get; set; }
-        public string? PlaceId { get; set; }
-        public string? PhoneNumber { get; set; }
-        public string? WebsiteUrl { get; set; }
 
         #endregion
 

@@ -5,47 +5,58 @@
 	ViewBag.IsInEvent = "selected";
 }
 
-@Html.AntiForgeryToken()
 <div class="w-100 h-100">
-	<form method="post" class="dashboard-form dashboard-event-form w-100 h-100">
-		@await Html.PartialAsync("./Partials/_ImageInput")
-		<div class="dashboard-event-divider w-100 d-flex justify-content-center">
-			<hr />
+	<div class="dashboard-event-tab w-100">
+		<ul class="nav nav-tabs">
+			<li class="nav-item">
+				<button data-classHandle="dashboard-event-information-tab"
+						type="button" class="nav nav-link active available">
+					Thông tin cơ bản
+				</button>
+			</li>
+			<li class="nav-item" style="z-index: 20">
+				<div class="nav nav-link popup-textbox-hover">
+					Địa điểm
+					<i class="fa-solid fa-circle-info text-danger"></i>
+					<div class="popup-textbox-hover-text rounded"
+						 style="width: fit-content; bottom: -50px !important">
+						Nhập và lưu thông tin cơ bản trước
+					</div>
+				</div>
+			</li>
+			<li class="nav-item" style="z-index: 20">
+				<div data-classHandle="dashboard-event-time-tab"
+					 class="dashboard-event-venue-header nav nav-link popup-textbox-hover">
+					Thời gian
+					<i class="fa-solid fa-circle-info text-danger"></i>
+					<div class="popup-textbox-hover-text rounded"
+						 style="width: fit-content; bottom: -50px !important">
+						Nhập và lưu thông tin cơ bản trước
+					</div>
+				</div>
+			</li>
+			<li class="nav-item" style="z-index: 20">
+				<div data-classHandle="dashboard-event-publish-tab"
+					 class="dashboard-event-publish-header nav nav-link popup-textbox-hover">
+					Publish
+					<i class="fa-solid fa-circle-info text-danger"></i>
+					<div class="popup-textbox-hover-text rounded"
+						 style="width: fit-content; bottom: -50px !important">
+						Nhập và lưu thông tin cơ bản trước
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div class="w-100 d-flex justify-content-center">
+		<div class="dashboard-event-content w-100 p-0">
+			<form method="post" class="dashboard-form dashboard-event-basic-infor-form add-form dashboard-event-information-tab w-100">
+				@Html.AntiForgeryToken()
+				@await Component.InvokeAsync("EventBasicInformationForm")
+			</form>
 		</div>
-		<div class="w-100 d-flex justify-content-center">
-			<div class="dashboard-event-content">
-				<div class="dashboard-event-tab w-100">
-					<ul class="nav nav-tabs">
-						<li class="nav-item">
-							<button data-classHandle="dashboard-event-information-tab"
-									type="button" class="nav nav-link active">
-								Thông tin cơ bản
-							</button>
-						</li>
-						<li class="nav-item">
-							<button data-classHandle="dashboard-event-venue-tab"
-									type="button" class="nav nav-link">
-								Địa điểm
-							</button>
-						</li>
-					</ul>
-				</div>
-				<div class="dashboard-event-information-tab w-100">
-					@await Component.InvokeAsync("EventBasicInformationForm")
-				</div>
-				<div class="dashboard-event-venue-tab w-100 d-none">
-					@await Component.InvokeAsync("EventVenueForm")
-				</div>
-				<div class="mt-4">
-					<button type="submit"
-							class="dashboard-submit-button btn btn-primary rounded-4 shadow bg-light-green border-0 bubble-hover">
-						<i class="fa-solid fa-plus"></i>
-						Create
-					</button>
-				</div>
-			</div>
-		</div>
-	</form>
+	</div>
+
 </div>
 
 

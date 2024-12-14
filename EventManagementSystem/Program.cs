@@ -14,6 +14,7 @@ using Web.Utils.ViewsPathServices;
 using Web.Utils.ViewsPathServices.Implementations;
 using Microsoft.AspNetCore.Mvc;
 using Web.Config;
+using Web.Utils;
 using Mapster;
 
 using EmailService;
@@ -77,6 +78,7 @@ builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.AddScoped<IServiceManager, ServiceManager>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.AddScoped<IVnPayService, VnPayService>();
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
 // Add repositories to DI container
@@ -84,12 +86,16 @@ builder.Services.RegisterAllRepositories();
 builder.Services.RegisterAllServices();
 builder.Services.RegisterPolicy();
 
+builder.Services.AddHostedService<OrderCancelledService>();
+
 builder.Services.RegisterPathProvideManager();
 
 builder.Services.RegisterSlugifyTransformer();
 
 builder.Services.AddScoped<IFileService>(provider => 
     new FileService(builder.Environment.WebRootPath));
+
+builder.SetEnvRootPath();
 
 var emailConfig = builder.Configuration.GetSection("EmailConfiguration")
     .Get<EmailConfiguration>();
@@ -99,7 +105,7 @@ if (emailConfig == null)
 }
 
 builder.Services.AddSingleton(emailConfig);
-var app = builder.Build();
+WebApplication app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -123,5 +129,6 @@ app.RegisterAllRoutes();
 app.MapRazorPages();
 
 TypeAdapterConfig.GlobalSettings.Default.IgnoreNullValues(true);
+EnvLoader.Load(".env");
 
 app.Run();

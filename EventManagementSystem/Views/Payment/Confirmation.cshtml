@@ -1,0 +1,53 @@
+﻿@model Web.ViewModels.PaymentConfirmationViewModel
+@{
+    ViewData["Title"] = "Xác nhận";
+    Layout = "_BookingLayout";
+}
+
+@section Styles {
+    <link href="~/css/confirmation.css" rel="stylesheet" />
+}
+
+<div class="container">
+    <h2>Xác nhận thanh toán thành công!</h2>
+    <h3>Mã đặt vé: @Model.OrderId</h3>
+
+    <h4>Thông tin sự kiện</h4>
+    <div class="event-info">
+        <p><strong>Tên sự kiện:</strong> @Model.EventTitle</p>
+        <p><strong>Ngày diễn ra:</strong> @Model.EventDate.ToString("dd/MM/yyyy")</p>
+        <p><strong>Địa điểm:</strong> @Model.EventLocation</p>
+    </div>
+
+    <h4>Chi tiết vé</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Tên vé</th>
+                <th>Số lượng</th>
+                <th>Đơn giá</th>
+                <th>Tổng tiền</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ticket in Model.TicketTypes)
+            {
+                <tr>
+                    <td>@ticket.Title</td>
+                    <td>@ticket.QuantityBuy</td>
+                    <td>@ticket.FormattedPrice</td>
+                    <td>@((ticket.QuantityBuy * ticket.Price.Value).ToString("N0") + " VNĐ")</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3"><strong>Tổng cộng:</strong></td>
+                <td><strong>@Model.TotalAmount.ToString("N0") VNĐ</strong></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <p>Cảm ơn bạn đã đặt vé!</p>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary btn-block">Trở về trang chủ</a>
+</div>

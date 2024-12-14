@@ -3,7 +3,7 @@
 /**
  * Assgin event for preview image change when choose image file, should be called when load (e.g: in $(document).ready)
  * 
- * This only applied for partial view _ImageInput in dashboard
+ * This only applied for view component ImageInput in dashboard
  */
 export const assignImageInputEvent = () => {
     $(".choose-img-button").find("input[type=file]").on("change", (e) => {

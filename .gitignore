@@ -13,8 +13,9 @@
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
-# .vs
+# .vs & .env
 **/.vs
+**/.env
 
 # Mono auto generated files
 mono_crash.*
@@ -367,3 +368,6 @@ FodyWeavers.xsd
 
 # Node Module
 ./node_modules
+
+# Client Image
+/EventManagementSystem/wwwroot/images/client/*

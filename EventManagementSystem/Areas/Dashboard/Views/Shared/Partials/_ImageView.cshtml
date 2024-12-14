@@ -1,0 +1,11 @@
+﻿@model string
+
+@{
+	string imagePath = Model != null && Model != null
+							? $"/{Model}" : "/images/403bg.gif";
+}
+
+<div class="dashboard-img-input w-100 d-flex justify-content-center" style="background-image: url(@imagePath)">
+	<img class="d-block"
+		 src="@imagePath" />
+</div>

@@ -1,30 +1,30 @@
-﻿@model Constracts.EventCategory.EventCategoryDTO
+﻿@using Microsoft.IdentityModel.Tokens;
+@model string
 
 @{
-	string imagePath = Model != null && Model.ThumbnailUrl != null
-							? $"/{Model.ThumbnailUrl}" : "/images/403bg.gif";
+	string imagePath = !Model.IsNullOrEmpty() ? $"/{Model}" : "/images/403bg.gif";
 }
 
 <div class="dashboard-img-input w-100 d-flex justify-content-center" style="background-image: url(@imagePath)">
 	<img class="d-block"
 		 src="@imagePath" />
 	<div class="choose-img-button-container d-flex align-items-center">
-		<div class="image-recommend"
+		<div class="popup-textbox-hover"
 			 style="height: 30px; width: 30px">
 			<i style="font-size: 25px" class="fa-solid fa-circle-info dashboard-text-selected"></i>
-			<div class="image-recommend-text rounded" style="width: fit-content">
+			<div class="popup-textbox-hover-text rounded" style="width: fit-content">
 				Dùng ảnh với độ phân giải 16/9 để hình ảnh được đẹp mắt nhất
 			</div>
 		</div>
 		<div class="choose-img-button btn p-2 position-relative">
 			<i class="fa-solid fa-image"></i>
-			Update Image
+			Upload Image
 			<input type="file"
 				   id="imageFile"
 				   name="imageFile"
 				   accept=".jpg, .jpeg, .png, .webp"
 				   class="opacity-0 position-absolute w-100 h-100 top-0 start-0"
-				   @(Model == null ? "required" : "") />
+			@(Model.IsNullOrEmpty() ? "required" : "") />
 		</div>
 	</div>
 </div>

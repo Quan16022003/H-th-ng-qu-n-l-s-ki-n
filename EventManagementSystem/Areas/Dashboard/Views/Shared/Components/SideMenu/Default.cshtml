@@ -1,7 +1,7 @@
 ﻿@using Web.Authorize
 @model Web.Areas.Dashboard.ViewModels.AuthorizedViewModel
 
-<nav class="side-menu open position-fixed overflow-hidden d-flex flex-column">
+<nav class="side-menu close position-fixed overflow-hidden d-flex flex-column">
 	<a asp-area="Dashboard"
 	   asp-controller="Statistics" 
 	   asp-action="Index"
@@ -81,6 +81,14 @@
 								<span>Bookings</span>
 							</a>
 						</li>
+						<li class="dashboard-menu-item @ViewBag.IsInTicket">
+							<a asp-area="Dashboard" asp-controller="Ticket" asp-action="Index" class="text-reset text-decoration-none w-100 h-100">
+								<div class="h-100 d-flex justify-content-center menu-icon ms-4">
+									<i class="fa-solid fa-money-bill"></i>
+								</div>
+								<span>Tickets</span>
+							</a>
+						</li>
 					</ul>
 				</div>
 			</li>
@@ -127,14 +135,6 @@
 									<i class="fa-regular fa-file-lines"></i>
 								</div>
 								<span>Pages</span>
-							</a>
-						</li>
-						<li class="dashboard-menu-item @ViewBag.IsInMedia">
-							<a asp-area="Dashboard" asp-controller="Media" asp-action="Index" class="text-reset text-decoration-none w-100 h-100">
-								<div class="h-100 d-flex justify-content-center menu-icon ms-4">
-									<i class="fa-solid fa-music"></i>
-								</div>
-								<span>Media</span>
 							</a>
 						</li>
 					</ul>
