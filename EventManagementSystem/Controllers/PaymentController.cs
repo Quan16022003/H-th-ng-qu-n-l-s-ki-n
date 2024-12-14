@@ -1,4 +1,5 @@
-﻿using Domain.Enum;
+﻿using Constracts.DTO;
+using Domain.Enum;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol;
@@ -11,9 +12,11 @@ namespace Web.Controllers
     public class PaymentController : Controller
     {
         private readonly IServiceManager _serviceManager;
-        public PaymentController(IServiceManager serviceManager)
+        private readonly IVnPayService _vnPayService;
+        public PaymentController(IServiceManager serviceManager, IVnPayService vnPayService)
         {
             _serviceManager = serviceManager;
+            _vnPayService = vnPayService;
         }
 
         [HttpGet]
@@ -29,7 +32,6 @@ namespace Web.Controllers
             if (order?.OrderStatus != OrderStatus.Pending || order.CreatedDate < DateTime.Now.AddMinutes(-15))
             {
                 // Đơn hàng đã được thanh toán hoặc quá thời gian 15 phút
-                Console.WriteLine("Chuyển hướng 2");
                 return RedirectToAction("Index", "Home"); // Chuyển hướng về trang chủ
             }
 
@@ -81,59 +83,27 @@ namespace Web.Controllers
                 return BadRequest();
             }
 
-            model.Adapt(order);
-            await _serviceManager.OrdersService.UpdateOrderAsync(order);
-
-            if (PaymentProcess(orderId).Result)
-            {
-                return RedirectToAction("Confirmation", new { orderId });
-            }
-            return BadRequest();
-            //return Redirect($"/order/{orderId}/success");
+            await _serviceManager.OrdersService.ConfirmOrderAsync(orderId);
             return RedirectToAction("Confirmation", new { orderId });
+
+            // Gọi VNPAY (đang bị lỗi)
+            /*var payInfo = new PaymentInfomationDTO
+            {
+                Amount = (double)model.TotalAmount,
+                OrderId = orderId,
+                OrderType = "BUY",
+                Name = $"Đơn hàng {orderId} - {model.EventTitle}",
+                OrderDescription = $"Thanh toán vé sự kiện {model.EventTitle} - Ngày {model.EventDate} tại {model.EventLocation}"
+            };
+
+            //Store orderId in session or TempData for later retrieval in callback
+            TempData["OrderId"] = orderId;
+
+            return RedirectToAction("CreatePaymentUrl", "Checkout", new { payInfo = payInfo });
+*/
         }
 
-        public async Task<IActionResult> PaymentConfirm(int orderId)
-        {
-            try
-            {
-                await _serviceManager.OrdersService.ConfirmOrderAsync(orderId);
 
-                return RedirectToAction("PaymentSuccess", new {orderId});
-            } catch (Exception ex)
-            {
-                return NotFound();
-            }
-        }
-
-        public async Task<bool> PaymentProcess( int orderId)
-        {
-            // Thực hiện các thao tác với vnpay
-
-            try
-            {
-                //Simulate Payment Gateway interaction
-                var paymentResult = await SimulatePaymentGateway(orderId);
-                if (!paymentResult)
-                {
-                    return false;
-                }
-                await _serviceManager.OrdersService.ConfirmOrderAsync(orderId);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                // Log the exception properly
-                Console.WriteLine(ex.Message);
-                return false;
-            }
-        }
-
-        private async Task<bool> SimulatePaymentGateway(int orderId){
-            //Replace this with your actual Payment Gateway integration
-            await Task.Delay(1000); //Simulate processing time
-            return true; //Simulate success
-        }
 
         [HttpPost]
         public IActionResult CancelOrder([FromQuery]int orderId)

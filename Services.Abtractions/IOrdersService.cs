@@ -10,12 +10,12 @@ namespace Services.Abtractions
     public  interface IOrdersService
     {
         Task<int> CreateOrderAsync(OrderDTO orderDTO);
-        Task<OrderDTO> GetOrderByIdAsync(int orderId);
-        Task<List<OrderDTO>> GetOrdersAsync();
-        Task<List<OrderDTO>> GetOrdersByUserIdAsync(string userId);
+        Task<List <OrderDTO>> GetOrdersAsync();
         Task<List<OrderDTO>> GetOrdersByEventIdAsync(int eventId);
-        Task<bool> UpdateOrderAsync(OrderDTO order);
+        Task<List<OrderDTO>> GetOrdersByUserIdAsync(string userId);
         Task<bool> ConfirmOrderAsync(int orderId);
+        Task<OrderDTO> GetOrderByIdAsync(int orderId);
+        Task<bool> UpdateOrderAsync(OrderDTO order);
         Task<int> CancelledOrderAsync(int orderId);
         Task<int?> GetPendingEventOrderId(string userId, int eventId);
     }

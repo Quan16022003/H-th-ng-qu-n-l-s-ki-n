@@ -10,13 +10,13 @@ using Services.Abtractions;
 public class OrdersService : IOrdersService
 {
     private readonly IOrderRepository _orderRepository;
-    private readonly IUnitOfWork _unitOfWork;
     private readonly IEventRepository _eventRepository;
     private readonly IOrderItemRepository _orderItemRepository;
     private readonly IEmailSender _emailSender;
     private readonly IAttendeeRepository _attendeeRepository;
+
     private readonly IMapper _mapper;
-    private IUnitOfWork unitOfWork;
+    private IUnitOfWork _unitOfWork;
 
     public OrdersService(IUnitOfWork unitOfWork, IMapper mapper)
     {
@@ -216,7 +216,7 @@ public class OrdersService : IOrdersService
                     TicketId = orderItem.TicketId, 
                     EventId = order.EventId
                 };
-                var attendee = _mapper.Map<Attendees>(attendeeDto);
+                var attendee = attendeeDto.Adapt<Attendees>();
                 await _attendeeRepository.AddAsync(attendee);
                
             }

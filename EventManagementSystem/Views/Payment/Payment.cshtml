@@ -5,7 +5,6 @@
     Layout = "_BookingLayout";
 }
 
-
 @section Styles {
     <link rel="stylesheet" href="~/css/payment.css"/>
     <style>
@@ -29,17 +28,17 @@
         <div class="form-group">
             <label for="email">Email:</label>
             <input type="text" class="form-control readonly-input" id="email" asp-for="Email" readonly/>
-        </div>
+    </div>
         <div class="form-group">
             <label for="firstName">Họ:</label>
             <input type="text" class="form-control" id="firstName" asp-for="FirstName" />
             <span asp-validation-for="FirstName" class="text-danger"></span>
-        </div>
+    </div>
         <div class="form-group">
             <label for="lastName">Tên:</label>
             <input type="text" class="form-control" id="lastName" asp-for="LastName" />
             <span asp-validation-for="LastName" class="text-danger"></span>
-        </div>
+    </div>
         <div class="form-group">
             <label for="phoneNumber">Số điện thoại:</label>
             <input type="tel" class="form-control" id="phoneNumber" asp-for="PhoneNumber" />
@@ -76,10 +75,10 @@
             <label class="form-check-label" for="paymentMethodVNPay">
                 VNPay
             </label>
-        </div>
+    </div>
 
         <button class="btn btn-primary" type="submit">@(Model.TotalAmount > 0 ? "Thanh toán ngay" : "Đặt vé miễn phí")</button>
-    </form>
+</form>
 </div>
 
 @section Scripts {
