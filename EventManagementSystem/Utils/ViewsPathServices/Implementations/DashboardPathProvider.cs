@@ -19,10 +19,11 @@ namespace Web.Utils.ViewsPathServices.Implementations
                 nameof(StatisticsController) => $"{folder}/Statistics",
                 nameof(ContactController) => $"{folder}/Contact",
                 nameof(SettingController) => $"{folder}/Setting",
-                nameof(BookingController) => $"{folder}/ManageBookings",
+                nameof(BookingController) or nameof(TicketController) 
+                    => $"{folder}/ManageBookings",
                 nameof(CategoryController) => $"{folder}/ManageEvents/Category",
                 nameof(EventController) => $"{folder}/ManageEvents/Event",
-                nameof(BannerController) or nameof(MediaController) or nameof(PageController) 
+                nameof(BannerController) or nameof(PageController) 
                     => $"{folder}/ManageSite",
                 nameof(UserController) => $"{folder}/ManageUsers",
                 _ => throw new ArgumentException($"Does not found {target} in Dashboard Area")

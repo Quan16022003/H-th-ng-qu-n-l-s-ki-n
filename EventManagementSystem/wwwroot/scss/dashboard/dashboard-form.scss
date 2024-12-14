@@ -126,32 +126,32 @@ $dashboard-background-light: #4F4F4F;
     .choose-img-button:hover {
         box-shadow: 0 0 10px rgba(234, 65, 112, 0.8), 0 0 60px rgba(128, 0, 128, 0.8);
     }
+}
 
-    .image-recommend {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: visible;
-        position: relative;
+.popup-textbox-hover {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+    position: relative;
 
-        .image-recommend-text {
-            position: absolute;
-            white-space: nowrap;
-            background-color: lightgray;
-            color: black !important;
-            padding: 5px;
-            bottom: 50px;
-            right: -40px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-        }
+    .popup-textbox-hover-text {
+        position: absolute;
+        white-space: nowrap;
+        background-color: lightgray;
+        color: black !important;
+        padding: 5px;
+        bottom: 50px;
+        right: -40px;
+        opacity: 0;
+        transition: opacity 0.3s;
+        pointer-events: none;
     }
+}
 
-    .image-recommend:hover {
-        .image-recommend-text {
-            opacity: 1;
-        }
+.popup-textbox-hover:hover {
+    .popup-textbox-hover-text {
+        opacity: 1;
     }
 }
 

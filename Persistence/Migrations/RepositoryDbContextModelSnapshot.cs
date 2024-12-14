@@ -408,6 +408,9 @@ namespace Persistence.Migrations
                     b.Property<TimeSpan?>("StartTime")
                         .HasColumnType("time");
 
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ThumbnailUrl")
                         .HasMaxLength(2048)
                         .HasColumnType("nvarchar(2048)");

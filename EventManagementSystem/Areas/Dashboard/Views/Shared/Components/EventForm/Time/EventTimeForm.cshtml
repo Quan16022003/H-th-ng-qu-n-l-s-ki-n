@@ -1,0 +1,41 @@
+﻿@model Constracts.DTO.EventTimingDTO
+
+@functions {
+	string convertDateToText(DateTime? date)
+	{
+		if (!date.HasValue) return "";
+
+		DateTime value = date.Value;
+		return $"{value.Year}-{value.Month}-{value.Day}";
+	}
+}
+
+<div class="w-100 p-4 min-vh-100">
+	<div class="d-flex flex-wrap justify-content-center" style="gap: 10px">
+		<div style="width: 49%; min-width: 300px">
+			<label for="startDate">@Html.LabelFor(m => m.StartDate)</label>
+			<span class="text-warning">*</span>
+			<input id="startDate" required name="startDate" type="date" class="form-control" value="@convertDateToText(Model.StartDate)" />
+			<br />
+			<label for="startTime">@Html.LabelFor(m => m.StartTime)</label>
+			<span class="text-warning">*</span>
+			<input id="startTime" required name="startTime" type="time" class="form-control" value="@Html.DisplayFor(m => m.StartTime)" />
+		</div>
+		<div style="width: 49%; min-width: 300px">
+			<label for="endDate">@Html.LabelFor(m => m.EndDate)</label>
+			<span class="text-warning">*</span>
+			<input id="endDate" required name="endDate" type="date" class="form-control" value="@convertDateToText(Model.EndDate)" />
+			<br />
+			<label for="endTime">@Html.LabelFor(m => m.EndTime)</label>
+			<span class="text-warning">*</span>
+			<input id="endTime" required name="endTime" type="time" class="form-control" value="@Html.DisplayFor(m => m.EndTime)" />
+		</div>
+	</div>
+	<div class="mt-4 ms-3">
+		<button type="submit"
+				class="dashboard-submit-button btn btn-primary rounded-4 shadow bg-light-green border-0 bubble-hover">
+			<i class="fa-solid fa-floppy-disk"></i>
+			Save
+		</button>
+	</div>
+</div>

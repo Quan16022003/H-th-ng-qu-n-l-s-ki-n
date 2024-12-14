@@ -24,10 +24,13 @@
     "datatables.net": "^2.1.8",
     "datatables.net-bs5": "^2.1.8",
     "datatables.net-plugins": "^2.1.7",
+    "dotenv": "^16.4.6",
     "imports-loader": "^5.0.0",
     "jquery": "^3.7.1",
     "jquery-validation": "^1.21.0",
     "jquery-validation-unobtrusive": "^4.0.0",
+    "leaflet": "^1.9.4",
+    "leaflet-geosearch": "^4.0.0",
     "toastr": "^2.1.4"
   },
   "dev-server": "webpack-dev-server --env=development --hot",

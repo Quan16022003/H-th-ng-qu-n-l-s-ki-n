@@ -1,0 +1,46 @@
+﻿@model Constracts.EventCategory.EventCategoryDTO
+@{
+	ViewData["Title"] = "View Category";
+	ViewBag.Current = "Categories";
+	ViewBag.IsInManageEvents = "selected";
+	ViewBag.IsInCategory = "selected";
+}
+
+<div class="w-100 h-100">
+	<div class="ms-4 pt-4 pb-4">
+		<h1>@Model.Name Category</h1>
+	</div>
+	@await Html.PartialAsync("./Partials/_ImageView", Model.ThumbnailUrl)
+	<div class="dashboard-category-divider w-100 d-flex justify-content-center">
+		<hr />
+	</div>
+	<div class="w-100 d-flex justify-content-center">
+		<div class="dashboard-category-content shadow">
+			<div class="d-flex align-items-center" style="gap: 20px">
+				<h4>Status:</h4>
+				<div style="width: fit-content"
+					 class="label @(Model.Status ? "bg-light-green" : "bg-danger")">
+					<div>@(Model.Status ? "Active" : "Inactive")</div>
+				</div>
+			</div>
+			<hr style="width: 98%" />
+			<div class="d-flex flex-wrap">
+				<div class="w-50" style="padding: 10px 0px; min-width: 200px">
+					<h5>Create At</h5>
+					<div>@Model.CreatedDate</div>
+				</div>
+				<div class="w-50" style="padding: 10px 0px; min-width: 200px">
+					<h5>Updated At</h5>
+					<div>@Model.ModifiedDate</div>
+				</div>
+			</div>
+			<hr style="width: 98%" />
+			<div>
+				<h5>Description</h5>
+				<div>
+					@Model.Description
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

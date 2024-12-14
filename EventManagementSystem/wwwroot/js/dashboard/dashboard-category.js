@@ -17,9 +17,9 @@ $(document).ready(() => {
         autoWidth: false,
         columnDefs: [
             { targets: -1, orderable: false }, // last col
-            { targets: 6, orderable: false },
+            { targets: 5, orderable: false },
+            { target: 3, type: "date-eu" },
             { target: 4, type: "date-eu" },
-            { target: 5, type: "date-eu" },
         ],
         language: {
             paginate: {
@@ -39,17 +39,16 @@ $(document).ready(() => {
 
 function assignEvent() {
     $(".delete-button").on("click", deleteCategory);
-    $(".add-form").on("submit", (e) => {
+    $(".dashboard-category-form.add-form").on("submit", (e) => {
         e.preventDefault();
         addCategory();
     });
 
-    $(".update-form").on("submit", (e) => {
+    $(".dashboard-category-form.update-form").on("submit", (e) => {
         e.preventDefault();
         updateCategory();
     })
 
-    assignCheckBoxInput();
     assignImageInputEvent();
 }
 
@@ -59,16 +58,18 @@ function assignEvent() {
 
 function addCategory() {
     let form = $(".dashboard-category-form")[0];
+    let submitButton = $(".dashboard-submit-button");
     let url = `${route}/${action.add}`
 
     let formData = new FormData(form);
 
-    $(".dashboard-submit-button").addClass("disabled");
-    postEntity(url, formData);
+    submitButton.addClass("disabled");
+    postEntity(url, formData, submitButton);
 }
 
 function updateCategory() {
     let form = $(".dashboard-category-form")[0];
+    let submitButton = $(".dashboard-submit-button");
     let url = `${route}/${action.put}`
 
     let formData = new FormData(form);
@@ -77,8 +78,8 @@ function updateCategory() {
         console.log(`${item[0]}: ${item[1]}`);
     };
 
-    $(".dashboard-submit-button").addClass("disabled");
-    putEntity(url, formData);
+    submitButton.addClass("disabled");
+    putEntity(url, formData, submitButton);
 }
 
 function deleteCategory() {

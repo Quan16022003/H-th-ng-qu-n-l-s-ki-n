@@ -1,1 +1,93 @@
-﻿
+﻿@model Constracts.DTO.EventVenueDTO
+
+<div class="w-100 d-flex justify-content-center pt-4 min-vh-100">
+	<div style="width: 95%">
+		<h5>Tìm kiếm địa điểm bạn muốn tổ chức</h5>
+		<hr class="w-100" />
+		<div class="w-100" style="height: 500px">
+			<div id="map" class="rounded-2">
+			</div>
+		</div>
+		<hr class="w-100" />
+		<div class="d-flex w-100" style="gap: 10px">
+			<div class="w-50" style="min-width: 100px">
+				<label for="venueName">@Html.LabelFor(m => m.VenueName)</label>
+				<span class="text-warning">*</span>
+				<input disabled required id="venueName" name="venueName"
+					   value="@Model.VenueName"
+					   class="form-control" />
+				<input hidden value="@Model.VenueName" name="venueName" />
+			</div>
+			<div class="w-50" style="min-width: 100px">
+				<label for="city">@Html.LabelFor(m => m.City)</label>
+				<span class="text-warning">*</span>
+				<input disabled required id="city" name="city"
+					   value="@Model.City"
+					   class="form-control" />
+				<input hidden value="@Model.City" name="city" />
+			</div>
+		</div>
+		<div class="d-flex w-100" style="gap: 10px">
+			<div class="w-50" style="min-width: 100px">
+				<label for="street">@Html.LabelFor(m => m.Street)</label>
+				<span class="text-warning">*</span>
+				<input disabled required id="street" name="street"
+					   value="@Model.Street"
+					   class="form-control" />
+				<input hidden value="@Model.Street" name="street" />
+			</div>
+			<div class="w-50" style="min-width: 100px">
+				<label for="postalCode">@Html.LabelFor(m => m.PostalCode)</label>
+				<span class="text-warning">*</span>
+				<input disabled required id="postalCode" name="postalCode"
+					   value="@Model.PostalCode"
+					   class="form-control" />
+				<input hidden value="@Model.PostalCode" name="postalCode" />
+			</div>
+		</div>
+		<div class="d-flex w-100" style="gap: 10px">
+			<div class="w-50" style="min-width: 100px">
+				<label for="district">@Html.LabelFor(m => m.District)</label>
+				<span class="text-warning">*</span>
+				<input disabled required id="district" name="district"
+					   value="@Model.District"
+					   class="form-control" />
+				<input hidden value="@Model.District" name="district" />
+			</div>
+			<div class="w-50" style="min-width: 100px">
+				<label for="ward">@Html.LabelFor(m => m.Ward)</label>
+				<span class="text-warning">*</span>
+				<input disabled required id="ward" name="ward"
+					   value="@Model.Ward"
+					   class="form-control" />
+				<input hidden value="@Model.Ward" name="ward" />
+			</div>
+		</div>
+		<div class="d-flex w-100" style="gap: 10px">
+			<div class="w-50" style="min-width: 100px">
+				<label for="latitude">@Html.LabelFor(m => m.Latitude)</label>
+				<span class="text-warning">*</span>
+				<input disabled required id="latitude" name="latitude"
+					   value="@Model.Latitude"
+					   class="form-control" />
+				<input hidden value="@Model.Latitude" name="latitude" />
+			</div>
+			<div class="w-50" style="min-width: 100px">
+				<label for="longitude">@Html.LabelFor(m => m.Longitude)</label>
+				<span class="text-warning">*</span>
+				<input disabled required id="longitude" name="longitude"
+					   value="@Model.Longitude"
+					   class="form-control" />
+				<input hidden value="@Model.Longitude" name="longitude" />
+			</div>
+			<input hidden value="@Model.Address" id="address" name="address" />
+		</div>
+		<div class="mt-4">
+			<button type="submit"
+					class="dashboard-submit-button btn btn-primary rounded-4 shadow bg-light-green border-0 bubble-hover">
+				<i class="fa-solid fa-floppy-disk"></i>
+				Save
+			</button>
+		</div>
+	</div>
+</div>

@@ -2,6 +2,9 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanPlugin = require("clean-webpack-plugin");
 const webpack = require("webpack");
+const dotenv = require("dotenv").config({
+  path: path.join(__dirname, '.env')
+})
 
 module.exports = {
   watch: true,
@@ -76,5 +79,8 @@ module.exports = {
       $: "jquery",
       jQuery: "jquery",
     }),
+    new webpack.DefinePlugin({
+      "process.env": JSON.stringify(dotenv.parsed)
+    })
   ],
 };

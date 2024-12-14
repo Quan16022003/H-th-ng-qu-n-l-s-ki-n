@@ -32,7 +32,7 @@ namespace Services
             _logger = logger;
         }
 
-        public async Task<Result<int>>  CreateAsync(EventCategoryCreationDto createDto)
+        public async Task<Result<int>> CreateAsync(EventCategoryCreationDto createDto)
         {
             if (IsCategoryNameDuplicate(createDto.Name))
             {

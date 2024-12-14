@@ -1,5 +1,6 @@
 ﻿$content-width: 95%;
 $page-content-bg: #404040;
+$dashboard-background-light: #4F4F4F;
 
 .dashboard-event-divider {
     > hr {
@@ -8,11 +9,10 @@ $page-content-bg: #404040;
 }
 
 .dashboard-event-content {
-    width: $content-width;
+    //width: $content-width;
     border-radius: 10px;
     padding: 20px;
     background-color: $page-content-bg;
-    //margin-top: 50px;
 }
 
 .dashboard-event-tab {
@@ -22,5 +22,26 @@ $page-content-bg: #404040;
 
     .nav-link.active {
         background: linear-gradient(to right, rgb(234, 65, 112), rgb(128,0,128)) !important;
+    }
+}
+
+.dashboard-event-venue-tab {
+    .leaflet-control-geosearch form {
+        padding: unset !important;
+    }
+
+    .leaflet-control-geosearch button {
+        color: white !important;
+        background: linear-gradient(to right, rgb(234, 65, 112), rgb(128,0,128)) !important;
+    }
+
+    .leaflet-control-geosearch {
+        .results.active {
+            padding: unset !important;
+            div {
+                color: white !important;
+                background-color: $dashboard-background-light !important;
+            }
+        }
     }
 }
