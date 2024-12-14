@@ -1,0 +1,28 @@
+﻿
+<form id="eventFilterForm" method="get">
+    <div class="row g-3 mb-3">
+        <div class="col-md-3">
+            <label for="searchEvent" class="form-label">Tìm kiếm sự kiện</label>
+            <input type="text" class="form-control" id="searchEvent" name="query" placeholder="Nhập tên sự kiện">
+        </div>
+        <div class="col-md-3">
+            <label for="categoryId" class="form-label">Danh mục</label>
+            <select class="form-control" id="categoryId" name="categoryId">
+                <option value="">Tất cả</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="city" class="form-label">Thành phố</label>
+            <input type="text" class="form-control" id="city" name="city" placeholder="Nhập thành phố">
+        </div>
+        <div class="col-md-2">
+            <label for="startDate" class="form-label">Ngày bắt đầu</label>
+            <input type="date" class="form-control" id="startDate" name="startDate">
+        </div>
+        <div class="col-md-2">
+            <label for="endDate" class="form-label">Ngày kết thúc</label>
+            <input type="date" class="form-control" id="endDate" name="endDate">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Lọc</button>
+</form>

@@ -29,7 +29,9 @@ window.env = processEnv;
 
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-AOS.init();
+AOS.init({
+    once: true // Kích hoạt hiệu ứng chỉ một lần
+});
 
 //#region Toastr
 
