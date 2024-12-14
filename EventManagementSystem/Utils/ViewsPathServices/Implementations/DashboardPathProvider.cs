@@ -16,6 +16,7 @@ namespace Web.Utils.ViewsPathServices.Implementations
             return target switch
             {
                 nameof(AccountController) => $"{folder}/Account",
+                nameof(QRCodeController) => $"{folder}/QRCode",
                 nameof(StatisticsController) => $"{folder}/Statistics",
                 nameof(ContactController) => $"{folder}/Contact",
                 nameof(SettingController) => $"{folder}/Setting",

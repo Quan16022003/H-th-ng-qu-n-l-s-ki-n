@@ -1,0 +1,95 @@
+﻿@{
+    ViewData["Title"] = "Scan QR Code";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div id="reader" style="width: 600px; margin-bottom: 20px;"></div>
+
+<button id="startButton" class="btn">Bật Camera</button>
+<button id="stopButton" class="btn" disabled>Dừng Camera</button>
+
+<p id="result" style="margin-top: 20px; font-weight: bold;"></p>
+
+@section Scripts {
+    <script src="https://unpkg.com/html5-qrcode"></script>
+    <script>
+        const html5QrCode = new Html5Qrcode("reader");
+
+        document.getElementById("startButton").addEventListener("click", function () {
+            html5QrCode.start(
+                { facingMode: "environment" },
+                {
+                    fps: 10,
+                    qrbox: { width: 250, height: 250 }
+                },
+                (decodedText, decodedResult) => {
+                    // Khi quét thành công
+                    document.getElementById("result").textContent = "Đã quét thành công: " + decodedText;
+
+                    // Gửi dữ liệu về controller
+                    fetch('@Url.Action("ProcessQRCode", "QRCode")', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ qrCode: decodedText })
+                    }).then(response => {
+                        if (response.ok) {
+                            return response.json();
+                        } else {
+                            throw new Error("Mã attendee không tồn tại");
+                        }
+                    }).then(data => {
+                        // Hiển thị thông báo từ server
+                        document.getElementById("result").textContent = data.message || "Thành công!";
+                    }).catch(err => {
+                        document.getElementById("result").textContent = "Lỗi: " + err.message;
+                        console.error(err);
+                    });
+                },
+                (errorMessage) => {
+                    // Xử lý lỗi nếu cần
+                }
+            ).then(() => {
+                document.getElementById("startButton").disabled = true;
+                document.getElementById("stopButton").disabled = false;
+            }).catch(err => {
+                console.error(err);
+            });
+        });
+
+        document.getElementById("stopButton").addEventListener("click", function () {
+            html5QrCode.stop().then(ignore => {
+                document.getElementById("startButton").disabled = false;
+                document.getElementById("stopButton").disabled = true;
+            }).catch(err => {
+                console.error(err);
+            });
+        });
+    </script>
+
+    <style>
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin-right: 10px;
+            width: 150px;
+        }
+
+            .btn:hover {
+                background-color: #45a049;
+            }
+
+        #result {
+            color: #007bff;
+            margin-top: 20px; /* Thêm khoảng cách */
+        }
+    </style>
+}
