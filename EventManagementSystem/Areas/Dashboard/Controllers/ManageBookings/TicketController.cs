@@ -23,9 +23,24 @@ namespace Web.Areas.Dashboard.Controllers.ManageBookings
             _ticketService = serviceManager.TicketService;
         }
 
-        public IActionResult Index()
+        private async Task<IEnumerable<TicketDTO>> FetchTickets(string type = "", string query = "")
         {
-            return View($"{ViewPath}/Ticket.cshtml");
+            var tickets = await _ticketService.GetAllTicketsAsync();
+            if (string.IsNullOrEmpty(query)) return tickets;
+
+            if (type == "Equal")
+            {
+                return tickets.Where(e => e.Title!.Equals(query, StringComparison.CurrentCultureIgnoreCase));
+            }
+            else return tickets.Where(e => e.Title!.Contains(query, StringComparison.CurrentCultureIgnoreCase));
+        }
+
+        public async Task<IActionResult> Index(
+            [FromQuery(Name = "searchOption")] string searchType = "",
+            [FromQuery(Name = "searchQuery")] string query = "")
+        {
+            var tickets = await FetchTickets(searchType, query);
+            return View($"{ViewPath}/Ticket.cshtml", tickets);
         }
 
         [HttpGet]
