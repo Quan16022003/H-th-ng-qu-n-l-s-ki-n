@@ -9,7 +9,7 @@ const OpenStreetMapProvider = window.OpenStreetMapProvider;
  * @returns Leaflet object map
  */
 export const loadMap = (config = undefined) => {
-    if (!$("#map")) return undefined;
+    if (!$("#map")[0]) return undefined;
 
     var map = leaflet.map('map', config ? config : {}).locate({ setView: true });
 

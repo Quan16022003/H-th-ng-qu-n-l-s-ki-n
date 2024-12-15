@@ -38,7 +38,7 @@
 					</select>
 				</div>
 			</div>
-			<label asp-for="EventDetail!.Title">@Html.LabelFor(m => m.EventDetail!.Title)</label>
+			@Html.LabelFor(m => m.EventDetail!.Title)
 			<span class="text-warning">*</span>
 			<input id="title"
 				   name="title"
@@ -46,7 +46,7 @@
 				   value="@Model?.EventDetail?.Title"
 				   type="text"
 				   class="form-control remove-border-focus" />
-			<label asp-for="EventDetail!.Description">@Html.LabelFor(m => m.EventDetail!.Description)</label>
+			@Html.LabelFor(m => m.EventDetail!.Description)
 			<span class="text-warning">*</span>
 			<textarea id="description" name="description"
 					  style="resize: none; height: 200px"

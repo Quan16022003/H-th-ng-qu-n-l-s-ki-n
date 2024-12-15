@@ -1,17 +1,8 @@
-﻿import { postEntity, putEntity, deleteEntity } from "../service/service.js"
+﻿import { postEntity, putEntity, deleteEntity, reRender } from "../service/service.js"
 import { stylingDashboardPaginate } from "../service/datatables-utility.js";
 import { assignImageInputEvent } from "./form-utility.js"
 import { addSearch, loadMap, getLocationInformation, isSupportedLocation } from "../service/map-utility.js"
-
-const route = "/dashboard/event";
-const action = {
-    addDetail: "add/detail",
-    updateDetail: "update/detail",
-    updateTiming: "update/timing",
-    updateVenue: "update/venue",
-    publish: "publish",
-    delete: "handle-delete"
-}
+import { eventRoute, ticketRoute } from "../service/route.js";
 
 let map;
 
@@ -50,6 +41,7 @@ function assignElementEvent() {
 
     assignTabClick();
     assignImageInputEvent();
+    assignTicketFormButton();
 
     map = loadMap({
         minZoom: 7,
@@ -84,6 +76,11 @@ function assignFormEvent(){
     $(".dashboard-event-venue-form.update-form").on("submit", (e) => {
         e.preventDefault();
         updateVenueEvent(e.target);
+    })
+
+    $(".dashboard-event-ticket-form.update-form").on("submit", (e) => {
+        e.preventDefault();
+        updateTicketEvent(e.target);
     })
 
     $(".dashboard-event-publish-form.update-form").on("submit", (e) => {
@@ -126,6 +123,26 @@ function tabClick(tab) {
     changeTab(tab);
 }
 
+function assignTicketFormButton() {
+    $(".add-ticket-button").on("click", (e) => {
+        e.preventDefault();
+        onAddTicket(e.target);
+    })
+
+    $(".edit-ticket-button").on("click", (e) => {
+        onEditTicket(e.currentTarget);
+    })
+
+    $(".delete-ticket-button").on("click", (e) => {
+        onDeleteTicket(e.currentTarget);
+    })
+
+    $(".dashboard-ticket-form-cancel").on("click", (e) => {
+        e.preventDefault();
+        onOutTicketForm(e.currentTarget);
+    })
+}
+
 //#region Map
 
 function clearInput(location) {
@@ -153,50 +170,127 @@ function onMapSearch(result) {
 
 //#endregion
 
+//#region Ticket
+
+function openTicketForm() {
+    if (!$(".dashboard-ticket-form")[0].classList.contains("d-flex")) {
+        $(".dashboard-ticket-form")[0].classList.add("d-flex");
+    }
+    $(".dashboard-ticket-form")[0].classList.remove("d-none");
+}
+
+function closeTicketForm() {
+    if (!$(".dashboard-ticket-form")[0].classList.contains("d-none")) {
+        $(".dashboard-ticket-form")[0].classList.add("d-none");
+    }
+
+    $(".dashboard-ticket-form")[0].classList.remove("d-flex");
+}
+
+function onAddTicket(button) {
+    openTicketForm();
+}
+
+function onEditTicket(button) {
+    let container = $(".dashboard-event-ticket-form-container")[0];
+    let id = button.dataset.ticketid;
+
+    reRender(`/dashboard/ticket/update-form/${id}`, container);
+
+    setTimeout(() => {
+        $(".dashboard-ticket-form-cancel").on("click", (e) => {
+            e.preventDefault();
+            onOutTicketForm(e.target);
+        });
+        openTicketForm();
+    }, 200);
+}
+
+function onDeleteTicket(button) {
+    let container = $(".dashboard-event-ticket-list")[0];
+    let id = button.dataset.ticketid;
+    let eventId = $(".dashboard-event-ticket-form").find("#eventId")[0].value;
+
+    deleteEntity(`${ticketRoute.delete}/${id}`, false);
+
+    if (eventId !== "" && eventId !== "-1") {
+        setTimeout(() => reRender(`/dashboard/ticket/event/${eventId}`, container), 500);
+        setTimeout(() => assignTicketFormButton(), 700);
+    }
+}
+function onOutTicketForm(button = undefined) {
+    closeTicketForm();
+    clearTicketForm();
+}
+
+function clearTicketForm() {
+    var inputList = $(".dashboard-ticket-form").find("input, textarea");
+
+    for (let item of inputList) {
+        item.value = "";
+    }
+}
+
+//#endregion
+
 //#region REST
 
 function addDetailEvent(form) {
-    let url = `${route}/${action.addDetail}`
     let formData = new FormData(form);
 
     //for (var item of formData.entries()) {
     //    console.log(`${item[0]}: ${item[1]}`);
     //};
 
-    postEntity(url, formData);
+    postEntity(eventRoute.addDetail, formData);
 }
 
 function updateDetailEvent(form) {
-    let url = `${route}/${action.updateDetail}`;
     let formData = new FormData(form);
-
-    putEntity(url, formData);
+    putEntity(eventRoute.updateDetail, formData);
 }
 
 function updateTimingEvent(form) {
-    let url = `${route}/${action.updateTiming}`;
     let formData = new FormData(form);
-
-    putEntity(url, formData);
+    putEntity(eventRoute.updateTiming, formData);
 }
 
 function updateVenueEvent(form) {
-    let url = `${route}/${action.updateVenue}`;
     let formData = new FormData(form);
+    putEntity(eventRoute.updateVenue, formData);
+}
 
-    putEntity(url, formData);
+function updateTicketEvent(form) {
+    let formData = new FormData(form);
+    let id = "";
+    let eventId = "";
+
+    var container = $(".dashboard-event-ticket-list")[0];
+
+    for (var item of formData.entries()) {
+        if (item[0] === "id") id = item[1];
+        if (item[0] === "eventId") eventId = item[1];
+
+    };
+
+    if (id === "" || id === "-1") postEntity(ticketRoute.add, formData);
+    else putEntity(ticketRoute.update, formData);
+
+    if (eventId !== "" && eventId !== "-1") {
+        setTimeout(() => reRender(`/dashboard/ticket/event/${eventId}`, container), 2000);
+        setTimeout(() => assignTicketFormButton(), 2200);
+    }
+    onOutTicketForm();
 }
 
 function publishEvent(form) {
-    let url = `${route}/${action.publish}`;
     let formData = new FormData(form);
-
-    putEntity(url, formData);
+    putEntity(eventRoute.publish, formData);
 }
 
 function deleteEvent() {
     var id = $(this).data("id");
-    var url = `${route}/${action.delete}/${id}`
+    var url = `${eventRoute.delete}/${id}`
     deleteEntity(url);
 }
 

@@ -45,3 +45,31 @@ $dashboard-background-light: #4F4F4F;
         }
     }
 }
+
+.dashboard-ticket-form {
+    top: 0;
+    left: 0;
+    z-index: 200;
+}
+
+.dashboard-ticket-item-container {
+    background: linear-gradient(to right, rgb(234, 65, 112), rgb(128,0,128)) !important;
+}
+
+.dashboard-ticket-form-container {
+    background-color: $dashboard-background-light;
+    gap: 10px;
+
+    > .dashboard-ticket-form-item {
+        min-width: 230px;
+        width: 49%;
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    .dashboard-ticket-form-container {
+        textarea {
+            height: 100px !important;
+        }
+    }
+}
