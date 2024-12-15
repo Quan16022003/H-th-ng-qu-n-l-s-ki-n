@@ -19,8 +19,8 @@ namespace Web.Utils.ViewsPathServices.Implementations
                 nameof(StatisticsController) => $"{folder}/Statistics",
                 nameof(ContactController) => $"{folder}/Contact",
                 nameof(SettingController) => $"{folder}/Setting",
-                nameof(BookingController) or nameof(TicketController) 
-                    => $"{folder}/ManageBookings",
+                nameof(TicketController) => $"{folder}/ManageBookings",
+                nameof(BookingController) => $"{folder}/ManageBookings/Order",
                 nameof(CategoryController) => $"{folder}/ManageEvents/Category",
                 nameof(EventController) => $"{folder}/ManageEvents/Event",
                 nameof(BannerController) or nameof(PageController) 

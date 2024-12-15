@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Domain.Enum
+@model IEnumerable<Constracts.DTO.TicketDTO>
+@{
     ViewData["Title"] = "Ticket";
     ViewBag.Current = "Ticket";
     ViewBag.IsInManageBooking = "selected";
@@ -6,6 +8,90 @@
 }
 
 <div class="w-100 h-100">
-    <h1>@ViewData["Title"]</h1>
+	<section class="w-100 d-flex justify-content-center">
+		<div class="d-flex flex-wrap" style="width: 95%; gap: 20px">
+			<div class="dashboard-page-title d-flex align-items-center justify-content-end" style="height: 120px">
+				<div class="dashboard-page-title-icon"><i class="fa-solid fa-calendar-days"></i></div>
+				<span>@ViewData["Title"]</span>
+			</div>
+		</div>
+	</section>
+	<section class="d-flex justify-content-center w-100">
+		<div class="dashboard-page-content d-flex flex-column align-items-center shadow">
+			<div style="width: 98%; min-height: 80px">
+				<form method="get" class="w-100 h-100 dashboard-form dashboard-search-form d-flex align-items-center">
+					<select id="searchOption"
+							name="searchOption"
+							class="form-select border-radius-tr-reset border-radius-br-reset remove-border-focus"
+							style="width: 18%">
+						<option>Contain</option>
+						<option>Equal</option>
+					</select>
+					<button type="button" class="dashboard-filter-button btn dashboard-selected-background border-radius-reset remove-border-focus"
+							style="width: 7%">
+						<i class="fa-solid fa-filter"></i>
+						<span>Filter</span>
+					</button>
+					<div class="d-flex w-75 form-control p-0 border-radius-tl-reset border-radius-bl-reset">
+						<input type="text"
+							   id="searchQuery"
+							   name="searchQuery"
+							   class="form-control h-100 border-radius-reset border-0 remove-border-focus flex-grow-1" />
+						<button type="submit"
+								class="form-control dashboard-search-button remove-border-focus h-100"
+								style="width: 45px;">
+							<i class="fa-solid fa-magnifying-glass"></i>
+						</button>
+					</div>
+				</form>
+			</div>
+			<div class="dashboard-table-container table-responsive-xxl">
+				<table class="table dashboard-table">
+					<thead>
+						<tr>
+							<th class="text-center" style="min-width: 50px; max-width: 50px" scope="col">Id</th>
+							<th class="text-center" style="min-width: 150px; max-width: 150px" scope="col">Title</th>
+							<th class="text-center" scope="col">Price</th>
+							<th class="text-center" scope="col">Quantity</th>
+							<th class="text-center" scope="col">Max Per Person</th>
+							<th class="text-center" scope="col">Quantity Sold</th>
+							<th class="text-center" scope="col">Status</th>
+							<th class="text-center" scope="col">Event Id</th>
+							<th class="text-center" scope="col">Created Date</th>
+							<th class="text-center" scope="col">Modified Date</th>
+						</tr>
+					</thead>
+					<!--Model-->
+					<tbody>
+						@foreach (var item in Model)
+						{
+							<tr>
+								<th scope="row">@item.Id</th>
+								<td>@item.Title</td>
+								<td>@item.Price</td>
+								<td>@item.QuantityAvailable</td>
+								<td>@item.MaxPerPerson</td>
+								<td>@item.QuantitySold</td>
+								<td>
+									<div class="d-flex justify-content-center">
+										<div style="width: fit-content"
+											 class="label @(item.Status == TicketStatus.Available ? "bg-light-green" : "bg-danger")">
+											<div>@Enum.GetName(item.Status)</div>
+										</div>
+									</div>
+								</td>
+								<td>@item.EventId</td>
+								<td>@item.CreatedDate</td>
+								<td>@item.ModifiedDate</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</section>
 </div>
 
+@section Scripts {
+	<script type="module" asp-append-version="true" src="~/js/dashboard/dashboard-ticket.js"></script>
+}

@@ -30,6 +30,8 @@ namespace Services
             {
                 _logger.LogInformation("Creating new ticket: {@CreateTicketDto}", ticketDTO);
                 var _ticket = ticketDTO.Adapt<Tickets>();
+                _ticket.Status = Domain.Enum.TicketStatus.Available;
+
                 await _unitOfWork.TicketRepository.AddAsync(_ticket);
                 await _unitOfWork.CompleteAsync();
                 _logger.LogInformation("Ticket created successfully with id: {TicketId}", _ticket.Id);
