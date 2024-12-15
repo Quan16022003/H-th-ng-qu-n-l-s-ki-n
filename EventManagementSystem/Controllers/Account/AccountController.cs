@@ -1,8 +1,12 @@
 ﻿using Domain.Entities;
+using Microsoft.AspNetCore.Authentication.Facebook;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abtractions;
+using System.Security.Claims;
 using Web.Utils.ViewsPathServices;
 using Web.ViewModels;
 
@@ -110,6 +114,88 @@ namespace Web.Controllers.Account
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult ExternalLoginWithGoogle(string provider, string returnUrl = null)
+        {
+            var redirectUrl = Url.Action("ExternalLoginWithGoogleCallback", "Account", new { ReturnUrl = returnUrl });
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+            return Challenge(properties, provider);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ExternalLoginWithGoogleCallback(string returnUrl = null)
+        {
+            var info = await HttpContext.AuthenticateAsync(GoogleDefaults.AuthenticationScheme);
+            if (info?.Principal != null)
+            {
+
+                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+                var firstName = info.Principal.FindFirstValue(ClaimTypes.GivenName);
+                var lastName = info.Principal.FindFirstValue(ClaimTypes.Surname);
+
+                var user = await _userManager.FindByEmailAsync(email);
+
+                if (user == null)
+                {
+                    user = new ApplicationUser
+                    {
+                        UserName = email,
+                        Email = email,
+                        FirstName = firstName,
+                        LastName = lastName
+                    };
+                    await _userManager.CreateAsync(user);
+                    await _userManager.AddToRoleAsync(user, "Customer");
+                }
+                await _signInManager.SignInAsync(user, isPersistent: false);
+
+                return LocalRedirect(returnUrl);
+            }
+            return RedirectToAction(nameof(Login));
+        }
+
+        [HttpGet]
+        public IActionResult ExternalLoginWithFaceBook(string provider, string returnUrl = null)
+        {
+            var redirectUrl = Url.Action("ExternalLoginWithFaceBookCallback", "Account", new { ReturnUrl = returnUrl });
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+            return Challenge(properties, provider);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ExternalLoginWithFaceBookCallback(string returnUrl = null)
+        {
+            var info = await HttpContext.AuthenticateAsync(FacebookDefaults.AuthenticationScheme);
+
+            if (info?.Principal != null)
+            {
+
+                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+                var firstName = info.Principal.FindFirstValue(ClaimTypes.GivenName);
+                var lastName = info.Principal.FindFirstValue(ClaimTypes.Surname);
+
+                var user = await _userManager.FindByEmailAsync(email);
+
+                if (user == null)
+                {
+                    user = new ApplicationUser
+                    {
+                        UserName = email,
+                        Email = email,
+                        FirstName = firstName,
+                        LastName = lastName
+                    };
+                    await _userManager.CreateAsync(user);
+                    await _userManager.AddToRoleAsync(user, "Customer");
+                }
+
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                return LocalRedirect(returnUrl);
+            }
+
+            return RedirectToAction(nameof(Login));
         }
     }
 }

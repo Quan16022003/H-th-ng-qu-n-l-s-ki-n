@@ -1,9 +1,9 @@
-﻿@using Web.Authorize
+﻿﻿@using Web.Authorize
 @model Web.Areas.Dashboard.ViewModels.AuthorizedViewModel
 
 <nav class="side-menu close position-fixed overflow-hidden d-flex flex-column">
 	<a asp-area="Dashboard"
-	   asp-controller="Statistics" 
+	   asp-controller="Statistics"
 	   asp-action="Index"
 	   class="dashboard-shortcut d-flex align-items-center text-decoration-none">
 		<div style="width: 30px; height: 30px; margin-left: 17px">
@@ -146,6 +146,14 @@
 						<i class="fa-solid fa-envelope"></i>
 					</div>
 					<span>Contacts</span>
+				</a>
+			</li>
+			<li class="dashboard-menu-item">
+				<a asp-area="Dashboard" asp-controller="QRCode" asp-action="Scan" class="text-reset text-decoration-none w-100 h-100">
+					<div class="h-100 d-flex justify-content-center menu-icon">
+						<i class="fa-solid fa-qrcode"></i>
+					</div>
+					<span>Scan QR Code</span>
 				</a>
 			</li>
 			<li class="dashboard-menu-item @ViewBag.IsInSetting @(!Model.Permissions[EPermission.Setting] ? "d-none" : "")">

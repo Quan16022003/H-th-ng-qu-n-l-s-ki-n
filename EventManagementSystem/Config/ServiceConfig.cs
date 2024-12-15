@@ -49,6 +49,8 @@ namespace Web.Config
                     policy => policy.RequireRole(Roles.Administrator, Roles.Organizer))
                 .AddPolicy("CategoryManagement",
                     policy => policy.RequireRole(Roles.Administrator))
+                .AddPolicy("QRCode",
+                    policy => policy.RequireRole(Roles.Administrator))
                 .AddPolicy("UserManagement",
                     policy => policy.RequireRole(Roles.Administrator))
                 .AddPolicy("SiteManagement",

@@ -18,6 +18,8 @@ using Web.Utils;
 using Mapster;
 
 using EmailService;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -61,6 +63,26 @@ builder.Services.ConfigureApplicationCookie(options =>
 
     options.SlidingExpiration = true;
 });
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+})
+            .AddCookie()
+            .AddGoogle(options =>
+            {
+                options.ClientId = "1074471028840-piqqp4vsomjt1qs16j1h522f472v00pn.apps.googleusercontent.com";
+                options.ClientSecret = "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";
+                options.Scope.Add("email");
+                options.Scope.Add("profile");
+            })
+            .AddFacebook(options =>
+            {
+                options.AppId = "579921444620523";
+                options.AppSecret = "3c1b92b40cc492da5b0ef8b25bd29011";
+                options.Scope.Add("email");
+                options.Scope.Add("public_profile");
+            });
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

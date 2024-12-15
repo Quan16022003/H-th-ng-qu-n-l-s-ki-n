@@ -2,7 +2,7 @@
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
-using Microsoft.AspNetCore.Http.Internal;
+using Microsoft.AspNetCore.Http;
 using Services.Abtractions;
 using System;
 using System.IO;
