@@ -11,11 +11,13 @@
 		<div class="dashboard-ticket-form-container w-100 d-flex flex-wrap justify-content-center p-4">
 			<div class="dashboard-ticket-form-item">
 				@Html.LabelFor(m => m.Title)
+				<span class="text-warning">*</span>
 				<input id="title" name="title" required
 					   class="form-control" value="@Model.Title" />
 			</div>
 			<div class="dashboard-ticket-form-item">
 				@Html.LabelFor(m => m.Price)
+				<span class="text-warning">*</span>
 				<input id="price" name="price" type="number" min="1" required
 					   class="form-control" value="@Model.Price" />
 			</div>
@@ -23,17 +25,20 @@
 		<div class="dashboard-ticket-form-container w-100 d-flex flex-wrap justify-content-center p-4">
 			<div class="dashboard-ticket-form-item">
 				@Html.LabelFor(m => m.QuantityAvailable)
+				<span class="text-warning">*</span>
 				<input type="number" min="0" id="quantityAvailable" name="quantityAvailable" required
 					   class="form-control" value="@Model.QuantityAvailable" />
 			</div>
 			<div class="dashboard-ticket-form-item">
 				@Html.LabelFor(m => m.MaxPerPerson)
+				<span class="text-warning">*</span>
 				<input type="number" min="1" id="maxPerPerson" name="maxPerPerson" required
 					   class="form-control" value="@Model.MaxPerPerson" />
 			</div>
 		</div>
 		<div class="dashboard-ticket-form-container w-100 p-4">
 			@Html.LabelFor(m => m.Description)
+			<span class="text-warning">*</span>
 			<textarea id="description" name="description"
 					  style="resize: none; height: 200px; min-width: 250px"
 					  required
